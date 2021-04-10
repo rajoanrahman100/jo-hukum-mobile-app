@@ -1,12 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 import '../../components/components.dart';
 import '../../responsive.dart';
 
-class OtpInputScreen extends StatelessWidget {
+class OtpInputScreen extends StatefulWidget {
+  @override
+  _OtpInputScreenState createState() => _OtpInputScreenState();
+}
+
+class _OtpInputScreenState extends State<OtpInputScreen> {
   var otpController = TextEditingController();
+
+  var name;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +41,8 @@ class OtpInputScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 20.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -53,10 +68,13 @@ class OtpInputScreen extends StatelessWidget {
                             ),
                             Container(
                               width: size.width,
-                              decoration: BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
+                              decoration: BoxDecoration(
+                                  color: kWhiteColor,
+                                  borderRadius: BorderRadius.circular(20.0)),
                               margin: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
                                 child: SingleChildScrollView(
                                   child: Column(
                                     children: [
@@ -65,7 +83,11 @@ class OtpInputScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         "Yoe are just few seconds away to enter the world of jo-hukum",
-                                        style: textStyleUbuntu(color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500),textAlign: TextAlign.center,
+                                        style: textStyleUbuntu(
+                                            color: kBlackColor,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500),
+                                        textAlign: TextAlign.center,
                                       ),
                                       SizedBox(
                                         height: 20.0,
@@ -75,24 +97,38 @@ class OtpInputScreen extends StatelessWidget {
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                           hintText: "5 digit code",
-                                          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                          border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                          focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: kPrimaryPurple)),
+                                          enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: kPrimaryPurple)),
+                                          errorBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.red)),
+                                          border: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: kPrimaryPurple)),
                                         ),
                                       ),
                                       SizedBox(
                                         height: 20.0,
                                       ),
                                       WelcomeScreenButton(
-                                        height: 40.0,
-                                        edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 90.0),
-                                        buttonColor: kPrimaryPurple,
-                                        buttonText: "Verify",
-                                        textColor: kWhiteColor,
-                                        fontSize: 16.0,
-                                      ),
+                                          height: 40.0,
+                                          edgeInsetsGeometry:
+                                              EdgeInsets.symmetric(
+                                                  horizontal: 90.0),
+                                          buttonColor: kPrimaryPurple,
+                                          buttonText: "Verify",
+                                          textColor: kWhiteColor,
+                                          fontSize: 16.0,
+                                          callback: () {
 
+                                            print("phone ${SharedConfig.pref.get("phone")}");
+
+                                            Navigator.pushNamed(context, '/userInfo');
+                                          }),
                                       SizedBox(
                                         height: 70.0,
                                       ),
@@ -109,7 +145,12 @@ class OtpInputScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         "Get back",
-                                        style: textStyleUbuntu(color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.bold, textDecoration: TextDecoration.underline),
+                                        style: textStyleUbuntu(
+                                            color: kBlackColor,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold,
+                                            textDecoration:
+                                                TextDecoration.underline),
                                       ),
                                       SizedBox(
                                         height: 30.0,

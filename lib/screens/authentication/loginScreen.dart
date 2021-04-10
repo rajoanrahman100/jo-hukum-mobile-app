@@ -139,6 +139,7 @@ class SignInScreen extends StatelessWidget {
                                             buttonText: "Tap to in",
                                             textColor: kWhiteColor,
                                             fontSize: 16.0,
+                                            isIcon: false,
                                             callback: () {
                                               if (_formKey.currentState.validate()) {
                                                 getSignInUser(numberController.text, passWordController.text, context);

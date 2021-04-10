@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Rifat/AndroidStudioProjects/johukum/lib/components/components.dart';
+import 'package:johukum/components/components.dart';
 
 import 'home/homeScreen.dart';
 

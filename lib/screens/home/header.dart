@@ -1,62 +1,81 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Rifat/AndroidStudioProjects/johukum/lib/components/components.dart';
+import 'package:johukum/components/components.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class Header extends StatelessWidget {
   const Header({
     Key key,
-    @required this.size,
+    @required this.size,this.callBack
   }) : super(key: key);
 
   final Size size;
+  final Function callBack;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 160,
-      padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       color: kPrimaryPurple,
       child: Column(
         children: [
           Row(
             children: [
-              Icon(Icons.menu,color: kWhiteColor,),
+              GestureDetector(
+                  onTap: callBack,
+                  child: Icon(
+                    Icons.menu,
+                    color: kWhiteColor,
+                  )),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Your Location",style: textStyleUbuntu(color: kWhiteColor.withOpacity(0.4),fontSize: 14.0),),
-                      SizedBox(height: 3.0,),
-                      Text("28/3 Golapbag,Dhaka-1100",style: textStyleUbuntu(color: kWhiteColor,fontSize: 14.0,fontWeight: FontWeight.w500),),
+                      Text(
+                        "Your Location",
+                        style: textStyleUbuntu(
+                            color: kWhiteColor.withOpacity(0.4),
+                            fontSize: 14.0),
+                      ),
+                      SizedBox(
+                        height: 3.0,
+                      ),
+                      Text(
+                        "28/3 Golapbag,Dhaka-1100",
+                        style: textStyleUbuntu(
+                            color: kWhiteColor,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ],
                   ),
                 ),
               ),
-              Icon(Icons.notifications,color: kWhiteColor,),
-
+              Icon(
+                Icons.notifications,
+                color: kWhiteColor,
+              ),
             ],
           ),
-
-          SizedBox(height: 20.0,),
-
+          SizedBox(
+            height: 20.0,
+          ),
           Container(
             height: 60.0,
             width: size.width,
             margin: EdgeInsets.symmetric(horizontal: 20.0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: kWhiteColor.withOpacity(0.3)
-            ),
+                color: kWhiteColor.withOpacity(0.3)),
             child: Container(
               height: 50.0,
               width: size.width,
               margin: EdgeInsets.all(7.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
-                  color: kPrimaryPurple
-              ),
+                  color: kPrimaryPurple),
               child: Row(
                 children: [
                   Expanded(
@@ -66,8 +85,10 @@ class Header extends StatelessWidget {
                       decoration: InputDecoration(
                         hintText: 'Search anythig you want',
                         hintStyle: TextStyle(fontSize: 16),
-
-                        prefixIcon: Icon(Icons.dashboard,color: kPrimaryPurple,),
+                        prefixIcon: Icon(
+                          Icons.dashboard,
+                          color: kPrimaryPurple,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide(
@@ -83,14 +104,15 @@ class Header extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.search,color: kWhiteColor,),
+                    child: Icon(
+                      Icons.search,
+                      color: kWhiteColor,
+                    ),
                   )
                 ],
               ),
             ),
-
           ),
-
         ],
       ),
     );

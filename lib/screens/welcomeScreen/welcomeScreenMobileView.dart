@@ -34,6 +34,7 @@ class WelcomeScreenMobileView extends StatelessWidget {
                   buttonText: "SIGN UP",
                   textColor: kPrimaryPurple,
                   callback: ()=>Navigator.pushNamed(context, '/signUp'),
+                  isIcon: false,
                 ),
 
                 SizedBox(height: 10.0,),
@@ -44,6 +45,7 @@ class WelcomeScreenMobileView extends StatelessWidget {
                   buttonText: "Explore",
                   textColor: kWhiteColor,
                   callback: ()=>Navigator.pushNamed(context, '/bottomNav'),
+                  isIcon: false,
                 ),
                 SizedBox(height: 10.0,),
 
@@ -59,6 +61,7 @@ class WelcomeScreenMobileView extends StatelessWidget {
                   buttonText: "SIGN IN",
                   textColor: kPrimaryPurple,
                   fontSize: 14.0,
+                  isIcon: false,
                   callback: ()=>Navigator.pushNamed(context, '/signIn'),
                 ),
 
