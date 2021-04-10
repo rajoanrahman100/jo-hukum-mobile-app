@@ -80,7 +80,7 @@ class DrawerClass extends StatelessWidget {
                     title: "Report",
                   ),
                   DrawerItems(
-                    icon: Icons.report_problem,
+                    icon: Icons.description,
                     title: "Suggestion",
                   ),
                   DrawerItems(

@@ -4,6 +4,7 @@ import 'package:johukum/screens/authentication/optScreen.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
+import 'package:johukum/screens/notificationsScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
 import 'components/config.dart';
 import 'screens/home/homeScreen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       '/bottomNav': (context) => BottomNavScreen(),
       '/userInfo': (context) => UserAdditionalInformation(),
       '/profileSetting': (context) => ProfileSettings(),
+      '/notification': (context) => NotificationScreen(),
     });
   }
 }

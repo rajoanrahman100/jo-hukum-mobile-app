@@ -128,6 +128,7 @@ class SignUpScreen extends StatelessWidget {
                                           buttonText: "Send OTP",
                                           textColor: kWhiteColor,
                                           fontSize: 16.0,
+                                          isIcon: false,
                                           //callback: ()=>Navigator.pushNamed(context, '/otpScreen'),
                                           callback: () {
                                             if (_formKey.currentState
@@ -161,6 +162,7 @@ class SignUpScreen extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
+
                                             Image.asset("assets/images/fb.png"),
                                             SizedBox(
                                               width: 5.0,
@@ -221,11 +223,9 @@ class SignUpScreen extends StatelessWidget {
   }
 
   Future getOtpNumber(mobileNumber, context) async {
-
     JohukumLoaderAnimation.showLoaderAnimation(context: context);
 
     SharedConfig.pref.setString("phone", mobileNumber);
-
 
     var res = await http.post(requestOtp,
         headers: <String, String>{
@@ -234,8 +234,6 @@ class SignUpScreen extends StatelessWidget {
         body: jsonEncode(<String, dynamic>{"mobile_number": mobileNumber}));
 
     if (res.statusCode == 200 || res.statusCode == 201) {
-
-
       print("succes response " + res.body);
       showSuccessToast("a 6 digit code sent to your number");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);

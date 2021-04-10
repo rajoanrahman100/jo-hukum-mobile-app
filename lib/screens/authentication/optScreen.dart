@@ -123,6 +123,7 @@ class _OtpInputScreenState extends State<OtpInputScreen> {
                                           buttonText: "Verify",
                                           textColor: kWhiteColor,
                                           fontSize: 16.0,
+                                          isIcon: false,
                                           callback: () {
 
                                             print("phone ${SharedConfig.pref.get("phone")}");

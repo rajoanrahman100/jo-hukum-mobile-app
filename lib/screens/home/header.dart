@@ -53,9 +53,12 @@ class Header extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(
-                Icons.notifications,
-                color: kWhiteColor,
+              GestureDetector(
+                onTap: ()=>Navigator.pushNamed(context, '/notification'),
+                child: Icon(
+                  Icons.notifications,
+                  color: kWhiteColor,
+                ),
               ),
             ],
           ),
@@ -83,7 +86,7 @@ class Header extends StatelessWidget {
                       textAlign: TextAlign.start,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        hintText: 'Search anythig you want',
+                        hintText: 'Search anything you want',
                         hintStyle: TextStyle(fontSize: 16),
                         prefixIcon: Icon(
                           Icons.dashboard,

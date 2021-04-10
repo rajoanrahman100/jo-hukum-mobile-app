@@ -7,6 +7,7 @@ import 'package:johukum/screens/home/posterShow.dart';
 import 'package:johukum/widgets/items.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
+import 'categoryItems.dart';
 import 'header.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,6 +21,8 @@ class HomeScreen extends StatelessWidget {
   var nearBy = "assets/images/best2.png";
   var fav = "assets/images/fav2.png";
   var trending = "assets/images/trend2.png";
+
+  var title="Party";
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -51,7 +54,37 @@ class HomeScreen extends StatelessWidget {
                         Items(topRated: trending,title: "Trending",),
                       ],
                     ),
+                  ),
+
+                  SizedBox(height: 20.0,),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CategoryItems(trending: "assets/images/service.png", title: "Service"),
+                      CategoryItems(trending: "assets/images/rent.png", title: "Rent"),
+                      CategoryItems(trending: "assets/images/news.png", title: "News"),
+                    ],
+                  ),
+                  SizedBox(height: 20.0,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CategoryItems(trending: "assets/images/hire.png", title: "Hire"),
+                      CategoryItems(trending: "assets/images/shop.png", title: "Shop"),
+                      CategoryItems(trending: "assets/images/party.png", title: "Party"),
+                    ],
+                  ),
+                  SizedBox(height: 20.0,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      CategoryItems(trending: "assets/images/b2b.png", title: "B2b"),
+                      CategoryItems(trending: "assets/images/emergency.png", title: "Emergency"),
+                      CategoryItems(trending: "assets/images/news.png", title: "News"),
+                    ],
                   )
+
                 ],
               ),
             ),
@@ -63,4 +96,5 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
 
