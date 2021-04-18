@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/elasticController.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:get/get.dart';
+
 import 'home/homeScreen.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -12,14 +13,13 @@ class BottomNavScreen extends StatefulWidget {
 }
 
 class _BottomNavScreenState extends State<BottomNavScreen> {
-
   PageController pageController;
 
   var getPageIndex = 0;
 
-  var elasticController=Get.put(ElasticController());
+  var elasticController = Get.put(ElasticController());
 
-  var searchController=TextEditingController();
+  var searchController = TextEditingController();
 
   @override
   void initState() {
@@ -81,33 +81,39 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                           controller: searchController,
                           isSuffix: true,
                           hintText: "search anything you want",
-                          onChange: (str)async{
+                          onChange: (str) async {
                             print(str);
                             await elasticController.fetchElasticeData(str);
-
                           },
                           suffixIcon: GestureDetector(
-                              onTap: () async{
-                               await elasticController.fetchElasticeData(searchController.text);
+                              onTap: () async {
+                                await elasticController
+                                    .fetchElasticeData(searchController.text);
                               },
                               child: Icon(
                                 Icons.search,
                                 color: kPrimaryPurple,
                               )),
                         ),
-
-                        Obx(()=>Expanded(
-                          child: ListView.builder(
-                            itemCount: elasticController.elasticData.value.hits.hits.length,
-                            itemBuilder: (_,index){
-                              return elasticController.elasticData.value.hits.hits==null?Text("No Data"):Text(
-                                "${elasticController.elasticData.value.hits.hits[index].sSource.businessName} "
-                              );
-                            },
-                          ),
-                        )),
-
-
+                        Obx(() =>
+                            elasticController.elasticData.value.hits == null
+                                ? Text("")
+                                : elasticController.elasticData.value.hits.hits.length == 0
+                                    ? Text("")
+                                    : Expanded(
+                                        child: ListView.builder(
+                                          itemCount: elasticController
+                                              .elasticData
+                                              .value
+                                              .hits
+                                              .hits
+                                              .length,
+                                          itemBuilder: (_, index) {
+                                            return Text(
+                                                "${elasticController.elasticData.value.hits.hits[index].sSource.businessName}");
+                                          },
+                                        ),
+                                      )),
                       ],
                     ),
                   ));

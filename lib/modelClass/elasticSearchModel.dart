@@ -70,7 +70,7 @@ class Hits {
     total = json['total'] != null ? new Total.fromJson(json['total']) : null;
     maxScore = json['max_score'];
     if (json['hits'] != null) {
-      hits = new List<HitsChild>();
+      hits = [];
       json['hits'].forEach((v) {
         hits.add(new HitsChild.fromJson(v));
       });
@@ -199,7 +199,7 @@ class Source {
     aggregateRating = json['aggregate_rating'];
     categories = json['categories'].cast<String>();
     if (json['mobile_no'] != null) {
-      mobileNo = new List<MobileNo>();
+      mobileNo = [];
       json['mobile_no'].forEach((v) {
         mobileNo.add(new MobileNo.fromJson(v));
       });
