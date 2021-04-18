@@ -98,6 +98,7 @@ class DrawerClass extends StatelessWidget {
                   ),
                   SizedBox(height: 20.0,),
                   WelcomeScreenButton(
+                    callback: ()=>Navigator.pushNamed(context, '/stepOne'),
                     edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 5),
                     buttonColor: kWhiteColor,
                     buttonText: "ADD YOUR BUSINESS",

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
-
+import 'package:johukum/controller/elasticController.dart';
+import 'package:johukum/widgets/addBusinessForm.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:get/get.dart';
 import 'home/homeScreen.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -9,8 +12,14 @@ class BottomNavScreen extends StatefulWidget {
 }
 
 class _BottomNavScreenState extends State<BottomNavScreen> {
+
   PageController pageController;
+
   var getPageIndex = 0;
+
+  var elasticController=Get.put(ElasticController());
+
+  var searchController=TextEditingController();
 
   @override
   void initState() {
@@ -39,7 +48,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: PageView(
         children: <Widget>[
@@ -57,7 +65,53 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           size: 28,
         ),
         backgroundColor: kPrimaryPurple,
-        onPressed: () {},
+        onPressed: () {
+          showBarModalBottomSheet(
+              context: context,
+              expand: true,
+              backgroundColor: kWhiteColor,
+              builder: (context) => Container(
+                    height: MediaQuery.of(context).size.height,
+                    color: kWhiteColor,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                    child: Column(
+                      children: [
+                        AddBusinessForm(
+                          controller: searchController,
+                          isSuffix: true,
+                          hintText: "search anything you want",
+                          onChange: (str)async{
+                            print(str);
+                            await elasticController.fetchElasticeData(str);
+
+                          },
+                          suffixIcon: GestureDetector(
+                              onTap: () async{
+                               await elasticController.fetchElasticeData(searchController.text);
+                              },
+                              child: Icon(
+                                Icons.search,
+                                color: kPrimaryPurple,
+                              )),
+                        ),
+
+                        Obx(()=>Expanded(
+                          child: ListView.builder(
+                            itemCount: elasticController.elasticData.value.hits.hits.length,
+                            itemBuilder: (_,index){
+                              return elasticController.elasticData.value.hits.hits==null?Text("No Data"):Text(
+                                "${elasticController.elasticData.value.hits.hits[index].sSource.businessName} "
+                              );
+                            },
+                          ),
+                        )),
+
+
+                      ],
+                    ),
+                  ));
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -72,8 +126,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           unselectedFontSize: 14,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.article), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.article), label: ''),
             BottomNavigationBarItem(
               icon: Icon(Icons.message),
               label: '',

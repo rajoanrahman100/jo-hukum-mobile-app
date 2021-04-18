@@ -1,0 +1,62 @@
+import 'dart:ffi';
+
+import 'package:flutter/material.dart';
+import 'package:johukum/components/components.dart';
+
+class AddBusinessForm extends StatelessWidget {
+  Double height;
+  String hintText;
+  int maxLine;
+  TextEditingController controller;
+  Function validator;
+  Function onChange;
+  Widget suffixIcon;
+  bool isSuffix;
+  TextInputType textInputType;
+
+  AddBusinessForm(
+      {this.height,
+      this.hintText,
+      this.maxLine,
+      this.controller,
+      this.validator,
+      this.onChange,
+      this.suffixIcon,
+      this.isSuffix,
+      this.textInputType});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      child: TextFormField(
+        autofocus: false,
+        controller: controller,
+        keyboardType: textInputType,
+        maxLines: maxLine ?? 1,
+        validator: validator,
+        onChanged: onChange,
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: kPrimaryPurple.withOpacity(0.2),
+            hintText: hintText,
+            contentPadding: isSuffix == false
+                ? EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0)
+                : EdgeInsets.only(left: 14.0, top: 15.0),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            suffixIcon: suffixIcon ?? null),
+      ),
+    );
+  }
+}
