@@ -4,6 +4,7 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/categoryController.dart';
 import 'package:johukum/controller/locationController.dart';
+import 'package:johukum/widgets/fullScreenAlert.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -82,146 +83,29 @@ class Header extends StatelessWidget {
             height: 20.0,
           ),
           Container(
-            height: 60.0,
+            height: 55.0,
             width: size.width,
             margin: EdgeInsets.symmetric(horizontal: 20.0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
                 color: kWhiteColor.withOpacity(0.3)),
-            child: Container(
-              height: 50.0,
-              width: size.width,
-              margin: EdgeInsets.all(7.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
-                  color: kPrimaryPurple),
-              child: Row(
-                children: [
-                  Container(
-                    width: size.width / 1.45,
-                    height: 45,
-                    decoration: BoxDecoration(
-                        color: kWhiteColor,
-                        borderRadius: BorderRadius.circular(30.0)),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10.0,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              showBarModalBottomSheet(
-                                backgroundColor: kWhiteColor,
-                                context: context,
-                                 expand: true,
-                                builder: (context) => SingleChildScrollView(
-                                  controller: ModalScrollController.of(context),
-                                  child: Container(
-                                    height: size.height,
-                                    color: kWhiteColor,
-                                    padding: EdgeInsets.symmetric(vertical: 5),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: 20,),
-                                        Container(
-                                          height: 50.0,
-                                          margin: EdgeInsets.symmetric(horizontal: 20.0),
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10.0),
-                                              color: Colors.grey.withOpacity(0.2)
-                                          ),
-                                          child: TextFormField(
-                                            maxLines: 1,
-                                            controller: searchController,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              contentPadding: EdgeInsets.symmetric(horizontal: 10.0,),
-                                              hintText: 'Search category',
-                                            ),
-
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: 20,top: 20),
-                                          child: Text("or, chose a category",style: textStyleUbuntu(
-                                              color: kBlackColor,fontSize: 16.0,fontWeight: weight500
-                                          ),),
-                                        ),
-
-                                        GetBuilder<CategoryController>(
-                                          init: CategoryController(),
-                                          builder: (controller){
-                                            return Expanded(
-                                              child: ListView.builder(
-                                                itemCount: controller.categoryDataClass.value.results.length,
-                                                itemBuilder: (_, index) {
-                                                  return Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 20,bottom: 10),
-                                                    child: GestureDetector(
-                                                      onTap: (){
-
-                                                        //  controller.text=items[index].title;
-                                                        // print("title ${items[index].title}");
-                                                        Navigator.pop(context);
-
-                                                      },
-                                                      child: Row(
-                                                        children: [
-                                                          Icon(Icons.bookmark,color: kPrimaryPurple,size: 16,),
-                                                          SizedBox(width: 10.0,),
-                                                          Text(controller.categoryDataClass.value.results[index].name,style: textStyleUbuntu(
-                                                              color: kPrimaryPurple,fontSize: 18.0,fontWeight: weight500
-                                                          ),),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            );
-                                          },
-                                        )
-
-
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Icon(
-                          Icons.dashboard,
-                          color: kPrimaryPurple,
-                        )),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: kPrimaryPurple,
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 45,
-                            child: TextFormField(
-                                controller: controller,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "Search anything you want",
-                                  contentPadding:
-                                      EdgeInsets.only(left: 10, bottom: 5),
-                                )),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.search,
-                      color: kWhiteColor,
-                    ),
-                  )
-                ],
+            child: GestureDetector(
+              onTap: ()=>openAddEntryDialog(context),
+              child: Container(
+                height: 50.0,
+                width: size.width,
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                margin: EdgeInsets.all(7.0),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: kWhiteColor),
+                child: Row(
+                  children: [
+                    Icon(Icons.search,color: kPrimaryPurple,),
+                    SizedBox(width: 5,),
+                    textUbuntu("Search anything you want", Colors.grey)
+                  ],
+                ),
               ),
             ),
           ),
@@ -232,3 +116,91 @@ class Header extends StatelessWidget {
 
 
 }
+
+//
+//GestureDetector(
+//onTap: () {
+//showBarModalBottomSheet(
+//backgroundColor: kWhiteColor,
+//context: context,
+//expand: true,
+//builder: (context) => SingleChildScrollView(
+//controller: ModalScrollController.of(context),
+//child: Container(
+//height: size.height,
+//color: kWhiteColor,
+//padding: EdgeInsets.symmetric(vertical: 5),
+//child: Column(
+//crossAxisAlignment: CrossAxisAlignment.start,
+//children: [
+//SizedBox(height: 20,),
+//Container(
+//height: 50.0,
+//margin: EdgeInsets.symmetric(horizontal: 20.0),
+//decoration: BoxDecoration(
+//borderRadius: BorderRadius.circular(10.0),
+//color: Colors.grey.withOpacity(0.2)
+//),
+//child: TextFormField(
+//maxLines: 1,
+//controller: searchController,
+//decoration: InputDecoration(
+//border: InputBorder.none,
+//contentPadding: EdgeInsets.symmetric(horizontal: 10.0,),
+//hintText: 'Search category',
+//),
+//
+//),
+//),
+//Padding(
+//padding: const EdgeInsets.only(left: 20,top: 20),
+//child: Text("or, chose a category",style: textStyleUbuntu(
+//color: kBlackColor,fontSize: 16.0,fontWeight: weight500
+//),),
+//),
+//
+//GetBuilder<CategoryController>(
+//init: CategoryController(),
+//builder: (controller){
+//return Expanded(
+//child: ListView.builder(
+//itemCount: controller.categoryDataClass.value.results.length,
+//itemBuilder: (_, index) {
+//return Padding(
+//padding: const EdgeInsets.only(left: 20.0,right: 20.0,top: 20,bottom: 10),
+//child: GestureDetector(
+//onTap: (){
+//
+////  controller.text=items[index].title;
+//// print("title ${items[index].title}");
+//Navigator.pop(context);
+//
+//},
+//child: Row(
+//children: [
+//Icon(Icons.bookmark,color: kPrimaryPurple,size: 16,),
+//SizedBox(width: 10.0,),
+//Text(controller.categoryDataClass.value.results[index].name,style: textStyleUbuntu(
+//color: kPrimaryPurple,fontSize: 18.0,fontWeight: weight500
+//),),
+//],
+//),
+//),
+//);
+//},
+//),
+//);
+//},
+//)
+//
+//
+//],
+//),
+//),
+//),
+//);
+//},
+//child: Icon(
+//Icons.dashboard,
+//color: kPrimaryPurple,
+//)),

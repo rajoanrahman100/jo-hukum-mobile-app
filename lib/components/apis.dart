@@ -9,4 +9,5 @@ const socialLogIn=baseUrl+"auth/social-login";
 const sendInfo=baseUrl+"users";
 const categoryApi="https://api-backend.jo-hukum.com/consumers_api/categories";
 const elasticSearch="https://search-es.jo-hukum.com/business/_search";
+const individualBusiness="https://api-backend.jo-hukum.com/consumers_api/business_data/";
 

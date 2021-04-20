@@ -21,3 +21,7 @@ Future<void> fetchCategory(Rx<CategoryClass> categoryDataClass) async {
   }
 }
 
+
+
+
+

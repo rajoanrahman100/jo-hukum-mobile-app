@@ -12,18 +12,19 @@ class AddBusinessForm extends StatelessWidget {
   Function onChange;
   Widget suffixIcon;
   bool isSuffix;
+  Widget prefix;
   TextInputType textInputType;
 
-  AddBusinessForm(
-      {this.height,
-      this.hintText,
-      this.maxLine,
-      this.controller,
-      this.validator,
-      this.onChange,
-      this.suffixIcon,
-      this.isSuffix,
-      this.textInputType});
+  AddBusinessForm({this.height,
+    this.hintText,
+    this.maxLine,
+    this.controller,
+    this.validator,
+    this.onChange,
+    this.suffixIcon,
+    this.isSuffix,
+    this.prefix,
+    this.textInputType});
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +56,7 @@ class AddBusinessForm extends StatelessWidget {
               borderSide: BorderSide(color: Colors.red),
               borderRadius: BorderRadius.circular(10),
             ),
+            prefix:prefix,
             suffixIcon: suffixIcon ?? null),
       ),
     );
