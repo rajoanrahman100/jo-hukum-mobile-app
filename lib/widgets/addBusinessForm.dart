@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
 
 class AddBusinessForm extends StatelessWidget {
-  Double height;
+  double height;
   String hintText;
   int maxLine;
   TextEditingController controller;

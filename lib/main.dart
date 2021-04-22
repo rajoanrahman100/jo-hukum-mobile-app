@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:johukum/screens/addBusiness/stepFourScreen.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/addBusiness/stepThreeScreen.dart';
+import 'package:johukum/screens/addBusiness/stepThreeScreen2.dart';
 import 'package:johukum/screens/addBusiness/stepTwoScreen.dart';
 import 'package:johukum/screens/authentication/loginScreen.dart';
 import 'package:johukum/screens/authentication/optScreen.dart';
@@ -26,10 +28,10 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  //This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // When navigating to the "/welcome" route, this is the welcome screen.
+    //When navigating to the "/welcome" route, this is the welcome screen.
     return MaterialApp(debugShowCheckedModeBanner: false,initialRoute: '/welcome', routes: {
       '/welcome': (context) => WelcomeScreen(),
       '/signIn': (context) => SignInScreen(),
@@ -44,7 +46,8 @@ class MyApp extends StatelessWidget {
       '/businessProfile': (context) => BusinessProfile(),
       '/stepOne': (context) => StepOneScreen(),
       '/stepTwo': (context) => StepTwoScreen(),
-      '/stepThree': (context) => StepThreeScreen(),
+      '/stepThree': (context) => StepTheeScreenTwo(),
+      '/stepFour': (context) => StepFourScreen(),
     });
   }
 }
