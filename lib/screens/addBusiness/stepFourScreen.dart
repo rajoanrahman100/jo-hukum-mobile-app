@@ -14,6 +14,7 @@ class StepFourScreen extends StatelessWidget {
   var employeeList=["1-5","6-20","21-50","51-100","101-50","500+"];
   var asscList=["DCC"];
   var certificateList=["DMC"];
+  var businessTypeList=["Grocery","Health Care","Electrical","Stationary"];
 
   var dataController=Get.put(BusinessDataController());
 
@@ -219,8 +220,65 @@ class StepFourScreen extends StatelessWidget {
                     //height: 40.0,
                     maxLine: 5,
                     isSuffix: false,
-                  )
+                  ),
+                  size10,
+                  textUbuntu("Type of Business", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(dataController.selectBusinessType.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            showBarModalBottomSheet(
+                                backgroundColor: kWhiteColor,
+                                context: context,
+                                expand: false,
+                                builder: (context) => Container(
+                                  height: size.height * 0.3,
+                                  child: ListView.builder(
+                                    itemCount: businessTypeList.length,
+                                    itemBuilder:(_,index){
+                                      return ListTile(
+                                        onTap: (){
+                                          dataController.setBusinessType(businessTypeList[index]);
+                                          Navigator.of(context).pop();
+                                        },
+                                        leading: Icon(Icons.people,color: kPrimaryPurple,),
+                                        title: textUbuntu(businessTypeList[index], kPrimaryPurple,fontWeight: weight500),
+                                      );
+                                    },
+                                  ),
+                                ));
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        ),
 
+                      ],
+                    ),
+                  ),
+                  size20,
+                  GestureDetector(
+                    onTap: () => Navigator.pushNamed(context, '/stepFive'),
+                    child: Row(
+                      children: [
+                        Expanded(child: Container()),
+                        textUbuntu("Go To Step 5 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: kPrimaryPurple,
+                        )
+                      ],
+                    ),
+                  ),
 
                 ],
               ),

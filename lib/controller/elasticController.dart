@@ -49,7 +49,7 @@ class ElasticController extends GetxController{
         }
       },
       "from": startForm,
-      "size": 10,
+      "size": 15,
       "sort": [{
         "_geo_distance": {
           "geo": {

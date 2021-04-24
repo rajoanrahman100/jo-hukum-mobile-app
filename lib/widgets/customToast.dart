@@ -32,3 +32,19 @@ class CustomToast {
         msg: message, backgroundColor: bgColor, toastLength: length, gravity: gravity, textColor: txtColor, fontSize: fontSize);
   }
 }
+
+
+showSnackBar({BuildContext context, String message}){
+
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(message),
+    action: SnackBarAction(
+      label: '',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  )
+  );
+
+}
