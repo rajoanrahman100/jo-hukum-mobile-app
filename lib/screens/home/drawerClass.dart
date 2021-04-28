@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
@@ -58,7 +59,8 @@ class DrawerClass extends StatelessWidget {
                                 fontWeight: weight500),
                           ),
                           Text(
-                            "Md.Rejoan Rahman Rifat",
+
+                            boxStorage.read(KEY_USER_NAME)??"Guesyt LogIn",
                             style: textStyleUbuntu(
                                 color: kWhiteColor,
                                 fontSize: 16.0,

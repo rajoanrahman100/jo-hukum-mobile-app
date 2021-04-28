@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/elasticController.dart';
 import 'package:johukum/controller/locationController.dart';
+import 'package:johukum/screens/businessProfile.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class AddEntryDialog extends StatelessWidget {
+
   var getController = Get.put(LocationController());
 
   var elasticController = Get.put(ElasticController());
@@ -14,11 +16,21 @@ class AddEntryDialog extends StatelessWidget {
   var searchController = TextEditingController();
 
   var title=["Car rent","Hospital","burger","market","Hanif paribahan","Pasta"];
+  
+  var scrollController=ScrollController();
+
+
 
   @override
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
+    
+    scrollController.addListener(() {
+      if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
+        print("END");
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -61,7 +73,8 @@ class AddEntryDialog extends StatelessWidget {
                       controller: searchController,
                       autofocus: false,
                       onChanged: (value) async {
-                        await elasticController.fetchElasticeData(value, 0);
+
+                        await elasticController.fetchElasticeData(value, elasticController.pageNumber.value);
                       },
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -125,7 +138,17 @@ class AddEntryDialog extends StatelessWidget {
                                 businessName: dataList[index].sSource.businessName,
                                 distance: dataList[index].sort[0].toString().substring(0, 4),
                                 street: dataList[index].sSource.street,
-                                size: size);
+                                size: size,
+                            callBack: (){
+
+                                  print(dataList[index].sId);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => BusinessProfile(id:dataList[index].sId)),
+                              );
+
+                           //   Navigator.pushNamed(context, '/businessProfile');
+                            },);
                           },
                         ),
                       )),

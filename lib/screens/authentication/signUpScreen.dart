@@ -235,7 +235,8 @@ class SignUpScreen extends StatelessWidget {
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
-      showSuccessToast("a 6 digit code sent to your number");
+      showSnackBar(context: context,message: "a 6 digit code has sent to your number");
+      //showSuccessToast("a 6 digit code sent to your number");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;
     } else {

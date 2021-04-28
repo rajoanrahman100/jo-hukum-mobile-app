@@ -28,7 +28,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     // TODO: implement initState
 
     //getCurrentLocation();
-
     //getTimeZoneInfo();
   }
 

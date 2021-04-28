@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/widgets/textWidgets.dart';
 
 void showToast(String message) {
   CustomToast(message).show();
@@ -37,7 +38,8 @@ class CustomToast {
 showSnackBar({BuildContext context, String message}){
 
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    content: Text(message),
+    backgroundColor: kPrimaryPurple,
+    content: textUbuntu(message,kWhiteColor,fontWeight: weight500),
     action: SnackBarAction(
       label: '',
       onPressed: () {

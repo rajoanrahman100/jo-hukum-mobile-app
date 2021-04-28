@@ -162,7 +162,7 @@ class Source {
   String coverPhoto;
   String logo;
   int totalReviews;
-  String aggregateRating;
+  var aggregateRating;
   List<String> categories;
   List<MobileNo> mobileNo;
 

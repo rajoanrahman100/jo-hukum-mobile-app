@@ -12,12 +12,13 @@ class ElasticController extends GetxController{
 
   var categoryText="Choose Category".obs;
 
-  var scrollController=ScrollController().obs;
+  var scrollController=ScrollController();
+
+  var pageNumber=0.obs;
 
   @override
   void onInit() {
     super.onInit();
-
   }
 
   chooseCategory(categoryItems){
@@ -49,7 +50,7 @@ class ElasticController extends GetxController{
         }
       },
       "from": startForm,
-      "size": 15,
+      "size": 10,
       "sort": [{
         "_geo_distance": {
           "geo": {
@@ -79,12 +80,6 @@ class ElasticController extends GetxController{
     }
   }
 
-
-  fetchTen(txt){
-    var i;
-    for(i=0;i<10;i++){
-      fetchElasticeData(txt,i);
-    }
-  }
+  
 
 }

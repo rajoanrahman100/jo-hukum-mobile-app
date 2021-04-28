@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:johukum/components/apis.dart';
+import 'package:johukum/controller/authController.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
-import 'package:johukum/widgets/circularButtonProgress.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 import '../../components/components.dart';
 import '../../responsive.dart';
 
@@ -18,9 +19,10 @@ class SignInScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  var logInController=Get.put(AuthController());
+
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -67,7 +69,8 @@ class SignInScreen extends StatelessWidget {
                                 ),
                                 Container(
                                   width: size.width,
-                                  decoration: BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
+                                  decoration:
+                                      BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
                                   margin: EdgeInsets.symmetric(horizontal: 20.0),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -79,7 +82,8 @@ class SignInScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             "SIGN IN",
-                                            style: textStyleUbuntu(color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500),
+                                            style: textStyleUbuntu(
+                                                color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500),
                                           ),
                                           SizedBox(
                                             height: 20.0,
@@ -90,7 +94,8 @@ class SignInScreen extends StatelessWidget {
                                             validator: (value) {
                                               if (value.isEmpty) {
                                                 return "Enter your phone number";
-                                              }if(value.length>11 || value.length<11){
+                                              }
+                                              if (value.length > 11 || value.length < 11) {
                                                 return "Number format is invalid";
                                               }
                                               _formKey.currentState.save();
@@ -98,10 +103,14 @@ class SignInScreen extends StatelessWidget {
                                             },
                                             decoration: InputDecoration(
                                               hintText: "Mobile Number",
-                                              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                              errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                              border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              errorBorder:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                              border:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                             ),
                                           ),
                                           TextFormField(
@@ -116,17 +125,25 @@ class SignInScreen extends StatelessWidget {
                                             },
                                             decoration: InputDecoration(
                                               hintText: "Enter Password",
-                                              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                              errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                              border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              enabledBorder:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              errorBorder:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                              border:
+                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                             ),
                                           ),
                                           Align(
                                             alignment: Alignment.centerRight,
                                             child: Text(
                                               "Forgot Password?",
-                                              style: textStyleUbuntu(color: kPrimaryPurple, fontSize: 16.0, fontWeight: FontWeight.w500, textDecoration: TextDecoration.underline),
+                                              style: textStyleUbuntu(
+                                                  color: kPrimaryPurple,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  textDecoration: TextDecoration.underline),
                                             ),
                                           ),
                                           SizedBox(
@@ -142,7 +159,12 @@ class SignInScreen extends StatelessWidget {
                                             isIcon: false,
                                             callback: () {
                                               if (_formKey.currentState.validate()) {
-                                                getSignInUser(numberController.text, passWordController.text, context);
+
+                                                logInController.getSignInUser(numberController.text,
+                                                    passWordController.text, context);
+
+                                                //getSignInUser(numberController.text, passWordController.text,
+                                                // context);
                                               }
                                             },
                                           ),
@@ -151,7 +173,11 @@ class SignInScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             "Or use your account",
-                                            style: textStyleUbuntu(color: kPrimaryPurple, fontSize: 16.0, fontWeight: FontWeight.w500, textDecoration: TextDecoration.underline),
+                                            style: textStyleUbuntu(
+                                                color: kPrimaryPurple,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                                textDecoration: TextDecoration.underline),
                                           ),
                                           SizedBox(
                                             height: 10.0,
@@ -186,7 +212,11 @@ class SignInScreen extends StatelessWidget {
                                           ),
                                           Text(
                                             "Sign Up",
-                                            style: textStyleUbuntu(color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.bold, textDecoration: TextDecoration.underline),
+                                            style: textStyleUbuntu(
+                                                color: kBlackColor,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold,
+                                                textDecoration: TextDecoration.underline),
                                           ),
                                           SizedBox(
                                             height: 10.0,
@@ -212,9 +242,7 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-
   Future getSignInUser(mobileNumber, password, context) async {
-
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
     var res = await http.post(signIn,
@@ -227,9 +255,7 @@ class SignInScreen extends StatelessWidget {
       print("succes response " + res.body);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;
-
     } else {
-
       print("error response " + res.body);
       showErrorToast("Invalid number or password");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);

@@ -5,8 +5,6 @@ import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/home/drawerClass.dart';
 import 'package:johukum/screens/home/posterShow.dart';
 import 'package:johukum/widgets/items.dart';
-import 'package:johukum/widgets/textWidgets.dart';
-
 import 'categoryItems.dart';
 import 'header.dart';
 

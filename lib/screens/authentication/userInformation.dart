@@ -249,7 +249,10 @@ class UserAdditionalInformation extends StatelessWidget {
       return;
     } else {
       print("error response " + res.body);
+      //Map<String, dynamic> body = jsonDecode(res.body);
+      //print(body["user"]);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      //showSnackBar(context: context,message: body["user"]);
       return;
     }
   }
