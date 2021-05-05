@@ -109,7 +109,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                                   controller: searchController,
                                   autofocus: false,
                                   onChanged: (value) async {
-                                    await elasticController.fetchElasticeData(value, 0);
+                                   // await elasticController.fetchElasticeData(value, 0);
                                   },
                                   decoration: InputDecoration(
                                       border: InputBorder.none,

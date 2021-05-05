@@ -157,14 +157,14 @@ class StepSixScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Obx(
-                          () => imageController.selectCoverImagePath.value == ""
+                          () => imageController.selectMorePhotoOne.value == ""
                               ? GestureDetector(
                                   onTap: () {
                                     buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                      imageController.getCoverImage(ImageSource.camera, context);
+                                      imageController.getAddMorePhoto(ImageSource.camera, context,"1");
                                       Navigator.of(context).pop();
                                     }, galleryCallBack: () {
-                                      imageController.getCoverImage(ImageSource.gallery, context);
+                                      imageController.getAddMorePhoto(ImageSource.gallery, context,"1");
                                       Navigator.of(context).pop();
                                     });
                                   },
@@ -177,21 +177,21 @@ class StepSixScreen extends StatelessWidget {
                                       shape: BoxShape.rectangle,
                                       borderRadius: BorderRadius.circular(10.0),
                                       image: DecorationImage(
-                                          image: FileImage(File(imageController.selectCoverImagePath.value)),
+                                          image: FileImage(File(imageController.selectMorePhotoOne.value)),
                                           fit: BoxFit.cover)),
                                 ),
                         ),
                       ),
                       Expanded(
                         child: Obx(
-                          () => imageController.selectCoverImagePath.value == ""
+                          () => imageController.selectMorePhotoTwo.value == ""
                               ? GestureDetector(
                                   onTap: () {
                                     buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                      imageController.getCoverImage(ImageSource.camera, context);
+                                      imageController.getAddMorePhoto(ImageSource.camera, context,"2");
                                       Navigator.of(context).pop();
                                     }, galleryCallBack: () {
-                                      imageController.getCoverImage(ImageSource.gallery, context);
+                                      imageController.getAddMorePhoto(ImageSource.gallery, context,"2");
                                       Navigator.of(context).pop();
                                     });
                                   },
@@ -204,21 +204,21 @@ class StepSixScreen extends StatelessWidget {
                                       shape: BoxShape.rectangle,
                                       borderRadius: BorderRadius.circular(10.0),
                                       image: DecorationImage(
-                                          image: FileImage(File(imageController.selectCoverImagePath.value)),
+                                          image: FileImage(File(imageController.selectMorePhotoTwo.value)),
                                           fit: BoxFit.cover)),
                                 ),
                         ),
                       ),
                       Expanded(
                         child: Obx(
-                          () => imageController.selectCoverImagePath.value == ""
+                          () => imageController.selectMorePhotoThree.value == ""
                               ? GestureDetector(
                                   onTap: () {
                                     buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                      imageController.getCoverImage(ImageSource.camera, context);
+                                      imageController.getAddMorePhoto(ImageSource.camera, context,"3");
                                       Navigator.of(context).pop();
                                     }, galleryCallBack: () {
-                                      imageController.getCoverImage(ImageSource.gallery, context);
+                                      imageController.getAddMorePhoto(ImageSource.gallery, context,"3");
                                       Navigator.of(context).pop();
                                     });
                                   },
@@ -231,7 +231,7 @@ class StepSixScreen extends StatelessWidget {
                                       shape: BoxShape.rectangle,
                                       borderRadius: BorderRadius.circular(10.0),
                                       image: DecorationImage(
-                                          image: FileImage(File(imageController.selectCoverImagePath.value)),
+                                          image: FileImage(File(imageController.selectMorePhotoThree.value)),
                                           fit: BoxFit.cover)),
                                 ),
                         ),

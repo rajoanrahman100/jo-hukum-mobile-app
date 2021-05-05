@@ -13,11 +13,11 @@ import 'package:johukum/screens/home/fetch_api.dart';
   var cityModelClass = CityModelClass().obs;
   var thanaModelClass = ThanaModelClass().obs;
 
-  var selectDivision="divison".obs;
+  var selectDivision="select divison".obs;
   var selectDivisionId="0".obs;
-  var selectCity="city".obs;
+  var selectCity="select city".obs;
   var selectCityId="0".obs;
-  var selectThana="thana".obs;
+  var selectThana="select thana".obs;
   var selectThanaId="0".obs;
 
 
@@ -49,7 +49,7 @@ import 'package:johukum/screens/home/fetch_api.dart';
 
   Future<void> fetchCity(divId,queryTxt) async {
     // make GET request
-    var response = await get(Uri.parse(allCity+divId+"&search="+""));
+    var response = await get(Uri.parse(allCity+divId+"&search="+queryTxt));
 
     print("Response = " + response.body);
 
@@ -65,7 +65,7 @@ import 'package:johukum/screens/home/fetch_api.dart';
 
   Future<void> fetchThana(cityId,queryTxt) async {
     // make GET request
-    var response = await get(Uri.parse(allThana+cityId+"&search="+""));
+    var response = await get(Uri.parse(allThana+cityId+"&search="+queryTxt));
 
     print("Response = " + response.body);
 

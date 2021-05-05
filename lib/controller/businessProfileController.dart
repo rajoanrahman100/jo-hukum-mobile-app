@@ -64,7 +64,7 @@ class BusinessProfileController extends GetxController{
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("succes response " + response.body);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      showSnackBar(context: context,message: "Review submitted successfully");
+      showSnackBar(context: context,message: "Review submitted successfully",label: "",callBack: (){});
       return;
     } else {
       print("error response " + response.body);

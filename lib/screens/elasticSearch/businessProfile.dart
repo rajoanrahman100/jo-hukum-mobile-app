@@ -5,14 +5,17 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessProfileController.dart';
+import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
+import 'package:johukum/screens/elasticSearch/businessReviews.dart';
 import 'package:johukum/screens/web_view.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
+import 'package:johukum/widgets/fullScreenAlertForAuth.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BusinessProfile extends StatefulWidget {
   String id;
@@ -40,12 +43,17 @@ class _BusinessProfileState extends State<BusinessProfile> {
 
   var businessProfileController = Get.put(BusinessProfileController());
 
-  var ratingController=TextEditingController();
+  var ratingController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+  var passController = Get.put(PassWordController());
+  var numberController = TextEditingController();
+  var passWordController = TextEditingController();
 
   var ratingValue;
 
-  callNumber(number) async{
-     await FlutterPhoneDirectCaller.callNumber(number);
+  callNumber(number) async {
+    await FlutterPhoneDirectCaller.callNumber(number);
   }
 
   @override
@@ -58,7 +66,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-   // businessProfileController.getBUsinessData(id);
+    // businessProfileController.getBUsinessData(id);
 
     return SafeArea(
       child: Scaffold(
@@ -76,6 +84,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
               height: size.height,
               child: GetX<BusinessProfileController>(builder: (controller) {
                 var obj = controller.businessDataModel.value;
+
                 return controller.loaderShow.isTrue
                     ? Center(child: CircularProgressIndicator())
                     : SingleChildScrollView(
@@ -116,7 +125,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 RatingBar.builder(
-                                  initialRating: 3.5,
+                                  initialRating: obj.aggregateRating.toDouble(),
                                   minRating: 1,
                                   itemSize: 27.0,
                                   direction: Axis.horizontal,
@@ -127,12 +136,10 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
-                                  onRatingUpdate: (rating) {
-                                    print(rating);
-                                  },
+
                                 ),
                                 Text(
-                                  " (${3.5})",
+                                  " (${obj.aggregateRating})",
                                   style: textStyleUbuntu(color: kBlackColor, fontSize: 16, fontWeight: weight500),
                                 )
                               ],
@@ -160,17 +167,38 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   width: 10.0,
                                 ),
                                 Icon(Icons.verified, color: Colors.amber),
-                                Text("Trusted", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
+                                Text(
+                                  "Trusted",
+                                  style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500),
+                                ),
                                 SizedBox(
                                   width: 10.0,
                                 ),
-                                Text("Views: ", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
-                                Text("512", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
+                                Text("Reviews: ",
+                                    style: textStyleUbuntu(
+                                      color: kBlackColor,
+                                      fontWeight: weight500,
+                                    )),
+                                Text("${obj.totalReviews}",
+                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
                                 SizedBox(
                                   width: 10.0,
                                 ),
-                                Text("Reviews: ", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
-                                Text("20", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => BusinessReview(reviews: obj.reviews,
+                                        businesssID: widget.id,businessName: obj.llocation.businessName,)),
+                                    );
+                                  },
+                                  child: Text("See reviews",
+                                      style: textStyleUbuntu(
+                                        color: kPrimaryPurple,
+                                        fontWeight: weightBold,
+                                        textDecoration: TextDecoration.underline
+                                      )),
+                                ),
                               ],
                             ),
                             size20,
@@ -186,9 +214,13 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 10.0),
                                     buttonColor: kPrimaryPurple,
                                     isIcon: true,
-                                    callback: (){
-                                     obj.contact.mobileNumbers.length==0?showSnackBar(context: context,message: "No "
-                                         "Contact Found") :callNumber(obj.contact.mobileNumbers[0].mobileNumber);
+                                    callback: () {
+                                      obj.contact.mobileNumbers.length == 0
+                                          ? showSnackBar(
+                                              context: context,
+                                              message: "No "
+                                                  "Contact Found")
+                                          : callNumber(obj.contact.mobileNumbers[0].mobileNumber);
                                     },
                                     iconData: Icon(
                                       Icons.call,
@@ -254,13 +286,14 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.black.withOpacity(0.7),
                                     isIcon: true,
                                     callback: () {
-                                       obj.contact.website == null
+                                      obj.contact.website == null
                                           ? showSnackBar(context: context, message: "No Website Found")
                                           : Navigator.push(
                                               context,
-                                              MaterialPageRoute(builder: (context) => WebViewExample(
-                                                url:obj.contact.website,
-                                              )),
+                                              MaterialPageRoute(
+                                                  builder: (context) => WebViewExample(
+                                                        url: obj.contact.website,
+                                                      )),
                                             );
                                       // launchURL("https://www.google.com");
                                     },
@@ -284,75 +317,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 style: textStyleUbuntu(color: kBlackColor, fontWeight: weight400, fontSize: 16.0),
                               ),
                             ),
-                            size20,
-                            Divider(
-                              color: Colors.grey.withOpacity(0.3),
-                              thickness: 2.0,
-                              height: 5,
-                              endIndent: 10.0,
-                              indent: 10.0,
-                            ),
-                            size20,
-                            Text("Add your review:",
-                                style: textStyleUbuntu(
-                                    color: kBlackColor,
-                                    fontWeight: weight500,
-                                    fontSize: 16.0,
-                                    textDecoration: TextDecoration.underline)),
-                            size5,
-                            RatingBar.builder(
-                              initialRating: 0.0,
-                              minRating: 0,
-                              itemSize: 27.0,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              //itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              onRatingUpdate: (rating) {
-                                ratingValue=rating.toString();
-                                print("User rating: "+ratingValue);
-                              },
-                            ),
-                            size10,
-                            Container(
-                              height: 70.0,
 
-                              margin: EdgeInsets.symmetric(horizontal: 10.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  color: Colors.grey.withOpacity(0.3)
-                              ),
-                              child: TextFormField(
-                                maxLines: 4,
-                                controller: ratingController,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.symmetric(horizontal: 5.0,vertical: 5),
-                                  hintText: 'Write your review',
-                                ),
-                                onChanged: (str) => print('Multi-line text change: $str'),
-                              ),
-                            ),
-
-                            size20,
-                            WelcomeScreenButton(
-                              edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 70.0),
-                              buttonColor: kPrimaryPurple,
-                              buttonText: "Submit",
-                              textColor: kWhiteColor,
-                              fontSize: 16,
-                              isIcon: false,
-                              height: 40.0,
-                              callback: (){
-                                businessProfileController.postUserReview(widget.id,"5ff073c9264ef557f10791c7", "Md. "
-                                    "Hasan Ul Kabir", ratingValue,
-                                    ratingController.text,context).then((value) => ratingController.clear());
-                              },
-                            ),
                             size20,
                             Divider(
                               color: Colors.grey.withOpacity(0.3),
@@ -698,69 +663,55 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               indent: 10.0,
                             ),
                             size20,
-                            Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Text(
-                                    "Visitor Review",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
-                                  ),
-                                )),
-                            size10,
-
-                            obj.reviews.length==0?textUbuntu("No Reviews Found",kPrimaryPurple,fontWeight: weight500)
-                                :ListView.builder(
-                              itemCount: obj.reviews.length,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (_,index){
-                                return Padding(
-                                  padding:  EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        obj.reviews[index].addedBy,
-                                        style: textStyleUbuntu(
-                                            color: kBlackColor, fontWeight: weight500, fontSize: 18),
-                                      ),
-
-                                      Row(
-                                        children: [
-                                          RatingBar.builder(
-                                            initialRating: obj.reviews[index].rating.toDouble(),
-                                            itemSize: 18.0,
-                                            itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: Colors.amber,
+                            /*obj.reviews.length == 0
+                                ? textUbuntu("No Reviews Found", kPrimaryPurple, fontWeight: weight500)
+                                : ListView.builder(
+                                    itemCount: obj.reviews.length,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (_, index) {
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              obj.reviews[index].addedBy,
+                                              style: textStyleUbuntu(
+                                                  color: kBlackColor, fontWeight: weight500, fontSize: 18),
                                             ),
-                                          ),
-
-                                          SizedBox(width: 20,),
-
-                                          textUbuntu("${DateFormat.yMMMMd('en_US').format(DateTime.parse(obj
-                                              .reviews[index].reviewedAt))}", kBlackColor.withOpacity(0.4))
-                                        ],
-                                      ),
-                                      size10,
-                                      Text(
-                                        obj.reviews[index].comment,
-                                        maxLines: 4,
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: false,
-                                        style: textStyleUbuntu(color: kBlackColor, fontWeight: weight400, fontSize: 16.0),
-                                      ),
-
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
+                                            Row(
+                                              children: [
+                                                RatingBar.builder(
+                                                  initialRating: obj.reviews[index].rating.toDouble(),
+                                                  itemSize: 18.0,
+                                                  itemBuilder: (context, _) => Icon(
+                                                    Icons.star,
+                                                    color: Colors.amber,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                textUbuntu(
+                                                    "${DateFormat.yMMMMd('en_US').format(DateTime.parse(obj.reviews[index].reviewedAt))}",
+                                                    kBlackColor.withOpacity(0.4))
+                                              ],
+                                            ),
+                                            size10,
+                                            Text(
+                                              obj.reviews[index].comment,
+                                              maxLines: 4,
+                                              overflow: TextOverflow.ellipsis,
+                                              softWrap: false,
+                                              style: textStyleUbuntu(
+                                                  color: kBlackColor, fontWeight: weight400, fontSize: 16.0),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),*/
                             size10,
                           ],
                         ),
@@ -772,3 +723,78 @@ class _BusinessProfileState extends State<BusinessProfile> {
   }
 }
 
+
+
+/*
+
+size20,
+Divider(
+color: Colors.grey.withOpacity(0.3),
+thickness: 2.0,
+height: 5,
+endIndent: 10.0,
+indent: 10.0,
+),
+size20,
+Text("Add your review:",
+style: textStyleUbuntu(
+color: kBlackColor,
+fontWeight: weight500,
+fontSize: 16.0,
+textDecoration: TextDecoration.underline)),
+size5,
+RatingBar.builder(
+initialRating: 0.0,
+minRating: 0,
+itemSize: 27.0,
+direction: Axis.horizontal,
+allowHalfRating: true,
+itemCount: 5,
+//itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+itemBuilder: (context, _) => Icon(
+Icons.star,
+color: Colors.amber,
+),
+onRatingUpdate: (rating) {
+ratingValue = rating.toString();
+print("User rating: " + ratingValue);
+},
+),
+size10,
+Container(
+height: 70.0,
+margin: EdgeInsets.symmetric(horizontal: 10.0),
+decoration: BoxDecoration(
+borderRadius: BorderRadius.circular(5.0), color: Colors.grey.withOpacity(0.3)),
+child: TextFormField(
+maxLines: 4,
+controller: ratingController,
+decoration: InputDecoration(
+border: InputBorder.none,
+contentPadding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
+hintText: 'Write your review',
+),
+onChanged: (str) => print('Multi-line text change: $str'),
+),
+),
+size20,
+WelcomeScreenButton(
+edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 70.0),
+buttonColor: kPrimaryPurple,
+buttonText: "Submit",
+textColor: kWhiteColor,
+fontSize: 16,
+isIcon: false,
+height: 40.0,
+callback: () {
+print(boxStorage.read(KEY_USER_ID));
+print(boxStorage.read(KEY_USER_NAME));
+
+boxStorage.read(KEY_TOKEN) == null
+? openAddAuthDialog(context)
+    : businessProfileController
+    .postUserReview(widget.id, boxStorage.read(KEY_USER_ID),
+boxStorage.read(KEY_USER_NAME), ratingValue, ratingController.text, context)
+    .then((value) => ratingController.clear());
+},
+),*/

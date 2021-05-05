@@ -137,7 +137,7 @@ class UserAdditionalInformation extends StatelessWidget {
                           TextFormField(
                             controller: confirmPassController,
                             keyboardType: TextInputType.text,
-                            obscureText: c.showConfirmPass.value,
+                            obscureText: !c.showConfirmPass.value,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return "Enter your password again";
@@ -252,7 +252,7 @@ class UserAdditionalInformation extends StatelessWidget {
       //Map<String, dynamic> body = jsonDecode(res.body);
       //print(body["user"]);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      //showSnackBar(context: context,message: body["user"]);
+      showSnackBar(context: context,message: "User with this number alredy exist",label: "");
       return;
     }
   }

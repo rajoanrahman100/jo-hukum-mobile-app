@@ -35,16 +35,14 @@ class CustomToast {
 }
 
 
-showSnackBar({BuildContext context, String message}){
+showSnackBar({BuildContext context, String message,Function callBack,String label}){
 
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     backgroundColor: kPrimaryPurple,
     content: textUbuntu(message,kWhiteColor,fontWeight: weight500),
     action: SnackBarAction(
-      label: '',
-      onPressed: () {
-        // Some code to undo the change.
-      },
+      label: label??"",
+      textColor: kWhiteColor, onPressed:callBack
     ),
   )
   );

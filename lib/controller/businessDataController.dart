@@ -8,6 +8,13 @@ class BusinessDataController extends GetxController{
   var certificate="select".obs;
   var selectBusinessType="select business type".obs;
 
+  var selectYear="select".obs;
+
+
+  setSelectedYear(value){
+    selectYear.value=value;
+  }
+
   setAnnualTurnOver(value){
     annualTurnOver.value=value;
   }

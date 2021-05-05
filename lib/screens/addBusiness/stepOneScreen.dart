@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/divisionController.dart';
 import 'package:johukum/responsive.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenCity.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenDivision.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenThana.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class StepOneScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   var divisionController = Get.put(DivisionController());
+
+  var businessNameController = TextEditingController();
+  var streetAddressController = TextEditingController();
+  var landMarkController = TextEditingController();
+  var buildingNameController = TextEditingController();
+  var divisionNameController = TextEditingController();
+  var cityNameController = TextEditingController();
+  var thanaController = TextEditingController();
+  var postalCodeController = TextEditingController();
+  var areaNameController = TextEditingController();
+  var plusCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +40,7 @@ class StepOneScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
               child: Form(
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -40,8 +55,26 @@ class StepOneScreen extends StatelessWidget {
                     ),
                     textUbuntu("Business Name*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: businessNameController,
                       isSuffix: false,
                       hintText: "business name",
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        if (value.toString().length < 8) {
+                          return "Business name at least 8 character";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    textUbuntu("Street Address", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: streetAddressController,
+                      hintText: "street address",
+                      isSuffix: false,
                       validator: (value) {
                         if (value.isEmpty) {
                           return "This Field is required";
@@ -51,22 +84,32 @@ class StepOneScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Street Address", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      hintText: "street address",
-                      isSuffix: false,
-                    ),
-                    size10,
                     textUbuntu("Land Mark", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: landMarkController,
                       hintText: "land mark",
                       isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                     ),
                     size10,
                     textUbuntu("Building", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       hintText: "building",
+                      controller: buildingNameController,
                       isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                     ),
                     size10,
                     textUbuntu("Division", kBlackColor, fontSize: 16.0, fontWeight: weight500),
@@ -79,41 +122,13 @@ class StepOneScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                         Obx(()=>textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6),
-                             fontSize: 16)),
+                          Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6),
+                              fontSize: 16)),
                           GestureDetector(
                               onTap: () {
-                                showBarModalBottomSheet(
-                                    backgroundColor: kWhiteColor,
-                                    context: context,
-                                    expand: false,
-                                    builder: (context) =>Obx(()=>Container(
-                                      height: 600.0,
-                                      child: divisionController.divisionModelClass.value == null
-                                          ? textUbuntu("loading...", kPrimaryPurple)
-                                          : divisionController.divisionModelClass.value.results.length == 0
-                                          ? textUbuntu("No data found", kPrimaryPurple)
-                                          : ListView.builder(
-                                        itemCount: divisionController.divisionModelClass.value.results.length,
-                                        itemBuilder: (_, index) {
-                                          return ListTile(
-                                            onTap: (){
-                                              divisionController.setDivisionID(divisionController.divisionModelClass
-                                                  .value.results[index].sId);
-                                              divisionController.setDivision(divisionController.divisionModelClass
-                                                  .value.results[index].name);
-                                              Navigator.of(context).pop();
-                                            },
-                                            leading: Icon(Icons.map,color: kPrimaryPurple,),
-                                            title: textUbuntu(
-                                                divisionController
-                                                    .divisionModelClass.value.results[index].name,
-                                                kPrimaryPurple,fontSize: 16,fontWeight: weight500),
-                                          );
-                                        },
-                                      ),
-                                    )) );
-                              }, child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
+                                openDivisionDialog(context);
+                              },
+                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
                         ],
                       ),
                     ),
@@ -128,44 +143,14 @@ class StepOneScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(()=>textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6),
+                          Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6),
                               fontSize: 16)),
                           GestureDetector(
-                              onTap: () async{
+                              onTap: () async {
                                 await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
-
-                                showBarModalBottomSheet(
-                                    backgroundColor: kWhiteColor,
-                                    context: context,
-                                    expand: false,
-                                    builder: (context) =>Obx(()=>Container(
-                                      height: 600.0,
-                                      child: divisionController.cityModelClass.value == null
-                                          ? textUbuntu("loading...", kPrimaryPurple)
-                                          : divisionController.cityModelClass.value.results.length == 0
-                                          ? textUbuntu("No data found", kPrimaryPurple)
-                                          : ListView.builder(
-                                        itemCount: divisionController.cityModelClass.value.results.length,
-                                        itemBuilder: (_, index) {
-                                          return ListTile(
-                                            onTap: (){
-                                              divisionController.setCity(divisionController.cityModelClass
-                                                  .value.results[index].name);
-                                              divisionController.setCityID(divisionController.cityModelClass
-                                                  .value.results[index].sId);
-                                              Navigator.of(context).pop();
-                                            },
-                                            leading: Icon(Icons.location_city_rounded,color: kPrimaryPurple,),
-
-                                            title: textUbuntu(
-                                                divisionController
-                                                    .cityModelClass.value.results[index].name,
-                                                kPrimaryPurple,fontSize: 16,fontWeight: weight500),
-                                          );
-                                        },
-                                      ),
-                                    )) );
-                              }, child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
+                                openCityDialog(context);
+                              },
+                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
                         ],
                       ),
                     ),
@@ -180,66 +165,76 @@ class StepOneScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(()=>textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6),
+                          Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6),
                               fontSize: 16)),
                           GestureDetector(
-                              onTap: () async{
+                              onTap: () async {
+
                                 await divisionController.fetchThana(divisionController.selectCityId.value, "");
-
-                                showBarModalBottomSheet(
-                                    backgroundColor: kWhiteColor,
-                                    context: context,
-                                    expand: false,
-                                    builder: (context) =>Obx(()=>Container(
-                                      height: 600.0,
-                                      child: divisionController.thanaModelClass.value == null
-                                          ? textUbuntu("loading...", kPrimaryPurple)
-                                          : divisionController.thanaModelClass.value.results.length == 0
-                                          ? textUbuntu("No data found", kPrimaryPurple)
-                                          : ListView.builder(
-                                        itemCount: divisionController.thanaModelClass.value.results.length,
-                                        itemBuilder: (_, index) {
-                                          return ListTile(
-                                            onTap: (){
-                                              divisionController.setThana(divisionController.thanaModelClass
-                                                  .value.results[index].name);
-                                              Navigator.of(context).pop();
-                                            },
-                                            leading: Icon(Icons.location_city_rounded,color: kPrimaryPurple,),
-
-                                            title: textUbuntu(
-                                                divisionController
-                                                    .thanaModelClass.value.results[index].name,
-                                                kPrimaryPurple,fontSize: 16,fontWeight: weight500),
-                                          );
-                                        },
-                                      ),
-                                    )) );
-                              }, child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
+                                openThanaDialog(context);
+                              },
+                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
                         ],
                       ),
                     ),
                     size10,
                     textUbuntu("Postal Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: postalCodeController,
                       hintText: "postal code",
                       isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                     ),
                     size10,
                     textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: areaNameController,
                       hintText: "area",
                       isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                     ),
                     size10,
                     textUbuntu("Plus Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: plusCodeController,
                       hintText: "plus code",
                       isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                     ),
                     size10,
                     GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/stepTwo'),
+                      onTap: () {
+                        if (_formKey.currentState.validate()) {
+                          boxStorage.write(KEY_USER_BUILDING, buildingNameController.text);
+                          boxStorage.write(KEY_USER_BUSINESS_NAME, businessNameController.text);
+                          boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
+                          boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
+                          boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
+                          boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
+                          boxStorage.write(KEY_USER_POSTAL_ID, postalCodeController.text);
+                          boxStorage.write(KEY_USER_AREA, areaNameController.text);
+
+                          Navigator.pushNamed(context, '/stepTwo');
+                        }
+                      },
                       child: Row(
                         children: [
                           Expanded(child: Container()),
@@ -264,7 +259,6 @@ class StepOneScreen extends StatelessWidget {
 }
 
 //
-
 
 AppBar buildBusinessInfoBar(String title) {
   return AppBar(

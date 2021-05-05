@@ -23,12 +23,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   var controller=Get.put(LocationController());
 
+
+  var token;
+
   @override
   void initState() {
     // TODO: implement initState
 
-    //getCurrentLocation();
-    //getTimeZoneInfo();
+
+    token=boxStorage.read(KEY_TOKEN);
+
+    print(token);
   }
 
 
@@ -40,12 +45,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SafeArea(
-        child: Responsive(
+      body:boxStorage.read(KEY_TOKEN)==null?SafeArea(
+        child:Responsive(
           mobile: WelcomeScreenMobileView(size: size)
         )
-      ),
+      ):callCompleteProfileNavigator(),
     );
+  }
+
+  void changeScreen() {
+
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false);
+    //Navigator.pushNamed(context, '/bottomNav');
+  }
+
+  Widget callCompleteProfileNavigator() {
+    return new FutureBuilder(
+      future: Future.delayed(const Duration(milliseconds: 0)).then((value) => changeScreen()),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return emptyWidget(context);
+      },
+    );
+  }
+
+  Widget emptyWidget(BuildContext context) {
+    return SizedBox.shrink();
   }
 }
 

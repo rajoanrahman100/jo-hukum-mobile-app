@@ -4,7 +4,6 @@ import 'package:johukum/screens/addBusiness/stepFourScreen.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/addBusiness/stepSevenScreen.dart';
 import 'package:johukum/screens/addBusiness/stepSixScreen.dart';
-import 'package:johukum/screens/addBusiness/stepThreeScreen.dart';
 import 'package:johukum/screens/addBusiness/stepThreeScreen2.dart';
 import 'package:johukum/screens/addBusiness/stepTwoScreen.dart';
 import 'package:johukum/screens/authentication/loginScreen.dart';
@@ -12,7 +11,7 @@ import 'package:johukum/screens/authentication/optScreen.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
-import 'package:johukum/screens/businessProfile.dart';
+import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/elasticSearch/businessProfile.dart';
 import 'package:johukum/screens/notificationsScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/screens/subCategory/subCategories.dart';
@@ -38,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
-    return MaterialApp(debugShowCheckedModeBanner: false,initialRoute: '/welcome', routes: {
+    return MaterialApp(debugShowCheckedModeBanner: false,initialRoute: '/stepThree', routes: {
       '/welcome': (context) => WelcomeScreen(),
       '/signIn': (context) => SignInScreen(),
       '/signUp': (context) => SignUpScreen(),

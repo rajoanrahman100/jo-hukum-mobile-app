@@ -7,14 +7,13 @@ import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/elasticSearch/
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
-class AddEntryDialog extends StatefulWidget {
+class ElasticSearchScreen extends StatefulWidget {
 
   @override
-  _AddEntryDialogState createState() => _AddEntryDialogState();
+  _ElasticSearchScreenState createState() => _ElasticSearchScreenState();
 }
 
-class _AddEntryDialogState extends State<AddEntryDialog> {
-
+class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
   var getController = Get.put(LocationController());
 
   var elasticController = Get.put(ElasticController());
@@ -25,12 +24,10 @@ class _AddEntryDialogState extends State<AddEntryDialog> {
 
   var scrollController=ScrollController();
 
-  int page=0;
 
   @override
   void initState() {
     // TODO: implement initState
-
     scrollController.addListener(() async{
       if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
 
@@ -38,8 +35,8 @@ class _AddEntryDialogState extends State<AddEntryDialog> {
         print("page number: ${elasticController.pageNumber.value}");
 
         await elasticController.fetchElasticeData(
-          text: elasticController.searchText.value,
-          startForm: elasticController.pageNumber.value
+            text: elasticController.searchText.value,
+            startForm: elasticController.pageNumber.value
         );
       }
     });
@@ -50,18 +47,13 @@ class _AddEntryDialogState extends State<AddEntryDialog> {
 
     Size size = MediaQuery.of(context).size;
 
-//    scrollController.addListener(() {
-//      if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
-//        print("END");
-//      }
-//    });
-
     return Scaffold(
+
       appBar: AppBar(
         backgroundColor: kPrimaryPurple,
         elevation: 0.0,
         title: Obx(
-          () => Text(
+              () => Text(
             getController.currentAddress.value,
             style: textStyleUbuntu(color: kWhiteColor, fontSize: 14.0, fontWeight: FontWeight.w500),
           ),
@@ -78,7 +70,7 @@ class _AddEntryDialogState extends State<AddEntryDialog> {
               padding: EdgeInsets.symmetric(horizontal: 10.0),
               margin: EdgeInsets.symmetric(horizontal: 10),
               decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kPrimaryPurple.withOpacity(0.2)),
+              BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: kPrimaryPurple.withOpacity(0.2)),
               child: Row(
                 children: [
                   Row(
@@ -141,8 +133,8 @@ class _AddEntryDialogState extends State<AddEntryDialog> {
                     margin: EdgeInsets.only(left: 15),
                     decoration: BoxDecoration(
 
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(color: Colors.black.withOpacity(0.2))
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(color: Colors.black.withOpacity(0.2))
                     ),
                     padding: EdgeInsets.all(7.0),
                     child: Center(
@@ -157,48 +149,42 @@ class _AddEntryDialogState extends State<AddEntryDialog> {
             Obx(() => elasticController.elasticData.value.hits == null
                 ? textUbuntu("", kPrimaryPurple)
                 : elasticController.elasticData.value.hits.hits.length == 0
-                    ? textUbuntu("No Result Found", kPrimaryPurple, fontWeight: weight500)
-                    : Expanded(
-                        child: ListView.builder(
-                          controller: scrollController,
+                ? textUbuntu("No Result Found", kPrimaryPurple, fontWeight: weight500)
+                : Expanded(
+              child: ListView.builder(
+                controller: scrollController,
 
-                          itemCount: elasticController.elasticData.value.hits.hits.length,
-                          itemBuilder: (_, index) {
-                            var dataList = elasticController.elasticData.value.hits.hits;
-                            if(index==elasticController.elasticData.value.hits.hits.length-1){
+                itemCount: elasticController.elasticData.value.hits.hits.length,
+                itemBuilder: (_, index) {
+                  var dataList = elasticController.elasticData.value.hits.hits;
+                  if(index==elasticController.elasticData.value.hits.hits.length-1){
 
-                              return Center(child: CircularProgressIndicator());
-                            }
-                            return SearchItemWidget(
-                                image: "https://dsqdpdmeibwm2.cloudfront.net/${dataList[index].sSource.logo}",
-                                businessName: dataList[index].sSource.businessName,
-                                distance: dataList[index].sort[0].toString().substring(0, 4),
-                                street: dataList[index].sSource.street,
-                                size: size,
-                            callBack: (){
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return SearchItemWidget(
+                    image: "https://dsqdpdmeibwm2.cloudfront.net/${dataList[index].sSource.logo}",
+                    businessName: dataList[index].sSource.businessName,
+                    distance: dataList[index].sort[0].toString().substring(0, 4),
+                    street: dataList[index].sSource.street,
+                    size: size,
+                    callBack: (){
 
-                                  print(dataList[index].sId);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => BusinessProfile(id:dataList[index].sId)),
-                              );
+                      print(dataList[index].sId);
 
-                           //   Navigator.pushNamed(context, '/businessProfile');
-                            },);
-                          },
-                        ),
-                      )),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BusinessProfile(id:dataList[index].sId)),
+                      );
+
+                      //   Navigator.pushNamed(context, '/businessProfile');
+                    },);
+                },
+              ),
+            )),
           ],
         ),
       ),
     );
-  }
-}
 
-void openAddEntryDialog(BuildContext context) {
-  Navigator.of(context).push(new MaterialPageRoute<Null>(
-      builder: (BuildContext context) {
-        return new AddEntryDialog();
-      },
-      fullscreenDialog: true));
+  }
 }

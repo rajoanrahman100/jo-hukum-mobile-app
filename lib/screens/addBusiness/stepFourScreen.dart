@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessDataController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:intl/intl.dart';
 
 class StepFourScreen extends StatelessWidget {
 
@@ -17,6 +19,8 @@ class StepFourScreen extends StatelessWidget {
   var businessTypeList=["Grocery","Health Care","Electrical","Stationary"];
 
   var dataController=Get.put(BusinessDataController());
+
+  var descController=TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +39,59 @@ class StepFourScreen extends StatelessWidget {
                 children: [
                   textUbuntu("Years of Establishment", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
                   size5,
-                  ContainerIconWidget(
-                    text: "Select",
-                    callBack: (){},
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(dataController.selectYear.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Select Year"),
+                                  content: Container( // Need to use container to add size constraint.
+                                    width: 300,
+                                    height: 300,
+                                    child: YearPicker(
+                                      firstDate: DateTime(DateTime.now().year - 100, 1),
+                                      lastDate: DateTime(DateTime.now().year + 100, 1),
+                                      initialDate: DateTime.now(),
+                                      // save the selected date to _selectedDate DateTime variable.
+                                      // It's used to set the previous selected date when
+                                      // re-showing the dialog.
+                                      selectedDate: DateTime.now(),
+                                      onChanged: (DateTime dateTime) {
+                                        // close the dialog when year is selected.
+                                        var year=DateFormat.y().format(dateTime).toString();
+                                        print(year);
+
+                                        dataController.setSelectedYear(year);
+                                        Navigator.pop(context);
+
+                                        // Do something with the dateTime selected.
+                                        // Remember that you need to use dateTime.year to get the year
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+
                   size10,
                   textUbuntu("Annual Turnover", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
                   size5,
@@ -215,7 +268,8 @@ class StepFourScreen extends StatelessWidget {
                   textUbuntu("Description", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
                   size5,
                   AddBusinessForm(
-                    textInputType: TextInputType.emailAddress,
+                    controller: descController,
+                    textInputType: TextInputType.text,
                     hintText: "write something",
                     //height: 40.0,
                     maxLine: 5,
@@ -267,7 +321,16 @@ class StepFourScreen extends StatelessWidget {
                   ),
                   size20,
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/stepFive'),
+                    onTap: (){
+                      boxStorage.write(YEAR_ESTABLISH, dataController.selectYear.value);
+                      boxStorage.write(ANNUAL_TURNOVER, dataController.annualTurnOver.value);
+                      boxStorage.write(NUMBER_OF_EMPLOYEE, dataController.numberOfEmployee.value);
+                      boxStorage.write(PROFESSIONAL_ASSOC, dataController.professAssc.value);
+                      boxStorage.write(CERTIFICATION, dataController.certificate.value);
+                      boxStorage.write(DESCRIPTION, descController.text);
+                      boxStorage.write(TYPE_OF_BUSINESS, dataController.selectBusinessType.value);
+                      Navigator.pushNamed(context, '/stepFive');
+                    },
                     child: Row(
                       children: [
                         Expanded(child: Container()),

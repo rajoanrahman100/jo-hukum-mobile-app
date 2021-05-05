@@ -16,6 +16,23 @@ class ElasticController extends GetxController{
 
   var pageNumber=0.obs;
 
+  var searchText="".obs;
+
+
+  setPageNumber(){
+    pageNumber.value=pageNumber.value+10;
+  }
+
+  setPageNumberWhileSearch(){
+    pageNumber.value=0;
+
+  }
+
+  setSearchText(value){
+    searchText.value=value;
+    print(searchText.value);
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -25,7 +42,17 @@ class ElasticController extends GetxController{
     categoryText.value=categoryItems;
   }
 
-  Future<void> fetchElasticeData(String text,int startForm) async {
+
+
+  /*Future<void> fetchElasticePost({int startFrom=0,String text})async{
+    try{
+      fetchElasticeData(text,startFrom);
+    }catch(e){
+
+    }
+  }*/
+
+  Future<void> fetchElasticeData({String text,int startForm}) async {
 
     final json=jsonEncode({
       "query": {

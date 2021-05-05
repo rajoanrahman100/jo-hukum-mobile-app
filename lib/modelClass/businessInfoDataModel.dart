@@ -250,8 +250,8 @@ class BusinessInfoDataModel {
     _deletedAt = json["deletedAt"];
     _deletedByOwnerAt = json["deletedByOwnerAt"];
     _status = json["status"];
-    _totalReviews = json["totalReviews"];
-    _aggregateRating = json["aggregateRating"];
+    _totalReviews = json["total_reviews"];
+    _aggregateRating = json["aggregate_rating"];
     _id = json["Id"];
     _description = json["description"];
     _yearOfEstablishment = json["yearOfEstablishment"];
@@ -323,8 +323,8 @@ class BusinessInfoDataModel {
     map["deletedAt"] = _deletedAt;
     map["deletedByOwnerAt"] = _deletedByOwnerAt;
     map["status"] = _status;
-    map["totalReviews"] = _totalReviews;
-    map["aggregateRating"] = _aggregateRating;
+    map["total_reviews"] = _totalReviews;
+    map["aggregate_rating"] = _aggregateRating;
     map["Id"] = _id;
     map["description"] = _description;
     map["yearOfEstablishment"] = _yearOfEstablishment;

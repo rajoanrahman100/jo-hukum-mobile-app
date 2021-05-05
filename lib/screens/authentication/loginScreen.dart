@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/controller/authController.dart';
+import 'package:johukum/controller/passController.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
@@ -13,6 +14,7 @@ import '../../components/components.dart';
 import '../../responsive.dart';
 
 class SignInScreen extends StatelessWidget {
+
   var numberController = TextEditingController();
   var passWordController = TextEditingController();
   var confirmPassWordController = TextEditingController();
@@ -20,6 +22,7 @@ class SignInScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   var logInController=Get.put(AuthController());
+  var c = Get.put(PassWordController());
 
   @override
   Widget build(BuildContext context) {
@@ -113,28 +116,36 @@ class SignInScreen extends StatelessWidget {
                                                   UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                             ),
                                           ),
-                                          TextFormField(
-                                            controller: passWordController,
-                                            keyboardType: TextInputType.text,
-                                            validator: (value) {
-                                              if (value.isEmpty) {
-                                                return "Enter your password";
-                                              }
-                                              _formKey.currentState.save();
-                                              return null;
-                                            },
-                                            decoration: InputDecoration(
-                                              hintText: "Enter Password",
-                                              focusedBorder:
-                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                              enabledBorder:
-                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                              errorBorder:
-                                                  UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                              border:
-                                                  UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                            ),
-                                          ),
+                                          GetBuilder<PassWordController>(builder: (controller){
+                                            return TextFormField(
+                                              controller: passWordController,
+                                              keyboardType: TextInputType.text,
+                                              obscureText: !controller.showLonInPass.value,
+                                              validator: (value) {
+                                                if (value.isEmpty) {
+                                                  return "Enter your password";
+                                                }
+                                                _formKey.currentState.save();
+                                                return null;
+                                              },
+                                              decoration: buildInputDecoration(
+                                                "Enter password",
+                                                icons: GestureDetector(
+                                                  onTap: () {
+                                                    controller.showLogInPassWord();
+                                                    FocusScope.of(context)
+                                                        .unfocus(); //hide keyboard
+                                                  },
+                                                  child: Icon(
+                                                    controller.showLonInPass.value
+                                                        ? Icons.visibility
+                                                        : Icons.visibility_off,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          }),
                                           Align(
                                             alignment: Alignment.centerRight,
                                             child: Text(
@@ -242,24 +253,4 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Future getSignInUser(mobileNumber, password, context) async {
-    JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
-
-    var res = await http.post(signIn,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, dynamic>{"mobile_number": mobileNumber, "password": password}));
-
-    if (res.statusCode == 200 || res.statusCode == 201) {
-      print("succes response " + res.body);
-      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      return;
-    } else {
-      print("error response " + res.body);
-      showErrorToast("Invalid number or password");
-      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      return;
-    }
-  }
 }

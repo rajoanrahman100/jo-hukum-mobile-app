@@ -4,6 +4,7 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/categoryController.dart';
 import 'package:johukum/controller/locationController.dart';
+import 'package:johukum/screens/elasticSearch/elasticSearchScreen.dart';
 import 'package:johukum/widgets/fullScreenAlert.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -24,7 +25,7 @@ class Header extends StatelessWidget {
   var currentAddress;
 
   var getController=Get.put(LocationController());
-  var categoryController=Get.put(CategoryController());
+  //var categoryController=Get.put(CategoryController());
 
 
 
@@ -90,7 +91,13 @@ class Header extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
                 color: kWhiteColor.withOpacity(0.3)),
             child: GestureDetector(
-              onTap: ()=>openAddEntryDialog(context),
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ElasticSearchScreen()),
+                );
+                //openAddEntryDialog(context);
+              },
               child: Container(
                 height: 50.0,
                 width: size.width,

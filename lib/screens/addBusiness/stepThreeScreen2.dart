@@ -3,6 +3,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessTimeSetController.dart';
 import 'package:johukum/controller/paymentController.dart';
 import 'package:johukum/responsive.dart';
@@ -15,6 +16,12 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 class StepTheeScreenTwo extends StatelessWidget {
   var businessTimeController = Get.put(BusinessTimeController());
   var paymentController = Get.put(PaymentController());
+
+
+  var satStart,sundayStart,mondayStart,tueStart,wedStart,thurStart,friStart;
+  var satEnd,sundayEnd,mondayEnd,tueEnd,wedEnd,thurEnd,friEnd;
+
+  var paymentIdList=[];
 
   @override
   Widget build(BuildContext context) {
@@ -63,8 +70,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                     satStart = time;
                                     businessTimeController.setWeeklyStartHour("Sat", time);
-                                    print("end Time $time");
+                                    print("start Time $time & $satStart");
                                   });
                                 },
                                 hrSet: businessTimeController.satStartTime.value),
@@ -73,8 +81,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    satEnd=DateFormat.Hm().format(date).toString();
                                     businessTimeController.setWeeklyEndHour("Sat", time);
-                                    print("end Time $time");
+                                    print("end Time $time & $satEnd");
                                   });
                                 },
                                 hrSet: businessTimeController.satEndTime.value),
@@ -100,7 +109,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    sundayStart=time;
                                     businessTimeController.setWeeklyStartHour("Sun", time);
+                                    print("sunday $sundayStart");
                                   });
                                 },
                                 hrSet: businessTimeController.sunStartTime.value),
@@ -109,7 +120,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    sundayEnd = DateFormat.Hm().format(date).toString();
                                     businessTimeController.setWeeklyEndHour("Sun", time);
+                                    print("sunday end $sundayEnd");
                                   });
                                 },
                                 hrSet: businessTimeController.sunEndTime.value),
@@ -135,6 +148,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    mondayStart=time;
+                                    print("monday $mondayStart");
                                     businessTimeController.setWeeklyStartHour("Mon", time);
                                   });
                                 },
@@ -144,7 +159,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                     mondayEnd = DateFormat.Hm().format(date).toString();
                                     businessTimeController.setWeeklyEndHour("Mon", time);
+                                    print("monday end $mondayEnd");
                                   });
                                 },
                                 hrSet: businessTimeController.monEndTime.value),
@@ -170,6 +187,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    tueStart=time;
+                                    print("tuesday $tueStart");
                                     businessTimeController.setWeeklyStartHour("Tue", time);
                                   });
                                 },
@@ -179,7 +198,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                     tueEnd = DateFormat.Hm().format(date).toString();
                                     businessTimeController.setWeeklyEndHour("Tue", time);
+                                    print("tuesday end $tueEnd");
                                   });
                                 },
                                 hrSet: businessTimeController.tueEndTime.value),
@@ -205,6 +226,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    wedStart=time;
+                                    print("Wed $time");
                                     businessTimeController.setWeeklyStartHour("Wed", time);
                                   });
                                 },
@@ -214,7 +237,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    wedEnd = DateFormat.Hm().format(date).toString();
                                     businessTimeController.setWeeklyEndHour("Wed", time);
+                                    print("Wed end $wedEnd");
                                   });
                                 },
                                 hrSet: businessTimeController.wedEndTime.value),
@@ -240,6 +265,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    thurStart=time;
+                                    print("thurs $thurStart");
                                     businessTimeController.setWeeklyStartHour("Thurs", time);
                                   });
                                 },
@@ -249,6 +276,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    thurEnd = DateFormat.Hm().format(date).toString();
+                                    print(" thurs end $thurEnd");
                                     businessTimeController.setWeeklyEndHour("Thurs", time);
                                   });
                                 },
@@ -300,7 +329,7 @@ class StepTheeScreenTwo extends StatelessWidget {
                         context: context,
                         expand: false,
                         builder: (context) => Obx(() => Container(
-                              height: size.height * 0.7,
+                              height: size.height * 0.75,
                               child: paymentController.paymentModelClass.value == null
                                   ? textUbuntu("loading...", kPrimaryPurple)
                                   : paymentController.paymentModelClass.value.results.length == 0
@@ -321,6 +350,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                                             .paymentModelClass.value.results[index].name),
                                                         onChanged: (bool selected) {
                                                           if (selected == true) {
+                                                            paymentIdList.add(paymentController
+                                                                .paymentModelClass.value.results[index].sId);
                                                             paymentController.onSelect(
                                                                 paymentController
                                                                     .paymentModelClass.value.results[index].name,
@@ -358,7 +389,10 @@ class StepTheeScreenTwo extends StatelessWidget {
                                               buttonText: "Submit",
                                               buttonColor: kPrimaryPurple,
                                               isIcon: false,
-                                              callback: () => Navigator.of(context).pop(),
+                                              callback: (){
+                                                Navigator.of(context).pop();
+                                                print(paymentIdList);
+                                              }
                                             )
                                           ],
                                         ),
@@ -404,7 +438,28 @@ class StepTheeScreenTwo extends StatelessWidget {
                       )),
                 Spacer(),
                 GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/stepFour'),
+                  onTap: (){
+                    
+                    boxStorage.write(SAT_START,satStart);
+                    boxStorage.write(SUN_START,sundayStart);
+                    boxStorage.write(MON_START,mondayStart);
+                    boxStorage.write(TUE_START,tueStart);
+                    boxStorage.write(WED_START,wedStart);
+                    boxStorage.write(THURS_START,thurStart);
+                    boxStorage.write(FRI_START,friStart);
+
+                    boxStorage.write(SAT_END, satEnd);
+                    boxStorage.write(SUN_END, sundayEnd);
+                    boxStorage.write(MON_END, mondayEnd);
+                    boxStorage.write(TUE_END, tueEnd);
+                    boxStorage.write(WED_END, wedEnd);
+                    boxStorage.write(THURS_END, thurEnd);
+                    boxStorage.write(FRI_END, friEnd);
+
+                    boxStorage.write(PAYMENT_ID_LIST, paymentIdList);
+
+                    Navigator.pushNamed(context, '/stepFour');
+                  },
                   child: Row(
                     children: [
                       Expanded(child: Container()),

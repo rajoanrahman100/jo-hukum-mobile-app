@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/listWidgetController.dart';
+import 'package:johukum/modelClass/AddPhoneNumbers.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
@@ -16,6 +20,24 @@ class StepTwoScreen extends StatelessWidget {
   int count = 1;
 
   var controller = Get.put(ListWidgetController());
+
+  var myNumbers=[];
+  final List<TextEditingController> mobileNumberControllerList = List();
+  var numberController=TextEditingController();
+  List<Map<String, dynamic>> send=[] ;
+
+  ///Text editing controller
+  var title=TextEditingController();
+  var fullName=TextEditingController();
+  var designation=TextEditingController();
+  var phoneNumber=TextEditingController();
+  var email=TextEditingController();
+  var fax=TextEditingController();
+  var facebook=TextEditingController();
+  var website=TextEditingController();
+  var instagram=TextEditingController();
+  var twitter=TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +59,7 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Title*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: title,
                       hintText: "Mr/Mrs",
                       suffixIcon: Icon(
                         Icons.arrow_drop_down_circle,
@@ -54,6 +77,7 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Full Name*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: fullName,
                       hintText: "full name",
                       isSuffix: false,
                       validator: (value) {
@@ -65,8 +89,9 @@ class StepTwoScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Desintion*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Designation*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller:designation ,
                       hintText: "designation",
                       isSuffix: false,
                       validator: (value) {
@@ -80,8 +105,13 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Phone Number", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: numberController,
                       textInputType: TextInputType.number,
                       hintText: "phone number",
+                      onChange: (val){
+                        send=[{'mobile':val}];
+
+                      },
                       isSuffix: false,
                     ),
                     size10,
@@ -134,6 +164,10 @@ class StepTwoScreen extends StatelessWidget {
                       callback: () {
                         controller.addWidget(
                           AddBusinessForm(
+                            controller: numberController,
+                            onChange: (value){
+                              send=[{'mobile':value}];
+                            },
                             textInputType: TextInputType.number,
                             hintText: "mobile number",
                             isSuffix: false,
@@ -144,6 +178,7 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Email", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: email,
                       textInputType: TextInputType.emailAddress,
                       hintText: "email",
                       isSuffix: false,
@@ -151,6 +186,7 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Fax", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: fax,
                       textInputType: TextInputType.emailAddress,
                       hintText: "fax",
                       isSuffix: false,
@@ -158,13 +194,15 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Website", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: website,
                       textInputType: TextInputType.emailAddress,
-                      hintText: "fax",
+                      hintText: "website",
                       isSuffix: false,
                     ),
                     size10,
                     textUbuntu("Facebook", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: facebook,
                       textInputType: TextInputType.emailAddress,
                       hintText: "facebook link",
                       isSuffix: false,
@@ -172,6 +210,7 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Instagram", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: instagram,
                       textInputType: TextInputType.emailAddress,
                       hintText: "instagram link",
                       isSuffix: false,
@@ -179,13 +218,31 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Twitter", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
+                      controller: twitter,
                       textInputType: TextInputType.emailAddress,
                       hintText: "twitter link",
                       isSuffix: false,
                     ),
                     size10,
                     GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/stepThree'),
+                      onTap: (){
+                       // print(send);
+                        if (_formKey.currentState.validate()) {
+
+                          boxStorage.write(KEY_BUSINESS_OWNER_NAME, fullName);
+                          boxStorage.write(KEY_BUSINESS_OWNER_TITLE, title.text);
+                          boxStorage.write(KEY_BUSINESS_DESIGNATION, designation.text);
+                          boxStorage.write(KEY_BUSINESS_PHONE_NUMBER, numberController.text);
+                          boxStorage.write(KEY_BUSINESS_FACEBOOK, facebook.text);
+                          boxStorage.write(KEY_BUSINESS_FAX, fax.text);
+                          boxStorage.write(KEY_BUSINESS_WEBSITE, website.text);
+                          boxStorage.write(KEY_BUSINESS_TWITTER, twitter.text);
+                          boxStorage.write(KEY_BUSINESS_EMAIL, email.text);
+
+                          Navigator.pushNamed(context, '/stepThree');
+                        }
+                        //Navigator.pushNamed(context, '/stepThree');
+                      },
                       child: Row(
                         children: [
                           Expanded(child: Container()),
