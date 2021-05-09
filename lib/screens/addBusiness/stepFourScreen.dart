@@ -1,11 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessDataController.dart';
+import 'package:johukum/controller/businessTypeController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenBusinessType.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:intl/intl.dart';
@@ -19,8 +23,10 @@ class StepFourScreen extends StatelessWidget {
   var businessTypeList=["Grocery","Health Care","Electrical","Stationary"];
 
   var dataController=Get.put(BusinessDataController());
+  var businessTyeController=Get.put(BusinessTypeController());
 
   var descController=TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -270,7 +276,7 @@ class StepFourScreen extends StatelessWidget {
                   AddBusinessForm(
                     controller: descController,
                     textInputType: TextInputType.text,
-                    hintText: "write something",
+                    hintText: "",
                     //height: 40.0,
                     maxLine: 5,
                     isSuffix: false,
@@ -285,30 +291,11 @@ class StepFourScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Obx(()=>textUbuntu(dataController.selectBusinessType.value, kBlackColor.withOpacity(0.6), fontSize:
+                        Obx(()=>textUbuntu(businessTyeController.businessTypeName.value, kBlackColor.withOpacity(0.6), fontSize:
                         14),),
                         GestureDetector(
                           onTap: (){
-                            showBarModalBottomSheet(
-                                backgroundColor: kWhiteColor,
-                                context: context,
-                                expand: false,
-                                builder: (context) => Container(
-                                  height: size.height * 0.3,
-                                  child: ListView.builder(
-                                    itemCount: businessTypeList.length,
-                                    itemBuilder:(_,index){
-                                      return ListTile(
-                                        onTap: (){
-                                          dataController.setBusinessType(businessTypeList[index]);
-                                          Navigator.of(context).pop();
-                                        },
-                                        leading: Icon(Icons.people,color: kPrimaryPurple,),
-                                        title: textUbuntu(businessTypeList[index], kPrimaryPurple,fontWeight: weight500),
-                                      );
-                                    },
-                                  ),
-                                ));
+                            openBusinessTypeDialog(context);
                           },
                           child: Icon(
                             Icons.arrow_drop_down_circle,
@@ -322,14 +309,27 @@ class StepFourScreen extends StatelessWidget {
                   size20,
                   GestureDetector(
                     onTap: (){
-                      boxStorage.write(YEAR_ESTABLISH, dataController.selectYear.value);
-                      boxStorage.write(ANNUAL_TURNOVER, dataController.annualTurnOver.value);
-                      boxStorage.write(NUMBER_OF_EMPLOYEE, dataController.numberOfEmployee.value);
-                      boxStorage.write(PROFESSIONAL_ASSOC, dataController.professAssc.value);
-                      boxStorage.write(CERTIFICATION, dataController.certificate.value);
-                      boxStorage.write(DESCRIPTION, descController.text);
-                      boxStorage.write(TYPE_OF_BUSINESS, dataController.selectBusinessType.value);
-                      Navigator.pushNamed(context, '/stepFive');
+
+                      if(dataController.selectYear.value.isEmpty){
+                        return showErrorToast("Select Year");
+                      }if(descController.text.isEmpty){
+                        return showErrorToast("Write Your Description");
+                      }if(businessTyeController.businessTypeName.value.isEmpty){
+                        return showErrorToast("Select your Business Type");
+                      }else{
+                        boxStorage.write(YEAR_ESTABLISH, dataController.selectYear.value);
+                        boxStorage.write(ANNUAL_TURNOVER, dataController.annualTurnOver.value);
+                        boxStorage.write(NUMBER_OF_EMPLOYEE, dataController.numberOfEmployee.value);
+                        boxStorage.write(PROFESSIONAL_ASSOC, dataController.professAssc.value);
+                        boxStorage.write(CERTIFICATION, dataController.certificate.value);
+                        boxStorage.write(DESCRIPTION, descController.text);
+                        boxStorage.write(TYPE_OF_BUSINESS, businessTyeController.businessTypeName.value);
+                        Navigator.pushNamed(context, '/stepFive');
+
+                      }
+                      
+
+
                     },
                     child: Row(
                       children: [

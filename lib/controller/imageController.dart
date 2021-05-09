@@ -48,6 +48,7 @@ class ImageController extends GetxController{
 
     if(pickedFile!=null){
       selectCoverImagePath.value=pickedFile.path;
+      print(selectCoverImagePath.value);
     }else{
       showSnackBar(context: context, message: "No image selected",callBack: (){});
     }

@@ -9,6 +9,7 @@ import 'package:johukum/screens/fullScreenAlertDialog/fullScreenDivision.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenThana.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class StepOneScreen extends StatelessWidget {
@@ -57,7 +58,7 @@ class StepOneScreen extends StatelessWidget {
                     AddBusinessForm(
                       controller: businessNameController,
                       isSuffix: false,
-                      hintText: "business name",
+                      hintText: "",
                       validator: (value) {
                         if (value.isEmpty) {
                           return "This Field is required";
@@ -70,10 +71,10 @@ class StepOneScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Street Address", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Street Address*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: streetAddressController,
-                      hintText: "street address",
+                      hintText: "",
                       isSuffix: false,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -84,10 +85,10 @@ class StepOneScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Land Mark", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Land Mark*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: landMarkController,
-                      hintText: "land mark",
+                      hintText: "",
                       isSuffix: false,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -98,9 +99,9 @@ class StepOneScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Building", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Building*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
-                      hintText: "building",
+                      hintText: "",
                       controller: buildingNameController,
                       isSuffix: false,
                       validator: (value) {
@@ -112,7 +113,7 @@ class StepOneScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Division", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Division*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
                     Container(
                       height: 50.0,
@@ -181,7 +182,7 @@ class StepOneScreen extends StatelessWidget {
                     textUbuntu("Postal Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: postalCodeController,
-                      hintText: "postal code",
+                      hintText: "",
                       isSuffix: false,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -195,7 +196,7 @@ class StepOneScreen extends StatelessWidget {
                     textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: areaNameController,
-                      hintText: "area",
+                      hintText: "",
                       isSuffix: false,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -209,7 +210,7 @@ class StepOneScreen extends StatelessWidget {
                     textUbuntu("Plus Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: plusCodeController,
-                      hintText: "plus code",
+                      hintText: "",
                       isSuffix: false,
                       validator: (value) {
                         if (value.isEmpty) {
@@ -223,16 +224,28 @@ class StepOneScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         if (_formKey.currentState.validate()) {
-                          boxStorage.write(KEY_USER_BUILDING, buildingNameController.text);
-                          boxStorage.write(KEY_USER_BUSINESS_NAME, businessNameController.text);
-                          boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
-                          boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
-                          boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
-                          boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
-                          boxStorage.write(KEY_USER_POSTAL_ID, postalCodeController.text);
-                          boxStorage.write(KEY_USER_AREA, areaNameController.text);
 
-                          Navigator.pushNamed(context, '/stepTwo');
+                          if(divisionController.selectDivision.value.isEmpty){
+                            showErrorToast("Select Division");
+                            return;
+                          }else if(divisionController.selectCity.value.isEmpty){
+                            showErrorToast("Select City");
+                            return;
+                          }else if(divisionController.selectThana.value.isEmpty){
+                            showErrorToast("Select Thana");
+                            return;
+                          }else{
+                            boxStorage.write(KEY_USER_BUILDING, buildingNameController.text);
+                            boxStorage.write(KEY_USER_BUSINESS_NAME, businessNameController.text);
+                            boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
+                            boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
+                            boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
+                            boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
+                            boxStorage.write(KEY_USER_POSTAL_ID, postalCodeController.text);
+                            boxStorage.write(KEY_USER_AREA, areaNameController.text);
+                            Navigator.pushNamed(context, '/stepTwo');
+                          }
+
                         }
                       },
                       child: Row(

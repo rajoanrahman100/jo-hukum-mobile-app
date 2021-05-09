@@ -2,13 +2,13 @@ import 'package:get/get.dart';
 
 class BusinessDataController extends GetxController{
 
-  var annualTurnOver="select".obs;
-  var numberOfEmployee="select".obs;
-  var professAssc="select".obs;
-  var certificate="select".obs;
-  var selectBusinessType="select business type".obs;
+  var annualTurnOver="".obs;
+  var numberOfEmployee="".obs;
+  var professAssc="".obs;
+  var certificate="".obs;
+  var selectBusinessType="".obs;
 
-  var selectYear="select".obs;
+  var selectYear="".obs;
 
 
   setSelectedYear(value){

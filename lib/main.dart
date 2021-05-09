@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
-    return MaterialApp(debugShowCheckedModeBanner: false,initialRoute: '/stepThree', routes: {
+    return MaterialApp(debugShowCheckedModeBanner: false,initialRoute: '/welcome', routes: {
       '/welcome': (context) => WelcomeScreen(),
       '/signIn': (context) => SignInScreen(),
       '/signUp': (context) => SignUpScreen(),

@@ -8,11 +8,11 @@ import 'package:johukum/controller/imageController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class StepSixScreen extends StatelessWidget {
-
   var imageController = Get.put(ImageController());
 
   @override
@@ -146,7 +146,8 @@ class StepSixScreen extends StatelessWidget {
                               Navigator.of(context).pop();
                             });
                           },
-                          child: textUbuntu("Upload Cover Photo", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500)),
+                          child:
+                              textUbuntu("Upload Cover Photo", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500)),
                     ],
                   ),
                   size20,
@@ -161,10 +162,10 @@ class StepSixScreen extends StatelessWidget {
                               ? GestureDetector(
                                   onTap: () {
                                     buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                      imageController.getAddMorePhoto(ImageSource.camera, context,"1");
+                                      imageController.getAddMorePhoto(ImageSource.camera, context, "1");
                                       Navigator.of(context).pop();
                                     }, galleryCallBack: () {
-                                      imageController.getAddMorePhoto(ImageSource.gallery, context,"1");
+                                      imageController.getAddMorePhoto(ImageSource.gallery, context, "1");
                                       Navigator.of(context).pop();
                                     });
                                   },
@@ -188,10 +189,10 @@ class StepSixScreen extends StatelessWidget {
                               ? GestureDetector(
                                   onTap: () {
                                     buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                      imageController.getAddMorePhoto(ImageSource.camera, context,"2");
+                                      imageController.getAddMorePhoto(ImageSource.camera, context, "2");
                                       Navigator.of(context).pop();
                                     }, galleryCallBack: () {
-                                      imageController.getAddMorePhoto(ImageSource.gallery, context,"2");
+                                      imageController.getAddMorePhoto(ImageSource.gallery, context, "2");
                                       Navigator.of(context).pop();
                                     });
                                   },
@@ -215,10 +216,10 @@ class StepSixScreen extends StatelessWidget {
                               ? GestureDetector(
                                   onTap: () {
                                     buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                      imageController.getAddMorePhoto(ImageSource.camera, context,"3");
+                                      imageController.getAddMorePhoto(ImageSource.camera, context, "3");
                                       Navigator.of(context).pop();
                                     }, galleryCallBack: () {
-                                      imageController.getAddMorePhoto(ImageSource.gallery, context,"3");
+                                      imageController.getAddMorePhoto(ImageSource.gallery, context, "3");
                                       Navigator.of(context).pop();
                                     });
                                   },
@@ -244,10 +245,17 @@ class StepSixScreen extends StatelessWidget {
                     hintText: "put youtube video url",
                     isSuffix: false,
                   ),
-
                   size10,
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/stepSeven'),
+                    onTap: () {
+                      if(imageController.selectLogoImagePath.value.isEmpty){
+                        return showErrorToast("Select business logo");
+                      }else if(imageController.selectCoverImagePath.value.isEmpty){
+                        return showErrorToast("Select business cover photo");
+
+                      }
+                      Navigator.pushNamed(context, '/stepSeven');
+                    },
                     child: Row(
                       children: [
                         Expanded(child: Container()),
@@ -281,9 +289,7 @@ class NewWidget extends StatelessWidget {
         height: 120.0,
         alignment: Alignment.center,
         margin: EdgeInsets.only(right: 5),
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey),
-            borderRadius: BorderRadius.circular(10.0)),
+        decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(10.0)),
         child: Icon(
           Icons.add_a_photo_outlined,
           size: 60.0,

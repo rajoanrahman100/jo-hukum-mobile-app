@@ -13,11 +13,11 @@ import 'package:johukum/screens/home/fetch_api.dart';
   var cityModelClass = CityModelClass().obs;
   var thanaModelClass = ThanaModelClass().obs;
 
-  var selectDivision="select divison".obs;
+  var selectDivision="".obs;
   var selectDivisionId="0".obs;
-  var selectCity="select city".obs;
+  var selectCity="".obs;
   var selectCityId="0".obs;
-  var selectThana="select thana".obs;
+  var selectThana="".obs;
   var selectThanaId="0".obs;
 
 

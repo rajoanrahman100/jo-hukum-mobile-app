@@ -15,5 +15,7 @@ const allCity="https://api-backend.jo-hukum.com/api/businesses/locations?locatio
 const allThana="https://api-backend.jo-hukum.com/api/businesses/locations?location_type=4&parent=";
 const paymentMethod="https://api-backend.jo-hukum.com/api/businesses/payment_methods?search=";
 const postReview="https://api-backend.jo-hukum.com/consumers_api/business_data/";
+const keyword="https://api-backend.jo-hukum.com/api/businesses/categories";
+const businessType="https://api-backend.jo-hukum.com/consumers_api/business_types";
 //const allCity="https://api-backend.jo-hukum.com/api/businesses/locations?location_type=2&parent=${division_id
 //}&search=${query}"

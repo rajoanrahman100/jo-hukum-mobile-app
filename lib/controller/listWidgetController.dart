@@ -1,24 +1,41 @@
 import 'package:get/get.dart';
 
-class ListWidgetController extends GetxController{
+class ListWidgetController extends GetxController {
+  var list = [].obs;
 
-  var list=[].obs;
+  var questionList = [].obs;
 
-  var questionList=[].obs;
+  var addNoOne = false.obs;
+  var addNoTwo = false.obs;
 
-  addWidget(item){
+  var addQuestionOne = false.obs;
+  var addQuestionTwo = false.obs;
+  var addQuestionThree = false.obs;
+  var addQuestionFour= false.obs;
+
+  setQuestionCount(int value) {
+    if (value == 1) {
+      addQuestionOne.value=true;
+    }if(value==2){
+      addQuestionTwo.value=true;
+    }if(value==3){
+      addQuestionThree.value=true;
+    }
+  }
+
+  addWidget(item) {
     list.add(item);
   }
 
-  removeWidget(item){
+  removeWidget(item) {
     list.removeAt(item);
   }
 
-  addQuestionWidget(item){
+  addQuestionWidget(item) {
     questionList.add(item);
   }
 
-  removeQuestionWidget(item){
+  removeQuestionWidget(item) {
     questionList.removeAt(item);
   }
 }
