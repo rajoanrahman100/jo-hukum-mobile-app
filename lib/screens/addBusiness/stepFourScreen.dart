@@ -312,6 +312,10 @@ class StepFourScreen extends StatelessWidget {
 
                       if(dataController.selectYear.value.isEmpty){
                         return showErrorToast("Select Year");
+                      }if(dataController.annualTurnOver.value.isEmpty){
+                        return showErrorToast("Select your Annual Turnover");
+                      }if(dataController.numberOfEmployee.value.isEmpty){
+                        return showErrorToast("Select your Number of Employees");
                       }if(descController.text.isEmpty){
                         return showErrorToast("Write Your Description");
                       }if(businessTyeController.businessTypeName.value.isEmpty){
@@ -323,7 +327,8 @@ class StepFourScreen extends StatelessWidget {
                         boxStorage.write(PROFESSIONAL_ASSOC, dataController.professAssc.value);
                         boxStorage.write(CERTIFICATION, dataController.certificate.value);
                         boxStorage.write(DESCRIPTION, descController.text);
-                        boxStorage.write(TYPE_OF_BUSINESS, businessTyeController.businessTypeName.value);
+                        boxStorage.write(TYPE_OF_BUSINESS, businessTyeController.businessTypeId.value);
+
                         Navigator.pushNamed(context, '/stepFive');
 
                       }

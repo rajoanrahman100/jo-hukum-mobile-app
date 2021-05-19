@@ -173,15 +173,15 @@ class StepFiveScreen extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    boxStorage.write(QUESTION_ONE, questionOne);
-                    boxStorage.write(QUESTION_TWO, questionTwo);
-                    boxStorage.write(QUESTION_THREE, questionThree);
-                    boxStorage.write(QUESTION_FOUR, questionFour);
+                    boxStorage.write(QUESTION_ONE, questionOne.text??"Question One");
+                    boxStorage.write(QUESTION_TWO, questionTwo.text??"Question Two");
+                    boxStorage.write(QUESTION_THREE, questionThree.text??"Question Three");
+                    boxStorage.write(QUESTION_FOUR, questionFour.text??"Question Four");
 
-                    boxStorage.write(ANSWER_ONE, answerOne);
-                    boxStorage.write(ANSWER_TWO, answerTwo);
-                    boxStorage.write(ANSWER_THREE, answerThree);
-                    boxStorage.write(ANSWER_FOUR, answerFour);
+                    boxStorage.write(ANSWER_ONE, answerOne.text??"Answer One");
+                    boxStorage.write(ANSWER_TWO, answerTwo.text??"Answer Two");
+                    boxStorage.write(ANSWER_THREE, answerThree.text??"Answer Three");
+                    boxStorage.write(ANSWER_FOUR, answerFour.text??"Answer Four");
 
                     Navigator.pushNamed(context, '/stepSix');
                   },

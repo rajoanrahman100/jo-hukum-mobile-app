@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
+import 'package:johukum/controller/addBusinessController.dart';
 import 'package:johukum/controller/businessTagController.dart';
 import 'package:johukum/controller/keywordController.dart';
 import 'package:johukum/responsive.dart';
@@ -8,13 +10,20 @@ import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenKeyword.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class StepSevenScreen extends StatelessWidget {
   var keywordController = Get.put(KeywordController());
   var tagController = Get.put(BusinessTagController());
+  var businessController = Get.put(AddBusinessController());
+
+  var titleSeo=TextEditingController();
+  var metaDesc=TextEditingController();
 
   var tag = TextEditingController();
+
+  var taglist=["Test Tag1,Test Tag2,Test Tag3"];
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +42,7 @@ class StepSevenScreen extends StatelessWidget {
                   textUbuntu("Title for SEO", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500),
                   size5,
                   AddBusinessForm(
+                    controller: titleSeo,
                     hintText: "",
                     isSuffix: false,
                   ),
@@ -40,7 +50,8 @@ class StepSevenScreen extends StatelessWidget {
                   textUbuntu("Meta Description", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
                   size5,
                   AddBusinessForm(
-                    textInputType: TextInputType.emailAddress,
+                    controller: metaDesc,
+                    textInputType: TextInputType.text,
                     hintText: "",
                     //height: 40.0,
                     maxLine: 6,
@@ -78,7 +89,7 @@ class StepSevenScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                   size10,
@@ -129,6 +140,10 @@ class StepSevenScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () async {
                       // await keywordController.fetchKeyword();
+                      boxStorage.write(SEO_TITLE, titleSeo.text??"seo title");
+                      boxStorage.write(META_DESCRIPTION, metaDesc.text??"meta description");
+                      boxStorage.write(TAG_LIST, tagController.tagList??taglist);
+
                       openKeywordDialog(context);
                     },
                     child: Row(
@@ -180,6 +195,58 @@ class StepSevenScreen extends StatelessWidget {
                     buttonColor: kPrimaryPurple,
                     buttonText: "Complete Registration",
                     textColor: kWhiteColor,
+                    callback: ()async{
+
+                      if(keywordController.keywordList.length==0){
+                        return showErrorToast("At least one keyword is required");
+                      }else{
+
+                        await businessController.addBusinessData(context);
+
+                        ///Business Info
+                        print("business name: ${boxStorage.read(KEY_USER_BUSINESS_NAME)}");
+                        print("KEY_USER_STREET_ADDRESS: ${boxStorage.read(KEY_USER_STREET_ADDRESS)}");
+                        print("KEY_USER_LANDMARK: ${boxStorage.read(KEY_USER_LANDMARK)}");
+                        print("KEY_USER_BUILDING: ${boxStorage.read(KEY_USER_BUILDING)}");
+                        print("KEY_USER_BUILDING: ${boxStorage.read(KEY_USER_BUILDING)}");
+                        print("KEY_USER_THANA_ID: ${boxStorage.read(KEY_USER_THANA_ID)}");
+                        print("KEY_USER_POSTAL_CODE: ${boxStorage.read(KEY_USER_POSTAL_CODE)}");
+                        print("KEY_USER_PLUS_CODE: ${boxStorage.read(KEY_USER_PLUS_CODE)}");
+
+                        print("KEY_BUSINESS_OWNER_TITLE: ${boxStorage.read(KEY_BUSINESS_OWNER_TITLE)}");
+                        print("KEY_BUSINESS_OWNER_NAME: ${boxStorage.read(KEY_BUSINESS_OWNER_NAME)}");
+                        print("KEY_BUSINESS_DESIGNATION: ${boxStorage.read(KEY_BUSINESS_DESIGNATION)}");
+                        print("KEY_BUSINESS_DESIGNATION: ${boxStorage.read(MOBILE_ONE)}");
+
+                        ///Business Time
+                        print("SAT_START: ${boxStorage.read(SAT_START)}");
+                        print("SUN_START: ${boxStorage.read(SUN_START)}");
+                        print("MON_START: ${boxStorage.read(MON_START)}");
+                        print("TUE_START: ${boxStorage.read(TUE_START)}");
+                        print("WED_START: ${boxStorage.read(WED_START)}");
+                        print("THURS_START: ${boxStorage.read(THURS_START)}");
+
+                        print("SAT_END: ${boxStorage.read(SAT_END)}");
+                        print("SUN_END: ${boxStorage.read(SUN_END)}");
+                        print("MON_END: ${boxStorage.read(MON_END)}");
+                        print("TUE_END: ${boxStorage.read(TUE_END)}");
+                        print("WED_END: ${boxStorage.read(WED_END)}");
+                        print("THURS_END: ${boxStorage.read(THURS_END)}");
+
+                        print("PAYMENT_IDS: ${boxStorage.read(PAYMENT_ID_LIST)}");
+                        print("YEAR_ESTABLISH: ${boxStorage.read(YEAR_ESTABLISH)}");
+                        print("ANNUAL_TURNOVER: ${boxStorage.read(ANNUAL_TURNOVER)}");
+                        print("DESCRIPTION: ${boxStorage.read(DESCRIPTION)}");
+                        print("TYPE_OF_BUSINESS: ${boxStorage.read(TYPE_OF_BUSINESS)}");
+                        print("KEYWORDS: ${boxStorage.read(KEYWORDS)}");
+
+                      }
+
+
+
+                      //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);
+
+                    },
                     borderRadiusGeometry: BorderRadius.circular(15),
                     edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
                   ),
@@ -190,5 +257,12 @@ class StepSevenScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+ Future<void> saveData(title,metaDesc,tagList,keywordList){
+    boxStorage.write(SEO_TITLE, title);
+    boxStorage.write(META_DESCRIPTION, metaDesc);
+    boxStorage.write(TAG_LIST, tagList);
+    boxStorage.write(KEYWORDS, keywordList);
   }
 }

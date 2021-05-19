@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:johukum/screens/addBusiness/lastSuccessScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFiveScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFourScreen.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
       '/stepFive': (context) => StepFiveScreen(),
       '/stepSix': (context) => StepSixScreen(),
       '/stepSeven': (context) => StepSevenScreen(),
+      '/lastSuccess': (context) => LastSuccessScreen(),
     });
   }
 }

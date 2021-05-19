@@ -91,7 +91,7 @@ class ElasticController extends GetxController{
     });
     // make GET request
     var response = await post(
-        elasticSearch, headers: <String, String>{
+        Uri.parse(elasticSearch), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': 'Basic ZWxhc3RpYzpKcnM5NTU3aGNTanNOMkJKZkpsTg==',
     },body: json);

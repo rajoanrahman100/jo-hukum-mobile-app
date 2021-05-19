@@ -227,7 +227,7 @@ class SignUpScreen extends StatelessWidget {
 
     SharedConfig.pref.setString("phone", mobileNumber);
 
-    var res = await http.post(requestOtp,
+    var res = await http.post(Uri.parse(requestOtp),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

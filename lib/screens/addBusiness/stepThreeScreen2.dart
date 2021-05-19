@@ -9,6 +9,7 @@ import 'package:johukum/controller/paymentController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:johukum/widgets/timseSetWidget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -439,26 +440,33 @@ class StepTheeScreenTwo extends StatelessWidget {
                 Spacer(),
                 GestureDetector(
                   onTap: (){
+
+
+                    if(paymentIdList.length==0){
+                      return showErrorToast("Select your payment method");
+                    }else{
+                      boxStorage.write(SAT_START,satStart);
+                      boxStorage.write(SUN_START,sundayStart);
+                      boxStorage.write(MON_START,mondayStart);
+                      boxStorage.write(TUE_START,tueStart);
+                      boxStorage.write(WED_START,wedStart);
+                      boxStorage.write(THURS_START,thurStart);
+                      boxStorage.write(FRI_START,friStart);
+
+                      boxStorage.write(SAT_END, satEnd);
+                      boxStorage.write(SUN_END, sundayEnd);
+                      boxStorage.write(MON_END, mondayEnd);
+                      boxStorage.write(TUE_END, tueEnd);
+                      boxStorage.write(WED_END, wedEnd);
+                      boxStorage.write(THURS_END, thurEnd);
+                      boxStorage.write(FRI_END, friEnd);
+
+                      boxStorage.write(PAYMENT_ID_LIST, paymentIdList);
+
+                      Navigator.pushNamed(context, '/stepFour');
+                    }
                     
-                    boxStorage.write(SAT_START,satStart);
-                    boxStorage.write(SUN_START,sundayStart);
-                    boxStorage.write(MON_START,mondayStart);
-                    boxStorage.write(TUE_START,tueStart);
-                    boxStorage.write(WED_START,wedStart);
-                    boxStorage.write(THURS_START,thurStart);
-                    boxStorage.write(FRI_START,friStart);
 
-                    boxStorage.write(SAT_END, satEnd);
-                    boxStorage.write(SUN_END, sundayEnd);
-                    boxStorage.write(MON_END, mondayEnd);
-                    boxStorage.write(TUE_END, tueEnd);
-                    boxStorage.write(WED_END, wedEnd);
-                    boxStorage.write(THURS_END, thurEnd);
-                    boxStorage.write(FRI_END, friEnd);
-
-                    boxStorage.write(PAYMENT_ID_LIST, paymentIdList);
-
-                    Navigator.pushNamed(context, '/stepFour');
                   },
                   child: Row(
                     children: [

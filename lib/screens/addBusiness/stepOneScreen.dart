@@ -241,7 +241,7 @@ class StepOneScreen extends StatelessWidget {
                             boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
                             boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
                             boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
-                            boxStorage.write(KEY_USER_POSTAL_ID, postalCodeController.text);
+                            boxStorage.write(KEY_USER_POSTAL_CODE, postalCodeController.text);
                             boxStorage.write(KEY_USER_AREA, areaNameController.text);
                             Navigator.pushNamed(context, '/stepTwo');
                           }

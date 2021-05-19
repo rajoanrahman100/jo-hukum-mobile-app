@@ -15,6 +15,10 @@ import 'package:johukum/widgets/textWidgets.dart';
 class StepSixScreen extends StatelessWidget {
   var imageController = Get.put(ImageController());
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -248,6 +252,9 @@ class StepSixScreen extends StatelessWidget {
                   size10,
                   GestureDetector(
                     onTap: () {
+
+                      imageController.upload(File(imageController.selectLogoImagePath.value));
+
                       if(imageController.selectLogoImagePath.value.isEmpty){
                         return showErrorToast("Select business logo");
                       }else if(imageController.selectCoverImagePath.value.isEmpty){

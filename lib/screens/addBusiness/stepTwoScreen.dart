@@ -245,18 +245,18 @@ class StepTwoScreen extends StatelessWidget {
                        // print(send);
                         if (_formKey.currentState.validate()) {
 
-                          boxStorage.write(KEY_BUSINESS_OWNER_NAME, fullName);
+                          boxStorage.write(KEY_BUSINESS_OWNER_NAME, fullName.text);
                           boxStorage.write(KEY_BUSINESS_OWNER_TITLE, title.text);
                           boxStorage.write(KEY_BUSINESS_DESIGNATION, designation.text);
-                          boxStorage.write(KEY_BUSINESS_PHONE_NUMBER, numberController.text);
-                          boxStorage.write(KEY_BUSINESS_FACEBOOK, facebook.text);
-                          boxStorage.write(KEY_BUSINESS_FAX, fax.text);
-                          boxStorage.write(KEY_BUSINESS_WEBSITE, website.text);
-                          boxStorage.write(KEY_BUSINESS_TWITTER, twitter.text);
-                          boxStorage.write(KEY_BUSINESS_EMAIL, email.text);
+                          boxStorage.write(KEY_BUSINESS_PHONE_NUMBER, numberController.text??"No Number Found");
+                          boxStorage.write(KEY_BUSINESS_FACEBOOK, facebook.text??"No Facebook ID Found");
+                          boxStorage.write(KEY_BUSINESS_FAX, fax.text??"No FAX Found");
+                          boxStorage.write(KEY_BUSINESS_WEBSITE, website.text??"No Website Found");
+                          boxStorage.write(KEY_BUSINESS_TWITTER, twitter.text??"No Twitter Found");
+                          boxStorage.write(KEY_BUSINESS_EMAIL, email.text??"No Email ID Found");
                           boxStorage.write(MOBILE_ONE, mobileOne.text);
-                          boxStorage.write(MOBILE_TWO, mobileTwo.text);
-                          boxStorage.write(MOBILE_THREE, mobileThree.text);
+                          boxStorage.write(MOBILE_TWO, mobileTwo.text??"");
+                          boxStorage.write(MOBILE_THREE, mobileThree.text??"");
 
                           Navigator.pushNamed(context, '/stepThree');
                         }

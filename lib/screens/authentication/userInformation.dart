@@ -232,7 +232,7 @@ class UserAdditionalInformation extends StatelessWidget {
     print("mobile Number ${SharedConfig.pref.get("phone")}");
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context);
-    var res = await http.post(sendInfo,
+    var res = await http.post(Uri.parse(sendInfo),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

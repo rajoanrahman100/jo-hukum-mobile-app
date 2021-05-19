@@ -10,17 +10,20 @@ class KeywordController extends GetxController{
   var keywordClass = KeywordClass().obs;
 
   var keywordList=[].obs;
+  var keywordIDList=[].obs;
 
 
-  onSelect(item,bool value){
+  onSelect(item,bool value,ids){
     print("select");
     keywordList.add(item);
+    keywordIDList.add(ids);
     print("add length${keywordList.length}");
 
   }
 
-  onRemove(item,bool value){
+  onRemove(item,bool value,ids){
     keywordList.remove(item);
+    keywordIDList.remove(ids);
     print("remove length${keywordList.length}");
 
   }

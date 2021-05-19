@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/divisionController.dart';
 import 'package:johukum/controller/keywordController.dart';
 import 'package:johukum/responsive.dart';
@@ -53,12 +54,14 @@ class keywordDialog extends StatelessWidget {
                                 keywordController.onSelect(
                                     keywordController
                                         .keywordClass.value.results[index].name,
-                                    selected);
+                                    selected,keywordController
+                                    .keywordClass.value.results[index].sId);
                               } else {
                                 keywordController.onRemove(
                                     keywordController
                                         .keywordClass.value.results[index].name,
-                                    selected);
+                                    selected,keywordController
+                                    .keywordClass.value.results[index].sId);
                               }
                             },
                             title: Container(
@@ -92,6 +95,7 @@ class keywordDialog extends StatelessWidget {
                     buttonColor: kPrimaryPurple,
                     isIcon: false,
                     callback: (){
+                      boxStorage.write(KEYWORDS, keywordIdList);
                       Navigator.of(context).pop();
                       print(keywordIdList);
                     }
