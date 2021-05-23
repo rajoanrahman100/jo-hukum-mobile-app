@@ -22,18 +22,10 @@ class AuthenticationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-//    scrollController.addListener(() {
-//      if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
-//        print("END");
-//      }
-//    });
 
     return SafeArea(
       child: Scaffold(
-//      appBar: AppBar(
-//        backgroundColor: kPrimaryPurple,
-//        elevation: 0.0,
-//      ),
+
         body: Container(
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
@@ -184,9 +176,8 @@ class AuthenticationDialog extends StatelessWidget {
                                                   isIcon: false,
                                                   callback: () {
                                                     if (_formKey.currentState.validate()) {
-
                                                       dialogController.getSignInUser(numberController.text,
-                                                          passWordController.text, context).then((value) => Navigator.pop(context));
+                                                          passWordController.text, context);
 
                                                       //getSignInUser(numberController.text, passWordController.text,
                                                       // context);

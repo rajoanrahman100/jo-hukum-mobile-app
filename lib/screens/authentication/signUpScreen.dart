@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/controller/otpController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
@@ -14,6 +16,8 @@ import 'package:johukum/widgets/textWidgets.dart';
 class SignUpScreen extends StatelessWidget {
   var numberController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  var c = Get.put(OtpController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +38,7 @@ class SignUpScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10.0, vertical: 20.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -61,13 +64,10 @@ class SignUpScreen extends StatelessWidget {
                             ),
                             Container(
                               width: size.width,
-                              decoration: BoxDecoration(
-                                  color: kWhiteColor,
-                                  borderRadius: BorderRadius.circular(20.0)),
+                              decoration: BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
                               margin: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                 child: SingleChildScrollView(
                                   child: Form(
                                     key: _formKey,
@@ -79,9 +79,7 @@ class SignUpScreen extends StatelessWidget {
                                         Text(
                                           "SIGN UP",
                                           style: textStyleUbuntu(
-                                              color: kBlackColor,
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.w500),
+                                              color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.w500),
                                         ),
                                         SizedBox(
                                           height: 20.0,
@@ -93,8 +91,7 @@ class SignUpScreen extends StatelessWidget {
                                             if (value.isEmpty) {
                                               return "Enter your phone number";
                                             }
-                                            if (value.length > 11 ||
-                                                value.length < 11) {
+                                            if (value.length > 11 || value.length < 11) {
                                               return "Number format is invalid";
                                             }
                                             _formKey.currentState.save();
@@ -102,18 +99,13 @@ class SignUpScreen extends StatelessWidget {
                                           },
                                           decoration: InputDecoration(
                                             hintText: "Mobile Number",
-                                            focusedBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: kPrimaryPurple)),
-                                            enabledBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: kPrimaryPurple)),
-                                            errorBorder: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.red)),
-                                            border: UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: kPrimaryPurple)),
+                                            focusedBorder:
+                                                UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                            enabledBorder:
+                                                UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                            errorBorder:
+                                                UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                           ),
                                         ),
                                         SizedBox(
@@ -121,9 +113,7 @@ class SignUpScreen extends StatelessWidget {
                                         ),
                                         WelcomeScreenButton(
                                           height: 40.0,
-                                          edgeInsetsGeometry:
-                                              EdgeInsets.symmetric(
-                                                  horizontal: 90.0),
+                                          edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 90.0),
                                           buttonColor: kPrimaryPurple,
                                           buttonText: "Send OTP",
                                           textColor: kWhiteColor,
@@ -131,15 +121,8 @@ class SignUpScreen extends StatelessWidget {
                                           isIcon: false,
                                           //callback: ()=>Navigator.pushNamed(context, '/otpScreen'),
                                           callback: () {
-                                            if (_formKey.currentState
-                                                .validate()) {
-                                              getOtpNumber(
-                                                      numberController.text,
-                                                      context)
-                                                  .whenComplete(() =>
-                                                      Navigator.pushNamed(
-                                                          context,
-                                                          '/otpScreen'));
+                                            if (_formKey.currentState.validate()) {
+                                              c.getOtpNumber(numberController.text, context);
                                             }
                                           },
                                         ),
@@ -152,28 +135,23 @@ class SignUpScreen extends StatelessWidget {
                                               color: kPrimaryPurple,
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.w500,
-                                              textDecoration:
-                                                  TextDecoration.underline),
+                                              textDecoration: TextDecoration.underline),
                                         ),
                                         SizedBox(
                                           height: 10.0,
                                         ),
                                         Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-
                                             Image.asset("assets/images/fb.png"),
                                             SizedBox(
                                               width: 5.0,
                                             ),
-                                            Image.asset(
-                                                "assets/images/google.png"),
+                                            Image.asset("assets/images/google.png"),
                                             SizedBox(
                                               width: 5.0,
                                             ),
-                                            Image.asset(
-                                                "assets/images/apple.png"),
+                                            Image.asset("assets/images/apple.png"),
                                           ],
                                         ),
                                         SizedBox(
@@ -196,8 +174,7 @@ class SignUpScreen extends StatelessWidget {
                                               color: kBlackColor,
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.bold,
-                                              textDecoration:
-                                                  TextDecoration.underline),
+                                              textDecoration: TextDecoration.underline),
                                         ),
                                         SizedBox(
                                           height: 30.0,
@@ -235,7 +212,7 @@ class SignUpScreen extends StatelessWidget {
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
-      showSnackBar(context: context,message: "a 6 digit code has sent to your number");
+      showSnackBar(context: context, message: "a 6 digit code has sent to your number");
       //showSuccessToast("a 6 digit code sent to your number");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;

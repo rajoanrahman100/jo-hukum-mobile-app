@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
@@ -202,3 +203,4 @@ void openAddEntryDialog(BuildContext context) {
       },
       fullscreenDialog: true));
 }
+*/

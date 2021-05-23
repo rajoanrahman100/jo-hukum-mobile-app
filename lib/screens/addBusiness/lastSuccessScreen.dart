@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
+import 'package:johukum/screens/bottomNavScreen.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class LastSuccessScreen extends StatelessWidget {
@@ -40,7 +41,7 @@ class LastSuccessScreen extends StatelessWidget {
                   child: Text(
                     "Thanks for enlisting your business.Our jo-hukum team will review your listing "
                     "within 24 hour and it will be published soon.",
-                    style: textStyleUbuntu(color: Colors.grey, fontWeight: weight500, fontSize: 20),
+                    style: textStyleUbuntu(color: Colors.black.withOpacity(0.6), fontWeight: weight400, fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -49,8 +50,14 @@ class LastSuccessScreen extends StatelessWidget {
             size20,
             GestureDetector(
               onTap: (){
-                Navigator.pushNamed(context, '/bottomNav');
-
+                //Navigator.pushNamed(context, '/bottomNav');
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => BottomNavScreen(),
+                  ),
+                      (route) => false,
+                );
               },
                 child: textUbuntu("Go To Home Page", kPrimaryPurple, fontWeight: weightBold, fontSize: 20.0)),
           ],

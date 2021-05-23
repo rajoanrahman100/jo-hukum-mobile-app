@@ -20,6 +20,13 @@ import 'package:johukum/screens/home/fetch_api.dart';
   var selectThana="".obs;
   var selectThanaId="0".obs;
 
+  var clickColor=false.obs;
+
+  setClickColor(){
+    clickColor.value=!clickColor.value;
+  }
+
+
 
   setDivisionID(id){
     selectDivisionId.value=id;

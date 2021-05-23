@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:johukum/screens/addBusiness/lastSuccessScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFiveScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFourScreen.dart';
@@ -16,6 +17,7 @@ import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/elasticSearch/
 import 'package:johukum/screens/notificationsScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/screens/subCategory/subCategories.dart';
+import 'package:johukum/screens/wrapper.dart';
 import 'components/config.dart';
 import 'screens/home/homeScreen.dart';
 import 'screens/welcomeScreen/welcomeScreen.dart';
@@ -30,7 +32,7 @@ void main() async{
 
   SharedConfig.pref = await SharedPreferences.getInstance();
 
-  runApp(MyApp());
+  runApp(GetMaterialApp(home: MyApp(),debugShowCheckedModeBanner: false,));
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
     return MaterialApp(debugShowCheckedModeBanner: false,initialRoute: '/welcome', routes: {
-      '/welcome': (context) => WelcomeScreen(),
+      '/welcome': (context) => WrapperClass(),
       '/signIn': (context) => SignInScreen(),
       '/signUp': (context) => SignUpScreen(),
       '/home': (context) => HomeScreen(),

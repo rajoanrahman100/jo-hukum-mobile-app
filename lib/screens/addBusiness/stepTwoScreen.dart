@@ -255,8 +255,8 @@ class StepTwoScreen extends StatelessWidget {
                           boxStorage.write(KEY_BUSINESS_TWITTER, twitter.text??"No Twitter Found");
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text??"No Email ID Found");
                           boxStorage.write(MOBILE_ONE, mobileOne.text);
-                          boxStorage.write(MOBILE_TWO, mobileTwo.text??"");
-                          boxStorage.write(MOBILE_THREE, mobileThree.text??"");
+                          boxStorage.write(MOBILE_TWO, mobileTwo.text);
+                          boxStorage.write(MOBILE_THREE, mobileThree.text);
 
                           Navigator.pushNamed(context, '/stepThree');
                         }

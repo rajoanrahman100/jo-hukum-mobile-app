@@ -31,9 +31,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     // TODO: implement initState
 
 
-    token=boxStorage.read(KEY_TOKEN);
+   // token=boxStorage.read(KEY_TOKEN);
 
-    print(token);
+    //print("Token Print: "+token);
   }
 
 
@@ -45,11 +45,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body:boxStorage.read(KEY_TOKEN)==null?SafeArea(
+      body:SafeArea(
         child:Responsive(
           mobile: WelcomeScreenMobileView(size: size)
         )
-      ):callCompleteProfileNavigator(),
+      )
     );
   }
 

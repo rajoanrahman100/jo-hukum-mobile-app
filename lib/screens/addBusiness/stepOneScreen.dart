@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/controller/addBusinessController.dart';
 import 'package:johukum/controller/divisionController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenCity.dart';
@@ -27,6 +28,9 @@ class StepOneScreen extends StatelessWidget {
   var postalCodeController = TextEditingController();
   var areaNameController = TextEditingController();
   var plusCodeController = TextEditingController();
+
+  var businessController = Get.put(AddBusinessController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +227,9 @@ class StepOneScreen extends StatelessWidget {
                     size10,
                     GestureDetector(
                       onTap: () {
+
+
+
                         if (_formKey.currentState.validate()) {
 
                           if(divisionController.selectDivision.value.isEmpty){

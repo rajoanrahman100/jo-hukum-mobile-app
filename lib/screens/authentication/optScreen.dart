@@ -1,26 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/controller/otpController.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-
+import 'package:get/get.dart';
 import '../../components/components.dart';
 import '../../responsive.dart';
 
-class OtpInputScreen extends StatefulWidget {
-  @override
-  _OtpInputScreenState createState() => _OtpInputScreenState();
-}
+class OtpInputScreen extends StatelessWidget{
 
-class _OtpInputScreenState extends State<OtpInputScreen> {
   var otpController = TextEditingController();
 
-  var name;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  var c=Get.put(OtpController());
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +88,7 @@ class _OtpInputScreenState extends State<OtpInputScreen> {
                                         controller: otpController,
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          hintText: "5 digit code",
+                                          hintText: "6 digit code",
                                           focusedBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                   color: kPrimaryPurple)),
@@ -126,9 +118,15 @@ class _OtpInputScreenState extends State<OtpInputScreen> {
                                           isIcon: false,
                                           callback: () {
 
-                                            print("phone ${SharedConfig.pref.get("phone")}");
-
-                                            Navigator.pushNamed(context, '/userInfo');
+                                            if(otpController.text.isEmpty){
+                                              showErrorToast("Insert OTP number");
+                                              return;
+                                            }else{
+                                              print("${boxStorage.read(KEY_USER_PHONE)}");
+                                              c.verifyOtpNumber(otpController.text, context);
+                                            }
+                                           // print("phone ${SharedConfig.pref.get("phone")}");
+                                           // Navigator.pushNamed(context, '/userInfo');
                                           }),
                                       SizedBox(
                                         height: 70.0,

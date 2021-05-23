@@ -29,8 +29,11 @@ class LocationController extends GetxController{
 
       print("lat ${position.latitude} and long ${position.longitude}");
 
-      SharedConfig.pref.setString("lat", position.latitude.toString());
-      SharedConfig.pref.setString("long", position.longitude.toString());
+      boxStorage.write(LAT, position.latitude.toString());
+      boxStorage.write(LONG, position.longitude.toString());
+
+      //SharedConfig.pref.setString("lat", position.latitude.toString());
+      //SharedConfig.pref.setString("long", position.longitude.toString());
 
 
       List<Placemark> placemarks =

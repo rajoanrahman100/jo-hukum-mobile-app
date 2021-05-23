@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
@@ -12,15 +10,18 @@ class ElasticController extends GetxController{
 
   var categoryText="Choose Category".obs;
 
-  var scrollController=ScrollController();
+  var searchListSize=10.obs;
 
-  var pageNumber=0.obs;
+  var pageNumber=1.obs;
 
   var searchText="".obs;
 
+  setListSize(){
+    searchListSize.value++;
+  }
 
   setPageNumber(){
-    pageNumber.value=pageNumber.value+10;
+    pageNumber.value=pageNumber.value+5;
   }
 
   setPageNumberWhileSearch(){
@@ -52,7 +53,7 @@ class ElasticController extends GetxController{
     }
   }*/
 
-  Future<void> fetchElasticeData({String text,int startForm}) async {
+  Future<void> fetchElasticeData({String text,int startForm,int size}) async {
 
     final json=jsonEncode({
       "query": {
@@ -77,7 +78,7 @@ class ElasticController extends GetxController{
         }
       },
       "from": startForm,
-      "size": 10,
+      "size": size,
       "sort": [{
         "_geo_distance": {
           "geo": {

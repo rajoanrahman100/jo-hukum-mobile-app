@@ -32,11 +32,14 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
       if(scrollController.position.pixels==scrollController.position.maxScrollExtent){
 
         elasticController.setPageNumber();
+        elasticController.setListSize();
         print("page number: ${elasticController.pageNumber.value}");
+        print("list size : ${elasticController.searchListSize.value}");
 
         await elasticController.fetchElasticeData(
             text: elasticController.searchText.value,
-            startForm: elasticController.pageNumber.value
+            startForm: elasticController.pageNumber.value,
+            size: elasticController.searchListSize.value,
         );
       }
     });
@@ -94,7 +97,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                         elasticController.setPageNumberWhileSearch();
 
                         await elasticController.fetchElasticeData(text:elasticController.searchText.value,startForm:
-                        elasticController.pageNumber.value);
+                        elasticController.pageNumber.value,size: elasticController.searchListSize.value);
                       },
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -173,7 +176,8 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BusinessProfile(id:dataList[index].sId)),
+                        MaterialPageRoute(builder: (context) => BusinessProfile(id:dataList[index].sId,name:
+                        dataList[index].sSource.businessName,)),
                       );
 
                       //   Navigator.pushNamed(context, '/businessProfile');

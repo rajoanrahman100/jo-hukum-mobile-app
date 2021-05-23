@@ -442,7 +442,7 @@ class StepTheeScreenTwo extends StatelessWidget {
                   onTap: (){
 
 
-                    if(paymentIdList.length==0){
+                    if(paymentController.paymentList.length==0){
                       return showErrorToast("Select your payment method");
                     }else{
                       boxStorage.write(SAT_START,satStart);

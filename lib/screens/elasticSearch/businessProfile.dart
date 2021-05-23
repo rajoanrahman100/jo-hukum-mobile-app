@@ -19,8 +19,9 @@ import 'package:maps_launcher/maps_launcher.dart';
 
 class BusinessProfile extends StatefulWidget {
   String id;
+  String name;
 
-  BusinessProfile({this.id});
+  BusinessProfile({this.id,this.name});
 
   @override
   _BusinessProfileState createState() => _BusinessProfileState();
@@ -59,7 +60,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
   @override
   void initState() {
     // TODO: implement initState
-    businessProfileController.getBUsinessData(widget.id);
+    businessProfileController.getBusinessData(widget.id);
   }
 
   @override
@@ -74,7 +75,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
         appBar: AppBar(
           backgroundColor: kPrimaryPurple,
           title: Text(
-            "Profile",
+            widget.name,
             style: textStyleUbuntu(color: kWhiteColor),
           ),
           iconTheme: IconThemeData(color: kWhiteColor),
@@ -124,12 +125,12 @@ class _BusinessProfileState extends State<BusinessProfile> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                RatingBar.builder(
-                                  initialRating: obj.aggregateRating.toDouble(),
+                                Obx(()=>RatingBar.builder(
+                                  initialRating: businessProfileController.ratingValue.value.toDouble(),
                                   minRating: 1,
                                   itemSize: 27.0,
                                   direction: Axis.horizontal,
-                                  allowHalfRating: true,
+                                  allowHalfRating: false,
                                   itemCount: 5,
                                   //itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                                   itemBuilder: (context, _) => Icon(
@@ -137,7 +138,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     color: Colors.amber,
                                   ),
 
-                                ),
+                                ),),
                                 Text(
                                   " (${obj.aggregateRating})",
                                   style: textStyleUbuntu(color: kBlackColor, fontSize: 16, fontWeight: weight500),
@@ -370,7 +371,10 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               scrollDirection: Axis.horizontal,
                                               itemCount: obj.contact.mobileNumbers.length,
                                               itemBuilder: (_, index) {
-                                                return Text(obj.contact.mobileNumbers[index].mobileNumber);
+                                                return Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                                  child: Text(obj.contact.mobileNumbers[index].mobileNumber),
+                                                );
                                               },
                                             ),
                                           ),

@@ -23,6 +23,10 @@ const String KEY_USER_AVATAR = "USER_AVATAR";
 const String KEY_USER_CREATED_AT = "USER_CREATED_AT";
 const String KEY_USER_UPDATED_AT = "USER_UPDATED_AT";
 
+///lAT & lANG
+
+const String LAT="lat";
+const String LONG="long";
 
 ///User business Data
 const String KEY_USER_BUSINESS_NAME="BUSINESS_NAME";

@@ -204,7 +204,7 @@ class StepSevenScreen extends StatelessWidget {
                         await businessController.addBusinessData(context);
 
                         ///Business Info
-                        print("business name: ${boxStorage.read(KEY_USER_BUSINESS_NAME)}");
+/*                        print("business name: ${boxStorage.read(KEY_USER_BUSINESS_NAME)}");
                         print("KEY_USER_STREET_ADDRESS: ${boxStorage.read(KEY_USER_STREET_ADDRESS)}");
                         print("KEY_USER_LANDMARK: ${boxStorage.read(KEY_USER_LANDMARK)}");
                         print("KEY_USER_BUILDING: ${boxStorage.read(KEY_USER_BUILDING)}");
@@ -238,7 +238,7 @@ class StepSevenScreen extends StatelessWidget {
                         print("ANNUAL_TURNOVER: ${boxStorage.read(ANNUAL_TURNOVER)}");
                         print("DESCRIPTION: ${boxStorage.read(DESCRIPTION)}");
                         print("TYPE_OF_BUSINESS: ${boxStorage.read(TYPE_OF_BUSINESS)}");
-                        print("KEYWORDS: ${boxStorage.read(KEYWORDS)}");
+                        print("KEYWORDS: ${boxStorage.read(KEYWORDS)}");*/
 
                       }
 

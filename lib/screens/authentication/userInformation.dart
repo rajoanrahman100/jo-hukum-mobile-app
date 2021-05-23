@@ -229,7 +229,6 @@ class UserAdditionalInformation extends StatelessWidget {
   }
 
   Future sendUserInfo(name, email, password, context) async {
-    print("mobile Number ${SharedConfig.pref.get("phone")}");
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context);
     var res = await http.post(Uri.parse(sendInfo),
@@ -240,11 +239,12 @@ class UserAdditionalInformation extends StatelessWidget {
           "first_name": name,
           "email": email,
           "password": password,
-          "mobile_number": SharedConfig.pref.get("phone")
+          "mobile_number": boxStorage.read(KEY_USER_PHONE)
         }));
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
+      Get.snackbar("Success!", "account created successfully",backgroundColor: kWhiteColor);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;
     } else {
@@ -252,7 +252,7 @@ class UserAdditionalInformation extends StatelessWidget {
       //Map<String, dynamic> body = jsonDecode(res.body);
       //print(body["user"]);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      showSnackBar(context: context,message: "User with this number alredy exist",label: "");
+      Get.snackbar("Error!", "user with this number already exist",backgroundColor: kWhiteColor);
       return;
     }
   }
