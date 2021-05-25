@@ -13,21 +13,27 @@ class ElasticController extends GetxController{
 
   var searchListSize=10.obs;
 
-  var pageNumber=1.obs;
+  var pageNumber=0.obs;
 
   var searchText="".obs;
+
+  var elasticDataList=List<HitsChild>().obs;
 
   setListSize(){
     searchListSize.value++;
   }
 
+  setPaginateNumber(){
+    pageNumber.value=pageNumber.value+10;
+  }
+
   setPageNumber(){
-    pageNumber.value=pageNumber.value+5;
+    pageNumber.value=pageNumber.value+10;
   }
 
   setPageNumberWhileSearch(){
     pageNumber.value=0;
-
+    elasticDataList.clear();
   }
 
   setSearchText(value){
@@ -45,6 +51,12 @@ class ElasticController extends GetxController{
   }
 
 
+   Future<void> getElasticData({String text,int startForm,int size})async{
+    var data=await fetchElasticDataTwo(text,startForm,size);
+    elasticDataList.addAll(data);
+    print(elasticDataList.length);
+
+   }
 
   /*Future<void> fetchElasticePost({int startFrom=0,String text})async{
     try{
@@ -104,6 +116,63 @@ class ElasticController extends GetxController{
       var dataMap = jsonDecode(response.body);
       TestClass elasticSearchData = TestClass.fromJson(dataMap);
       elasticData.value = elasticSearchData;
+    } else {
+      throw ("Error code " + response.statusCode.toString());
+    }
+  }
+
+
+
+  Future<List<HitsChild>> fetchElasticDataTwo(String text,int startForm,int size) async {
+
+    final json=jsonEncode({
+      "query": {
+        "bool": {
+          "must": [{
+            "query_string": {
+              "fields": ["business_name"],
+              "query": "*$text*",
+              "analyzer": "simple",
+              "default_operator": "AND"
+            }
+          }]
+        }
+
+      },
+      "suggest": {
+        "namesuggester": {
+          "text": "*$text*",
+          "term": {
+            "field": "business_name"
+          }
+        }
+      },
+      "from": startForm,
+      "size": size,
+      "sort": [{
+        "_geo_distance": {
+          "geo": {
+            "lat": boxStorage.read(LAT),
+            "lon": boxStorage.read(LONG)
+          },
+          "order": "asc",
+          "unit": "km"
+        }
+      }]
+    });
+    // make GET request
+    var response = await post(
+        Uri.parse(elasticSearch), headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Basic ZWxhc3RpYzpKcnM5NTU3aGNTanNOMkJKZkpsTg==',
+    },body: json);
+
+    print("elastic response = " + response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var dataMap = jsonDecode(response.body);
+      TestClass elasticSearchData = TestClass.fromJson(dataMap);
+      return elasticSearchData.hits.hits;
     } else {
       throw ("Error code " + response.statusCode.toString());
     }

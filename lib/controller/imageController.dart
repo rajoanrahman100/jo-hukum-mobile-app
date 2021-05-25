@@ -16,6 +16,13 @@ class ImageController extends GetxController {
   var selectMorePhotoThree = "".obs;
 
 
+  setPickedLogoImage(logoValue){
+    selectLogoImagePath.value=logoValue;
+  }
+
+  setPickedCoverImage(logoValue){
+    selectCoverImagePath.value=logoValue;
+  }
 
   var selectNoPhoto = "".obs;
 

@@ -251,6 +251,8 @@ class AddBusinessController extends GetxController {
     }
   }
 
+  var one="".obs;
+
 
   uploadImageData(logoImage,coverPhoto,context)async{
 
@@ -264,10 +266,11 @@ class AddBusinessController extends GetxController {
     var request = http.MultipartRequest('PATCH', Uri.parse('https://api-backend.jo-hukum'
         '.com/consumers_api/business_data/${businessID.value}/uploads/'));
 
-//    request.fields.addAll({
-//      'photos': '[]',
-//      'videos': '[]'
-//    });
+   /* request.fields.addAll({
+      'photos': one.value??"",
+      'videos': '[]'
+    });*/
+
     request.files.add(await http.MultipartFile.fromPath('logo', logoImage,contentType:MediaType('image','jpeg')));
     request.files.add(await http.MultipartFile.fromPath('cover_photo', coverPhoto,contentType:MediaType('image','jpeg')));
     request.headers.addAll(<String, String>{

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
+
 class SearchItemWidget extends StatelessWidget {
   var image;
   var businessName;
@@ -20,7 +21,7 @@ class SearchItemWidget extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Container(
-          height: size.height * 0.15,
+          height: size.height/6,
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           decoration: BoxDecoration(
             //color: kWhiteColor,
@@ -52,7 +53,7 @@ class SearchItemWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             textUbuntu(businessName, kBlackColor,
-                                fontWeight: weight500, maxLine: 2, fontSize: 17),
+                                fontWeight: weight500, maxLine: 2, fontSize: 16),
                             size5,
                             Container(
                               height: 25,
@@ -92,4 +93,7 @@ class SearchItemWidget extends StatelessWidget {
       ),
     );
   }
+
+
+
 }

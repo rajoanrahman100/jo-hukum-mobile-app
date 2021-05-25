@@ -9,7 +9,7 @@ import 'package:johukum/screens/home/drawerClass.dart';
 import 'package:johukum/screens/home/posterShow.dart';
 import 'package:johukum/widgets/items.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'header.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -117,14 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (BuildContext ctx, index) {
                                 if(index==categoryController.resultDataClass.length-1){
 
-                                  return Center(child: CircularProgressIndicator());
+                                  return Center(child: CircularProgressIndicator(backgroundColor: kPrimaryPurple,));
                                 }
                                 return GestureDetector(
                                   onTap: (){
 
 
-                                    Get.to(()=>CategorySubcategories(sublist: categoryController.resultDataClass[index]
-                                        .subCategories,categoryName: categoryController.resultDataClass[index]
+                                    Get.to(()=>CategorySubcategories(sublist:categoryController.resultDataClass[index]
+                                        .subCategories,categoryName: categoryController
+                                        .resultDataClass[index]
                                         .name));
                                   },
                                   child: Container(
@@ -134,6 +135,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
 
+                                        SvgPicture.network("https://dsqdpdmeibwm2.cloudfront.net/${categoryController
+                                            .resultDataClass[index].icon}",height: 30,width: 30,),
+
+                                        size10,
                                         textUbuntu(categoryController.resultDataClass[index].name, kPrimaryPurple,
                                             fontWeight: FontWeight.w500)
                                       ],

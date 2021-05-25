@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/config.dart';
 import 'package:path/path.dart';
@@ -7,7 +7,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/imageController.dart';
 import 'package:johukum/responsive.dart';
@@ -21,9 +20,11 @@ import 'package:http_parser/http_parser.dart';
 import 'package:async/src/delegate/stream.dart';
 
 class StepSixScreen extends StatelessWidget {
+
   var imageController = Get.put(ImageController());
 
 
+  final picker = ImagePicker();
 
   uploadImageFunction(File imageFile, context) async {
     print('----------------------------------> upload start');
@@ -68,7 +69,7 @@ class StepSixScreen extends StatelessWidget {
                 children: [
                   textUbuntu("Business Logo", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500),
                   Container(
-                    height: size.height * 0.2,
+                    height: size.height/4,
                     child: new Column(
                       children: <Widget>[
                         Obx(() => Padding(
@@ -111,13 +112,9 @@ class StepSixScreen extends StatelessWidget {
                                           radius: 25.0,
                                           child: new IconButton(
                                               onPressed: () {
-                                                buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                                  imageController.getLogoImage(ImageSource.camera, context);
-                                                  Navigator.of(context).pop();
-                                                }, galleryCallBack: () {
-                                                  imageController.getLogoImage(ImageSource.gallery, context);
-                                                  Navigator.of(context).pop();
-                                                });
+
+                                                getLogoFromCamera();
+
                                               },
                                               icon: Icon(
                                                 Icons.camera_alt,
@@ -138,13 +135,14 @@ class StepSixScreen extends StatelessWidget {
                     () => imageController.selectCoverImagePath.value == ""
                         ? GestureDetector(
                             onTap: () {
-                              buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                              getCoverFromCamera();
+                              /*buildShowBarModalBottomSheet(context, cameraCallBack: () {
                                 imageController.getCoverImage(ImageSource.camera, context);
                                 Navigator.of(context).pop();
                               }, galleryCallBack: () {
                                 imageController.getCoverImage(ImageSource.gallery, context);
                                 Navigator.of(context).pop();
-                              });
+                              });*/
                             },
                             child: Container(
                                 height: 200.0,
@@ -174,13 +172,11 @@ class StepSixScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                           onTap: () {
-                            buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                              imageController.getCoverImage(ImageSource.camera, context);
+                            getCoverFromCamera();
+                            /*buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                              getCoverFromCamera();
                               Navigator.of(context).pop();
-                            }, galleryCallBack: () {
-                              imageController.getCoverImage(ImageSource.gallery, context);
-                              Navigator.of(context).pop();
-                            });
+                            });*/
                           },
                           child:
                               textUbuntu("Upload Cover Photo", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500)),
@@ -285,8 +281,6 @@ class StepSixScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
 
-
-                      uploadImageFunction(File(imageController.selectLogoImagePath.value), context);
                       //imageController.upload(File(imageController.selectLogoImagePath.value));
 
                       if(imageController.selectLogoImagePath.value.isEmpty){
@@ -317,6 +311,23 @@ class StepSixScreen extends StatelessWidget {
       ),
     );
   }
+
+  Future getLogoFromCamera() async {
+    final image = await picker.getImage(source: ImageSource.camera, imageQuality: 20);
+    print("camera image");
+
+    imageController.setPickedLogoImage(image.path);
+
+  }
+
+  Future getCoverFromCamera() async {
+    final image = await picker.getImage(source: ImageSource.camera, imageQuality: 20);
+    print("cover image");
+
+    imageController.setPickedCoverImage(image.path);
+
+  }
+
 }
 
 class NewWidget extends StatelessWidget {
