@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/modelClass/elasticSearchModel.dart';
 
 class ElasticController extends GetxController{
@@ -82,8 +83,8 @@ class ElasticController extends GetxController{
       "sort": [{
         "_geo_distance": {
           "geo": {
-            "lat": 23.7138199,
-            "lon": 90.4297414
+            "lat": boxStorage.read(LAT),
+            "lon": boxStorage.read(LONG)
           },
           "order": "asc",
           "unit": "km"

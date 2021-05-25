@@ -4,6 +4,7 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/addBusinessController.dart';
 import 'package:johukum/controller/businessTagController.dart';
+import 'package:johukum/controller/imageController.dart';
 import 'package:johukum/controller/keywordController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
@@ -17,6 +18,7 @@ class StepSevenScreen extends StatelessWidget {
   var keywordController = Get.put(KeywordController());
   var tagController = Get.put(BusinessTagController());
   var businessController = Get.put(AddBusinessController());
+  var imageController=Get.put(ImageController());
 
   var titleSeo=TextEditingController();
   var metaDesc=TextEditingController();
@@ -201,7 +203,8 @@ class StepSevenScreen extends StatelessWidget {
                         return showErrorToast("At least one keyword is required");
                       }else{
 
-                        await businessController.addBusinessData(context);
+                        await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
+                            imageController.selectCoverImagePath.value);
 
                         ///Business Info
 /*                        print("business name: ${boxStorage.read(KEY_USER_BUSINESS_NAME)}");

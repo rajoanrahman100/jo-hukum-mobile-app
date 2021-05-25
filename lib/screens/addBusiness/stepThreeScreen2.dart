@@ -71,7 +71,7 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
-                                     satStart = time;
+                                    satStart = DateFormat("hh:mm").format(date).toString();
                                     businessTimeController.setWeeklyStartHour("Sat", time);
                                     print("start Time $time & $satStart");
                                   });
@@ -110,7 +110,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
-                                    sundayStart=time;
+                                     sundayStart = DateFormat("hh:mm").format(date).toString();
+                                    //sundayStart=time;
                                     businessTimeController.setWeeklyStartHour("Sun", time);
                                     print("sunday $sundayStart");
                                   });
@@ -149,7 +150,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
-                                    mondayStart=time;
+                                     mondayStart = DateFormat("hh:mm").format(date).toString();
+                                    //mondayStart=time;
                                     print("monday $mondayStart");
                                     businessTimeController.setWeeklyStartHour("Mon", time);
                                   });
@@ -188,7 +190,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
-                                    tueStart=time;
+                                    tueStart = DateFormat("hh:mm").format(date).toString();
+
+                                   // tueStart=time;
                                     print("tuesday $tueStart");
                                     businessTimeController.setWeeklyStartHour("Tue", time);
                                   });
@@ -227,7 +231,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
-                                    wedStart=time;
+                                    wedStart = DateFormat("hh:mm").format(date).toString();
+
+                                   // wedStart=time;
                                     print("Wed $time");
                                     businessTimeController.setWeeklyStartHour("Wed", time);
                                   });
@@ -266,7 +272,9 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
-                                    thurStart=time;
+                                    thurStart = DateFormat("hh:mm").format(date).toString();
+
+                                    //thurStart=time;
                                     print("thurs $thurStart");
                                     businessTimeController.setWeeklyStartHour("Thurs", time);
                                   });
@@ -305,6 +313,8 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    friStart = DateFormat("hh:mm").format(date).toString();
+
                                     businessTimeController.setWeeklyStartHour("Fri", time);
                                   });
                                 },
@@ -314,6 +324,7 @@ class StepTheeScreenTwo extends StatelessWidget {
                                 callBack: () {
                                   setTimerWidget(context, onConfirm: (date) {
                                     var time = DateFormat.jm().format(date).toString();
+                                    friEnd = DateFormat.Hm().format(date).toString();
                                     businessTimeController.setWeeklyEndHour("Fri", time);
                                   });
                                 },

@@ -1,7 +1,12 @@
-import 'dart:io';
+import 'dart:convert';
 
+import 'package:johukum/components/apis.dart';
+import 'package:johukum/components/config.dart';
+import 'package:path/path.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/imageController.dart';
@@ -11,13 +16,40 @@ import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:http_parser/http_parser.dart';
+// ignore: implementation_imports
+import 'package:async/src/delegate/stream.dart';
 
 class StepSixScreen extends StatelessWidget {
   var imageController = Get.put(ImageController());
 
 
 
+  uploadImageFunction(File imageFile, context) async {
+    print('----------------------------------> upload start');
+    var stream = new http.ByteStream(imageFile.openRead());
+    var length = await imageFile.length();
+    var uri = Uri.parse(uploadImagesAPi);
+    var request = new http.MultipartRequest("POST", uri);
+    var multipartFile = new http.MultipartFile('image', stream, length, filename: basename(imageFile.path),
+        contentType:MediaType('image','jpeg'));
 
+    request.headers.addAll(
+      <String, String>{
+        'Authorization': boxStorage.read(KEY_TOKEN),
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    request.files.add(multipartFile);
+    //request.fields.addAll({'folderName': folderName, 'subFolderName': subFolderName, 'fileName': DateTime.now()
+       // .millisecondsSinceEpoch.toString()});
+    var response = await request.send();
+
+    print(response.statusCode);
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +285,9 @@ class StepSixScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
 
-                      imageController.upload(File(imageController.selectLogoImagePath.value));
+
+                      uploadImageFunction(File(imageController.selectLogoImagePath.value), context);
+                      //imageController.upload(File(imageController.selectLogoImagePath.value));
 
                       if(imageController.selectLogoImagePath.value.isEmpty){
                         return showErrorToast("Select business logo");

@@ -6,18 +6,20 @@ import 'package:johukum/components/apis.dart';
 import 'package:johukum/modelClass/categoryClass.dart';
 import 'package:johukum/modelClass/cityModel.dart';
 import 'package:johukum/modelClass/divisionModel.dart';
-import 'package:johukum/modelClass/elasticSearchModel.dart';
 
-Future<void> fetchCategory(Rx<CategoryClass> categoryDataClass) async {
+Future<void> fetchCategory(Rx<CategoryClass> categoryDataClass,pageNumber,RxList<Results2> result) async {
   // make GET request
-  var response = await get(Uri.parse(categoryApi));
+  var response = await get(Uri.parse(categoryApi+"?"+"page=$pageNumber"));
 
-  print("Response = " + response.body);
+  print("ResponsefetchCategory = " + response.body);
 
   if (response.statusCode == 200 || response.statusCode == 201) {
     var dataMap = jsonDecode(response.body);
     CategoryClass homeProductDataClass = CategoryClass.fromJson(dataMap);
     categoryDataClass.value = homeProductDataClass;
+
+    //result.add(homeProductDataClass.results);
+
   } else {
     throw ("Error code " + response.statusCode.toString());
   }

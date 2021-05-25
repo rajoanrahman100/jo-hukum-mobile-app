@@ -131,6 +131,8 @@ class StepOneScreen extends StatelessWidget {
                               fontSize: 16)),
                           GestureDetector(
                               onTap: () {
+                                FocusScope.of(context)
+                                    .unfocus();
                                 openDivisionDialog(context);
                               },
                               child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))

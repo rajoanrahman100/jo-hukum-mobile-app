@@ -7,18 +7,18 @@ class CategoryClass {
   int _count;
   int _pageSize;
   int _current;
-  List<Results> _results;
+  List<Results2> _results;
 
   int get count => _count;
   int get pageSize => _pageSize;
   int get current => _current;
-  List<Results> get results => _results;
+  List<Results2> get results => _results;
 
   CategoryClass({
       int count, 
       int pageSize, 
       int current, 
-      List<Results> results}){
+      List<Results2> results}){
     _count = count;
     _pageSize = pageSize;
     _current = current;
@@ -32,7 +32,7 @@ class CategoryClass {
     if (json["results"] != null) {
       _results = [];
       json["results"].forEach((v) {
-        _results.add(Results.fromJson(v));
+        _results.add(Results2.fromJson(v));
       });
     }
   }
@@ -108,7 +108,7 @@ class Results {
 }
 
   Results.fromJson(dynamic json) {
-    _id = json["Id"];
+    _id = json["_id"];
     _name = json["name"];
     _slug = json["slug"];
     _displayName = json["displayName"];
@@ -117,9 +117,9 @@ class Results {
     _order = json["order"];
     _showAsSlider = json["showAsSlider"];
     _parent = json["parent"];
-    if (json["subCategories"] != null) {
+    if (json["sub_categories"] != null) {
       _subCategories = [];
-      json["subCategories"].forEach((v) {
+      json["sub_categories"].forEach((v) {
         _subCategories.add(Sub_categories.fromJson(v));
       });
     }
@@ -127,7 +127,7 @@ class Results {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["Id"] = _id;
+    map["_id"] = _id;
     map["name"] = _name;
     map["slug"] = _slug;
     map["displayName"] = _displayName;
@@ -137,7 +137,89 @@ class Results {
     map["showAsSlider"] = _showAsSlider;
     map["parent"] = _parent;
     if (_subCategories != null) {
-      map["subCategories"] = _subCategories.map((v) => v.toJson()).toList();
+      map["sub_categories"] = _subCategories.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+class Results2 {
+  String _id;
+  String _name;
+  String _slug;
+  String _displayName;
+  String _icon;
+  String _banner;
+  int _order;
+  bool _showAsSlider;
+  dynamic _parent;
+  List<Sub_categories> _subCategories;
+
+  String get id => _id;
+  String get name => _name;
+  String get slug => _slug;
+  String get displayName => _displayName;
+  String get icon => _icon;
+  String get banner => _banner;
+  int get order => _order;
+  bool get showAsSlider => _showAsSlider;
+  dynamic get parent => _parent;
+  List<Sub_categories> get subCategories => _subCategories;
+
+  Results2({
+      String id,
+      String name,
+      String slug,
+      String displayName,
+      String icon,
+      String banner,
+      int order,
+      bool showAsSlider,
+      dynamic parent,
+      List<Sub_categories> subCategories}){
+    _id = id;
+    _name = name;
+    _slug = slug;
+    _displayName = displayName;
+    _icon = icon;
+    _banner = banner;
+    _order = order;
+    _showAsSlider = showAsSlider;
+    _parent = parent;
+    _subCategories = subCategories;
+}
+
+  Results2.fromJson(dynamic json) {
+    _id = json["_id"];
+    _name = json["name"];
+    _slug = json["slug"];
+    _displayName = json["displayName"];
+    _icon = json["icon"];
+    _banner = json["banner"];
+    _order = json["order"];
+    _showAsSlider = json["showAsSlider"];
+    _parent = json["parent"];
+    if (json["sub_categories"] != null) {
+      _subCategories = [];
+      json["sub_categories"].forEach((v) {
+        _subCategories.add(Sub_categories.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = <String, dynamic>{};
+    map["_id"] = _id;
+    map["name"] = _name;
+    map["slug"] = _slug;
+    map["displayName"] = _displayName;
+    map["icon"] = _icon;
+    map["banner"] = _banner;
+    map["order"] = _order;
+    map["showAsSlider"] = _showAsSlider;
+    map["parent"] = _parent;
+    if (_subCategories != null) {
+      map["sub_categories"] = _subCategories.map((v) => v.toJson()).toList();
     }
     return map;
   }
@@ -197,7 +279,7 @@ class Sub_categories {
 }
 
   Sub_categories.fromJson(dynamic json) {
-    _id = json["Id"];
+    _id = json["_id"];
     _name = json["name"];
     _slug = json["slug"];
     _displayName = json["displayName"];
@@ -210,7 +292,7 @@ class Sub_categories {
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["Id"] = _id;
+    map["_id"] = _id;
     map["name"] = _name;
     map["slug"] = _slug;
     map["displayName"] = _displayName;

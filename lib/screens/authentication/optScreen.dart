@@ -38,10 +38,13 @@ class OtpInputScreen extends StatelessWidget{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
-                            Icons.arrow_back_ios,
-                            color: kWhiteColor,
-                            size: 18.0,
+                          GestureDetector(
+                            onTap:()=>Navigator.pop(context),
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              color: kWhiteColor,
+                              size: 18.0,
+                            ),
                           )
                         ],
                       ),

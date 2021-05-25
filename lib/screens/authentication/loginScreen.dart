@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/controller/authController.dart';
 import 'package:johukum/controller/passController.dart';
+import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
@@ -49,10 +50,13 @@ class SignInScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(
-                              Icons.arrow_back_ios,
-                              color: kWhiteColor,
-                              size: 18.0,
+                            GestureDetector(
+                              onTap:()=>Navigator.pop(context),
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: kWhiteColor,
+                                size: 20.0,
+                              ),
                             )
                           ],
                         ),
@@ -221,13 +225,16 @@ class SignInScreen extends StatelessWidget {
                                           SizedBox(
                                             height: 10.0,
                                           ),
-                                          Text(
-                                            "Sign Up",
-                                            style: textStyleUbuntu(
-                                                color: kBlackColor,
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.bold,
-                                                textDecoration: TextDecoration.underline),
+                                          GestureDetector(
+                                            onTap: ()=>Get.to(SignUpScreen()),
+                                            child: Text(
+                                              "Sign Up",
+                                              style: textStyleUbuntu(
+                                                  color: kBlackColor,
+                                                  fontSize: 18.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  textDecoration: TextDecoration.underline),
+                                            ),
                                           ),
                                           SizedBox(
                                             height: 10.0,

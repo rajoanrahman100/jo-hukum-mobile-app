@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 class ListWidgetController extends GetxController {
   var list = [].obs;
 
+  var nameTitle="Mr.".obs;
+
   var questionList = [].obs;
 
   var addNoOne = false.obs;
@@ -12,6 +14,8 @@ class ListWidgetController extends GetxController {
   var addQuestionTwo = false.obs;
   var addQuestionThree = false.obs;
   var addQuestionFour= false.obs;
+
+
 
   setQuestionCount(int value) {
     if (value == 1) {

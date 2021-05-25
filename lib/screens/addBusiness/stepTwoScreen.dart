@@ -10,6 +10,7 @@ import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../responsive.dart';
 
@@ -43,6 +44,7 @@ class StepTwoScreen extends StatelessWidget {
   var mobileThree=TextEditingController();
 
 
+  var nameTitleList=["Mr.","Mrs.","Miss.","Dr."];
 
 
   @override
@@ -64,7 +66,49 @@ class StepTwoScreen extends StatelessWidget {
                   children: [
                     size10,
                     textUbuntu("Title*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
+                    size5,
+                    Container(
+                      height: 50.0,
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(()=>textUbuntu(controller.nameTitle.value, kBlackColor.withOpacity(0.6), fontSize:
+                          14),),
+                          GestureDetector(
+                            onTap: (){
+                              showBarModalBottomSheet(
+                                  backgroundColor: kWhiteColor,
+                                  context: context,
+                                  expand: false,
+                                  builder: (context) => Container(
+                                    height: size.height * 0.3,
+                                    child: ListView.builder(
+                                      itemCount: nameTitleList.length,
+                                      itemBuilder:(_,index){
+                                        return ListTile(
+                                          onTap: (){
+
+                                            controller.nameTitle.value=nameTitleList[index];
+                                            Navigator.of(context).pop();
+                                          },
+                                          leading: Icon(Icons.person,color: kPrimaryPurple,),
+                                          title: textUbuntu(nameTitleList[index], kPrimaryPurple),
+                                        );
+                                      },
+                                    ),
+                                  ));
+                            },
+                            child: Icon(
+                              Icons.arrow_drop_down_circle,
+                              color: kPrimaryPurple,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    /*AddBusinessForm(
                       controller: title,
                       hintText: "Mr/Mrs",
                       suffixIcon: Icon(
@@ -79,7 +123,7 @@ class StepTwoScreen extends StatelessWidget {
                         _formKey.currentState.save();
                         return null;
                       },
-                    ),
+                    ),*/
                     size10,
                     textUbuntu("Full Name*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
@@ -246,7 +290,7 @@ class StepTwoScreen extends StatelessWidget {
                         if (_formKey.currentState.validate()) {
 
                           boxStorage.write(KEY_BUSINESS_OWNER_NAME, fullName.text);
-                          boxStorage.write(KEY_BUSINESS_OWNER_TITLE, title.text);
+                          boxStorage.write(KEY_BUSINESS_OWNER_TITLE, controller.nameTitle.value);
                           boxStorage.write(KEY_BUSINESS_DESIGNATION, designation.text);
                           boxStorage.write(KEY_BUSINESS_PHONE_NUMBER, numberController.text??"No Number Found");
                           boxStorage.write(KEY_BUSINESS_FACEBOOK, facebook.text??"No Facebook ID Found");

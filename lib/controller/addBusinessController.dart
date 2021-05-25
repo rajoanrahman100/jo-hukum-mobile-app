@@ -1,15 +1,24 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/modelClass/responseBusinessData.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 
 class AddBusinessController extends GetxController {
 
-  Future<void> addBusinessData(context) async {
+
+  var responseBusinessData=ResponseBusinessData().obs;
+
+  var businessID="".obs;
+
+  Future<void> addBusinessData(context,logo,cover) async {
+
+    print("----business data add start----");
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
@@ -115,6 +124,7 @@ class AddBusinessController extends GetxController {
       "business_type": boxStorage.read(TYPE_OF_BUSINESS)
     };
 
+    print(json);
 
     var response = await post(Uri.parse(addBusiness),
         headers: <String, String>{
@@ -133,7 +143,7 @@ class AddBusinessController extends GetxController {
               {"mobile_number": boxStorage.read(MOBILE_ONE)}
             ], //atleast one required
             "name": boxStorage.read(KEY_BUSINESS_OWNER_NAME), //required
-            "title": "Mr.", //required
+            "title": boxStorage.read(KEY_BUSINESS_OWNER_TITLE), //required
             "website": boxStorage.read(KEY_BUSINESS_WEBSITE)??"www.google.com"
           },
           "description": boxStorage.read(DESCRIPTION), //required
@@ -223,14 +233,64 @@ class AddBusinessController extends GetxController {
         }));
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      print("Data added successfully");
+
+      //JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      var dataMap = jsonDecode(response.body);
+      ResponseBusinessData responseBusiness=ResponseBusinessData.fromJson(dataMap);
+      responseBusinessData.value=responseBusiness;
+      businessID.value=responseBusiness.id;
+      await uploadImageData(logo,cover,context);
+      print("business id ${responseBusinessData.value.id}");
       //showSnackBar(context: context,message: "Business Data Addded Successfully",callBack: (){});
       Navigator.pushNamed(context, '/lastSuccess');
-      print("Data added successfully" + response.body);
     } else {
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
 
       print("error: " + response.body);
     }
+  }
+
+
+  uploadImageData(logoImage,coverPhoto,context)async{
+
+    print("----uploading images start----");
+
+    var headers = {
+      'Content-Type': 'multipart/form-data; charset=UTF-8',
+      'Authorization': boxStorage.read(KEY_TOKEN),
+    };
+
+    var request = http.MultipartRequest('PATCH', Uri.parse('https://api-backend.jo-hukum'
+        '.com/consumers_api/business_data/${businessID.value}/uploads/'));
+
+//    request.fields.addAll({
+//      'photos': '[]',
+//      'videos': '[]'
+//    });
+    request.files.add(await http.MultipartFile.fromPath('logo', logoImage,contentType:MediaType('image','jpeg')));
+    request.files.add(await http.MultipartFile.fromPath('cover_photo', coverPhoto,contentType:MediaType('image','jpeg')));
+    request.headers.addAll(<String, String>{
+      'Authorization': boxStorage.read(KEY_TOKEN),
+      'Content-Type': 'multipart/form-data; charset=UTF-8',
+    },);
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+
+      print("upload image successfully");
+      print("Status Code: ${response.statusCode}");
+
+      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+
+      print(await response.stream.bytesToString());
+    }
+    else {
+      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      print("Status Code: ${response.statusCode}");
+      print(await response.stream.bytesToString());
+    }
+
   }
 }

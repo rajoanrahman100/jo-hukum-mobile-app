@@ -24,6 +24,7 @@ class ImageController extends GetxController {
 
     if (pickedFile != null) {
       selectLogoImagePath.value = pickedFile.path;
+      print("image link ${selectLogoImagePath.value}");
     } else {
       showSnackBar(context: context, message: "No image selected", callBack: () {});
     }
@@ -53,31 +54,4 @@ class ImageController extends GetxController {
   }
 
 
-  void upload(File file) async {
-    String fileName = file.path.split('/').last;
-
-    FormData data = FormData({
-      "logo": await MultipartFile(file.path,),
-      "cover_photo": await MultipartFile(file.path,),
-    });
-
-    var response = await http.post(Uri.parse(uploadImagesAPi),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': boxStorage.read(KEY_TOKEN),
-        },
-        body: data);
-    if(response.statusCode==200){
-      print("Status Code: ${response.statusCode}");
-      print(response.body);
-    }else{
-      print("Error Body: ${response.body}");
-
-    }
-
-//
-//    var response=await post("http://192.168.43.225/api/media", data: data)
-//        .then((response) => print(response))
-//        .catchError((error) => print(error));
-  }
 }

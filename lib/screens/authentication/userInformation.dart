@@ -168,13 +168,18 @@ class UserAdditionalInformation extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "Skip",
-                                style: textStyleUbuntu(
-                                    color: kBlackColor,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                    textDecoration: TextDecoration.underline),
+                              GestureDetector(
+                                onTap:(){
+                                  Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
+                                },
+                                child: Text(
+                                  "Skip",
+                                  style: textStyleUbuntu(
+                                      color: kBlackColor,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                      textDecoration: TextDecoration.underline),
+                                ),
                               ),
                               GestureDetector(
                                 onTap: () {
@@ -245,6 +250,8 @@ class UserAdditionalInformation extends StatelessWidget {
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
       Get.snackbar("Success!", "account created successfully",backgroundColor: kWhiteColor);
+      Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
+
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;
     } else {
