@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/controller/categoryBusinessDataController.dart';
 import 'package:johukum/controller/categoryController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/home/categorySubcategories.dart';
@@ -10,6 +11,7 @@ import 'package:johukum/screens/home/posterShow.dart';
 import 'package:johukum/widgets/items.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'businessItems.dart';
 import 'header.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
   var categoryController = Get.put(CategoryController());
 
   var scrollController=ScrollController();
+
+  //var bController=Get.put(CategoryBusinessDataController());
 
   @override
   void initState() {
@@ -122,11 +126,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return GestureDetector(
                                   onTap: (){
 
+                                    //print(categoryController.resultDataClass[index].id);
+                                    //bController.setBusinessID(categoryController.resultDataClass[index].id);
 
-                                    Get.to(()=>CategorySubcategories(sublist:categoryController.resultDataClass[index]
+                                    Get.to(()=>BusinessItems(categoryController.resultDataClass[index].id,
+                                        categoryController.resultDataClass[index].name));
+
+                                    /*Get.to(()=>CategorySubcategories(sublist:categoryController.resultDataClass[index]
                                         .subCategories,categoryName: categoryController
                                         .resultDataClass[index]
-                                        .name));
+                                        .name));*/
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

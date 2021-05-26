@@ -101,6 +101,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                       controller: searchController,
                       autofocus: false,
                       onChanged: (value) async {
+                        elasticController.elasticDataList.clear();
                         elasticController.setSearchText(value);
                         elasticController.setPageNumberWhileSearch();
 
@@ -171,12 +172,13 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                 : Expanded(
               child: ListView.builder(
                 controller: scrollController,
-                itemCount: elasticController.elasticDataList.length,
+                itemCount: elasticController.elasticDataList.length+1,
                 itemBuilder: (_, index) {
                   var dataList = elasticController.elasticDataList;
-                  if ((index == elasticController.elasticDataList.length - 1) || elasticController.elasticDataList
-                      .length<0)  {
+                  if (index == elasticController.elasticDataList.length)  {
                     return Center(child: CircularProgressIndicator(backgroundColor: kPrimaryPurple,));
+                  }if (elasticController.elasticDataList.length == 0)  {
+                    return Center(child: Text("No Data Found"));
                   }
                   return SearchItemWidget(
                     image: "https://dsqdpdmeibwm2.cloudfront.net/${dataList[index].sSource.logo}",

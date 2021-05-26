@@ -25,6 +25,7 @@ class ElasticController extends GetxController{
 
   setPaginateNumber(){
     pageNumber.value=pageNumber.value+10;
+    //elasticDataList.clear();
   }
 
   setPageNumber(){
@@ -32,8 +33,10 @@ class ElasticController extends GetxController{
   }
 
   setPageNumberWhileSearch(){
-    pageNumber.value=0;
+    print("its calling");
     elasticDataList.clear();
+
+    pageNumber.value=0;
   }
 
   setSearchText(value){
@@ -58,13 +61,6 @@ class ElasticController extends GetxController{
 
    }
 
-  /*Future<void> fetchElasticePost({int startFrom=0,String text})async{
-    try{
-      fetchElasticeData(text,startFrom);
-    }catch(e){
-
-    }
-  }*/
 
   Future<void> fetchElasticeData({String text,int startForm,int size}) async {
 
