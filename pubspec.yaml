@@ -49,6 +49,9 @@ dependencies:
   get_storage: ^2.0.2
   http_parser: ^4.0.0
   flutter_svg: ^0.22.0
+  google_sign_in: ^5.0.4
+  fl_chart: ^0.36.1
+
 
 
   #dio: ^4.0.0

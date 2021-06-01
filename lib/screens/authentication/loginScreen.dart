@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -13,6 +12,7 @@ import 'package:johukum/widgets/textWidgets.dart';
 import 'package:get/get.dart';
 import '../../components/components.dart';
 import '../../responsive.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInScreen extends StatelessWidget {
 
@@ -24,6 +24,11 @@ class SignInScreen extends StatelessWidget {
 
   var logInController=Get.put(AuthController());
   var c = Get.put(PassWordController());
+
+  GoogleSignIn googleSignIn=GoogleSignIn(scopes: [
+    'email',
+    // you can add extras if you require
+  ],);
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +209,11 @@ class SignInScreen extends StatelessWidget {
                                               SizedBox(
                                                 width: 5.0,
                                               ),
-                                              Image.asset("assets/images/google.png"),
+                                              GestureDetector(onTap: ()async{
+                                               await googleSignIn.signIn().then((value) => print(value.displayName));
+
+                                              },child: Image.asset("assets/images/google"
+                                                  ".png")),
                                               SizedBox(
                                                 width: 5.0,
                                               ),

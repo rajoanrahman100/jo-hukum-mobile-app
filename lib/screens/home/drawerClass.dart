@@ -98,6 +98,11 @@ class DrawerClass extends StatelessWidget {
                     title: "Profile Settings",
                     callBack: () => Navigator.pushNamed(context, '/profileSetting'),
                   ),
+                  DrawerItems(
+                    icon: Icons.dashboard,
+                    title: "User Dashboard",
+                    callBack: () => Navigator.pushNamed(context, '/dashBoard'),
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),

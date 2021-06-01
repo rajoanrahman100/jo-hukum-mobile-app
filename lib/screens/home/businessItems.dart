@@ -94,7 +94,7 @@ class _BusinessItemsState extends State<BusinessItems> {
                               print(dataList[index].sId);
 
                               Get.to(() => BusinessProfile(
-                                    id: dataList[index].sId,
+                                    id: dataList[index].sSource.slug,
                                     name: dataList[index].sSource.businessName,
                                   ));
 

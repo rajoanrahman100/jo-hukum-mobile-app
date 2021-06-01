@@ -13,6 +13,7 @@ import 'package:johukum/screens/authentication/optScreen.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
+import 'screens/dashboard/userDashBoard/dashboardBar.dart';
 import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/elasticSearch/businessProfile.dart';
 import 'package:johukum/screens/notificationsScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
@@ -20,7 +21,6 @@ import 'package:johukum/screens/subCategory/subCategories.dart';
 import 'package:johukum/screens/wrapper.dart';
 import 'components/config.dart';
 import 'screens/home/homeScreen.dart';
-import 'screens/welcomeScreen/welcomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
       '/stepSix': (context) => StepSixScreen(),
       '/stepSeven': (context) => StepSevenScreen(),
       '/lastSuccess': (context) => LastSuccessScreen(),
+      '/dashBoard': (context) => UserDashBoardTabs(),
     });
   }
 }

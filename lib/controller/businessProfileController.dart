@@ -34,7 +34,7 @@ class BusinessProfileController extends GetxController {
       ratingValue.value = businessData.aggregateRating;
     } else {
       loaderShow.value = false;
-      throw ("Error code " + response.statusCode.toString());
+      throw ("Error code:: " + response.statusCode.toString());
     }
   }
 

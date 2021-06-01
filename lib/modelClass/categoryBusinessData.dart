@@ -165,7 +165,7 @@ class Source {
   var aggregateRating;
   List<String> categories;
   List<MobileNo> mobileNo;
-
+  var slug;
   Source(
       {this.businessName,
         this.building,
@@ -181,7 +181,7 @@ class Source {
         this.totalReviews,
         this.aggregateRating,
         this.categories,
-        this.mobileNo});
+        this.mobileNo,this.slug});
 
   Source.fromJson(Map<String, dynamic> json) {
     businessName = json['business_name'];
@@ -204,6 +204,8 @@ class Source {
         mobileNo.add(new MobileNo.fromJson(v));
       });
     }
+    slug = json['slug'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -225,6 +227,8 @@ class Source {
     if (this.mobileNo != null) {
       data['mobile_no'] = this.mobileNo.map((v) => v.toJson()).toList();
     }
+    data['slug'] = this.slug;
+
     return data;
   }
 }

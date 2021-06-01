@@ -132,10 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Get.to(()=>BusinessItems(categoryController.resultDataClass[index].id,
                                         categoryController.resultDataClass[index].name));
 
-                                    /*Get.to(()=>CategorySubcategories(sublist:categoryController.resultDataClass[index]
-                                        .subCategories,categoryName: categoryController
-                                        .resultDataClass[index]
-                                        .name));*/
                                   },
                                   child: Container(
                                     alignment: Alignment.center,

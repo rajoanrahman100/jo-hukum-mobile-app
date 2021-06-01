@@ -176,7 +176,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                 itemBuilder: (_, index) {
                   var dataList = elasticController.elasticDataList;
                   if (index == elasticController.elasticDataList.length)  {
-                    return Center(child: CircularProgressIndicator(backgroundColor: kPrimaryPurple,));
+                    return Center(child: Text(""));
                   }if (elasticController.elasticDataList.length == 0)  {
                     return Center(child: Text("No Data Found"));
                   }
@@ -193,7 +193,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => BusinessProfile(
-                              id: dataList[index].sId,
+                              id: dataList[index].sSource.slug,
                               name: dataList[index].sSource.businessName,
                             )),
                       );

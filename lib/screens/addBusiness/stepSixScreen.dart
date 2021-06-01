@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/modelClass/singleImageModel.dart';
 import 'package:path/path.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -16,8 +17,7 @@ import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:http_parser/http_parser.dart';
-// ignore: implementation_imports
-import 'package:async/src/delegate/stream.dart';
+
 
 class StepSixScreen extends StatelessWidget {
 
@@ -25,6 +25,8 @@ class StepSixScreen extends StatelessWidget {
 
 
   final picker = ImagePicker();
+
+  //var idArray=[];
 
   uploadImageFunction(File imageFile, context) async {
     print('----------------------------------> upload start');
@@ -42,14 +44,16 @@ class StepSixScreen extends StatelessWidget {
       },
     );
     request.files.add(multipartFile);
-    //request.fields.addAll({'folderName': folderName, 'subFolderName': subFolderName, 'fileName': DateTime.now()
-       // .millisecondsSinceEpoch.toString()});
     var response = await request.send();
+    var responseBody = await http.Response.fromStream(response);
 
-    print(response.statusCode);
-    response.stream.transform(utf8.decoder).listen((value) {
-      print(value);
-    });
+    print(responseBody.statusCode);
+    print(responseBody.body);
+
+    var dataMap = jsonDecode(responseBody.body);
+    SingleImageModel singelImageModel=SingleImageModel.fromJson(dataMap);
+    //idArray.add(singelImageModel.sId);
+
   }
 
   @override
@@ -280,6 +284,10 @@ class StepSixScreen extends StatelessWidget {
                   size10,
                   GestureDetector(
                     onTap: () {
+
+                      print(imageController.idArray);
+                      //uploadImageFunction(File(imageController.selectMorePhotoOne.value),context);
+
 
                       //imageController.upload(File(imageController.selectLogoImagePath.value));
 

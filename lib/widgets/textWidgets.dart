@@ -22,3 +22,11 @@ Text textUbuntu(String title, Color color,
     softWrap: false,
   );
 }
+
+BoxDecoration containerBoxDecoration({double borderRadius,Color color,List<BoxShadow>boxShadow}){
+  return BoxDecoration(
+    borderRadius:BorderRadius.circular(borderRadius),
+    color: color,
+    boxShadow: boxShadow,
+  );
+}

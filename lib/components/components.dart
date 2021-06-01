@@ -26,6 +26,14 @@ const size5 = SizedBox(
   height: 5,
 );
 
+const width5 = SizedBox(
+  width: 5,
+);
+
+const width10 = SizedBox(
+  width: 10,
+);
+
 const kDefaultPadding = 10.0;
 
 InputDecoration buildInputDecoration(hintText, {Widget icons}) {
@@ -41,4 +49,10 @@ InputDecoration buildInputDecoration(hintText, {Widget icons}) {
     border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
   );
 }
+
+CrossAxisAlignment crossAxisAlignmentCenter=CrossAxisAlignment.center;
+CrossAxisAlignment crossAxisAlignmentStart=CrossAxisAlignment.start;
+
+MainAxisAlignment mainAxisAlignmentCenter=MainAxisAlignment.center;
+MainAxisAlignment mainAxisAlignmentBetween=MainAxisAlignment.spaceBetween;
 

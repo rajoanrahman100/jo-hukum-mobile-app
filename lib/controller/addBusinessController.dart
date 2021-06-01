@@ -266,8 +266,8 @@ class AddBusinessController extends GetxController {
     var request = http.MultipartRequest('PATCH', Uri.parse('https://api-backend.jo-hukum'
         '.com/consumers_api/business_data/${businessID.value}/uploads/'));
 
-   /* request.fields.addAll({
-      'photos': one.value??"",
+    /*request.fields.addAll({
+      'photos': '${[]}',
       'videos': '[]'
     });*/
 
