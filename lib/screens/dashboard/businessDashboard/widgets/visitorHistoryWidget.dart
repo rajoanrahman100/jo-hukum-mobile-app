@@ -3,13 +3,9 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class VisitorHistoryWidget extends StatelessWidget {
-  const VisitorHistoryWidget({
-    Key key,
-    @required this.size,
-    @required this.visitorCount,
-    @required this.title,
-    @required this.color,
-  }) : super(key: key);
+  const VisitorHistoryWidget(
+      {Key key, @required this.size, @required this.visitorCount, @required this.title, @required this.color})
+      : super(key: key);
 
   final Size size;
   final int visitorCount;
@@ -32,9 +28,8 @@ class VisitorHistoryWidget extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.center,
-                child: textUbuntu("$visitorCount", Colors.white, fontWeight: weight500, fontSize: 30),
-              ),
+                  alignment: Alignment.center,
+                  child: textUbuntu("$visitorCount", Colors.white, fontWeight: weight500, fontSize: 30)),
             ],
           )),
     );

@@ -110,6 +110,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                 Container(
                   height: size.height / 3.2,
                   child: PageView(
+
                     onPageChanged: (int page) {
                       setState(() {
                         _selectedPage = page;
@@ -251,6 +252,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                   ),
                 ),
                 size10,
+
               ],
             ),
           ),

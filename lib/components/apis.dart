@@ -1,6 +1,7 @@
 
 ///base url
 const baseUrl="https://api-login.jo-hukum.com/api/";
+const analyticsUrl="https://api-analytics.jo-hukum.com/";
 
 ///auth apis
 const signIn=baseUrl+"auth/login";
@@ -20,5 +21,8 @@ const keyword="https://api-backend.jo-hukum.com/api/businesses/categories";
 const businessType="https://api-backend.jo-hukum.com/consumers_api/business_types";
 const addBusiness="https://api-backend.jo-hukum.com/consumers_api/business_data";
 const uploadImagesAPi="https://api-backend.jo-hukum.com/consumers_api/uploads/photos";
-//const allCity="https://api-backend.jo-hukum.com/api/businesses/locations?location_type=2&parent=${division_id
-//}&search=${query}"
+
+///Business Analytics APi
+const visitorsApi=analyticsUrl+"page-analytics?url=http://nuxtjh.local/single/";
+const ctaClickApi=analyticsUrl+"page-analytics/browsed-by-devices?url=http://nuxtjh.local/single/";
+
