@@ -5,7 +5,7 @@ import 'package:johukum/screens/dashboard/businessDashboard/widgets/line_chart.d
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/pie_chart.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
-class OverViewDashBoardBusiness extends StatelessWidget {
+class AnalyticsDashBoardBusiness extends StatelessWidget {
   var topKeywords = ["UX/UI design", "Graphic Design", "Movies", "Flutter/Dart", "Cross Platform","Web Development "
       "and Design"];
 
@@ -135,26 +135,6 @@ class OverViewDashBoardBusiness extends StatelessWidget {
                 ],
               ),
               size10,
-              /*Container(
-                height: 270,
-                child: LineChart(LineChartData(
-                    borderData: FlBorderData(show: false),
-                    lineBarsData: [
-                      LineChartBarData(
-                          spots: [
-                            FlSpot(0, 1),
-                            FlSpot(1, 3),
-                            FlSpot(2, 10),
-                            FlSpot(3, 7),
-                            FlSpot(4, 12),
-                            FlSpot(5, 13),
-                            FlSpot(6, 17),
-                          ]
-                      )
-                    ]
-                ),
-                ),
-              ),*/
               LineChartSample2(),
               size5,
               textUbuntu("Business Visit Graph", kBlackColor, fontWeight: weight500, fontSize: 18),
@@ -174,6 +154,7 @@ class OverViewDashBoardBusiness extends StatelessWidget {
               Container(
                 height: 150,
                 child: GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: topKeywords.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       childAspectRatio: 5 / 1, crossAxisCount: 2, crossAxisSpacing: 3.0, mainAxisSpacing: 4.0),
@@ -187,7 +168,88 @@ class OverViewDashBoardBusiness extends StatelessWidget {
               ),
              // size10,
               PieChartSample2(),
-              size20,
+              size10,
+              Container(
+                height: size.height/7.5,
+                width: size.width,
+                decoration: containerBoxDecoration(
+                  color: kPrimaryPurple,
+                  borderRadius: 10
+                ),
+                child: Column(
+                  children: [
+                    size5,
+
+                    Align(alignment: Alignment.topLeft,child: Padding(
+                      padding: const EdgeInsets.only(left:8),
+                      child: textUbuntu("Customers Average Active Stay", kWhiteColor,
+                          fontWeight:
+                      weight500),
+                    )),
+                    size20,
+                    Row(
+                      mainAxisAlignment: mainAxisAlignmentCenter,
+
+                      children: [
+                        textUbuntu("8.3", kWhiteColor,fontWeight: weight500,fontSize: 35),
+                        textUbuntu(" min.", kWhiteColor,fontWeight: weight500,fontSize: 18),
+                        width10,
+                        textUbuntu("(", kWhiteColor,fontSize: 18,fontWeight: weight500),
+                        Icon(Icons.trending_up,color: Colors.green,),
+                        textUbuntu(" +2.4%", kWhiteColor,fontWeight: weight500,fontSize: 18),
+                        textUbuntu(")", kWhiteColor,fontSize: 18,fontWeight: weight500),
+
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+              size10,
+              Container(
+                height: size.height/7.5,
+                width: size.width,
+                decoration: containerBoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),],
+                    borderRadius: 10
+                ),
+                child: Column(
+                  children: [
+                    size5,
+
+                    Align(alignment: Alignment.topLeft,child: Padding(
+                      padding: const EdgeInsets.only(left:8),
+                      child: textUbuntu("Customers Idle Active Stay", kBlackColor,
+                          fontWeight:
+                          weight500),
+                    )),
+                    size20,
+                    Row(
+                      mainAxisAlignment: mainAxisAlignmentCenter,
+
+                      children: [
+                        textUbuntu("5.3", kBlackColor.withOpacity(0.5),fontWeight: weight500,fontSize: 35),
+                        textUbuntu(" min.", kBlackColor.withOpacity(0.5),fontWeight: weight500,fontSize: 18),
+                        width10,
+                        textUbuntu("(", kBlackColor.withOpacity(0.5),fontSize: 18,fontWeight: weight500),
+                        Icon(Icons.trending_down,color: Colors.red),
+                        textUbuntu(" -0.8%", kBlackColor.withOpacity(0.5),fontWeight: weight500,fontSize: 18),
+                        textUbuntu(")", kBlackColor.withOpacity(0.5),fontSize: 18,fontWeight: weight500),
+
+                      ],
+                    ),
+
+                  ],
+                ),
+              ),
+              size10
+
             ],
           ),
         ),

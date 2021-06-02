@@ -9,6 +9,11 @@ const kSecondaryPurple = Color(0xFF76187E);
 const kWhiteColor = Color(0xFFE5DFEC);
 const kBlackColor = Color(0xFF000000);
 
+const kPinkColor = Color(0xFFDF0487);
+const kBlueColor = Color(0xFF2E5BFF);
+const kAquaGreenColor = Color(0xFF00C6D5);
+const kYellowColor = Color(0xFFFFC400);
+
 const weight500 = FontWeight.w500;
 const weightBold = FontWeight.bold;
 const weight400 = FontWeight.w400;

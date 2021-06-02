@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
-import 'package:johukum/screens/dashboard/businessDashboard/dashBoardBusiness_overview.dart';
+import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/analyticsDashBoardTabs.dart';
+import 'package:johukum/screens/dashboard/businessDashboard/dashBoardBusiness_analytics.dart';
 import '../businessDashboard/dashBoardBusiness_home.dart';
 import '../businessDashboard/dashBoardBusiness_message.dart';
 import '../businessDashboard/dashBoardBusiness_review.dart';
@@ -132,7 +133,7 @@ class _UserDashBoardTabsState extends State<UserDashBoardTabs> {
                   controller: _pageController,
                   children: [
                     HomeDashBoardBusiness(),
-                    OverViewDashBoardBusiness(),
+                    AnalyticsDashBoardTabs(),
                     MessageDashBoardBusiness(),
                     ReviewDashBoardBusiness(),
                     SettingDashBoardBusiness(),
