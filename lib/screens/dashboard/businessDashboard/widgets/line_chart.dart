@@ -54,11 +54,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 mainData(),
               ),*/
                 child: Obx(
-                  () => SfCartesianChart(primaryXAxis: CategoryAxis(), title: ChartTitle(text: 'Half yearly sales analysis'), series: <ChartSeries>[
+                  () => SfCartesianChart(primaryXAxis: CategoryAxis(), title: ChartTitle(text: 'Business Visit Graph'),series: <ChartSeries>[
                     LineSeries<LineModel,String>(
                       dataSource: controller.elasticDataList,
                       xValueMapper: (LineModel line, _) => line.date,
-                      yValueMapper: (LineModel line, _) => line.count
+                      yValueMapper: (LineModel line, _) => line.count,
+                      dataLabelSettings: DataLabelSettings(isVisible:true)
                     )
                   ]),
                 )),
