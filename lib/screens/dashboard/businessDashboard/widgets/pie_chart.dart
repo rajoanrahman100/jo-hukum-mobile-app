@@ -1,7 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
+import 'package:johukum/modelClass/broweByDeviceModel.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:get/get.dart';
 
 class PieChartSample2 extends StatefulWidget {
   @override
@@ -11,6 +14,16 @@ class PieChartSample2 extends StatefulWidget {
 class PieChart2State extends State {
   int touchedIndex = -1;
 
+  var controller=Get.put(BusinessAnalyticsController());
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller.getBrowseByDevice("602cfd2170050b2691a99bd7");
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +48,7 @@ class PieChart2State extends State {
           Row(
             children: [
               Expanded(
-                child: Container(
+                child: Obx(()=>Container(
                   height: 140,
                   child: PieChart(
                     PieChartData(
@@ -44,9 +57,32 @@ class PieChart2State extends State {
                         ),
                         sectionsSpace: 3,
                         centerSpaceRadius: 15,
-                        sections: showingSections()),
+                        sections: [
+                          PieChartSectionData(
+                            color: const Color(0xff0293ee),
+                            value: controller.fromDesktop.value,
+                            title: "${controller.browseByDevice.value.fromDesktop}%",
+                            radius: 50,
+                            titleStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                          ),
+                          PieChartSectionData(
+                            color: const Color(0xfff8b250),
+                            value: controller.fromMobile.value,
+                            title: "${controller.browseByDevice.value.fromMobile}%",
+                            radius: 50,
+                            titleStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                          ),
+                          PieChartSectionData(
+                            color:  Colors.redAccent,
+                            value: controller.fromTablet.value,
+                            title: "${controller.browseByDevice.value.fromTablet}%",
+                            radius: 50,
+                            titleStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                          ),
+
+                        ]),
                   ),
-                ),
+                ),)
               ),
               Padding(
                 padding: EdgeInsets.only(right: 8.0),
@@ -60,7 +96,7 @@ class PieChart2State extends State {
                           color: Colors.blue,
                           size: 16,
                         ),
-                        textUbuntu("Mobile", kWhiteColor)
+                        textUbuntu("Desktop", kWhiteColor)
                       ],
                     ),
                     size10,
@@ -71,7 +107,7 @@ class PieChart2State extends State {
                           color: Colors.amber,
                           size: 16,
                         ),
-                        textUbuntu("Desktop", kWhiteColor)
+                        textUbuntu("Mobile", kWhiteColor)
                       ],
                     ),
                     size10,
@@ -85,17 +121,7 @@ class PieChart2State extends State {
                         textUbuntu("Tab", kWhiteColor)
                       ],
                     ),
-                    size10,
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.circle,
-                          color: Colors.green,
-                          size: 16,
-                        ),
-                        textUbuntu("Iphone", kWhiteColor)
-                      ],
-                    )
+
                   ],
                 ),
               ),
@@ -107,47 +133,4 @@ class PieChart2State extends State {
     );
   }
 
-  List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
-      final isTouched = i == touchedIndex;
-      final fontSize = isTouched ? 25.0 : 16.0;
-      final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: Colors.redAccent,
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        default:
-          throw Error();
-      }
-    });
-  }
 }

@@ -6,7 +6,8 @@ import 'package:johukum/controller/locationController.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
-import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/elasticSearch/businessProfile.dart';
+import 'businessProfile.dart';
+
 
 class ElasticSearchScreen extends StatefulWidget {
   @override

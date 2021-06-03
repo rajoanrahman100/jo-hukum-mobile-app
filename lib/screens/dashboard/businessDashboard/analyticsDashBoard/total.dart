@@ -18,7 +18,7 @@ class _TotalState extends State<Total> {
   void initState() {
     // TODO: implement initState
     totalController.getVisitorCount("602cfd2170050b2691a99bd7", "");
-    totalController.getCtaCount("602cfd2170050b2691a99bd7", "");
+    totalController.getCtaCount("602ce10270050b2691a99bcc", "");
   }
 
   @override

@@ -18,7 +18,7 @@ class _ThisWeekState extends State<ThisWeek> {
   void initState() {
     // TODO: implement initState
     weekController.getVisitorCount("602cfd2170050b2691a99bd7", 7);
-    weekController.getCtaCount("602cfd2170050b2691a99bd7",7);
+    weekController.getCtaCount("602ce10270050b2691a99bcc",7);
   }
 
   @override

@@ -6,7 +6,6 @@ import 'package:johukum/controller/elasticController.dart';
 import 'package:johukum/controller/locationController.dart';
 import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
-import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/elasticSearch/businessProfile.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';

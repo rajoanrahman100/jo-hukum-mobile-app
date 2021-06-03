@@ -28,7 +28,7 @@ class _TodayState extends State<Today> {
   void initState() {
     // TODO: implement initState
     c.getVisitorCount("602cfd2170050b2691a99bd7", 1);
-    c.getCtaCount("602cfd2170050b2691a99bd7",1);
+    c.getCtaCount("602ce10270050b2691a99bcc",1);
   }
 
   @override

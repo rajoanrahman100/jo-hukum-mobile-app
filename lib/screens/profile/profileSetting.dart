@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
-import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/profile/profileHeader.dart';
-import 'file:///D:/Flutter%20Apss/jo-hukum-mobile-app/lib/screens/profile/profileSettingWidget.dart';
+import 'package:johukum/screens/profile/profileHeader.dart';
+import 'package:johukum/screens/profile/profileSettingWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class ProfileSettings extends StatelessWidget {

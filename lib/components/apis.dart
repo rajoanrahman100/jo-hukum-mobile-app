@@ -24,5 +24,7 @@ const uploadImagesAPi="https://api-backend.jo-hukum.com/consumers_api/uploads/ph
 
 ///Business Analytics APi
 const visitorsApi=analyticsUrl+"page-analytics?url=http://nuxtjh.local/single/";
-const ctaClickApi=analyticsUrl+"page-analytics/browsed-by-devices?url=http://nuxtjh.local/single/";
-
+const ctaClickApi=analyticsUrl+"business-cta-analytics/";
+const browseByDeviceApi=analyticsUrl+"page-analytics/browsed-by-devices?url=http://nuxtjh.local/single/";
+const regionsVisitApi=analyticsUrl+"page-analytics/visited-from-states?url=http://nuxtjh.local/single/";
+const searchLineChartApi=analyticsUrl+"page-analytics/visited-in-month?url=https://jh-nuxt-edwa.jo-hukum.com/single/";

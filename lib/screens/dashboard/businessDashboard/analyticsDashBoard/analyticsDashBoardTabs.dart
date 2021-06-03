@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/thisMonth.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/thisWeek.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/today.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/total.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/line_chart.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/pie_chart.dart';
+import 'package:johukum/screens/dashboard/businessDashboard/widgets/visitorByRegions.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:get/get.dart';
 
 class AnalyticsDashBoardTabs extends StatefulWidget {
   @override
@@ -14,6 +17,8 @@ class AnalyticsDashBoardTabs extends StatefulWidget {
 }
 
 class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
+
+  
   var topKeywords = [
     "UX/UI design",
     "Graphic Design",
@@ -230,28 +235,9 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                   ),
                 ),
                 size10,
-                Container(
-                  height: size.height / 3,
-                  width: size.width,
-                  decoration: containerBoxDecoration(borderRadius: 10.0, color: Colors.white, boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    )
-                  ]),
-                  child: Column(
-                    crossAxisAlignment: crossAxisAlignmentStart,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: textUbuntu("Visitors By Region", kBlackColor, fontWeight: weight500),
-                      )
-                    ],
-                  ),
-                ),
+                VisitorByRegion(),
                 size10,
+
 
               ],
             ),
@@ -261,6 +247,8 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
     );
   }
 }
+
+
 
 class TabButton extends StatelessWidget {
   final String text;

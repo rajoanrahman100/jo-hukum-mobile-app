@@ -1,7 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
-import 'package:johukum/widgets/textWidgets.dart';
+import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
+import 'package:johukum/modelClass/lineChartModel.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineChartSample2 extends StatefulWidget {
   @override
@@ -15,7 +18,15 @@ class _LineChartSample2State extends State<LineChartSample2> {
     //kPrimaryPurple,
   ];
 
+  var controller = Get.put(BusinessAnalyticsController());
+
   bool showAvg = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    controller.getSearchLineData("602cfcd270050b2691a99bd6");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +35,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
         AspectRatio(
           aspectRatio: 1.70,
           child: Container(
-            decoration:BoxDecoration(
+            decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.2),
@@ -38,11 +49,19 @@ class _LineChartSample2State extends State<LineChartSample2> {
                 ),
                 color: Colors.white),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-              child: LineChart(
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                /*child: LineChart(
                 mainData(),
-              ),
-            ),
+              ),*/
+                child: Obx(
+                  () => SfCartesianChart(primaryXAxis: CategoryAxis(), title: ChartTitle(text: 'Half yearly sales analysis'), series: <ChartSeries>[
+                    LineSeries<LineModel,String>(
+                      dataSource: controller.elasticDataList,
+                      xValueMapper: (LineModel line, _) => line.date,
+                      yValueMapper: (LineModel line, _) => line.count
+                    )
+                  ]),
+                )),
           ),
         ),
       ],
@@ -129,7 +148,12 @@ class _LineChartSample2State extends State<LineChartSample2> {
           reservedSize: 15,
         ),
       ),
-      borderData: FlBorderData(show: true, border: Border.all(color: kPrimaryPurple, width: 1,)),
+      borderData: FlBorderData(
+          show: true,
+          border: Border.all(
+            color: kPrimaryPurple,
+            width: 1,
+          )),
       minX: 0,
       maxX: 24,
       minY: 0,
@@ -151,7 +175,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
             FlSpot(19, 4),
             FlSpot(21, 4),
             FlSpot(23, 4),
-
           ],
           isCurved: true,
           colors: gradientColors,
@@ -161,12 +184,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
             show: true,
           ),
           belowBarData: BarAreaData(show: true, colors: [
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)
-                .withOpacity(0.1),
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)
-                .withOpacity(0.1),
+            ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2).withOpacity(0.1),
+            ColorTween(begin: gradientColors[0], end: gradientColors[1]).lerp(0.2).withOpacity(0.1),
           ]),
         ),
       ],
