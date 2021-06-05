@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/modelClass/broweByDeviceModel.dart';
+import 'package:johukum/modelClass/businessStayingTimeModel.dart';
 import 'package:johukum/modelClass/ctaClickCountModel.dart';
 import 'package:johukum/modelClass/lineChartModel.dart';
 import 'package:johukum/modelClass/visitByRegion.dart';
@@ -26,6 +27,9 @@ class BusinessAnalyticsController extends GetxController{
   var fromDesktop=0.0.obs;
   var fromMobile=0.0.obs;
   var fromTablet=0.0.obs;
+
+  var activeStay=0.0.obs;
+  var idleStay=0.0.obs;
 
   setDateList(value){
     dateList.add(value);
@@ -107,6 +111,7 @@ class BusinessAnalyticsController extends GetxController{
     print("Response pie chart= " + response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+
       Map<String,dynamic> dataMap = jsonDecode(response.body);
 
       dataMap.forEach((key, value) {
@@ -118,6 +123,22 @@ class BusinessAnalyticsController extends GetxController{
           //setCountListI(value);
         }
       });
+
+    } else {
+      throw ("Error code " + response.statusCode.toString());
+    }
+  }
+
+  Future<void> getStayingData(businessId)async{
+    var response = await get(Uri.parse(stayingTimeApi+"$businessId"));
+
+    print("Response staying chart= " + response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var dataMap = jsonDecode(response.body);
+      BusinessStayingTime stayingTime = BusinessStayingTime.fromJson(dataMap);
+      activeStay.value=stayingTime.activeStay;
+      idleStay.value=stayingTime.idleStay;
 
     } else {
       throw ("Error code " + response.statusCode.toString());

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/thisMonth.dart';
@@ -7,9 +8,9 @@ import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/t
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/total.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/line_chart.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/pie_chart.dart';
+import 'package:johukum/screens/dashboard/businessDashboard/widgets/stayingTime.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/visitorByRegions.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:get/get.dart';
 
 class AnalyticsDashBoardTabs extends StatefulWidget {
   @override
@@ -17,8 +18,8 @@ class AnalyticsDashBoardTabs extends StatefulWidget {
 }
 
 class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
+  var businessController = Get.put(BusinessAnalyticsController());
 
-  
   var topKeywords = [
     "UX/UI design",
     "Graphic Design",
@@ -44,6 +45,8 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
 
   @override
   void initState() {
+    
+    businessController.getStayingData("602cfd2170050b2691a99bd7");
     _pageController = PageController();
     super.initState();
   }
@@ -115,7 +118,6 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                 Container(
                   height: size.height / 3.2,
                   child: PageView(
-
                     onPageChanged: (int page) {
                       setState(() {
                         _selectedPage = page;
@@ -148,13 +150,11 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                   child: GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: topKeywords.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 5 / 1, crossAxisCount: 2, crossAxisSpacing: 3.0, mainAxisSpacing: 4.0),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(childAspectRatio: 5 / 1, crossAxisCount: 2, crossAxisSpacing: 3.0, mainAxisSpacing: 4.0),
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
                           height: 40,
-                          decoration:
-                              containerBoxDecoration(borderRadius: 10.0, color: kPrimaryPurple.withOpacity(0.3)),
+                          decoration: containerBoxDecoration(borderRadius: 10.0, color: kPrimaryPurple.withOpacity(0.3)),
                           child: Center(child: textUbuntu(topKeywords[index], kBlackColor, fontWeight: weight500)));
                     },
                   ),
@@ -162,83 +162,30 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                 // size10,
                 PieChartSample2(),
                 size10,
-                Container(
-                  height: size.height / 7.5,
-                  width: size.width,
-                  decoration: containerBoxDecoration(color: kPrimaryPurple, borderRadius: 10),
-                  child: Column(
-                    children: [
-                      size5,
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: textUbuntu("Customers Average Active Stay", kWhiteColor, fontWeight: weight500),
-                          )),
-                      size20,
-                      Row(
-                        mainAxisAlignment: mainAxisAlignmentCenter,
-                        children: [
-                          textUbuntu("8.3", kWhiteColor, fontWeight: weight500, fontSize: 35),
-                          textUbuntu(" min.", kWhiteColor, fontWeight: weight500, fontSize: 18),
-                          width10,
-                          textUbuntu("(", kWhiteColor, fontSize: 18, fontWeight: weight500),
-                          Icon(
-                            Icons.trending_up,
-                            color: Colors.green,
-                          ),
-                          textUbuntu(" +2.4%", kWhiteColor, fontWeight: weight500, fontSize: 18),
-                          textUbuntu(")", kWhiteColor, fontSize: 18, fontWeight: weight500),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+
+                Obx(() => BusinessStayTimeWidget(
+                      size: size,
+                      minValue: "${businessController.activeStay.value}",
+                      title: "Customer Active Stay",
+                      color: kPrimaryPurple,
+                      minValueColor: kWhiteColor,
+                      minTextColor: kWhiteColor,
+                      titleColor: kWhiteColor,
+                    )),
                 size10,
-                Container(
-                  height: size.height / 7.5,
-                  width: size.width,
-                  decoration: containerBoxDecoration(
+                Obx(() => BusinessStayTimeWidget(
+                      size: size,
+                      minValue: "${businessController.idleStay.value}",
+                      title: "Customer Idle Stay",
                       color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                      borderRadius: 10),
-                  child: Column(
-                    children: [
-                      size5,
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8),
-                            child: textUbuntu("Customers Idle Active Stay", kBlackColor, fontWeight: weight500),
-                          )),
-                      size20,
-                      Row(
-                        mainAxisAlignment: mainAxisAlignmentCenter,
-                        children: [
-                          textUbuntu("5.3", kBlackColor.withOpacity(0.5), fontWeight: weight500, fontSize: 35),
-                          textUbuntu(" min.", kBlackColor.withOpacity(0.5), fontWeight: weight500, fontSize: 18),
-                          width10,
-                          textUbuntu("(", kBlackColor.withOpacity(0.5), fontSize: 18, fontWeight: weight500),
-                          Icon(Icons.trending_down, color: Colors.red),
-                          textUbuntu(" -0.8%", kBlackColor.withOpacity(0.5), fontWeight: weight500, fontSize: 18),
-                          textUbuntu(")", kBlackColor.withOpacity(0.5), fontSize: 18, fontWeight: weight500),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                      minValueColor: kBlackColor,
+                      minTextColor: kBlackColor,
+                      titleColor: kBlackColor,
+                    )),
+
                 size10,
                 VisitorByRegion(),
                 size10,
-
-
               ],
             ),
           ),
@@ -247,7 +194,6 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
     );
   }
 }
-
 
 
 class TabButton extends StatelessWidget {

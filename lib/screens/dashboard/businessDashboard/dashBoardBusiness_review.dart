@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/controller/dashBoardController/businessReviewsController.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:get/get.dart';
 
 class ReviewDashBoardBusiness extends StatelessWidget {
 
@@ -10,9 +12,15 @@ class ReviewDashBoardBusiness extends StatelessWidget {
   var txt="Loren gypsum dolor sit mate, ad prompts feud gait, quid exercise emeritus bis e.Usu cu ores quid am, me "
       "rides sapper croquet ex. Ed ea clit a elect ram referent,at diode imper diet enc";
 
+  var ratingCountController=Get.put(BusinessRatingController());
+
+
+
 
   @override
   Widget build(BuildContext context) {
+
+    ratingCountController.getRatingData("602ce10270050b2691a99bcc");
 
     Size size=MediaQuery.of(context).size;
 

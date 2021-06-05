@@ -25,7 +25,7 @@ class CtaCountWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: mainAxisAlignmentCenter,
             children: [
-              textUbuntu("$count", Colors.white, fontWeight: weight500, fontSize: 30),
+              textUbuntu("${count??0}", Colors.white, fontWeight: weight500, fontSize: 30),
               width10,
               Row(
                 children: [
