@@ -33,19 +33,6 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
     "Web Development "
         "and Design"
   ];
-  int _selectedPage = 0;
-  PageController _pageController;
-
-  void _changePage(int pageNum) {
-    setState(() {
-      _selectedPage = pageNum;
-      _pageController.animateToPage(
-        pageNum,
-        duration: Duration(milliseconds: 1000),
-        curve: Curves.fastLinearToSlowEaseIn,
-      );
-    });
-  }
 
   @override
   void initState() {
@@ -55,11 +42,6 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,20 +106,13 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                   height: size.height / 3.2,
                   child: PageView(
                     onPageChanged: (int page) {
-
                       dashController.page.value=page;
-                      /*setState(() {
-                        _selectedPage = page;
-                      });*/
                     },
-
                     controller: dashController.controller.value,
                     children: [Today(), ThisWeek(), ThisMonth(), Total()],
                   ),
                 ),),
-
                 size10,
-
                 LineChartSample2(),
                 size5,
                 textUbuntu("Business Visit Graph", kBlackColor, fontWeight: weight500, fontSize: 18),

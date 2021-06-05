@@ -6,7 +6,12 @@ class DashController extends GetxController{
   var controller = PageController().obs;
 
 
-
+  @override
+  void dispose(){
+    print('dispose');
+    controller.close();
+    super.dispose();
+  }
 
   changePage(int pageNum) {
     page.value = pageNum;
