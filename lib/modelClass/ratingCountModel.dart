@@ -1,8 +1,12 @@
-class BusinessRatingCount {
-  int count;
-  num rating;
+import 'package:flutter/cupertino.dart';
+import 'package:johukum/components/components.dart';
 
-  BusinessRatingCount({this.count, this.rating});
+class BusinessRatingCount {
+  var count;
+  var rating;
+  Color color=kPrimaryPurple;
+
+  BusinessRatingCount({this.count, this.rating,this.color});
 
   BusinessRatingCount.fromJson(Map<String, dynamic> json) {
     count = json['count'];
@@ -14,5 +18,10 @@ class BusinessRatingCount {
     data['count'] = this.count;
     data['rating'] = this.rating;
     return data;
+  }
+
+  @override
+  String toString() {
+    return '{ ${this.count}, ${this.rating} }';
   }
 }

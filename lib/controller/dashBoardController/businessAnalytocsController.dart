@@ -17,7 +17,7 @@ class BusinessAnalyticsController extends GetxController{
   var ctaCount=CtaClickCount().obs;
   var browseByDevice=BrowseByDevice().obs;
   var regionVisit=VisitByRegion().obs;
-  var elasticDataList=List<LineModel>().obs;
+  var lineChartDataList=List<LineModel>().obs;
 
   var dateList=[].obs;
   var countList=[].obs;
@@ -116,9 +116,10 @@ class BusinessAnalyticsController extends GetxController{
 
       dataMap.forEach((key, value) {
         if(key!="url"){
-          elasticDataList.add(LineModel(date: key,count: value));
+          //lineChartDataList.clear();
+          lineChartDataList.add(LineModel(date: key,count: value));
 
-          print(elasticDataList);
+          print(lineChartDataList);
           //setDateList(key);
           //setCountListI(value);
         }

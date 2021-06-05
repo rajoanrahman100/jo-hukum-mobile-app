@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/controller/dashBoardController/analyticDashBoardController.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/thisMonth.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/thisWeek.dart';
@@ -18,7 +19,10 @@ class AnalyticsDashBoardTabs extends StatefulWidget {
 }
 
 class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
+
   var businessController = Get.put(BusinessAnalyticsController());
+
+  var dashController=Get.put(DashController());
 
   var topKeywords = [
     "UX/UI design",
@@ -47,7 +51,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
   void initState() {
     
     businessController.getStayingData("602cfd2170050b2691a99bd7");
-    _pageController = PageController();
+    //_pageController = PageController();
     super.initState();
   }
 
@@ -72,7 +76,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                 Container(
                   height: 60,
                   width: MediaQuery.of(context).size.width,
-                  child: ListView(
+                  child: Obx(()=>ListView(
                     scrollDirection: Axis.horizontal,
                     //mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -80,53 +84,57 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                         text: "Today",
                         pageNumber: 0,
                         color: kPinkColor,
-                        selectedPage: _selectedPage,
+                        selectedPage: dashController.page.value,
                         onPressed: () {
-                          _changePage(0);
+                          //_changePage(0);
+                          dashController.changePage(0);
                         },
                       ),
                       TabButton(
                         text: "This Week",
                         pageNumber: 1,
-                        selectedPage: _selectedPage,
+                        selectedPage: dashController.page.value,
                         color: kBlueColor,
                         onPressed: () {
-                          _changePage(1);
+                          dashController.changePage(1);
                         },
                       ),
                       TabButton(
                         text: "This Month",
                         pageNumber: 2,
-                        selectedPage: _selectedPage,
+                        selectedPage: dashController.page.value,
                         color: kAquaGreenColor,
                         onPressed: () {
-                          _changePage(2);
+                          dashController.changePage(2);
                         },
                       ),
                       TabButton(
                         text: "Total",
                         pageNumber: 3,
-                        selectedPage: _selectedPage,
+                        selectedPage: dashController.page.value,
                         color: kYellowColor,
                         onPressed: () {
-                          _changePage(3);
+                          dashController.changePage(3);
                         },
                       ),
                     ],
-                  ),
+                  )),
                 ),
-                Container(
+                Obx(()=>Container(
                   height: size.height / 3.2,
                   child: PageView(
                     onPageChanged: (int page) {
-                      setState(() {
+
+                      dashController.page.value=page;
+                      /*setState(() {
                         _selectedPage = page;
-                      });
+                      });*/
                     },
-                    controller: _pageController,
+
+                    controller: dashController.controller.value,
                     children: [Today(), ThisWeek(), ThisMonth(), Total()],
                   ),
-                ),
+                ),),
 
                 size10,
 

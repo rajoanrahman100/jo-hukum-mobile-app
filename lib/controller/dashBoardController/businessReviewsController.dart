@@ -7,8 +7,9 @@ import 'package:johukum/modelClass/ratingCountModel.dart';
 
 class BusinessRatingController extends GetxController {
   //var ratingCount=BusinessRatingCount().obs;
-  var ratingValue = List<BusinessRatingCount>().obs;
-  //var ratingValue=[];
+  //var ratingValue = BusinessRatingCount().obs;
+
+  var ratingValue=List<BusinessRatingCount>().obs;
 
   Future<void> getRatingData(businessId) async {
     var response = await get(Uri.parse(reviewCountApi + "$businessId" + "/ratings-count/"), headers: <String, String>{
@@ -20,16 +21,14 @@ class BusinessRatingController extends GetxController {
     print("Response rating value= " + response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      Map<String,dynamic> dataMap = jsonDecode(response.body);
-      print(" data Map $dataMap");
-      //BusinessRatingCount stayingTime = BusinessRatingCount.fromJson(dataMap);
-      dataMap.forEach((key, value) {
-        ratingValue.add(BusinessRatingCount(rating: value));
-        print(ratingValue);
-      });
+      var dataMap = jsonDecode(response.body) as List;
+     // BusinessRatingCount stayingTime = BusinessRatingCount.fromJson(dataMap);
+      //ratingValue.add(stayingTime);
 
-      //ratingValue.add(BusinessRatingCount(rating: stayingTime.rating.toInt()));
-      //ratingValue.add(BusinessRatingCount(count: stayingTime.count));
+      ratingValue.value = dataMap.map((tagJson) => BusinessRatingCount.fromJson(tagJson)).toList();
+
+      print(ratingValue);
+
     } else {
       throw ("Error code " + response.statusCode.toString());
     }
