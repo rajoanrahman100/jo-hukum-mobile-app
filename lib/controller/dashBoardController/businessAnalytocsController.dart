@@ -107,30 +107,6 @@ class BusinessAnalyticsController extends GetxController{
     }
   }
 
-  Future<void> getSearchLineData(businessId)async{
-    var response = await get(Uri.parse(searchLineChartApi+"$businessId&year=2021&month=5"));
-
-    print("Response pie chart= " + response.body);
-
-    if (response.statusCode == 200 || response.statusCode == 201) {
-
-      Map<String,dynamic> dataMap = jsonDecode(response.body);
-
-      dataMap.forEach((key, value) {
-        if(key!="url"){
-          //lineChartDataList.clear();
-          lineChartDataList.add(LineModel(date: key,count: value));
-
-          print(lineChartDataList);
-          //setDateList(key);
-          //setCountListI(value);
-        }
-      });
-
-    } else {
-      throw ("Error code " + response.statusCode.toString());
-    }
-  }
 
   Future<void> getStayingData(businessId)async{
     var response = await get(Uri.parse(stayingTimeApi+"$businessId"));
