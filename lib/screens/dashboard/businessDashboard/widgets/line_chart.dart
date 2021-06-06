@@ -19,8 +19,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
   var controller = Get.put(BusinessAnalyticsController());
   var lineChartDataList=List<LineModel>();
 
-
-
   @override
   void initState() {
     // TODO: implement initState

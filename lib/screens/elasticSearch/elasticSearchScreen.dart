@@ -89,14 +89,13 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                   Row(
                     children: [
                       textUbuntu("Choose Category", kBlackColor),
-                      GestureDetector(onTap: () {}, child: Icon(Icons.search))
+                      GestureDetector(onTap: () {}, child: Icon(Icons.arrow_drop_down))
                     ],
                   ),
-                  Icon(Icons.search,color: kPrimaryPurple,),
                   Container(
                     height: 10,
                     width: 1,
-                    //color: kBlackColor,
+                    color: kBlackColor,
                   ),
                   Expanded(
                     child: TextFormField(
