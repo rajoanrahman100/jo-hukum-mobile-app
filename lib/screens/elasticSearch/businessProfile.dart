@@ -76,7 +76,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
           backgroundColor: kPrimaryPurple,
           title: Text(
             widget.name,
-            style: textStyleUbuntu(color: kWhiteColor),
+            style: textStyleUbuntu(color: kWhiteColor,fontSize: 16),
           ),
           iconTheme: IconThemeData(color: kWhiteColor),
         ),

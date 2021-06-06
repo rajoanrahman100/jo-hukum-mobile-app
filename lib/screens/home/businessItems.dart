@@ -50,7 +50,7 @@ class _BusinessItemsState extends State<BusinessItems> {
         elevation: 0.0,
         title: Text(
           widget.businessName,
-          style: textStyleUbuntu(color: kWhiteColor, fontSize: 14.0, fontWeight: FontWeight.w500),
+          style: textStyleUbuntu(color: kWhiteColor, fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
       ),
       body: Container(
@@ -58,9 +58,7 @@ class _BusinessItemsState extends State<BusinessItems> {
           child: Obx(
             () => c.businessDataList.length == 0
                 ? Center(
-                    child: CircularProgressIndicator(
-                    backgroundColor: kPrimaryPurple,
-                  ))
+                    child: spinKit)
                 : c.businessDataList == null
                     ? textUbuntu("No Data Found", kPrimaryPurple, fontWeight: weight500)
                     : ListView.builder(
@@ -92,7 +90,6 @@ class _BusinessItemsState extends State<BusinessItems> {
                             size: size,
                             callBack: () {
                               print(dataList[index].sId);
-
                               Get.to(() => BusinessProfile(
                                     id: dataList[index].sSource.slug,
                                     name: dataList[index].sSource.businessName,

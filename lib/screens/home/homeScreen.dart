@@ -121,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (BuildContext ctx, index) {
                                 if(index==categoryController.resultDataClass.length-1){
 
-                                  return Center(child: CircularProgressIndicator(backgroundColor: kPrimaryPurple,));
+                                  return Center(child: spinKit);
                                 }
                                 return GestureDetector(
                                   onTap: (){

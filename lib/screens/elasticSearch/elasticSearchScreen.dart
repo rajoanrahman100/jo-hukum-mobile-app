@@ -100,7 +100,6 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                   Expanded(
                     child: TextFormField(
                       controller: searchController,
-                      textAlign: TextAlign.center,
                       autofocus: false,
                       onChanged: (value) async {
                         elasticController.elasticDataList.clear();
