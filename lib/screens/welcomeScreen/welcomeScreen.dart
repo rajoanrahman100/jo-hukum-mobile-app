@@ -1,16 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import 'package:johukum/components/components.dart';
-import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/locationController.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeScreenMobileView.dart';
-import 'package:geolocator/geolocator.dart';
 import '../../responsive.dart';
 
 class WelcomeScreen extends StatefulWidget {
-
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -18,26 +13,11 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
 
-  Position _currentPosition;
-  String _currentAddress;
-
   var controller=Get.put(LocationController());
-
-
   var token;
 
   @override
-  void initState() {
-    // TODO: implement initState
-
-
-   // token=boxStorage.read(KEY_TOKEN);
-
-    //print("Token Print: "+token);
-  }
-
-
-
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +37,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false);
-    //Navigator.pushNamed(context, '/bottomNav');
   }
 
   Widget callCompleteProfileNavigator() {

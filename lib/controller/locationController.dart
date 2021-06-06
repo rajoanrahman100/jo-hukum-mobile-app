@@ -15,9 +15,10 @@ class LocationController extends GetxController{
   }
 
   getTimeZoneInfo() async {
+
     print("calling coordinates");
 
-    Position position = await Geolocator.getCurrentPosition(
+     await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high).then((value){
       return getAddressFromLatLng(value);
     });

@@ -38,7 +38,6 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
   void initState() {
     
     businessController.getStayingData("602cfd2170050b2691a99bd7");
-    //_pageController = PageController();
     super.initState();
   }
 

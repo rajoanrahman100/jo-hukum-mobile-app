@@ -19,6 +19,8 @@ class BusinessAnalyticsController extends GetxController{
   var regionVisit=VisitByRegion().obs;
   var lineChartDataList=List<LineModel>().obs;
 
+  var totalCount=0.obs;
+
   var dateList=[].obs;
   var countList=[].obs;
 
@@ -66,7 +68,7 @@ class BusinessAnalyticsController extends GetxController{
       var dataMap = jsonDecode(response.body);
       CtaClickCount countData = CtaClickCount.fromJson(dataMap);
       ctaCount.value=countData;
-
+      totalCount.value=countData.fromDesktop+countData.fromMobile;
 
     } else {
       throw ("Error code " + response.statusCode.toString());

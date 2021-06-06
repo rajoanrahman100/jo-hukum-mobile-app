@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:johukum/components/config.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // All of our constant stuff
 const kPrimaryPurple = Color(0xFF482080);
@@ -45,19 +43,21 @@ InputDecoration buildInputDecoration(hintText, {Widget icons}) {
   return InputDecoration(
     hintText: hintText,
     suffixIcon: icons,
-    focusedBorder:
-        UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-    enabledBorder:
-        UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-    errorBorder:
-        UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+    focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+    enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+    errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
     border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
   );
 }
 
-CrossAxisAlignment crossAxisAlignmentCenter=CrossAxisAlignment.center;
-CrossAxisAlignment crossAxisAlignmentStart=CrossAxisAlignment.start;
+///Spinkit loader
+const spinKit = SpinKitFadingCircle(
+  color: kPrimaryPurple,
+  size: 30.0,
+);
 
-MainAxisAlignment mainAxisAlignmentCenter=MainAxisAlignment.center;
-MainAxisAlignment mainAxisAlignmentBetween=MainAxisAlignment.spaceBetween;
+CrossAxisAlignment crossAxisAlignmentCenter = CrossAxisAlignment.center;
+CrossAxisAlignment crossAxisAlignmentStart = CrossAxisAlignment.start;
 
+MainAxisAlignment mainAxisAlignmentCenter = MainAxisAlignment.center;
+MainAxisAlignment mainAxisAlignmentBetween = MainAxisAlignment.spaceBetween;

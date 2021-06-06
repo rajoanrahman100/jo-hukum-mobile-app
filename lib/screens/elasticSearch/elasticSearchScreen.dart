@@ -89,17 +89,19 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                   Row(
                     children: [
                       textUbuntu("Choose Category", kBlackColor),
-                      GestureDetector(onTap: () {}, child: Icon(Icons.arrow_drop_down))
+                      GestureDetector(onTap: () {}, child: Icon(Icons.search))
                     ],
                   ),
+                  Icon(Icons.search,color: kPrimaryPurple,),
                   Container(
                     height: 10,
                     width: 1,
-                    color: kBlackColor,
+                    //color: kBlackColor,
                   ),
                   Expanded(
                     child: TextFormField(
                       controller: searchController,
+                      textAlign: TextAlign.center,
                       autofocus: false,
                       onChanged: (value) async {
                         elasticController.elasticDataList.clear();
@@ -119,6 +121,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                       decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: "serach anything you want",
+
                           contentPadding: EdgeInsets.only(bottom: 5, left: 10)),
                     ),
                   )

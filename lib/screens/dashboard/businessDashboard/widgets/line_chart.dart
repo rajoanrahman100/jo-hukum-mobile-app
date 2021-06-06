@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -16,19 +15,11 @@ class LineChartSample2 extends StatefulWidget {
 }
 
 class _LineChartSample2State extends State<LineChartSample2> {
-  List<Color> gradientColors = [
-    Color(0xFF482080),
-    Color(0xFF482080)
-    //kPrimaryPurple,
-  ];
 
   var controller = Get.put(BusinessAnalyticsController());
-
   var lineChartDataList=List<LineModel>();
 
 
-  bool showAvg = false;
-  TrackballBehavior _trackballBehavior;
 
   @override
   void initState() {
@@ -38,48 +29,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   @override
   Widget build(BuildContext context) {
-    /*return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.70,
-          child: Container(
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.white),
-            child: Padding(
-                padding: EdgeInsets.only(top: 5),
-                child: Obx(
-                  () => SfCartesianChart(primaryXAxis: CategoryAxis(
-                    title: AxisTitle(
-                      text:"Date",textStyle: textStyleUbuntu(color: kPrimaryPurple)
-                    )
-                  ),series: <ChartSeries>[
-                    SplineSeries<LineModel, String>(
-                        enableTooltip: true,
-                        dataSource: controller.lineChartDataList,
-                        xValueMapper: (LineModel line, _) => line.date,
-                        yValueMapper: (LineModel line, _) => line.count,
-                        pointColorMapper:(LineModel line, _) => line.color,
-
-                        width: 8.0,
-                        markerSettings: MarkerSettings(isVisible: true),
-                        dataLabelSettings: DataLabelSettings(isVisible: true))
-                  ]),
-                )),
-          ),
-        ),
-      ],
-    );*/
     return FutureBuilder<List<LineModel>>(
       future: getLineData("602cfcd270050b2691a99bd6"),
       builder: (ctx, snapshot) {
@@ -96,8 +45,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
             // if we got our data
           } else if (snapshot.hasData) {
-            // Extracting data from snapshot object
-           // final data = snapshot.data;
+
             print("snapShot Data: ${snapshot.data}");
             return Container(
               height:MediaQuery.of(context).size.height/4,
@@ -125,7 +73,6 @@ class _LineChartSample2State extends State<LineChartSample2> {
                     xValueMapper: (LineModel line, _) => line.date,
                     yValueMapper: (LineModel line, _) => line.count,
                     pointColorMapper:(LineModel line, _) => line.color,
-
                     width: 8.0,
                     markerSettings: MarkerSettings(isVisible: true),
                     dataLabelSettings: DataLabelSettings(isVisible: true))
@@ -136,7 +83,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
         // Displaying LoadingSpinner to indicate waiting state
         return Center(
-          child: CircularProgressIndicator(),
+          child: spinKit,
         );
       },
 
@@ -144,6 +91,9 @@ class _LineChartSample2State extends State<LineChartSample2> {
   }
 
   Future<List<LineModel>> getLineData(businessId)async{
+
+    lineChartDataList.clear();
+
     var response = await get(Uri.parse(searchLineChartApi+"$businessId&year=2021&month=5"));
 
     print("Response pie chart= " + response.body);
@@ -163,3 +113,4 @@ class _LineChartSample2State extends State<LineChartSample2> {
     }
   }
 }
+

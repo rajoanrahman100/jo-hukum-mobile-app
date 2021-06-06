@@ -30,3 +30,4 @@ const regionsVisitApi=analyticsUrl+"page-analytics/visited-from-states?url=http:
 const searchLineChartApi=analyticsUrl+"page-analytics/visited-in-month?url=https://jh-nuxt-edwa.jo-hukum.com/single/";
 const stayingTimeApi=analyticsUrl+"page-analytics/avg-visit-duration?url=https://jh-nuxt-edwa.jo-hukum.com/single/";
 const reviewCountApi="https://api-backend.jo-hukum.com/consumers_api/business_data/";
+const singleBusinessApi="https://api-backend.jo-hukum.com/consumers_api/business_data/";

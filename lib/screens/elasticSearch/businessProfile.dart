@@ -87,7 +87,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                 var obj = controller.businessDataModel.value;
 
                 return controller.loaderShow.isTrue
-                    ? Center(child: CircularProgressIndicator())
+                    ? Center(child: spinKit)
                     : SingleChildScrollView(
                         child: Column(
                           children: [
@@ -149,7 +149,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 10.0),
                               child: Text(
-                                "${controller.businessDataModel.value.llocation.businessName ?? "OK"}",
+                                "${controller.businessDataModel.value.llocation.businessName ?? ""}",
                                 style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weightBold),
                               ),
                             ),
