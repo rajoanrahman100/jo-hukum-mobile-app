@@ -9,9 +9,29 @@ class SearchItemWidget extends StatelessWidget {
   var distance;
   var street;
   Size size;
+  var height;
+  var imageHeight;
+  var titleFontSize;
+  var distanceFontSize;
+  var addressFontSize;
+  var addressConHeight;
+  var addressConWidth;
   Function callBack;
 
-  SearchItemWidget({this.image, this.businessName, this.distance, this.street, this.size, this.callBack});
+  SearchItemWidget(
+      {this.image,
+      this.businessName,
+      this.distance,
+      this.street,
+      this.size,
+      this.height,
+      this.imageHeight,
+      this.titleFontSize,
+      this.distanceFontSize,
+      this.addressFontSize,
+      this.addressConHeight,
+      this.addressConWidth,
+      this.callBack});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +39,15 @@ class SearchItemWidget extends StatelessWidget {
       onTap: callBack,
       child: Card(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0)
+        ),
         child: Container(
-          height: size.height / 6,
+          height: height ?? size.height / 6,
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
           decoration: BoxDecoration(
               //color: kWhiteColor,
-              borderRadius: BorderRadius.circular(6.0)),
+              borderRadius: BorderRadius.circular(10.0)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -36,13 +59,18 @@ class SearchItemWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
                         imageUrl: image,
-                        height: 80,
+                        height: imageHeight ?? 80,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => spinKit,
-                        errorWidget: (context, url, error) => Icon(Icons.error,color: kPrimaryPurple,size: 22,),
+                        errorWidget: (context, url, error) => Icon(
+                          Icons.error,
+                          color: kPrimaryPurple,
+                          size: 22,
+                        ),
                       ),
                     ),
                   ),
+                  width10,
                   Expanded(
                       flex: 2,
                       child: Container(
@@ -51,14 +79,14 @@ class SearchItemWidget extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            textUbuntu(businessName, kBlackColor, fontWeight: weight500, maxLine: 2, fontSize: 16),
+                            textUbuntu(businessName, kBlackColor, fontWeight: weight500, maxLine: 2, fontSize: titleFontSize ?? 16),
                             size5,
                             Container(
-                              height: 25,
-                              width: 55,
+                              height: addressConHeight??25,
+                              width:addressConWidth?? 55,
                               decoration: BoxDecoration(color: kPrimaryPurple, borderRadius: BorderRadius.circular(5.0)),
                               child: Center(
-                                child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize: 14),
+                                child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize: distanceFontSize ?? 14),
                               ),
                             ),
                             size10,
@@ -70,7 +98,7 @@ class SearchItemWidget extends StatelessWidget {
                                   size: 16,
                                 ),
                                 Expanded(
-                                  child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 1, fontSize: 14),
+                                  child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 1, fontSize: addressFontSize ?? 14),
                                 )
                               ],
                             ),

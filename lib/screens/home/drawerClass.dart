@@ -38,17 +38,6 @@ class DrawerClass extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      /*Container(
-                        width: 70.0,
-                        height: 70.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: kWhiteColor),
-                          image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(profile)),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(60.0),
-                          ),
-                        ),
-                      ),*/
 
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,9 +59,7 @@ class DrawerClass extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
+                  size20,
                   DrawerItems(
                     icon: Icons.category,
                     title: "Categories",

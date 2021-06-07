@@ -65,7 +65,9 @@ class BusinessAnalyticsController extends GetxController{
     print("ResponseCta Count = " + response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+
       var dataMap = jsonDecode(response.body);
+      print(dataMap["from_desktop"]);
       CtaClickCount countData = CtaClickCount.fromJson(dataMap);
       ctaCount.value=countData;
       totalCount.value=countData.fromDesktop+countData.fromMobile;
@@ -76,23 +78,27 @@ class BusinessAnalyticsController extends GetxController{
   }
 
   Future<void> getBrowseByDevice(businessId)async{
+
     var response = await get(Uri.parse(browseByDeviceApi+"$businessId"));
 
     print("Response devices= " + response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+
       var dataMap = jsonDecode(response.body);
       BrowseByDevice deviceData = BrowseByDevice.fromJson(dataMap);
       browseByDevice.value=deviceData;
       fromDesktop.value=deviceData.fromDesktop.toDouble();
       fromMobile.value=deviceData.fromMobile.toDouble();
       fromTablet.value=deviceData.fromTablet.toDouble();
+
     } else {
       throw ("Error code " + response.statusCode.toString());
     }
   }
 
   Future<void> getRegionVisit(businessId)async{
+
     var response = await get(Uri.parse(regionsVisitApi+"$businessId"));
 
     print("Response region= " + response.body);

@@ -38,7 +38,7 @@ class BusinessProfileController extends GetxController {
     }
   }
 
-  Future<void> postUserReview(businessID, addedById, userName, userRating, comment, context) async {
+  Future<void> postUserReview(businessID, addedById, userName, userRating, comment, context,slug) async {
     JohukumLoaderAnimation.showLoaderAnimation(context: context);
 
     var response = await post(Uri.parse(postReview + businessID + "/review"),
@@ -55,7 +55,7 @@ class BusinessProfileController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("succes response " + response.body);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      await getBusinessData(businessID);
+      await getBusinessData(slug);
       Get.snackbar('Success!', 'review added successfully', snackPosition: SnackPosition.TOP, backgroundColor:
       kWhiteColor,);
       return;

@@ -6,6 +6,13 @@ import 'package:johukum/widgets/textWidgets.dart';
 
 class VisitorByRegion extends StatefulWidget {
 
+  var titleTextSize;
+  var regionTitleTextSize;
+  var visitTitleTextSize;
+  var regionTextSize;
+  var countTextSize;
+
+  VisitorByRegion({this.titleTextSize,this.regionTitleTextSize,this.visitTitleTextSize,this.regionTextSize,this.countTextSize});
 
   @override
   _VisitorByRegionState createState() => _VisitorByRegionState();
@@ -27,7 +34,7 @@ class _VisitorByRegionState extends State<VisitorByRegion> {
     Size size=MediaQuery.of(context).size;
 
     return Container(
-      height: size.height / 3,
+      height: size.height / 2.5,
       width: size.width,
       decoration: containerBoxDecoration(borderRadius: 10.0, color: Colors.white, boxShadow: [
         BoxShadow(
@@ -42,35 +49,36 @@ class _VisitorByRegionState extends State<VisitorByRegion> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: textUbuntu("Visitors By Region", kBlackColor, fontWeight: weight500),
+            child: textUbuntu("Visitors By Region", kBlackColor, fontWeight: weight500,fontSize: widget.titleTextSize??16.0),
           ),
           size10,
           Row(
             children: [
               Expanded(
                 child: Container(
+
                   width: size.width,
-                  height: 230,
+                  height: size.height/3.2,
                   child: Column(
                     crossAxisAlignment: crossAxisAlignmentCenter,
                     children: [
-                      textUbuntu("Region", kBlackColor,fontSize: 18.0,fontWeight: weight500),
+                      textUbuntu("Region", kBlackColor,fontSize: widget.regionTitleTextSize?? 18.0,fontWeight: weight500),
                       size10,
-                      textUbuntu("Dhaka", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Dhaka", kBlackColor,fontSize: widget.regionTextSize?? 16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("Chittagong ", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Chittagong ", kBlackColor,fontSize:widget.regionTextSize?? 16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("Barishal ", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Barishal ", kBlackColor,fontSize:widget.regionTextSize?? 16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("Mymensingh ", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Mymensingh ", kBlackColor,fontSize: widget.regionTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("Khulna ", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Khulna ", kBlackColor,fontSize: widget.regionTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("Rajshahi ", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Rajshahi ", kBlackColor,fontSize: widget.regionTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("Rangpur ", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Rangpur ", kBlackColor,fontSize: widget.regionTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("Sylhet ", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("Sylhet ", kBlackColor,fontSize: widget.regionTextSize??16.0,fontWeight: weight400),
 
                     ],
                   ),
@@ -79,27 +87,27 @@ class _VisitorByRegionState extends State<VisitorByRegion> {
               Expanded(
                 child: Obx(()=>Container(
                   width: size.width,
-                  height: 230,
+                  height: size.height/3.2,
                   child: Column(
                     crossAxisAlignment: crossAxisAlignmentCenter,
                     children: [
-                      textUbuntu("Visits", kBlackColor,fontSize: 18.0,fontWeight: weight500),
+                      textUbuntu("Visits", kBlackColor,fontSize: widget.visitTitleTextSize??18.0,fontWeight: weight500),
                       size10,
-                      textUbuntu("${c.regionVisit.value.dhaka??0}", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("${c.regionVisit.value.dhaka??0}", kBlackColor,fontSize:widget.countTextSize?? 16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("0", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("0", kBlackColor,fontSize: widget.countTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("0", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("0", kBlackColor,fontSize:widget.countTextSize?? 16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("0", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("0", kBlackColor,fontSize:widget.countTextSize?? 16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("0", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("0", kBlackColor,fontSize: widget.countTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("0", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("0", kBlackColor,fontSize: widget.countTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("0", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("0", kBlackColor,fontSize: widget.countTextSize??16.0,fontWeight: weight400),
                       size5,
-                      textUbuntu("0", kBlackColor,fontSize: 16.0,fontWeight: weight400),
+                      textUbuntu("0", kBlackColor,fontSize: widget.countTextSize??16.0,fontWeight: weight400),
 
                     ],
                   ),

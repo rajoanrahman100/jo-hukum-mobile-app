@@ -37,6 +37,9 @@ class _TotalState extends State<Total> {
                     VisitorHistoryWidget(
                       size: size,
                       visitorCount: totalController.visitorCount.value.uniqueVisits ?? 0,
+                      height: size.height / 6,
+                      titleFontSize: 20.0,
+                      countFontSize: 35,
                       title: "Unique Visitor",
                       color: kYellowColor,
                     ),
@@ -44,6 +47,9 @@ class _TotalState extends State<Total> {
                     VisitorHistoryWidget(
                         size: size,
                         visitorCount: totalController.visitorCount.value.totalVisits ?? 0,
+                        height: size.height / 6,
+                        titleFontSize: 20.0,
+                        countFontSize: 35,
                         title: "Total"
                             " Visitor",
                         color: kYellowColor),
@@ -52,10 +58,10 @@ class _TotalState extends State<Total> {
               ),
               size10,
               Container(
-                height: 50,
+                height: 65,
                 decoration: containerBoxDecoration(color: kYellowColor.withOpacity(0.6), borderRadius: 10),
                 child: Center(
-                  child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500),
+                  child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500,fontSize: 20),
                 ),
               ),
               size10,
@@ -64,11 +70,16 @@ class _TotalState extends State<Total> {
                   CtaCountWidget(
                     size: size,
                     count: totalController.ctaCount.value.fromMobile,
+                    height: size.height/11,
+                    countSize: 33.0,
+                    titleSize: 20.0,
                     title: "Mobile",
                     color: kYellowColor,
                   ),
                   width10,
-                  CtaCountWidget(size: size, count: totalController.ctaCount.value.fromDesktop, title: "Desktop", color:
+                  CtaCountWidget(size: size, height: size.height/11,
+                      countSize: 33.0,
+                      titleSize: 20.0,count: totalController.ctaCount.value.fromDesktop, title: "Desktop", color:
                   kYellowColor),
                 ],
               ),)

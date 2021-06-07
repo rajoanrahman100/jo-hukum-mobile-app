@@ -10,6 +10,11 @@ import 'package:johukum/widgets/textWidgets.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineChartSample2 extends StatefulWidget {
+
+  var height;
+
+  LineChartSample2({this.height});
+
   @override
   _LineChartSample2State createState() => _LineChartSample2State();
 }
@@ -44,7 +49,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
           } else if (snapshot.hasData) {
             print("snapShot Data: ${snapshot.data}");
             return Container(
-              height:MediaQuery.of(context).size.height/4,
+              height:widget.height??MediaQuery.of(context).size.height/4,
               decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(

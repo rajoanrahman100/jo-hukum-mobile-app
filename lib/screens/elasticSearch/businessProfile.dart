@@ -1,11 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:johukum/components/components.dart';
-import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessProfileController.dart';
 import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
@@ -13,15 +12,15 @@ import 'package:johukum/screens/elasticSearch/businessReviews.dart';
 import 'package:johukum/screens/web_view.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
-import 'package:johukum/widgets/fullScreenAlertForAuth.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
 class BusinessProfile extends StatefulWidget {
-  String id;
+  String slug;
   String name;
+  String id;
 
-  BusinessProfile({this.id,this.name});
+  BusinessProfile({this.slug, this.name,this.id});
 
   @override
   _BusinessProfileState createState() => _BusinessProfileState();
@@ -30,8 +29,7 @@ class BusinessProfile extends StatefulWidget {
 class _BusinessProfileState extends State<BusinessProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  var backImage =
-      "https://i1.wp.com/www.finddoctor24.com/wp-content/uploads/2019/03/Islami-Bank-Hospital-Mugda.jpg?fit=471%2C286&ssl=1";
+  var backImage = "https://i1.wp.com/www.finddoctor24.com/wp-content/uploads/2019/03/Islami-Bank-Hospital-Mugda.jpg?fit=471%2C286&ssl=1";
 
   var description =
       "Loren gypsum dolor sit mate, ad prompts feud gait, quid exercise emeritus bis e.Usu cu ores quid am, me rides sapper croquet ex. Ed ea clit a elect ram referent,at diode imper diet enc. Me sumo unique argument um no. Ea alien um accustoms quo,mod summon effendi it tied.";
@@ -60,7 +58,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
   @override
   void initState() {
     // TODO: implement initState
-    businessProfileController.getBusinessData(widget.id);
+    businessProfileController.getBusinessData(widget.slug);
   }
 
   @override
@@ -76,7 +74,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
           backgroundColor: kPrimaryPurple,
           title: Text(
             widget.name,
-            style: textStyleUbuntu(color: kWhiteColor,fontSize: 16),
+            style: textStyleUbuntu(color: kWhiteColor, fontSize: 16),
           ),
           iconTheme: IconThemeData(color: kWhiteColor),
         ),
@@ -93,13 +91,13 @@ class _BusinessProfileState extends State<BusinessProfile> {
                           children: [
                             Container(
                               height: size.height * 0.3,
-                              width: size.width,
+                              width: double.infinity,
                               child: Stack(
                                 children: [
                                   Image.network(
                                     "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
                                     height: size.height * 0.2,
-                                    width: size.width,
+                                    width: double.infinity,
                                     fit: BoxFit.cover,
                                   ),
                                   Align(
@@ -110,9 +108,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       height: 120.0,
                                       decoration: BoxDecoration(
                                         border: Border.all(color: kPrimaryPurple),
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage("https://dsqdpdmeibwm2.cloudfront.net/${obj.logo}")),
+                                        image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://dsqdpdmeibwm2.cloudfront.net/${obj.logo}")),
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(60.0),
                                         ),
@@ -125,20 +121,21 @@ class _BusinessProfileState extends State<BusinessProfile> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Obx(()=>RatingBar.builder(
-                                  initialRating: businessProfileController.ratingValue.value.toDouble(),
-                                  minRating: 1,
-                                  itemSize: 27.0,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: false,
-                                  itemCount: 5,
-                                  //itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                                  itemBuilder: (context, _) => Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
+                                Obx(
+                                  () => RatingBar.builder(
+                                    initialRating: businessProfileController.ratingValue.value.toDouble(),
+                                    minRating: 1,
+                                    itemSize: 27.0,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: false,
+                                    itemCount: 5,
+                                    //itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
                                   ),
-
-                                ),),
+                                ),
                                 Text(
                                   " (${obj.aggregateRating})",
                                   style: textStyleUbuntu(color: kBlackColor, fontSize: 16, fontWeight: weight500),
@@ -180,25 +177,25 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       color: kBlackColor,
                                       fontWeight: weight500,
                                     )),
-                                Text("${obj.totalReviews}",
-                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
+                                Text("${obj.totalReviews}", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
                                 SizedBox(
                                   width: 10.0,
                                 ),
                                 GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
+                                    print(widget.id);
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(builder: (context) => BusinessReview(reviews: obj.reviews,
-                                        businesssID: widget.id,businessName: obj.llocation.businessName,)),
+                                      MaterialPageRoute(
+                                          builder: (context) => BusinessReview(
+                                                reviews: obj.reviews,
+                                                businesssID: widget.id,
+                                                businessName: obj.llocation.businessName,
+                                                slug: widget.slug,
+                                              )),
                                     );
                                   },
-                                  child: Text("See reviews",
-                                      style: textStyleUbuntu(
-                                        color: kPrimaryPurple,
-                                        fontWeight: weightBold,
-                                        textDecoration: TextDecoration.underline
-                                      )),
+                                  child: Text("See reviews", style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weightBold, textDecoration: TextDecoration.underline)),
                                 ),
                               ],
                             ),
@@ -263,8 +260,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.red[600],
                                     isIcon: true,
                                     callback: () {
-                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1],
-                                          obj.llocation.geo.coordinates[0], obj.llocation.businessName);
+                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1], obj.llocation.geo.coordinates[0], obj.llocation.businessName);
 
                                       // MapUtils.openMap(23.6850, 90.3563);
                                       print("${obj.llocation.geo.coordinates[0]}");
@@ -318,7 +314,6 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 style: textStyleUbuntu(color: kBlackColor, fontWeight: weight400, fontSize: 16.0),
                               ),
                             ),
-
                             size20,
                             Divider(
                               color: Colors.grey.withOpacity(0.3),
@@ -334,11 +329,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Business Information",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             Padding(
@@ -385,11 +376,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0, top: 10),
                               child: Row(
-                                children: [
-                                  Expanded(flex: 1, child: Text("Website")),
-                                  Text(": "),
-                                  Expanded(flex: 2, child: Text(obj.contact.website ?? "No website found"))
-                                ],
+                                children: [Expanded(flex: 1, child: Text("Website")), Text(": "), Expanded(flex: 2, child: Text(obj.contact.website ?? "No website found"))],
                               ),
                             ),
                             Padding(
@@ -516,11 +503,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Payment Method",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size20,
@@ -572,11 +555,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Photos",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -592,11 +571,20 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       itemBuilder: (_, index) {
                                         return Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Image.network(
-                                            "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
-                                            height: size.height * 0.2,
-                                            width: 200,
-                                            fit: BoxFit.cover,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
+                                              height:size.height * 0.2,
+                                              width:200,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) => spinKit,
+                                              errorWidget: (context, url, error) => Icon(
+                                                Icons.error,
+                                                color: kPrimaryPurple,
+                                                size: 22,
+                                              ),
+                                            ),
                                           ),
                                         );
                                       },
@@ -617,14 +605,592 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Keywords",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size20,
+                            obj.keywords.length == 0
+                                ? Text("No keywords found")
+                                : Container(
+                                    height: 35,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount: obj.keywords.length,
+                                      itemBuilder: (_, index) {
+                                        return Container(
+                                          //height: 25,
+                                          padding: EdgeInsets.all(10.0),
+                                          margin: EdgeInsets.symmetric(horizontal: 10.0),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.1),
+                                                  spreadRadius: 5,
+                                                  blurRadius: 7,
+                                                  offset: Offset(0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                              borderRadius: BorderRadius.circular(7.0)),
+                                          child: Center(
+                                              child: Text(
+                                            obj.keywords[index].name,
+                                            style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500),
+                                          )),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                            size20,
+                            Divider(
+                              color: Colors.grey.withOpacity(0.3),
+                              thickness: 2.0,
+                              height: 5,
+                              endIndent: 10.0,
+                              indent: 10.0,
+                            ),
+                            size20,
+                          ],
+                        ),
+                      );
+              })),
+          tablet: Container(
+              height: size.height,
+              child: GetX<BusinessProfileController>(builder: (controller) {
+                var obj = controller.businessDataModel.value;
+                return controller.loaderShow.isTrue
+                    ? Center(child: spinKit)
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              height: size.height * 0.4,
+                              width: double.infinity,
+                              child: Stack(
+                                children: [
+                                  Image.network(
+                                    "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
+                                    height: size.height * 0.3,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 30.0),
+                                      width: 150.0,
+                                      height: 150.0,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: kPrimaryPurple),
+                                        image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://dsqdpdmeibwm2.cloudfront.net/${obj.logo}")),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(79.0),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Obx(
+                                  () => RatingBar.builder(
+                                    initialRating: businessProfileController.ratingValue.value.toDouble(),
+                                    minRating: 1,
+                                    itemSize: 30.0,
+                                    direction: Axis.horizontal,
+                                    allowHalfRating: false,
+                                    itemCount: 5,
+                                    //itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
+                                    itemBuilder: (context, _) => Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  " (${obj.aggregateRating})",
+                                  style: textStyleUbuntu(color: kBlackColor, fontSize: 25, fontWeight: weight500),
+                                )
+                              ],
+                            ),
+                            size10,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                "${controller.businessDataModel.value.llocation.businessName ?? ""}",
+                                maxLines: 2,
+                                style: textStyleUbuntu(color: kBlackColor, fontSize: 35.0, fontWeight: weightBold),
+                              ),
+                            ),
+                            size10,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.verified,
+                                  color: Colors.green,
+                                ),
+                                Text(
+                                  "Verified",
+                                  style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Icon(Icons.verified, color: Colors.amber),
+                                Text(
+                                  "Trusted",
+                                  style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20),
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text("Reviews: ", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
+                                Text("${obj.totalReviews}", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => BusinessReview(
+                                            reviews: obj.reviews,
+                                            businesssID: widget.id,
+                                            businessName: obj.llocation.businessName,
+                                            slug: widget.slug,
+                                          )),
+                                    );
+                                  },
+                                  child: Text("See reviews", style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weightBold, textDecoration: TextDecoration.underline, fontSize: 20)),
+                                ),
+                              ],
+                            ),
+                            size20,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: WelcomeScreenButton(
+                                    height: 50,
+                                    borderRadiusGeometry: BorderRadius.circular(10.0),
+                                    buttonText: "Call Now",
+                                    textColor: kWhiteColor,
+                                    fontSize: 20.0,
+                                    edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 10.0),
+                                    buttonColor: kPrimaryPurple,
+                                    isIcon: true,
+                                    callback: () {
+                                      obj.contact.mobileNumbers.length == 0
+                                          ? showSnackBar(
+                                              context: context,
+                                              message: "No "
+                                                  "Contact Found")
+                                          : callNumber(obj.contact.mobileNumbers[0].mobileNumber);
+                                    },
+                                    iconData: Icon(
+                                      Icons.call,
+                                      color: kWhiteColor,
+                                      size: 18.0,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: WelcomeScreenButton(
+                                    height: 50,
+                                    borderRadiusGeometry: BorderRadius.circular(10.0),
+                                    buttonText: "Send Message",
+                                    textColor: kBlackColor,
+                                    fontSize: 20.0,
+                                    edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 10.0),
+                                    buttonColor: Colors.amber,
+                                    isIcon: true,
+                                    iconData: Icon(
+                                      Icons.message,
+                                      color: kBlackColor,
+                                      size: 18.0,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            size10,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: WelcomeScreenButton(
+                                    height: 50,
+                                    borderRadiusGeometry: BorderRadius.circular(10.0),
+                                    buttonText: "Map Location",
+                                    textColor: kWhiteColor,
+                                    fontSize: 20.0,
+                                    edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 10.0),
+                                    buttonColor: Colors.red[600],
+                                    isIcon: true,
+                                    callback: () {
+                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1], obj.llocation.geo.coordinates[0], obj.llocation.businessName);
+
+                                      // MapUtils.openMap(23.6850, 90.3563);
+                                      print("${obj.llocation.geo.coordinates[0]}");
+                                    },
+                                    iconData: Icon(
+                                      Icons.location_on,
+                                      color: kWhiteColor,
+                                      size: 18.0,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: WelcomeScreenButton(
+                                    height: 50,
+                                    borderRadiusGeometry: BorderRadius.circular(10.0),
+                                    buttonText: "Website",
+                                    textColor: kWhiteColor,
+                                    fontSize: 20.0,
+                                    edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 10.0),
+                                    buttonColor: Colors.black.withOpacity(0.7),
+                                    isIcon: true,
+                                    callback: () {
+                                      obj.contact.website == null
+                                          ? showSnackBar(context: context, message: "No Website Found")
+                                          : Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => WebViewExample(
+                                                        url: obj.contact.website,
+                                                      )),
+                                            );
+                                      // launchURL("https://www.google.com");
+                                    },
+                                    iconData: Icon(
+                                      Icons.open_in_browser_rounded,
+                                      color: kWhiteColor,
+                                      size: 18.0,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            size20,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text(
+                                obj.description ?? "No Description Found",
+                                maxLines: 7,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                style: textStyleUbuntu(color: kBlackColor, fontWeight: weight400, fontSize: 18.0),
+                              ),
+                            ),
+                            size20,
+                            Divider(
+                              color: Colors.grey.withOpacity(0.3),
+                              thickness: 2.0,
+                              height: 5,
+                              endIndent: 10.0,
+                              indent: 10.0,
+                            ),
+                            size20,
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Business Information",
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                  ),
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0, top: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(flex: 1, child: textUbuntu("Address", kBlackColor, fontSize: 20)),
+                                  textUbuntu(": ", kBlackColor, fontSize: 20),
+                                  Expanded(
+                                      flex: 2,
+                                      child: textUbuntu(
+                                          "${obj.llocation.landMark + ", "
+                                              "" + obj.llocation.area}",
+                                          kBlackColor,
+                                          fontSize: 20))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0, top: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(flex: 1, child: textUbuntu("Call", kBlackColor, fontSize: 20)),
+                                  textUbuntu(": ", kBlackColor, fontSize: 20),
+                                  obj.contact.mobileNumbers.length == 0
+                                      ? Expanded(flex: 2, child: textUbuntu("No Contact Found", kBlackColor, fontSize: 20))
+                                      : Expanded(
+                                          flex: 2,
+                                          child: Container(
+                                            height: 20,
+                                            //padding: EdgeInsets.only(bo),
+                                            child: ListView.builder(
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: obj.contact.mobileNumbers.length,
+                                              itemBuilder: (_, index) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                                                  child: textUbuntu("${obj.contact.mobileNumbers[index].mobileNumber}, ", kBlackColor, fontSize: 20),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0, top: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(flex: 1, child: textUbuntu("Website", kBlackColor, fontSize: 20)),
+                                  textUbuntu(": ", kBlackColor, fontSize: 20),
+                                  Expanded(flex: 2, child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor, fontSize: 20))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0, top: 10),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      height: size.height * 0.2,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Working hour",kBlackColor,fontSize: 20)),
+                                              textUbuntu(": ", kBlackColor, fontSize: 20),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
+                                      height: size.height * 0.2,
+                                      padding: EdgeInsets.only(left: 4.0, right: 20.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Saturdy",kBlackColor,fontSize: 20)),
+                                              obj.hoursOfOperation.saturday.open24h == true
+                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                      " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
+                                                      "pm",kBlackColor,fontSize: 20),
+                                            ],
+                                          ),
+                                          size5,
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Sunday",kBlackColor,fontSize: 20)),
+                                              obj.hoursOfOperation.sunday.open24h == true
+                                                  ? Text("- Open in 24 hours")
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                      " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
+                                                      "pm",kBlackColor,fontSize: 20),
+                                            ],
+                                          ),
+                                          size5,
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Monday",kBlackColor,fontSize: 20)),
+                                              obj.hoursOfOperation.monday.open24h == true
+                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                      " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
+                                                      "pm",kBlackColor,fontSize: 20),
+                                            ],
+                                          ),
+                                          size5,
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Tuesday",kBlackColor,fontSize: 20)),
+                                              obj.hoursOfOperation.tuesday.open24h == true
+                                                  ? Text("- Open in 24 hours")
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                      " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
+                                                      "pm",kBlackColor,fontSize: 20),
+                                            ],
+                                          ),
+                                          size5,
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Wednesday",kBlackColor,fontSize: 20)),
+                                              obj.hoursOfOperation.wednesday.open24h == true
+                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                      " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
+                                                      "pm",kBlackColor,fontSize: 20),
+                                            ],
+                                          ),
+                                          size5,
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Thursday",kBlackColor,fontSize: 20)),
+                                              obj.hoursOfOperation.thursday.open24h == true
+                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                      " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
+                                                      "pm",kBlackColor,fontSize: 20),
+                                            ],
+                                          ),
+                                          size5,
+                                          Row(
+                                            children: [
+                                              Expanded(flex: 1, child: textUbuntu("Friday",kBlackColor,fontSize: 20)),
+                                              obj.hoursOfOperation.friday.close == true
+                                                  ? textUbuntu("- Closed",kBlackColor,fontSize: 20)
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                      " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
+                                                      "pm",kBlackColor,fontSize: 20),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            size5,
+                            Divider(
+                              color: Colors.grey.withOpacity(0.3),
+                              thickness: 2.0,
+                              height: 5,
+                              endIndent: 10.0,
+                              indent: 10.0,
+                            ),
+                            size20,
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Payment Method",
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                  ),
+                                )),
+                            size10,
+                            obj.acceptedPaymentMethods.length == 0
+                                ? Text("No payment methid found")
+                                : Container(
+                                    height: 35,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount: obj.acceptedPaymentMethods.length,
+                                      itemBuilder: (_, index) {
+                                        return Container(
+                                          //height: 25,
+                                          padding: EdgeInsets.all(10.0),
+                                          margin: EdgeInsets.symmetric(horizontal: 10.0),
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.withOpacity(0.1),
+                                                  spreadRadius: 5,
+                                                  blurRadius: 7,
+                                                  offset: Offset(0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                              borderRadius: BorderRadius.circular(7.0)),
+                                          child: Center(
+                                              child: Text(
+                                            obj.acceptedPaymentMethods[index].name,
+                                            style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500),
+                                          )),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                            size20,
+                            Divider(
+                              color: Colors.grey.withOpacity(0.3),
+                              thickness: 2.0,
+                              height: 5,
+                              endIndent: 10.0,
+                              indent: 10.0,
+                            ),
+                            size20,
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Photos",
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                  ),
+                                )),
+                            size10,
+                            obj.photos.length == 0
+                                ? Text("No Photos Found")
+                                : Container(
+                                    height: size.height * 0.2,
+                                    margin: EdgeInsets.symmetric(horizontal: 10.0),
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemCount: obj.photos.length,
+                                      itemBuilder: (_, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
+                                              height:size.height * 0.2,
+                                              width:200,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) => spinKit,
+                                              errorWidget: (context, url, error) => Icon(
+                                                Icons.error,
+                                                color: kPrimaryPurple,
+                                                size: 22,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                            size20,
+                            Divider(
+                              color: Colors.grey.withOpacity(0.3),
+                              thickness: 2.0,
+                              height: 5,
+                              endIndent: 10.0,
+                              indent: 10.0,
+                            ),
+                            size20,
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(
+                                    "Keywords",
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                  ),
+                                )),
+                            size10,
                             obj.keywords.length == 0
                                 ? Text("No keywords found")
                                 : Container(
@@ -726,8 +1292,6 @@ class _BusinessProfileState extends State<BusinessProfile> {
     );
   }
 }
-
-
 
 /*
 

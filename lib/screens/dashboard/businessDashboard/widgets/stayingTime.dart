@@ -12,6 +12,10 @@ class BusinessStayTimeWidget extends StatelessWidget {
     @required this.minValueColor,
     @required this.minTextColor,
     @required this.titleColor,
+    @required this.height,
+    @required this.titleText,
+    @required this.minValueSize,
+    @required this.minSize,
   }) : super(key: key);
 
   final Size size;
@@ -21,11 +25,15 @@ class BusinessStayTimeWidget extends StatelessWidget {
   final Color minValueColor;
   final Color minTextColor;
   final Color titleColor;
+  final height;
+  final titleText;
+  final minValueSize;
+  final minSize;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size.height / 7.5,
+      height: height?? size.height / 7.5,
       width: size.width,
       decoration: containerBoxDecoration(color: color, borderRadius: 10,boxShadow: [
         BoxShadow(
@@ -42,14 +50,14 @@ class BusinessStayTimeWidget extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
-                child: textUbuntu(title, titleColor, fontWeight: weight500),
+                child: textUbuntu(title, titleColor, fontWeight: weight500,fontSize: titleText??16.0),
               )),
           size20,
           Row(
             mainAxisAlignment: mainAxisAlignmentCenter,
             children: [
-              textUbuntu("${minValue ?? 0.0}", minValueColor, fontWeight: weight500, fontSize: 35),
-              textUbuntu(" min.", minTextColor, fontWeight: weight500, fontSize: 18),
+              textUbuntu("${minValue ?? 0.0}", minValueColor, fontWeight: weight500, fontSize: minValueSize?? 35),
+              textUbuntu(" min.", minTextColor, fontWeight: weight500, fontSize:minSize?? 18),
             ],
           ),
         ],

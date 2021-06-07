@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
+import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ctaClickWidget.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/visitorHistoryWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -36,50 +37,105 @@ class _TodayState extends State<Today> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Obx(
-                    () => VisitorHistoryWidget(
-                        size: size,
-                        visitorCount: c.visitorCount.value.uniqueVisits??0,
-                        title: "Unique Visitor",
-                        color: kPinkColor),
-                  ),
-                  width10,
-                 Obx(()=> VisitorHistoryWidget(size: size, visitorCount: c.visitorCount.value.totalVisits??0, title: "T"
-                     "otal "
-                     "Visitor", color:
-                 kPinkColor)),
-                ],
-              ),
-              size10,
-              Container(
-                height: 50,
-                decoration: containerBoxDecoration(color: kPinkColor.withOpacity(0.6), borderRadius: 10),
-                child: Center(
-                  child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500),
+      body: Responsive(
+        mobile: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Obx(
+                          () => VisitorHistoryWidget(
+                          size: size,
+                          visitorCount: c.visitorCount.value.uniqueVisits??0,
+                          title: "Unique Visitor",
+                          color: kPinkColor),
+                    ),
+                    width10,
+                    Obx(()=> VisitorHistoryWidget(size: size, visitorCount: c.visitorCount.value.totalVisits??0, title: "T"
+                        "otal "
+                        "Visitor", color:
+                    kPinkColor)),
+                  ],
                 ),
-              ),
-              size10,
-              Obx(()=>Row(
-                children: [
-                  CtaCountWidget(
-                    size: size,
-                    count: c.ctaCount.value.fromMobile??0,
-                    title: "Mobile",
-                    color: kPinkColor,
+                size10,
+                Container(
+                  height: 50,
+                  decoration: containerBoxDecoration(color: kPinkColor.withOpacity(0.6), borderRadius: 10),
+                  child: Center(
+                    child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500),
                   ),
-                  width10,
-                  CtaCountWidget(size: size, count: c.ctaCount.value.fromDesktop??0, title: "Desktop", color:
-                  kPinkColor),
-                ],
-              ),)
-            ],
+                ),
+                size10,
+                Obx(()=>Row(
+                  children: [
+                    CtaCountWidget(
+                      size: size,
+                      count: c.ctaCount.value.fromMobile??0,
+                      title: "Mobile",
+                      color: kPinkColor,
+                    ),
+                    width10,
+                    CtaCountWidget(size: size, count: c.ctaCount.value.fromDesktop??0, title: "Desktop", color:
+                    kPinkColor),
+                  ],
+                ),)
+              ],
+            ),
+          ),
+        ),
+        tablet: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Obx(
+                          () => VisitorHistoryWidget(
+                          size: size,
+                          height: size.height/6,
+                          titleFontSize: 20.0,
+                          countFontSize: 35,
+                          visitorCount: c.visitorCount.value.uniqueVisits??0,
+                          title: "Unique Visitor",
+                          color: kPinkColor),
+                    ),
+                    width10,
+                    Obx(()=> VisitorHistoryWidget(size: size, height: size.height/6,titleFontSize: 20.0,countFontSize: 35,visitorCount: c.visitorCount.value.totalVisits??0, title: "T"
+                        "otal "
+                        "Visitor", color:
+                    kPinkColor)),
+                  ],
+                ),
+                size10,
+                Container(
+                  height: 65,
+                  decoration: containerBoxDecoration(color: kPinkColor.withOpacity(0.6), borderRadius: 10),
+                  child: Center(
+                    child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500,fontSize: 20.0),
+                  ),
+                ),
+                size10,
+                Obx(()=>Row(
+                  children: [
+                    CtaCountWidget(
+                      size: size,
+                      count: c.ctaCount.value.fromMobile??0,
+                      height: size.height/11,
+                      countSize: 33.0,
+                      titleSize: 20.0,
+                      title: "Mobile",
+                      color: kPinkColor,
+                    ),
+                    width10,
+                    CtaCountWidget(size: size, height: size.height/11,count: c.ctaCount.value.fromDesktop??0, title: "Desktop", color:
+                    kPinkColor),
+                  ],
+                ),)
+              ],
+            ),
           ),
         ),
       ),

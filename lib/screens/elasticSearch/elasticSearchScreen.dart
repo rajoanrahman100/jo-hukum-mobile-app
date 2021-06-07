@@ -195,7 +195,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => BusinessProfile(
-                              id: dataList[index].sSource.slug,
+                              slug: dataList[index].sSource.slug,
                               name: dataList[index].sSource.businessName,
                             )),
                       );

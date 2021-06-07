@@ -1,5 +1,8 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:johukum/screens/addBusiness/lastSuccessScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFiveScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFourScreen.dart';
@@ -13,26 +16,30 @@ import 'package:johukum/screens/authentication/optScreen.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
-import 'screens/dashboard/userDashBoard/dashboardBar.dart';
 import 'package:johukum/screens/notificationsScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/screens/subCategory/subCategories.dart';
 import 'package:johukum/screens/wrapper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'components/config.dart';
+import 'screens/dashboard/userDashBoard/dashboardBar.dart';
 import 'screens/elasticSearch/businessProfile.dart';
 import 'screens/home/homeScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get_storage/get_storage.dart';
 
-void main() async{
-
+void main() async {
   await GetStorage.init();
 
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedConfig.pref = await SharedPreferences.getInstance();
 
-  runApp(GetMaterialApp(home: MyApp(),debugShowCheckedModeBanner: false,));
+  runApp(DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => GetMaterialApp(
+            home: MyApp(),
+            debugShowCheckedModeBanner: false,
+          )));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,27 +47,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
-    return MaterialApp(debugShowCheckedModeBanner: false,initialRoute: '/welcome', routes: {
-      '/welcome': (context) => WrapperClass(),
-      '/signIn': (context) => SignInScreen(),
-      '/signUp': (context) => SignUpScreen(),
-      '/home': (context) => HomeScreen(),
-      '/otpScreen': (context) => OtpInputScreen(),
-      '/bottomNav': (context) => BottomNavScreen(),
-      '/userInfo': (context) => UserAdditionalInformation(),
-      '/profileSetting': (context) => ProfileSettings(),
-      '/notification': (context) => NotificationScreen(),
-      '/subCategories': (context) => SubCategories(),
-      '/businessProfile': (context) => BusinessProfile(),
-      '/stepOne': (context) => StepOneScreen(),
-      '/stepTwo': (context) => StepTwoScreen(),
-      '/stepThree': (context) => StepTheeScreenTwo(),
-      '/stepFour': (context) => StepFourScreen(),
-      '/stepFive': (context) => StepFiveScreen(),
-      '/stepSix': (context) => StepSixScreen(),
-      '/stepSeven': (context) => StepSevenScreen(),
-      '/lastSuccess': (context) => LastSuccessScreen(),
-      '/dashBoard': (context) => UserDashBoardTabs(),
-    });
+    return MaterialApp(
+        locale: DevicePreview.locale(context),
+        // Add the locale here
+        builder: DevicePreview.appBuilder,
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/welcome',
+        routes: {
+          '/welcome': (context) => WrapperClass(),
+          '/signIn': (context) => SignInScreen(),
+          '/signUp': (context) => SignUpScreen(),
+          '/home': (context) => HomeScreen(),
+          '/otpScreen': (context) => OtpInputScreen(),
+          '/bottomNav': (context) => BottomNavScreen(),
+          '/userInfo': (context) => UserAdditionalInformation(),
+          '/profileSetting': (context) => ProfileSettings(),
+          '/notification': (context) => NotificationScreen(),
+          '/subCategories': (context) => SubCategories(),
+          '/businessProfile': (context) => BusinessProfile(),
+          '/stepOne': (context) => StepOneScreen(),
+          '/stepTwo': (context) => StepTwoScreen(),
+          '/stepThree': (context) => StepTheeScreenTwo(),
+          '/stepFour': (context) => StepFourScreen(),
+          '/stepFive': (context) => StepFiveScreen(),
+          '/stepSix': (context) => StepSixScreen(),
+          '/stepSeven': (context) => StepSevenScreen(),
+          '/lastSuccess': (context) => LastSuccessScreen(),
+          '/dashBoard': (context) => UserDashBoardTabs(),
+        });
   }
 }
