@@ -11,7 +11,8 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 
 class Header extends StatelessWidget {
-  Header({Key key, @required this.size, this.callBack}) : super(key: key);
+  Header({Key key, @required this.size, this.callBack,this.containerHeight,
+    this.locationTitleSize,this.locationAddressSize,this.iconSize,this.searchBarHeight}) : super(key: key);
 
   final Size size;
   final Function callBack;
@@ -24,6 +25,11 @@ class Header extends StatelessWidget {
 
   var currentAddress;
 
+  var containerHeight;
+  var locationTitleSize;
+  var locationAddressSize;
+  var iconSize;
+  var searchBarHeight;
   var getController=Get.put(LocationController());
   //var categoryController=Get.put(CategoryController());
 
@@ -32,7 +38,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160,
+      height:containerHeight?? 160,
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       color: kPrimaryPurple,
       child: Column(
@@ -44,7 +50,9 @@ class Header extends StatelessWidget {
                   child: Icon(
                     Icons.menu,
                     color: kWhiteColor,
+                    size: iconSize??22.0,
                   )),
+              width5,
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10.0),
@@ -55,7 +63,7 @@ class Header extends StatelessWidget {
                         "Your Location",
                         style: textStyleUbuntu(
                             color: kWhiteColor.withOpacity(0.4),
-                            fontSize: 14.0),
+                            fontSize: locationTitleSize?? 14.0),
                       ),
                       SizedBox(
                         height: 3.0,
@@ -64,27 +72,27 @@ class Header extends StatelessWidget {
                          getController.currentAddress.value,
                          style: textStyleUbuntu(
                              color: kWhiteColor,
-                             fontSize: 14.0,
+                             fontSize:locationAddressSize?? 14.0,
                              fontWeight: FontWeight.w500),
                        ),),
                     ],
                   ),
                 ),
               ),
-              GestureDetector(
+              /*GestureDetector(
                 onTap: () => Navigator.pushNamed(context, '/notification'),
                 child: Icon(
                   Icons.notifications,
                   color: kWhiteColor,
                 ),
-              ),
+              ),*/
             ],
           ),
           SizedBox(
             height: 20.0,
           ),
           Container(
-            height: 55.0,
+            height: searchBarHeight?? 55.0,
             width: size.width,
             margin: EdgeInsets.symmetric(horizontal: 20.0),
             decoration: BoxDecoration(

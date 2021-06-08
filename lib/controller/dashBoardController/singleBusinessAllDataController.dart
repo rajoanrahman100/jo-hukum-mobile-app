@@ -26,7 +26,6 @@ class SingleBusinessAllDataController extends GetxController {
       reviewList.value = businessAllData.reviews;
       totalReviewAvg.value = businessAllData.aggregateRating;
       totalReviewCount.value = businessAllData.totalReviews;
-
       //reviewList.add(businessAllData.reviews);
     } else {
       loaderShow.value = false;

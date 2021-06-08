@@ -22,8 +22,8 @@ class WelcomeScreenTabView extends StatelessWidget {
           child: Container(
             height: size.height/1.2,
             width: size.width,
+            //color: Colors.red,
             child: Column(
-
               children: [
                 Spacer(),
                 Image.asset("assets/images/johukuminfologo.png",height: size.height/2,),
@@ -36,7 +36,6 @@ class WelcomeScreenTabView extends StatelessWidget {
                   callback: ()=>Navigator.pushNamed(context, '/signUp'),
                   isIcon: false,
                 ),
-
                 size15,
                 WelcomeScreenButton(
                   height: 70.0,
@@ -60,9 +59,7 @@ class WelcomeScreenTabView extends StatelessWidget {
                   isIcon: false,
                   callback: ()=>Navigator.pushNamed(context, '/signIn'),
                 ),
-
                 SizedBox(height: 40.0,),
-
                 Text("For web view, visit",style: textStyleUbuntu(
                     color: kWhiteColor,fontSize: 16.0,fontWeight: FontWeight.w400
                 ),),

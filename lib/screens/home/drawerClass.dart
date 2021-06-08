@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dialogAuthController.dart';
+import 'package:johukum/controller/myBusinessDataController.dart';
+import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/fullScreenAlertForAuth.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -12,29 +14,223 @@ class DrawerClass extends StatelessWidget {
       "https://scontent.fdac116-1.fna.fbcdn.net/v/t1.6435-9/158261324_226608225830377_8521737132345272932_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=730e14&_nc_ohc=PivMlip5C94AX8C38PS&_nc_ht=scontent.fdac116-1.fna&oh=ece9ef74fbfee93d213a6c1e8437438d&oe=60967998";
 
   var c = Get.put(DialogAuthController());
+  var businessController = Get.put(MyBusinessController());
 
   @override
   Widget build(BuildContext context) {
+    businessController.getMyBusinessData();
     Size size = MediaQuery.of(context).size;
 
-    return Container(
-      width: MediaQuery.of(context).size.width / 1.4, //20.0,
-      height: MediaQuery.of(context).size.height,
-      child: SafeArea(
-        child: Theme(
+    return Responsive(
+       mobile: Container(
+          width: MediaQuery.of(context).size.width / 1.4, //20.0,
+          height: MediaQuery.of(context).size.height,
+          child:Theme(
+            data: Theme.of(context).copyWith(
+              canvasColor: kPrimaryPurple.withOpacity(0.8),
+            ),
+            child: Drawer(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: ListView(
+                  // Important: Remove any padding from the ListView.
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    Image.asset(
+                      "assets/images/johukuminfologo.png",
+                      height: 250,
+                    ),
+                    Row(
+                      children: [
+
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Welcome,",
+                              style: textStyleUbuntu(color: kWhiteColor, fontSize: 13.0, fontWeight: weight500),
+                            ),
+                            boxStorage.read(KEY_TOKEN) == null
+                                ? Text(
+                              "Guest Login",
+                              style: textStyleUbuntu(color: kWhiteColor, fontSize: 20.0, fontWeight: weight500),
+                            )
+                                : Text(
+                              boxStorage.read(KEY_USER_NAME),
+                              style: textStyleUbuntu(color: kWhiteColor, fontSize: 20.0, fontWeight: weight500),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    size20,
+                    //boxStorage.read(KEY_TOKEN) == null?Container():
+                    GestureDetector(
+                      onTap: (){
+                        return showDialog(
+                            context: context,
+                            builder: (context){
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Container(
+                                  height: size.height/4.5,
+                                  decoration: containerBoxDecoration(
+                                      borderRadius: 10.0
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                          child: Obx(()=>businessController.businessData.value.results.length==0?textUbuntu("No Business Found", kPrimaryPurple):Container(
+                                            child: SizedBox.expand(
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(15.0),
+                                                child: ListView.builder(
+                                                  itemCount: businessController.businessData.value.results.length,
+                                                  itemBuilder: (_,index){
+
+                                                    var obj=businessController.businessData.value;
+
+                                                    return ListTile(
+                                                      title: textUbuntu(businessController.businessData.value.results[index].location.businessName, kBlackColor,fontSize: 18,maxLine: 2),
+                                                      leading:Icon(Icons.add_business,color: kPrimaryPurple,size: 25.0,),
+                                                      onTap: (){
+                                                        businessController.setMyBusinessSlug(obj.results[index].slug);
+                                                        businessController.setMyBusinessID(obj.results[index].sId);
+                                                        businessController.setMyBusinessName(obj.results[index].location.businessName);
+                                                        Navigator.of(context).pop();
+                                                      },
+
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ),)
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                        );
+                      },
+                      child: Container(
+                        height: 40,
+                        decoration: containerBoxDecoration(
+                          borderRadius: 10.0,
+                          color: kWhiteColor,
+                        ),
+                        child:Obx(()=>Row(
+                          children: [
+                            Expanded(child: Center(child: textUbuntu("${businessController.myBusinessName.value}", kPrimaryPurple,fontSize: 16,fontWeight: weight500),)),
+                            Icon(Icons.arrow_drop_down,color: kPrimaryPurple,size: 23,),
+                            width10
+                          ],
+                        ))
+                      ),
+                    ),
+                    size20,
+                    DrawerItems(
+                      icon: Icons.category,
+                      title: "Categories",
+                    ),
+                    DrawerItems(
+                      icon: Icons.report_problem,
+                      title: "Report",
+                    ),
+                    DrawerItems(
+                      icon: Icons.description,
+                      title: "Suggestion",
+                    ),
+                    DrawerItems(
+                      icon: Icons.message,
+                      title: "Message",
+                    ),
+                    DrawerItems(
+                      icon: Icons.notifications,
+                      title: "Notifications",
+                    ),
+                    DrawerItems(
+                      icon: Icons.settings,
+                      title: "Profile Settings",
+                      callBack: () => Navigator.pushNamed(context, '/profileSetting'),
+                    ),
+                    DrawerItems(
+                      icon: Icons.dashboard,
+                      title: "User Dashboard",
+                      callBack: () => Navigator.pushNamed(context, '/dashBoard'),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    WelcomeScreenButton(
+                      callback: () {
+                        boxStorage.read(KEY_TOKEN)==null
+                            ? openAddAuthDialog(context)
+                            : Navigator.pushNamed(
+                            context,
+                            '/'
+                                'stepOne');
+                      },
+                      edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 5),
+                      buttonColor: kWhiteColor,
+                      buttonText: "ADD YOUR BUSINESS",
+                      textColor: kPrimaryPurple,
+                      height: 40,
+                      borderRadiusGeometry: BorderRadius.circular(10.0),
+                      isIcon: false,
+                    ),
+                    SizedBox(
+                      height: 70,
+                    ),
+                    GetBuilder<DialogAuthController>(
+                      builder: (controller) {
+                        return WelcomeScreenButton(
+                          edgeInsetsGeometry: EdgeInsets.only(right: 120, left: 5),
+                          buttonColor: kWhiteColor,
+                          buttonText: "Log Out",
+                          textColor: kPrimaryPurple,
+                          height: 40,
+                          borderRadiusGeometry: BorderRadius.circular(10.0),
+                          isIcon: true,
+                          callback: () {
+                            boxStorage.remove(KEY_TOKEN).then((value) {
+                              controller.logInSuccess.value = false;
+                              Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
+                            });
+                          },
+                          iconData: Icon(
+                            Icons.logout,
+                            color: kPrimaryPurple,
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      tablet: Container(
+        width: MediaQuery.of(context).size.width / 2.0, //20.0,
+        height: MediaQuery.of(context).size.height,
+        child:Theme(
           data: Theme.of(context).copyWith(
             canvasColor: kPrimaryPurple.withOpacity(0.8),
           ),
           child: Drawer(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25.0),
               child: ListView(
                 // Important: Remove any padding from the ListView.
                 padding: EdgeInsets.zero,
                 children: <Widget>[
                   Image.asset(
                     "assets/images/johukuminfologo.png",
-                    height: 200,
+                    height: 350,
                   ),
                   Row(
                     children: [
@@ -44,20 +240,88 @@ class DrawerClass extends StatelessWidget {
                         children: [
                           Text(
                             "Welcome,",
-                            style: textStyleUbuntu(color: kWhiteColor, fontSize: 13.0, fontWeight: weight500),
+                            style: textStyleUbuntu(color: kWhiteColor, fontSize: 15.0, fontWeight: weight500),
                           ),
                           boxStorage.read(KEY_TOKEN) == null
                               ? Text(
-                                  "Guest Login",
-                                  style: textStyleUbuntu(color: kWhiteColor, fontSize: 20.0, fontWeight: weight500),
-                                )
+                            "Guest Login",
+                            style: textStyleUbuntu(color: kWhiteColor, fontSize: 20.0, fontWeight: weight500),
+                          )
                               : Text(
-                                  boxStorage.read(KEY_USER_NAME),
-                                  style: textStyleUbuntu(color: kWhiteColor, fontSize: 20.0, fontWeight: weight500),
-                                ),
+                            boxStorage.read(KEY_USER_NAME),
+                            style: textStyleUbuntu(color: kWhiteColor, fontSize: 20.0, fontWeight: weight500),
+                          ),
                         ],
                       )
                     ],
+                  ),
+                  size20,
+                  //boxStorage.read(KEY_TOKEN) == null?Container():
+                  GestureDetector(
+                    onTap: (){
+                      return showDialog(
+                          context: context,
+                          builder: (context){
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Container(
+                                height: size.height/4.5,
+                                decoration: containerBoxDecoration(
+                                    borderRadius: 10.0
+                                ),
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                        child: Obx(()=>businessController.businessData.value.results.length==0?textUbuntu("No Business Found", kPrimaryPurple):Container(
+                                          child: SizedBox.expand(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(15.0),
+                                              child: ListView.builder(
+                                                itemCount: businessController.businessData.value.results.length,
+                                                itemBuilder: (_,index){
+
+                                                  var obj=businessController.businessData.value;
+
+                                                  return ListTile(
+                                                    title: textUbuntu(businessController.businessData.value.results[index].location.businessName, kBlackColor,fontSize: 18,maxLine: 2),
+                                                    leading:Icon(Icons.add_business,color: kPrimaryPurple,size: 25.0,),
+                                                    onTap: (){
+                                                      businessController.setMyBusinessSlug(obj.results[index].slug);
+                                                      businessController.setMyBusinessID(obj.results[index].sId);
+                                                      businessController.setMyBusinessName(obj.results[index].location.businessName);
+                                                      Navigator.of(context).pop();
+                                                    },
+
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        ),)
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      decoration: containerBoxDecoration(
+                        borderRadius: 10.0,
+                        color: kWhiteColor,
+                      ),
+                      child: Obx(()=>Row(
+                        children: [
+                          Expanded(child: Center(child: textUbuntu("${businessController.myBusinessName.value}", kPrimaryPurple,fontSize: 16,fontWeight: weight500),)),
+                          Icon(Icons.arrow_drop_down,color: kPrimaryPurple,size: 23,),
+                          width10
+                        ],
+                      )),
+                    ),
                   ),
                   size20,
                   DrawerItems(
@@ -98,15 +362,15 @@ class DrawerClass extends StatelessWidget {
                       boxStorage.read(KEY_TOKEN)==null
                           ? openAddAuthDialog(context)
                           : Navigator.pushNamed(
-                              context,
-                              '/'
+                          context,
+                          '/'
                               'stepOne');
                     },
                     edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 5),
                     buttonColor: kWhiteColor,
                     buttonText: "ADD YOUR BUSINESS",
                     textColor: kPrimaryPurple,
-                    height: 40,
+                    height: 50,
                     borderRadiusGeometry: BorderRadius.circular(10.0),
                     isIcon: false,
                   ),
@@ -120,8 +384,8 @@ class DrawerClass extends StatelessWidget {
                         buttonColor: kWhiteColor,
                         buttonText: "Log Out",
                         textColor: kPrimaryPurple,
-                        height: 40,
-                        borderRadiusGeometry: BorderRadius.circular(20.0),
+                        height: 50,
+                        borderRadiusGeometry: BorderRadius.circular(10.0),
                         isIcon: true,
                         callback: () {
                           boxStorage.remove(KEY_TOKEN).then((value) {

@@ -70,7 +70,7 @@ class BusinessAnalyticsController extends GetxController{
       print(dataMap["from_desktop"]);
       CtaClickCount countData = CtaClickCount.fromJson(dataMap);
       ctaCount.value=countData;
-      totalCount.value=countData.fromDesktop+countData.fromMobile;
+      totalCount.value=countData.fromDesktop??0+countData.fromMobile??0;
 
     } else {
       throw ("Error code " + response.statusCode.toString());

@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/controller/dashBoardController/singleBusinessAllDataController.dart';
+import 'package:johukum/controller/myBusinessDataController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ratingWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -24,11 +27,13 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
   var profile = "https://dsxzwbyxhnf79.cloudfront.net/productGalleries/2021/04/60753028bf116_1618292776.jpg";
   var c = Get.put(SingleBusinessAllDataController());
   var totalController = Get.put(BusinessAnalyticsController());
+  var businessController = Get.put(MyBusinessController());
 
   @override
   void initState() {
-    // TODO: implement initState
-    c.getSingleBusinessData("new-b67867657est");
+    print(boxStorage.read(MY_BUSINESS_SLUG));
+    //c.getSingleBusinessData("new-b67867657est");
+    c.getSingleBusinessData(businessController.myBusinessSlug.value);
     totalController.getCtaCount("602ce10270050b2691a99bcc", "");
   }
 
@@ -52,13 +57,24 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                           Align(
                             alignment: Alignment.center,
                             child: Container(
-                              width: 120.0,
-                              height: 120.0,
+                              padding: EdgeInsets.all(1.0),
                               decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                                 border: Border.all(color: kPrimaryPurple),
-                                image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://dsqdpdmeibwm2.cloudfront.net/${c.singleBusinessValue.value.logo}")),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(60.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(60.0),
+                                child: CachedNetworkImage(
+                                  imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${c.singleBusinessValue.value.logo}",
+                                  height: 120,
+                                  width: 120,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => spinKit,
+                                  errorWidget: (context, url, error) => Icon(
+                                    Icons.error,
+                                    color: kPrimaryPurple,
+                                    size: 25,
+                                  ),
                                 ),
                               ),
                             ),
@@ -210,7 +226,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                           size10,
                           Row(
                             children: [
-                              textUbuntu("Payment Method", kPrimaryPurple),
+                              textUbuntu("Keywords", kPrimaryPurple),
                               Expanded(
                                   child: Divider(
                                 color: kPrimaryPurple,
@@ -272,13 +288,24 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                           Align(
                             alignment: Alignment.center,
                             child: Container(
-                              width: 140.0,
-                              height: 140.0,
+                              padding: EdgeInsets.all(1.0),
                               decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                                 border: Border.all(color: kPrimaryPurple),
-                                image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://dsqdpdmeibwm2.cloudfront.net/${c.singleBusinessValue.value.logo}")),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(70.0),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(80.0),
+                                child: CachedNetworkImage(
+                                  imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${c.singleBusinessValue.value.logo}",
+                                  height: 140,
+                                  width: 140,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => spinKit,
+                                  errorWidget: (context, url, error) => Icon(
+                                    Icons.error,
+                                    color: kPrimaryPurple,
+                                    size: 35,
+                                  ),
                                 ),
                               ),
                             ),
@@ -289,14 +316,18 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 size10,
-                                textUbuntu("${c.singleBusinessValue.value.location.businessName ?? "loading.."}", kBlackColor, fontWeight: weight500,fontSize: 22),
+                                textUbuntu("${c.singleBusinessValue.value.location.businessName ?? "loading.."}", kBlackColor, fontWeight: weight500, fontSize: 22),
                                 size10,
-                                RatingBarWidget(ratingInit: c.totalReviewAvg.value,size: 22,),
+                                RatingBarWidget(
+                                  ratingInit: c.totalReviewAvg.value,
+                                  size: 22,
+                                ),
                                 size10,
                                 textUbuntu(
                                     "${c.singleBusinessValue.value.location.building + ", " + c.singleBusinessValue.value.location.landMark + ", "
                                         "" + c.singleBusinessValue.value.location.city.name}",
-                                    kBlackColor,fontSize: 20),
+                                    kBlackColor,
+                                    fontSize: 20),
                                 size10,
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -308,7 +339,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                     ),
                                     Text(
                                       "Verified",
-                                      style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500,fontSize: 20),
+                                      style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20),
                                     ),
                                     SizedBox(
                                       width: 10.0,
@@ -320,14 +351,14 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                     ),
                                     Text(
                                       "Trusted",
-                                      style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500,fontSize: 20),
+                                      style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20),
                                     ),
                                     SizedBox(
                                       width: 10.0,
                                     ),
                                     Text(
                                       "views: 320",
-                                      style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500,fontSize: 20),
+                                      style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20),
                                     ),
                                   ],
                                 ),
@@ -337,7 +368,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                           size20,
                           Row(
                             children: [
-                              textUbuntu("Contributions", kPrimaryPurple,fontSize: 18),
+                              textUbuntu("Contributions", kPrimaryPurple, fontSize: 18),
                               Expanded(
                                   child: Divider(
                                 color: kPrimaryPurple,
@@ -357,7 +388,8 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                     children: [
                                       textUbuntu("${controller.singleBusinessValue.value.totalReviews} Review ", kWhiteColor, fontWeight: weight500, fontSize: 20),
                                       RatingBarWidget(
-                                        ratingInit: 5.0,size: 18,
+                                        ratingInit: 5.0,
+                                        size: 18,
                                       )
                                     ],
                                   ),
@@ -385,7 +417,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                           size20,
                           Row(
                             children: [
-                              textUbuntu("Payment Method", kPrimaryPurple,fontSize: 18),
+                              textUbuntu("Payment Method", kPrimaryPurple, fontSize: 18),
                               Expanded(
                                   child: Divider(
                                 color: kPrimaryPurple,
@@ -420,7 +452,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                         child: Center(
                                             child: Text(
                                           controller.singleBusinessValue.value.acceptedPaymentMethods[index].name,
-                                          style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500,fontSize: 18),
+                                          style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500, fontSize: 18),
                                         )),
                                       );
                                     },
@@ -429,7 +461,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                           size20,
                           Row(
                             children: [
-                              textUbuntu("Payment Method", kPrimaryPurple,fontSize: 18),
+                              textUbuntu("Keywords", kPrimaryPurple, fontSize: 18),
                               Expanded(
                                   child: Divider(
                                 color: kPrimaryPurple,
@@ -465,7 +497,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                         child: Center(
                                             child: Text(
                                           controller.singleBusinessValue.value.keywords[index].name,
-                                          style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500,fontSize: 18),
+                                          style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500, fontSize: 18),
                                         )),
                                       );
                                     },

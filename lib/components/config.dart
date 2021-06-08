@@ -23,8 +23,12 @@ const String KEY_USER_AVATAR = "USER_AVATAR";
 const String KEY_USER_CREATED_AT = "USER_CREATED_AT";
 const String KEY_USER_UPDATED_AT = "USER_UPDATED_AT";
 
-///lAT & lANG
+///Business Info
+const String MY_BUSINESS_NAME="MY_BUSINESS_NAME";
+const String MY_BUSINESS_SLUG="MY_BUSINESS_SLUG";
+const String MY_BUSINESS_ID="MY_BUSINESS_ID";
 
+///lAT & lANG
 const String LAT="lat";
 const String LONG="long";
 

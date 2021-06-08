@@ -17,20 +17,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   var controller=Get.put(LocationController());
   var token;
 
-
-
   @override
   Widget build(BuildContext context) {
 
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
-      body:SafeArea(
-        child:Responsive(
+      body:Responsive(
           mobile: WelcomeScreenMobileView(size: size),
           tablet: WelcomeScreenTabView(size: size),
         )
-      )
     );
   }
 
