@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
+import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ctaClickWidget.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/visitorHistoryWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -26,64 +27,119 @@ class _TotalState extends State<Total> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 0),
-          child: Column(
-            children: [
-              Obx(
-                () => Row(
+      body: Responsive(
+        mobile: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Column(
+              children: [
+                Obx(
+                      () => Row(
+                    children: [
+                      VisitorHistoryWidget(
+                        size: size,
+                        visitorCount: totalController.visitorCount.value.uniqueVisits ?? 0,
+
+                        title: "Unique Visitor",
+                        color: kYellowColor,
+                      ),
+                      width10,
+                      VisitorHistoryWidget(
+                          size: size,
+                          visitorCount: totalController.visitorCount.value.totalVisits ?? 0,
+
+                          title: "Total"
+                              " Visitor",
+                          color: kYellowColor),
+                    ],
+                  ),
+                ),
+                size10,
+                Container(
+                  height: 50,
+                  decoration: containerBoxDecoration(color: kYellowColor.withOpacity(0.6), borderRadius: 10),
+                  child: Center(
+                    child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500,fontSize: 20),
+                  ),
+                ),
+                size10,
+                Obx(()=>Row(
                   children: [
-                    VisitorHistoryWidget(
+                    CtaCountWidget(
                       size: size,
-                      visitorCount: totalController.visitorCount.value.uniqueVisits ?? 0,
-                      height: size.height / 6,
-                      titleFontSize: 20.0,
-                      countFontSize: 35,
-                      title: "Unique Visitor",
+                      count: totalController.ctaCount.value.fromMobile,
+
+                      title: "Mobile",
                       color: kYellowColor,
                     ),
                     width10,
-                    VisitorHistoryWidget(
+                    CtaCountWidget(size: size,count: totalController.ctaCount.value.fromDesktop, title: "Desktop", color:
+                        kYellowColor),
+                  ],
+                ),)
+              ],
+            ),
+          ),
+        ),
+        tablet: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0),
+            child: Column(
+              children: [
+                Obx(
+                      () => Row(
+                    children: [
+                      VisitorHistoryWidget(
                         size: size,
-                        visitorCount: totalController.visitorCount.value.totalVisits ?? 0,
+                        visitorCount: totalController.visitorCount.value.uniqueVisits ?? 0,
                         height: size.height / 6,
                         titleFontSize: 20.0,
                         countFontSize: 35,
-                        title: "Total"
-                            " Visitor",
-                        color: kYellowColor),
-                  ],
-                ),
-              ),
-              size10,
-              Container(
-                height: 65,
-                decoration: containerBoxDecoration(color: kYellowColor.withOpacity(0.6), borderRadius: 10),
-                child: Center(
-                  child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500,fontSize: 20),
-                ),
-              ),
-              size10,
-              Obx(()=>Row(
-                children: [
-                  CtaCountWidget(
-                    size: size,
-                    count: totalController.ctaCount.value.fromMobile,
-                    height: size.height/11,
-                    countSize: 33.0,
-                    titleSize: 20.0,
-                    title: "Mobile",
-                    color: kYellowColor,
+                        title: "Unique Visitor",
+                        color: kYellowColor,
+                      ),
+                      width10,
+                      VisitorHistoryWidget(
+                          size: size,
+                          visitorCount: totalController.visitorCount.value.totalVisits ?? 0,
+                          height: size.height / 6,
+                          titleFontSize: 20.0,
+                          countFontSize: 35,
+                          title: "Total"
+                              " Visitor",
+                          color: kYellowColor),
+                    ],
                   ),
-                  width10,
-                  CtaCountWidget(size: size, height: size.height/11,
+                ),
+                size10,
+                Container(
+                  height: 65,
+                  decoration: containerBoxDecoration(color: kYellowColor.withOpacity(0.6), borderRadius: 10),
+                  child: Center(
+                    child: textUbuntu("Total CTA count", Colors.white, fontWeight: weight500,fontSize: 20),
+                  ),
+                ),
+                size10,
+                Obx(()=>Row(
+                  children: [
+                    CtaCountWidget(
+                      size: size,
+                      count: totalController.ctaCount.value.fromMobile,
+                      height: size.height/11,
                       countSize: 33.0,
-                      titleSize: 20.0,count: totalController.ctaCount.value.fromDesktop, title: "Desktop", color:
-                  kYellowColor),
-                ],
-              ),)
-            ],
+                      titleSize: 20.0,
+                      title: "Mobile",
+                      color: kYellowColor,
+                    ),
+                    width10,
+                    CtaCountWidget(size: size, height: size.height/11,
+                        countSize: 33.0,
+                        titleSize: 20.0,count: totalController.ctaCount.value.fromDesktop, title: "Desktop", color:
+                        kYellowColor),
+                  ],
+                ),)
+              ],
+            ),
           ),
         ),
       ),

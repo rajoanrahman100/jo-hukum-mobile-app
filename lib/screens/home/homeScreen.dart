@@ -106,9 +106,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 10.0,
                         ),
 
-                        Obx(()=>categoryController.resultDataClass.length==0?Center(child: textUbuntu("loading...", kPrimaryPurple)):Container(
+                        Obx(()=>categoryController.resultDataClass.length==0?Center(child: spinKit):Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
-                          height: 450,
+                          height: size.height/2,
+                          width: size.width,
                           child: GridView.builder(
 
                               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

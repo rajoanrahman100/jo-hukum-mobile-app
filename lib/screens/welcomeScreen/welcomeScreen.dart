@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/controller/locationController.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeScreenMobileView.dart';
+import 'package:johukum/screens/welcomeScreen/welcomeScreenTabView.dart';
 import '../../responsive.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -16,8 +17,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   var controller=Get.put(LocationController());
   var token;
 
-  @override
-  void initState() {}
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body:SafeArea(
         child:Responsive(
-          mobile: WelcomeScreenMobileView(size: size)
+          mobile: WelcomeScreenMobileView(size: size),
+          tablet: WelcomeScreenTabView(size: size),
         )
       )
     );
