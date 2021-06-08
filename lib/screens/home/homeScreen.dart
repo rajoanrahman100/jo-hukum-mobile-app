@@ -59,231 +59,234 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-        key: _scaffoldKey,
-        body: Responsive(
-          mobile: Container(
-            height: size.height,
-            child: Column(
-              children: [
-                Header(
-                  size: size,
-                  callBack: () => _scaffoldKey.currentState.openDrawer(),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        PosterShow(images: images),
-                        Container(
-                          height: 100.0,
-                          color: kPrimaryPurple.withOpacity(0.1),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Items(
-                                topRated: topRated,
-                                title: "Top Rated",
-                                callBack: () => Navigator.pushNamed(context, '/businessProfile'),
-                              ),
-                              Items(
-                                topRated: nearBy,
-                                title: "Your Nearby",
-                              ),
-                              Items(
-                                topRated: fav,
-                                title: "Your Favorite",
-                              ),
-                              Items(
-                                topRated: trending,
-                                title: "Trending",
-                              ),
-                            ],
+    return SafeArea(
+
+      child: Scaffold(
+          key: _scaffoldKey,
+          body: Responsive(
+            mobile: Container(
+              height: size.height,
+              child: Column(
+                children: [
+                  Header(
+                    size: size,
+                    callBack: () => _scaffoldKey.currentState.openDrawer(),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          PosterShow(images: images),
+                          Container(
+                            height: 100.0,
+                            color: kPrimaryPurple.withOpacity(0.1),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Items(
+                                  topRated: topRated,
+                                  title: "Top Rated",
+                                  callBack: () => Navigator.pushNamed(context, '/businessProfile'),
+                                ),
+                                Items(
+                                  topRated: nearBy,
+                                  title: "Your Nearby",
+                                ),
+                                Items(
+                                  topRated: fav,
+                                  title: "Your Favorite",
+                                ),
+                                Items(
+                                  topRated: trending,
+                                  title: "Trending",
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
 
-                        Obx(()=>categoryController.resultDataClass.length==0?Center(child: spinKit):Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          height: size.height/1.8,
-                          width: size.width,
-                          child: GridView.builder(
+                          Obx(()=>categoryController.resultDataClass.length==0?Center(child: spinKit):Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            height: size.height/1.8,
+                            width: size.width,
+                            child: GridView.builder(
 
-                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 150,
-                                  childAspectRatio: 4 / 3,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10),
-                              itemCount: categoryController.resultDataClass.length,
-                              controller: scrollController,
-                              itemBuilder: (BuildContext ctx, index) {
-                                if(index==categoryController.resultDataClass.length-1){
+                                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 150,
+                                    childAspectRatio: 4 / 3,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10),
+                                itemCount: categoryController.resultDataClass.length,
+                                controller: scrollController,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  if(index==categoryController.resultDataClass.length-1){
 
-                                  return Center(child: spinKit);
-                                }
-                                return GestureDetector(
-                                  onTap: (){
+                                    return Center(child: spinKit);
+                                  }
+                                  return GestureDetector(
+                                    onTap: (){
 
-                                    //print(categoryController.resultDataClass[index].id);
-                                    //bController.setBusinessID(categoryController.resultDataClass[index].id);
+                                      //print(categoryController.resultDataClass[index].id);
+                                      //bController.setBusinessID(categoryController.resultDataClass[index].id);
 
-                                    Get.to(()=>BusinessItems(categoryController.resultDataClass[index].id,
-                                        categoryController.resultDataClass[index].name));
+                                      Get.to(()=>BusinessItems(categoryController.resultDataClass[index].id,
+                                          categoryController.resultDataClass[index].name));
 
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
 
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
 
-                                        SvgPicture.network("https://dsqdpdmeibwm2.cloudfront.net/${categoryController
-                                            .resultDataClass[index].icon}",height: 30,width: 30,),
+                                          SvgPicture.network("https://dsqdpdmeibwm2.cloudfront.net/${categoryController
+                                              .resultDataClass[index].icon}",height: 30,width: 30,),
 
-                                        size10,
-                                        textUbuntu(categoryController.resultDataClass[index].name, kPrimaryPurple,
-                                            fontWeight: FontWeight.w500)
-                                      ],
-                                    ),
-                                    decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: kWhiteColor.withOpacity(0.1),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: Offset(0, 3), // changes position of shadow
-                                          ),
+                                          size10,
+                                          textUbuntu(categoryController.resultDataClass[index].name, kPrimaryPurple,
+                                              fontWeight: FontWeight.w500)
                                         ],
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10)),
-                                  ),
-                                );
-                              }),
-                        ),)
-                      ],
+                                      ),
+                                      decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: kWhiteColor.withOpacity(0.1),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: Offset(0, 3), // changes position of shadow
+                                            ),
+                                          ],
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(10)),
+                                    ),
+                                  );
+                                }),
+                          ),)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          tablet: Container(
-            height: size.height,
-            child: Column(
-              children: [
-                Header(
-                  size: size,
-                  containerHeight: 195.0,
-                  locationTitleSize: 18.0,
-                  locationAddressSize: 18.0,
-                  iconSize: 30.0,
-                  searchBarHeight: 70.0,
-                  callBack: () => _scaffoldKey.currentState.openDrawer(),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        //PosterShow(images: images),
-                        Container(
-                          height: 100.0,
-                          color: kPrimaryPurple.withOpacity(0.1),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Items(
-                                topRated: topRated,
-                                title: "Top Rated",
-                                callBack: () => Navigator.pushNamed(context, '/businessProfile'),
-                              ),
-                              Items(
-                                topRated: nearBy,
-                                title: "Your Nearby",
-                              ),
-                              Items(
-                                topRated: fav,
-                                title: "Your Favorite",
-                              ),
-                              Items(
-                                topRated: trending,
-                                title: "Trending",
-                              ),
-                            ],
+            tablet: Container(
+              height: size.height,
+              child: Column(
+                children: [
+                  Header(
+                    size: size,
+                    containerHeight: 195.0,
+                    locationTitleSize: 18.0,
+                    locationAddressSize: 18.0,
+                    iconSize: 30.0,
+                    searchBarHeight: 70.0,
+                    callBack: () => _scaffoldKey.currentState.openDrawer(),
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          //PosterShow(images: images),
+                          Container(
+                            height: 100.0,
+                            color: kPrimaryPurple.withOpacity(0.1),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Items(
+                                  topRated: topRated,
+                                  title: "Top Rated",
+                                  callBack: () => Navigator.pushNamed(context, '/businessProfile'),
+                                ),
+                                Items(
+                                  topRated: nearBy,
+                                  title: "Your Nearby",
+                                ),
+                                Items(
+                                  topRated: fav,
+                                  title: "Your Favorite",
+                                ),
+                                Items(
+                                  topRated: trending,
+                                  title: "Trending",
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
 //                        SizedBox(
 //                          height: 10.0,
 //                        ),
 
-                        Obx(()=>categoryController.resultDataClass.length==0?Center(child: spinKit):Container(
-                          margin: EdgeInsets.symmetric(horizontal: 10),
-                          height: size.height/1.8,
-                          width: size.width,
-                          child: GridView.builder(
-                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 150,
-                                  childAspectRatio: 4 / 3,
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 10),
-                              itemCount: categoryController.resultDataClass.length,
-                              controller: scrollController,
-                              itemBuilder: (BuildContext ctx, index) {
-                                if(index==categoryController.resultDataClass.length-1){
+                          Obx(()=>categoryController.resultDataClass.length==0?Center(child: spinKit):Container(
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            height: size.height/1.8,
+                            width: size.width,
+                            child: GridView.builder(
+                                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 150,
+                                    childAspectRatio: 4 / 3,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10),
+                                itemCount: categoryController.resultDataClass.length,
+                                controller: scrollController,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  if(index==categoryController.resultDataClass.length-1){
 
-                                  return Center(child: spinKit);
-                                }
-                                return GestureDetector(
-                                  onTap: (){
+                                    return Center(child: spinKit);
+                                  }
+                                  return GestureDetector(
+                                    onTap: (){
 
-                                    //print(categoryController.resultDataClass[index].id);
-                                    //bController.setBusinessID(categoryController.resultDataClass[index].id);
+                                      //print(categoryController.resultDataClass[index].id);
+                                      //bController.setBusinessID(categoryController.resultDataClass[index].id);
 
-                                    Get.to(()=>BusinessItems(categoryController.resultDataClass[index].id,
-                                        categoryController.resultDataClass[index].name));
+                                      Get.to(()=>BusinessItems(categoryController.resultDataClass[index].id,
+                                          categoryController.resultDataClass[index].name));
 
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
 
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
 
-                                        SvgPicture.network("https://dsqdpdmeibwm2.cloudfront.net/${categoryController
-                                            .resultDataClass[index].icon}",height: 30,width: 30,),
+                                          SvgPicture.network("https://dsqdpdmeibwm2.cloudfront.net/${categoryController
+                                              .resultDataClass[index].icon}",height: 30,width: 30,),
 
-                                        size10,
-                                        textUbuntu(categoryController.resultDataClass[index].name, kPrimaryPurple,
-                                            fontWeight: FontWeight.w500)
-                                      ],
-                                    ),
-                                    decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: kWhiteColor.withOpacity(0.1),
-                                            spreadRadius: 5,
-                                            blurRadius: 7,
-                                            offset: Offset(0, 3), // changes position of shadow
-                                          ),
+                                          size10,
+                                          textUbuntu(categoryController.resultDataClass[index].name, kPrimaryPurple,
+                                              fontWeight: FontWeight.w500)
                                         ],
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10)),
-                                  ),
-                                );
-                              }),
-                        ),)
-                      ],
+                                      ),
+                                      decoration: BoxDecoration(
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: kWhiteColor.withOpacity(0.1),
+                                              spreadRadius: 5,
+                                              blurRadius: 7,
+                                              offset: Offset(0, 3), // changes position of shadow
+                                            ),
+                                          ],
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(10)),
+                                    ),
+                                  );
+                                }),
+                          ),)
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
+          drawer: DrawerClass(),
         ),
-        drawer: DrawerClass(),
-      );
+    );
   }
 }
