@@ -315,6 +315,256 @@ class StepSixScreen extends StatelessWidget {
               ),
             ),
           ),
+          tablet: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textUbuntu("Business Logo", kPrimaryPurple, fontSize: 18.0, fontWeight: weight500),
+                  Container(
+                    height: size.height/4,
+                    child: new Column(
+                      children: <Widget>[
+                        Obx(() => Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: new Stack(fit: StackFit.loose, children: <Widget>[
+                            new Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                imageController.selectLogoImagePath.value == ""
+                                    ? Container(
+                                    width: 150.0,
+                                    height: 150.0,
+                                    decoration: new BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(color: Colors.black),
+                                      image: new DecorationImage(
+                                        image: new ExactAssetImage('assets/images/johukuminfologo.png'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ))
+                                    : Container(
+                                  width: 150.0,
+                                  height: 150.0,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                          image: FileImage(File(imageController.selectLogoImagePath.value)),
+                                          fit: BoxFit.cover)),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(top: 90.0, right: 120.0),
+                                child: new Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new CircleAvatar(
+                                      backgroundColor: kPrimaryPurple,
+                                      radius: 25.0,
+                                      child: new IconButton(
+                                          onPressed: () {
+
+                                            getLogoFromCamera();
+
+                                          },
+                                          icon: Icon(
+                                            Icons.camera_alt,
+                                            color: kWhiteColor,
+                                            size: 20,
+                                          )),
+                                    )
+                                  ],
+                                )),
+                          ]),
+                        )),
+                      ],
+                    ),
+                  ),
+                  textUbuntu("Business Cover Photo", kPrimaryPurple, fontSize: 18.0, fontWeight: weight500),
+                  size20,
+                  Obx(
+                        () => imageController.selectCoverImagePath.value == ""
+                        ? GestureDetector(
+                      onTap: () {
+                        getCoverFromCamera();
+                        /*buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                                imageController.getCoverImage(ImageSource.camera, context);
+                                Navigator.of(context).pop();
+                              }, galleryCallBack: () {
+                                imageController.getCoverImage(ImageSource.gallery, context);
+                                Navigator.of(context).pop();
+                              });*/
+                      },
+                      child: Container(
+                          height: 250.0,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(10.0)),
+                          child: Icon(
+                            Icons.add_a_photo_outlined,
+                            size: 80.0,
+                            color: Colors.blueGrey[900],
+                          )),
+                    )
+                        : Container(
+                      height: 250.0,
+                      margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(10.0),
+                          image: DecorationImage(
+                              image: FileImage(File(imageController.selectCoverImagePath.value)),
+                              fit: BoxFit.cover)),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            //getCoverFromCamera();
+                            buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                              getCoverFromCamera();
+                              Navigator.of(context).pop();
+                            });
+                          },
+                          child:
+                          textUbuntu("Upload Cover Photo", kPrimaryPurple, fontSize: 18.0, fontWeight: weight500)),
+                    ],
+                  ),
+                  size20,
+                  textUbuntu("Add More Photos", kPrimaryPurple, fontSize: 18.0, fontWeight: weight500),
+                  size20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Obx(
+                              () => imageController.selectMorePhotoOne.value == ""
+                              ? GestureDetector(
+                            onTap: () {
+                              buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                                imageController.getAddMorePhoto(ImageSource.camera, context, "1");
+                                Navigator.of(context).pop();
+                              }, galleryCallBack: () {
+                                imageController.getAddMorePhoto(ImageSource.gallery, context, "1");
+                                Navigator.of(context).pop();
+                              });
+                            },
+                            child: NewWidget(height: 140.0,),
+                          )
+                              : Container(
+                            height: 140.0,
+                            margin: EdgeInsets.only(right: 5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
+                                    image: FileImage(File(imageController.selectMorePhotoOne.value)),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(
+                              () => imageController.selectMorePhotoTwo.value == ""
+                              ? GestureDetector(
+                            onTap: () {
+                              buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                                imageController.getAddMorePhoto(ImageSource.camera, context, "2");
+                                Navigator.of(context).pop();
+                              }, galleryCallBack: () {
+                                imageController.getAddMorePhoto(ImageSource.gallery, context, "2");
+                                Navigator.of(context).pop();
+                              });
+                            },
+                            child: NewWidget(height: 140.0,),
+                          )
+                              : Container(
+                            height: 140.0,
+                            margin: EdgeInsets.only(right: 5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
+                                    image: FileImage(File(imageController.selectMorePhotoTwo.value)),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Obx(
+                              () => imageController.selectMorePhotoThree.value == ""
+                              ? GestureDetector(
+                            onTap: () {
+                              buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                                imageController.getAddMorePhoto(ImageSource.camera, context, "3");
+                                Navigator.of(context).pop();
+                              }, galleryCallBack: () {
+                                imageController.getAddMorePhoto(ImageSource.gallery, context, "3");
+                                Navigator.of(context).pop();
+                              });
+                            },
+                            child: NewWidget(height: 140.0,),
+                          )
+                              : Container(
+                            height: 140.0,
+                            margin: EdgeInsets.only(right: 5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(10.0),
+                                image: DecorationImage(
+                                    image: FileImage(File(imageController.selectMorePhotoThree.value)),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  size20,
+                  textUbuntu("Embeded Video", kPrimaryPurple, fontSize: 18.0, fontWeight: weight500),
+                  AddBusinessForm(
+                    hintText: "put youtube video url",
+                    isSuffix: false,
+                  ),
+                  size10,
+                  GestureDetector(
+                    onTap: () {
+
+                      print(imageController.idArray);
+                      //uploadImageFunction(File(imageController.selectMorePhotoOne.value),context);
+
+
+                      //imageController.upload(File(imageController.selectLogoImagePath.value));
+
+                      if(imageController.selectLogoImagePath.value.isEmpty){
+                        return showErrorToast("Select business logo");
+                      }else if(imageController.selectCoverImagePath.value.isEmpty){
+                        return showErrorToast("Select business cover photo");
+
+                      }
+                      Navigator.pushNamed(context, '/stepSeven');
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(child: Container()),
+                        textUbuntu("Go To Step 7 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: kPrimaryPurple,
+                        )
+                      ],
+                    ),
+                  ),
+                  size20
+                ],
+              ),
+            ),
+          )
         ),
       ),
     );
@@ -340,13 +590,15 @@ class StepSixScreen extends StatelessWidget {
 
 class NewWidget extends StatelessWidget {
   const NewWidget({
-    Key key,
+    Key key,@required this.height,
   }) : super(key: key);
+
+  final height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 120.0,
+        height: height??120.0,
         alignment: Alignment.center,
         margin: EdgeInsets.only(right: 5),
         decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(10.0)),

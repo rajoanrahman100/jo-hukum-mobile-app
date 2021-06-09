@@ -352,6 +352,322 @@ class StepFourScreen extends StatelessWidget {
               ),
             ),
           ),
+          tablet: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  textUbuntu("Years of Establishment", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(dataController.selectYear.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Select Year"),
+                                  content: Container( // Need to use container to add size constraint.
+                                    width: 300,
+                                    height: 300,
+                                    child: YearPicker(
+                                      firstDate: DateTime(DateTime.now().year - 100, 1),
+                                      lastDate: DateTime(DateTime.now().year + 100, 1),
+                                      initialDate: DateTime.now(),
+                                      // save the selected date to _selectedDate DateTime variable.
+                                      // It's used to set the previous selected date when
+                                      // re-showing the dialog.
+                                      selectedDate: DateTime.now(),
+                                      onChanged: (DateTime dateTime) {
+                                        // close the dialog when year is selected.
+                                        var year=DateFormat.y().format(dateTime).toString();
+                                        print(year);
+
+                                        dataController.setSelectedYear(year);
+                                        Navigator.pop(context);
+
+                                        // Do something with the dateTime selected.
+                                        // Remember that you need to use dateTime.year to get the year
+                                      },
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  size10,
+                  textUbuntu("Annual Turnover", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(dataController.annualTurnOver.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            showBarModalBottomSheet(
+                                backgroundColor: kWhiteColor,
+                                context: context,
+                                expand: false,
+                                builder: (context) => Container(
+                                  height: size.height * 0.4,
+                                  child: ListView.builder(
+                                    itemCount: annualTurnOverList.length,
+                                    itemBuilder:(_,index){
+                                      return ListTile(
+                                        onTap: (){
+                                          dataController.setAnnualTurnOver(annualTurnOverList[index]);
+                                          Navigator.of(context).pop();
+                                        },
+                                        leading: Icon(Icons.money,color: kPrimaryPurple,),
+                                        title: textUbuntu(annualTurnOverList[index], kPrimaryPurple),
+                                      );
+                                    },
+                                  ),
+                                ));
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  size10,
+                  textUbuntu("Number of Employee", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(dataController.numberOfEmployee.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            showBarModalBottomSheet(
+                                backgroundColor: kWhiteColor,
+                                context: context,
+                                expand: false,
+                                builder: (context) => Container(
+                                  height: size.height * 0.4,
+                                  child: ListView.builder(
+                                    itemCount: employeeList.length,
+                                    itemBuilder:(_,index){
+                                      return ListTile(
+                                        onTap: (){
+                                          dataController.setEmployeeNumber(employeeList[index]);
+                                          Navigator.of(context).pop();
+                                        },
+                                        leading: Icon(Icons.people,color: kPrimaryPurple,),
+                                        title: textUbuntu(employeeList[index], kPrimaryPurple),
+                                      );
+                                    },
+                                  ),
+                                ));
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  size10,
+                  textUbuntu("Professional Association", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(dataController.professAssc.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            showBarModalBottomSheet(
+                                backgroundColor: kWhiteColor,
+                                context: context,
+                                expand: false,
+                                builder: (context) => Container(
+                                  height: size.height * 0.2,
+                                  child: ListView.builder(
+                                    itemCount: asscList.length,
+                                    itemBuilder:(_,index){
+                                      return ListTile(
+                                        onTap: (){
+                                          dataController.setAssc(asscList[index]);
+                                          Navigator.of(context).pop();
+                                        },
+                                        leading: Icon(Icons.people,color: kPrimaryPurple,),
+                                        title: textUbuntu(asscList[index], kPrimaryPurple),
+                                      );
+                                    },
+                                  ),
+                                ));
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  size10,
+                  textUbuntu("Certifications", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(dataController.certificate.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            showBarModalBottomSheet(
+                                backgroundColor: kWhiteColor,
+                                context: context,
+                                expand: false,
+                                builder: (context) => Container(
+                                  height: size.height * 0.2,
+                                  child: ListView.builder(
+                                    itemCount: certificateList.length,
+                                    itemBuilder:(_,index){
+                                      return ListTile(
+                                        onTap: (){
+                                          dataController.setCertificate(certificateList[index]);
+                                          Navigator.of(context).pop();
+                                        },
+                                        leading: Icon(Icons.people,color: kPrimaryPurple,),
+                                        title: textUbuntu(certificateList[index], kPrimaryPurple),
+                                      );
+                                    },
+                                  ),
+                                ));
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  size10,
+                  textUbuntu("Description", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  AddBusinessForm(
+                    controller: descController,
+                    textInputType: TextInputType.text,
+                    hintText: "",
+                    //height: 40.0,
+                    maxLine: 5,
+                    isSuffix: false,
+                  ),
+                  size10,
+                  textUbuntu("Type of Business", kPrimaryPurple, fontWeight: weight500, fontSize: 16),
+                  size5,
+                  Container(
+                    height: 50.0,
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(()=>textUbuntu(businessTyeController.businessTypeName.value, kBlackColor.withOpacity(0.6), fontSize:
+                        14),),
+                        GestureDetector(
+                          onTap: (){
+                            print("tapped");
+                            openBusinessTypeDialog(context);
+                          },
+                          child: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: kPrimaryPurple,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  size20,
+                  GestureDetector(
+                    onTap: (){
+
+                      if(dataController.selectYear.value.isEmpty){
+                        return showErrorToast("Select Year");
+                      }if(dataController.annualTurnOver.value.isEmpty){
+                        return showErrorToast("Select your Annual Turnover");
+                      }if(dataController.numberOfEmployee.value.isEmpty){
+                        return showErrorToast("Select your Number of Employees");
+                      }if(descController.text.isEmpty){
+                        return showErrorToast("Write Your Description");
+                      }if(businessTyeController.businessTypeName.value.isEmpty){
+                        return showErrorToast("Select your Business Type");
+                      }else{
+                        boxStorage.write(YEAR_ESTABLISH, dataController.selectYear.value);
+                        boxStorage.write(ANNUAL_TURNOVER, dataController.annualTurnOver.value);
+                        boxStorage.write(NUMBER_OF_EMPLOYEE, dataController.numberOfEmployee.value);
+                        boxStorage.write(PROFESSIONAL_ASSOC, dataController.professAssc.value);
+                        boxStorage.write(CERTIFICATION, dataController.certificate.value);
+                        boxStorage.write(DESCRIPTION, descController.text);
+                        boxStorage.write(TYPE_OF_BUSINESS, businessTyeController.businessTypeId.value);
+
+                        Navigator.pushNamed(context, '/stepFive');
+
+                      }
+
+
+
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(child: Container()),
+                        textUbuntu("Go To Step 5 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: kPrimaryPurple,
+                        )
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

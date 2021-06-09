@@ -31,7 +31,6 @@ class StepOneScreen extends StatelessWidget {
 
   var businessController = Get.put(AddBusinessController());
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -122,17 +121,14 @@ class StepOneScreen extends StatelessWidget {
                     Container(
                       height: 50.0,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(
-                          color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6),
-                              fontSize: 16)),
+                          Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
                           GestureDetector(
                               onTap: () {
-                                FocusScope.of(context)
-                                    .unfocus();
+                                FocusScope.of(context).unfocus();
                                 openDivisionDialog(context);
                               },
                               child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
@@ -145,13 +141,11 @@ class StepOneScreen extends StatelessWidget {
                     Container(
                       height: 50.0,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(
-                          color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6),
-                              fontSize: 16)),
+                          Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
                           GestureDetector(
                               onTap: () async {
                                 await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
@@ -167,16 +161,13 @@ class StepOneScreen extends StatelessWidget {
                     Container(
                       height: 50.0,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(
-                          color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6),
-                              fontSize: 16)),
+                          Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
                           GestureDetector(
                               onTap: () async {
-
                                 await divisionController.fetchThana(divisionController.selectCityId.value, "");
                                 openThanaDialog(context);
                               },
@@ -229,21 +220,17 @@ class StepOneScreen extends StatelessWidget {
                     size10,
                     GestureDetector(
                       onTap: () {
-
-
-
                         if (_formKey.currentState.validate()) {
-
-                          if(divisionController.selectDivision.value.isEmpty){
+                          if (divisionController.selectDivision.value.isEmpty) {
                             showErrorToast("Select Division");
                             return;
-                          }else if(divisionController.selectCity.value.isEmpty){
+                          } else if (divisionController.selectCity.value.isEmpty) {
                             showErrorToast("Select City");
                             return;
-                          }else if(divisionController.selectThana.value.isEmpty){
+                          } else if (divisionController.selectThana.value.isEmpty) {
                             showErrorToast("Select Thana");
                             return;
-                          }else{
+                          } else {
                             boxStorage.write(KEY_USER_BUILDING, buildingNameController.text);
                             boxStorage.write(KEY_USER_BUSINESS_NAME, businessNameController.text);
                             boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
@@ -254,7 +241,227 @@ class StepOneScreen extends StatelessWidget {
                             boxStorage.write(KEY_USER_AREA, areaNameController.text);
                             Navigator.pushNamed(context, '/stepTwo');
                           }
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          Expanded(child: Container()),
+                          textUbuntu("Go To Step 2 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: kPrimaryPurple,
+                          )
+                        ],
+                      ),
+                    ),
+                    size20
+                  ],
+                ),
+              ),
+            ),
+          ),
+          tablet: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    WelcomeScreenButton(
+                      height: 60,
+                      borderRadiusGeometry: BorderRadius.circular(10.0),
+                      edgeInsetsGeometry: EdgeInsets.symmetric(vertical: 10.0),
+                      buttonText: "Fillup Business Info",
+                      buttonColor: kPrimaryPurple,
+                      textColor: kWhiteColor,
+                      isIcon: false,
+                    ),
+                    textUbuntu("Business Name*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: businessNameController,
+                      isSuffix: false,
+                      hintText: "",
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        if (value.toString().length < 8) {
+                          return "Business name at least 8 character";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    textUbuntu("Street Address*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: streetAddressController,
+                      hintText: "",
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    textUbuntu("Land Mark*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
 
+                      controller: landMarkController,
+                      hintText: "",
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    textUbuntu("Building*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      hintText: "",
+                      controller: buildingNameController,
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    textUbuntu("Division*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    size5,
+                    Container(
+                      height: 50.0,
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                          GestureDetector(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                                openDivisionDialog(context);
+                              },
+                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
+                        ],
+                      ),
+                    ),
+                    size10,
+                    textUbuntu("City*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    size5,
+                    Container(
+                      height: 50.0,
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                          GestureDetector(
+                              onTap: () async {
+                                await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
+                                openCityDialog(context);
+                              },
+                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
+                        ],
+                      ),
+                    ),
+                    size10,
+                    textUbuntu("Thana*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    size5,
+                    Container(
+                      height: 50.0,
+                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                          GestureDetector(
+                              onTap: () async {
+                                await divisionController.fetchThana(divisionController.selectCityId.value, "");
+                                openThanaDialog(context);
+                              },
+                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
+                        ],
+                      ),
+                    ),
+                    size10,
+                    textUbuntu("Postal Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: postalCodeController,
+                      hintText: "",
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: areaNameController,
+                      hintText: "",
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    textUbuntu("Plus Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: plusCodeController,
+                      hintText: "",
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
+                    GestureDetector(
+                      onTap: () {
+                        if (_formKey.currentState.validate()) {
+                          if (divisionController.selectDivision.value.isEmpty) {
+                            showErrorToast("Select Division");
+                            return;
+                          } else if (divisionController.selectCity.value.isEmpty) {
+                            showErrorToast("Select City");
+                            return;
+                          } else if (divisionController.selectThana.value.isEmpty) {
+                            showErrorToast("Select Thana");
+                            return;
+                          } else {
+                            boxStorage.write(KEY_USER_BUILDING, buildingNameController.text);
+                            boxStorage.write(KEY_USER_BUSINESS_NAME, businessNameController.text);
+                            boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
+                            boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
+                            boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
+                            boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
+                            boxStorage.write(KEY_USER_POSTAL_CODE, postalCodeController.text);
+                            boxStorage.write(KEY_USER_AREA, areaNameController.text);
+                            Navigator.pushNamed(context, '/stepTwo');
+                          }
                         }
                       },
                       child: Row(

@@ -85,7 +85,63 @@ class CityDialog extends StatelessWidget {
                                         ),
                             )
                           ],
-                        ))),
+                        )),
+                    tablet: Container(
+                      height: size.height,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                            child: AddBusinessForm(
+                              controller: cityController,
+                              hintText: "search by city name",
+                              isSuffix: false,
+                              onChange: (value)async{
+                                await divisionController.fetchCity(divisionController.selectDivisionId.value,value);
+                              },
+                            ),
+                          ),
+                          Obx(
+                                () => divisionController.cityModelClass.value == null
+                                ? textUbuntu("loading...", kPrimaryPurple)
+                                : divisionController.cityModelClass.value.results.length == 0
+                                ? textUbuntu("No data found", kPrimaryPurple)
+                                : Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: divisionController.cityModelClass.value.results.length,
+                                itemBuilder: (_, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      divisionController.setCity(
+                                          divisionController.cityModelClass.value.results[index].name);
+                                      divisionController.setCityID(
+                                          divisionController.cityModelClass.value.results[index].sId);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 10),
+                                          child: textUbuntu(
+                                              divisionController.cityModelClass.value.results[index].name,
+                                              kPrimaryPurple,
+                                              fontSize: 18,
+                                              fontWeight: weight500),
+                                        ),
+                                        Divider(
+                                          color: kPrimaryPurple,
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      )),
+                ),
               ],
             ),
           ),

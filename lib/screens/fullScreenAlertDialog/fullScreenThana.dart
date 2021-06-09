@@ -87,7 +87,65 @@ class ThanaDialog extends StatelessWidget {
                               ),
                             )
                           ],
-                        ))),
+                        )),
+                  tablet: Container(
+                      height: size.height,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                            child: AddBusinessForm(
+                              controller: thanaController,
+                              hintText: "search by thana name",
+                              isSuffix: false,
+                              onChange: (value)async{
+                                await divisionController.fetchThana(divisionController.selectCityId.value, value);
+                              },
+                            ),
+                          ),
+                          Obx(
+                                () => divisionController.thanaModelClass.value == null
+                                ? textUbuntu("loading...", kPrimaryPurple)
+                                : divisionController.thanaModelClass.value.results.length == 0
+                                ? textUbuntu("No data found", kPrimaryPurple)
+                                : Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: divisionController.thanaModelClass.value.results.length,
+                                itemBuilder: (_, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      divisionController.setThana(divisionController.thanaModelClass
+                                          .value.results[index].name);
+
+                                      divisionController.setThanaID(divisionController.thanaModelClass
+                                          .value.results[index].sId);
+
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 10),
+                                          child: textUbuntu(
+                                              divisionController.thanaModelClass.value.results[index].name,
+                                              kPrimaryPurple,
+                                              fontSize: 18,
+                                              fontWeight: weight500),
+                                        ),
+                                        Divider(
+                                          color: kPrimaryPurple,
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        ],
+                      )),
+                ),
               ],
             ),
           ),

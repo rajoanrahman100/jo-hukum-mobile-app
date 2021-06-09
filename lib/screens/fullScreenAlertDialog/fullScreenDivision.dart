@@ -63,8 +63,44 @@ class DivisionDialog extends StatelessWidget {
                                   );
                                 },
                               ),
-                  ),
-                )),
+                  )),
+                  tablet: Obx(() => Container(
+                    height: size.height,
+                    child: divisionController.divisionModelClass.value == null
+                        ? textUbuntu("loading...", kPrimaryPurple)
+                        : divisionController.divisionModelClass.value.results.length == 0
+                        ? textUbuntu("No data found", kPrimaryPurple)
+                        : ListView.builder(
+                      itemCount: divisionController.divisionModelClass.value.results.length,
+                      itemBuilder: (_, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            divisionController.setDivisionID(
+                                divisionController.divisionModelClass.value.results[index].sId);
+                            divisionController
+                                .setDivision(divisionController.divisionModelClass.value.results[index].name);
+                            Navigator.of(context).pop();
+                          },
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                child: textUbuntu(
+                                    divisionController.divisionModelClass.value.results[index].name,
+                                    kPrimaryPurple,
+                                    fontSize: 18,
+                                    fontWeight: weight500),
+                              ),
+                              Divider(
+                                color: kPrimaryPurple,
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  )),
+                ),
               ],
             ),
           ),

@@ -68,7 +68,44 @@ class BusinessTypeDialog extends StatelessWidget {
                           );
                         },
                       ),
-                    ),)
+                    )),
+                  tablet: Obx(()=>Container(
+                    height: size.height,
+                    child: businessTypeController.businessClass.value.results==null
+                        ? Center(child: CircularProgressIndicator(backgroundColor: kPrimaryPurple,))
+                        : businessTypeController.businessClass.value.results.length == 0
+                        ? textUbuntu("No data found", kPrimaryPurple)
+                        : ListView.builder(
+                      itemCount: businessTypeController.businessClass.value.results.length,
+                      itemBuilder: (_,index){
+                        return GestureDetector(
+                          onTap: (){
+
+                            businessTypeController.setBusinessIdName(businessTypeController
+                                .businessClass.value.results[index].name, businessTypeController
+                                .businessClass.value.results[index].sId);
+                            /*divisionController.setDivisionID(divisionController.divisionModelClass
+                                  .value.results[index].sId);
+                              divisionController.setDivision(divisionController.divisionModelClass
+                                  .value.results[index].name);*/
+                            Navigator.of(context).pop();
+                          },
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                child: textUbuntu(
+                                    businessTypeController
+                                        .businessClass.value.results[index].name,
+                                    kPrimaryPurple,fontSize: 18,fontWeight: weight500),
+                              ),
+                              Divider(color: kPrimaryPurple,)
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  )),
                 ),
 
               ],

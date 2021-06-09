@@ -10,7 +10,6 @@ import 'package:johukum/widgets/textWidgets.dart';
 
 class StepFiveScreen extends StatelessWidget {
   var controller = Get.put(ListWidgetController());
-
   var questionOne = TextEditingController();
   var questionTwo = TextEditingController();
   var questionThree = TextEditingController();
@@ -31,175 +30,331 @@ class StepFiveScreen extends StatelessWidget {
         height: size.height,
         child: Responsive(
             mobile: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  child: Column(
-                    children: [
-                      textUbuntu("Frequent asked Question 1", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                      AddBusinessForm(
-                        controller: questionOne,
-                        textInputType: TextInputType.number,
-                        hintText: "Enter Question 1",
-                        isSuffix: false,
-                      ),
-                      AddBusinessForm(
-                        controller: answerOne,
-                        textInputType: TextInputType.number,
-                        hintText: "Enter Answere 1",
-                        isSuffix: false,
-                        maxLine: 6,
-                      ),
-                      Obx(() => controller.addQuestionTwo.value == false
-                          ? GestureDetector(
-                              onTap: () {
-                                controller.addQuestionTwo.value = true;
-                              },
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: textUbuntu("Add More Questions", kPrimaryPurple,
-                                    fontSize: 18, fontWeight: weight500),
-                              ),
-                            )
-                          : Container())
-                    ],
+                child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        textUbuntu("Frequent asked Question 1", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                        AddBusinessForm(
+                          controller: questionOne,
+                          textInputType: TextInputType.number,
+                          hintText: "Enter Question 1",
+                          isSuffix: false,
+                        ),
+                        AddBusinessForm(
+                          controller: answerOne,
+                          textInputType: TextInputType.number,
+                          hintText: "Enter Answere 1",
+                          isSuffix: false,
+                          maxLine: 6,
+                        ),
+                        Obx(() => controller.addQuestionTwo.value == false
+                            ? GestureDetector(
+                                onTap: () {
+                                  controller.addQuestionTwo.value = true;
+                                },
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: textUbuntu("Add More Questions", kPrimaryPurple, fontSize: 18, fontWeight: weight500),
+                                ),
+                              )
+                            : Container())
+                      ],
+                    ),
                   ),
-                ),
-                size10,
-                Obx(
-                  () => controller.addQuestionTwo.value == true
-                      ? Container(
-                          child: Column(
-                            children: [
-                              textUbuntu("Frequent asked Question 2", kBlackColor,
-                                  fontSize: 16.0, fontWeight: weight500),
-                              AddBusinessForm(
-                                controller: questionTwo,
-                                textInputType: TextInputType.number,
-                                hintText: "Enter Question 2",
-                                isSuffix: false,
-                              ),
-                              AddBusinessForm(
-                                controller: answerTwo,
-                                textInputType: TextInputType.number,
-                                hintText: "Enter Answere 2",
-                                isSuffix: false,
-                                maxLine: 6,
-                              ),
-                              Obx(() => controller.addQuestionThree.value == false
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        controller.addQuestionThree.value = true;
-                                      },
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: textUbuntu("Add More Questions", kPrimaryPurple,
-                                            fontSize: 18, fontWeight: weight500),
-                                      ),
-                                    )
-                                  : Container())
-                            ],
-                          ),
-                        )
-                      : Container(),
-                ),
-                size10,
-                Obx(
-                  () => controller.addQuestionThree.value == true
-                      ? Container(
-                          child: Column(
-                            children: [
-                              textUbuntu("Frequent asked Question 3", kBlackColor,
-                                  fontSize: 16.0, fontWeight: weight500),
-                              AddBusinessForm(
-                                controller: questionThree,
-                                textInputType: TextInputType.number,
-                                hintText: "Enter Question 3",
-                                isSuffix: false,
-                              ),
-                              AddBusinessForm(
-                                controller: answerThree,
-                                textInputType: TextInputType.number,
-                                hintText: "Enter Answere 3",
-                                isSuffix: false,
-                                maxLine: 6,
-                              ),
-                              Obx(() => controller.addQuestionFour.value == false
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        controller.addQuestionFour.value = true;
-                                      },
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: textUbuntu("Add More Questions", kPrimaryPurple,
-                                            fontSize: 18, fontWeight: weight500),
-                                      ),
-                                    )
-                                  : Container())
-                            ],
-                          ),
-                        )
-                      : Container(),
-                ),
-                size10,
-                Obx(
-                  () => controller.addQuestionFour.value == true
-                      ? Container(
-                          child: Column(
-                            children: [
-                              textUbuntu("Frequent asked Question 4", kBlackColor,
-                                  fontSize: 16.0, fontWeight: weight500),
-                              AddBusinessForm(
-                                controller: questionFour,
-                                textInputType: TextInputType.number,
-                                hintText: "Enter Question 4",
-                                isSuffix: false,
-                              ),
-                              AddBusinessForm(
-                                controller: answerFour,
-                                textInputType: TextInputType.number,
-                                hintText: "Enter Answere 4",
-                                isSuffix: false,
-                                maxLine: 6,
-                              ),
-                              Obx(() => controller.addQuestionFour.value == true ? Container() : Container())
-                            ],
-                          ),
-                        )
-                      : Container(),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    boxStorage.write(QUESTION_ONE, questionOne.text??"Question One");
-                    boxStorage.write(QUESTION_TWO, questionTwo.text??"Question Two");
-                    boxStorage.write(QUESTION_THREE, questionThree.text??"Question Three");
-                    boxStorage.write(QUESTION_FOUR, questionFour.text??"Question Four");
-
-                    boxStorage.write(ANSWER_ONE, answerOne.text??"Answer One");
-                    boxStorage.write(ANSWER_TWO, answerTwo.text??"Answer Two");
-                    boxStorage.write(ANSWER_THREE, answerThree.text??"Answer Three");
-                    boxStorage.write(ANSWER_FOUR, answerFour.text??"Answer Four");
-
-                    Navigator.pushNamed(context, '/stepSix');
-                  },
-                  child: Row(
-                    children: [
-                      Expanded(child: Container()),
-                      textUbuntu("Go To Step 5 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: kPrimaryPurple,
-                      )
-                    ],
+                  size10,
+                  Obx(
+                    () => controller.addQuestionTwo.value == true
+                        ? Container(
+                            child: Column(
+                              children: [
+                                textUbuntu("Frequent asked Question 2", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                                AddBusinessForm(
+                                  controller: questionTwo,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Question 2",
+                                  isSuffix: false,
+                                ),
+                                AddBusinessForm(
+                                  controller: answerTwo,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Answere 2",
+                                  isSuffix: false,
+                                  maxLine: 6,
+                                ),
+                                Obx(() => controller.addQuestionThree.value == false
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          controller.addQuestionThree.value = true;
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: textUbuntu("Add More Questions", kPrimaryPurple, fontSize: 18, fontWeight: weight500),
+                                        ),
+                                      )
+                                    : Container())
+                              ],
+                            ),
+                          )
+                        : Container(),
                   ),
-                ),
-              ],
-            ),
-          ),
-        )),
+                  size10,
+                  Obx(
+                    () => controller.addQuestionThree.value == true
+                        ? Container(
+                            child: Column(
+                              children: [
+                                textUbuntu("Frequent asked Question 3", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                                AddBusinessForm(
+                                  controller: questionThree,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Question 3",
+                                  isSuffix: false,
+                                ),
+                                AddBusinessForm(
+                                  controller: answerThree,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Answere 3",
+                                  isSuffix: false,
+                                  maxLine: 6,
+                                ),
+                                Obx(() => controller.addQuestionFour.value == false
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          controller.addQuestionFour.value = true;
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: textUbuntu("Add More Questions", kPrimaryPurple, fontSize: 18, fontWeight: weight500),
+                                        ),
+                                      )
+                                    : Container())
+                              ],
+                            ),
+                          )
+                        : Container(),
+                  ),
+                  size10,
+                  Obx(
+                    () => controller.addQuestionFour.value == true
+                        ? Container(
+                            child: Column(
+                              children: [
+                                textUbuntu("Frequent asked Question 4", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                                AddBusinessForm(
+                                  controller: questionFour,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Question 4",
+                                  isSuffix: false,
+                                ),
+                                AddBusinessForm(
+                                  controller: answerFour,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Answere 4",
+                                  isSuffix: false,
+                                  maxLine: 6,
+                                ),
+                                Obx(() => controller.addQuestionFour.value == true ? Container() : Container())
+                              ],
+                            ),
+                          )
+                        : Container(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      boxStorage.write(QUESTION_ONE, questionOne.text ?? "Question One");
+                      boxStorage.write(QUESTION_TWO, questionTwo.text ?? "Question Two");
+                      boxStorage.write(QUESTION_THREE, questionThree.text ?? "Question Three");
+                      boxStorage.write(QUESTION_FOUR, questionFour.text ?? "Question Four");
+
+                      boxStorage.write(ANSWER_ONE, answerOne.text ?? "Answer One");
+                      boxStorage.write(ANSWER_TWO, answerTwo.text ?? "Answer Two");
+                      boxStorage.write(ANSWER_THREE, answerThree.text ?? "Answer Three");
+                      boxStorage.write(ANSWER_FOUR, answerFour.text ?? "Answer Four");
+
+                      Navigator.pushNamed(context, '/stepSix');
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(child: Container()),
+                        textUbuntu("Go To Step 5 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: kPrimaryPurple,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )),
+            tablet: SingleChildScrollView(
+                child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        textUbuntu("Frequent asked Question 1", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                        AddBusinessForm(
+                          controller: questionOne,
+                          textInputType: TextInputType.number,
+                          hintText: "Enter Question 1",
+                          isSuffix: false,
+                        ),
+                        AddBusinessForm(
+                          controller: answerOne,
+                          textInputType: TextInputType.number,
+                          hintText: "Enter Answere 1",
+                          isSuffix: false,
+                          maxLine: 6,
+                        ),
+                        Obx(() => controller.addQuestionTwo.value == false
+                            ? GestureDetector(
+                                onTap: () {
+                                  controller.addQuestionTwo.value = true;
+                                },
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: textUbuntu("Add More Questions", kPrimaryPurple, fontSize: 20, fontWeight: weight500),
+                                ),
+                              )
+                            : Container())
+                      ],
+                    ),
+                  ),
+                  size10,
+                  Obx(
+                    () => controller.addQuestionTwo.value == true
+                        ? Container(
+                            child: Column(
+                              children: [
+                                textUbuntu("Frequent asked Question 2", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                                AddBusinessForm(
+                                  controller: questionTwo,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Question 2",
+                                  isSuffix: false,
+                                ),
+                                AddBusinessForm(
+                                  controller: answerTwo,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Answere 2",
+                                  isSuffix: false,
+                                  maxLine: 6,
+                                ),
+                                Obx(() => controller.addQuestionThree.value == false
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          controller.addQuestionThree.value = true;
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: textUbuntu("Add More Questions", kPrimaryPurple, fontSize: 20, fontWeight: weight500),
+                                        ),
+                                      )
+                                    : Container())
+                              ],
+                            ),
+                          )
+                        : Container(),
+                  ),
+                  size10,
+                  Obx(
+                    () => controller.addQuestionThree.value == true
+                        ? Container(
+                            child: Column(
+                              children: [
+                                textUbuntu("Frequent asked Question 3", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                                AddBusinessForm(
+                                  controller: questionThree,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Question 3",
+                                  isSuffix: false,
+                                ),
+                                AddBusinessForm(
+                                  controller: answerThree,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Answere 3",
+                                  isSuffix: false,
+                                  maxLine: 6,
+                                ),
+                                Obx(() => controller.addQuestionFour.value == false
+                                    ? GestureDetector(
+                                        onTap: () {
+                                          controller.addQuestionFour.value = true;
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: textUbuntu("Add More Questions", kPrimaryPurple, fontSize: 20, fontWeight: weight500),
+                                        ),
+                                      )
+                                    : Container())
+                              ],
+                            ),
+                          )
+                        : Container(),
+                  ),
+                  size10,
+                  Obx(
+                    () => controller.addQuestionFour.value == true
+                        ? Container(
+                            child: Column(
+                              children: [
+                                textUbuntu("Frequent asked Question 4", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                                AddBusinessForm(
+                                  controller: questionFour,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Question 4",
+                                  isSuffix: false,
+                                ),
+                                AddBusinessForm(
+                                  controller: answerFour,
+                                  textInputType: TextInputType.number,
+                                  hintText: "Enter Answere 4",
+                                  isSuffix: false,
+                                  maxLine: 6,
+                                ),
+                                Obx(() => controller.addQuestionFour.value == true ? Container() : Container())
+                              ],
+                            ),
+                          )
+                        : Container(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      boxStorage.write(QUESTION_ONE, questionOne.text ?? "Question One");
+                      boxStorage.write(QUESTION_TWO, questionTwo.text ?? "Question Two");
+                      boxStorage.write(QUESTION_THREE, questionThree.text ?? "Question Three");
+                      boxStorage.write(QUESTION_FOUR, questionFour.text ?? "Question Four");
+
+                      boxStorage.write(ANSWER_ONE, answerOne.text ?? "Answer One");
+                      boxStorage.write(ANSWER_TWO, answerTwo.text ?? "Answer Two");
+                      boxStorage.write(ANSWER_THREE, answerThree.text ?? "Answer Three");
+                      boxStorage.write(ANSWER_FOUR, answerFour.text ?? "Answer Four");
+
+                      Navigator.pushNamed(context, '/stepSix');
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(child: Container()),
+                        textUbuntu("Go To Step 5 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: kPrimaryPurple,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ))),
       ),
     );
   }
