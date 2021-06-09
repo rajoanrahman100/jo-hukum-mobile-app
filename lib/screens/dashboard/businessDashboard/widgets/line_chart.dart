@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/modelClass/lineChartModel.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -27,13 +28,14 @@ class _LineChartSample2State extends State<LineChartSample2> {
   @override
   void initState() {
     // TODO: implement initState
+    print("Line chart business id ${boxStorage.read(MY_BUSINESS_ID)}");
     //controller.getSearchLineData("602cfcd270050b2691a99bd6");
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<LineModel>>(
-      future: getLineData("602cfcd270050b2691a99bd6"),
+      future: getLineData(boxStorage.read(MY_BUSINESS_ID)),
       builder: (ctx, snapshot) {
         // Checking if future is resolved or not
         if (snapshot.connectionState == ConnectionState.done) {
@@ -95,7 +97,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
     lineChartDataList.clear();
 
     var response = await get(Uri.parse(searchLineChartApi+"$businessId&year=2021&month=5"));
-    print("Response pie chart= " + response.body);
+    print("Response line chart= " + response.body);
     if (response.statusCode == 200 || response.statusCode == 201) {
 
       Map<String,dynamic> dataMap = jsonDecode(response.body);

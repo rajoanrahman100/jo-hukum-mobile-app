@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
@@ -25,7 +26,8 @@ class _VisitorByRegionState extends State<VisitorByRegion> {
   @override
   void initState() {
     // TODO: implement initState
-    c.getRegionVisit("602cfd2170050b2691a99bd7");
+    //c.getRegionVisit("602cfd2170050b2691a99bd7");
+    c.getRegionVisit(boxStorage.read(MY_BUSINESS_ID));
   }
 
   @override

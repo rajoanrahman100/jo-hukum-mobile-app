@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/modelClass/broweByDeviceModel.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -28,7 +29,9 @@ class PieChart2State extends State<PieChartSample2> {
   @override
   void initState() {
     // TODO: implement initState
-    controller.getBrowseByDevice("602cfd2170050b2691a99bd7");
+    print("Pie chart business id : ${boxStorage.read(MY_BUSINESS_ID)}");
+    //controller.getBrowseByDevice("602cfd2170050b2691a99bd7");
+    controller.getBrowseByDevice(boxStorage.read(MY_BUSINESS_ID));
   }
   
   @override

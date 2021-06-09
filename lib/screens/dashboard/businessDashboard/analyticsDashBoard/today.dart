@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ctaClickWidget.dart';
@@ -28,8 +29,12 @@ class _TodayState extends State<Today> {
   @override
   void initState() {
     // TODO: implement initState
-    c.getVisitorCount("602cfd2170050b2691a99bd7", 1);
-    c.getCtaCount("602ce10270050b2691a99bcc",1);
+    print("My business slug:${boxStorage.read(MY_BUSINESS_SLUG)}");
+    print("My business ID:${boxStorage.read(MY_BUSINESS_ID)}");
+    //c.getVisitorCount("602cfd2170050b2691a99bd7", 1);
+    c.getVisitorCount(boxStorage.read(MY_BUSINESS_ID), 1);
+    //c.getCtaCount("602ce10270050b2691a99bcc",1);
+    c.getCtaCount(boxStorage.read(MY_BUSINESS_ID),1);
   }
 
   @override

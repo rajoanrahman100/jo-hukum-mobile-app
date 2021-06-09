@@ -23,7 +23,7 @@ class BusinessReviewsWidget extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (_, index) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+            padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

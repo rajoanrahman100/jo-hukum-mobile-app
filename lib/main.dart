@@ -21,7 +21,6 @@ import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/screens/subCategory/subCategories.dart';
 import 'package:johukum/screens/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'components/config.dart';
 import 'screens/dashboard/userDashBoard/dashboardBar.dart';
 import 'screens/elasticSearch/businessProfile.dart';
@@ -34,18 +33,17 @@ void main() async {
 
   SharedConfig.pref = await SharedPreferences.getInstance();
 
+//  runApp(GetMaterialApp(
+//    home: MyApp(),
+//    debugShowCheckedModeBanner: false,
+//  ));
 
-  runApp(GetMaterialApp(
-    home: MyApp(),
-    debugShowCheckedModeBanner: false,
-  ));
-
-  /*runApp(DevicePreview(
+  runApp(DevicePreview(
       enabled: !kReleaseMode,
       builder: (context) => GetMaterialApp(
             home: MyApp(),
             debugShowCheckedModeBanner: false,
-          )));*/
+          )));
 }
 
 class MyApp extends StatelessWidget {
@@ -54,9 +52,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
     return MaterialApp(
-        //locale: DevicePreview.locale(context),
+        locale: DevicePreview.locale(context),
         // Add the locale here
-        //builder: DevicePreview.appBuilder,
+        builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         initialRoute: '/welcome',
         routes: {

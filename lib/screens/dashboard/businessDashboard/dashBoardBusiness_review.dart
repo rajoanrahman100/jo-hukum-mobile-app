@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:johukum/components/config.dart';
+import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/businessReviewsList.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ratingWidget.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -36,109 +38,217 @@ class _ReviewDashBoardBusinessState extends State<ReviewDashBoardBusiness> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height / 6,
-                decoration: containerBoxDecoration(color: Colors.white, borderRadius: 10.0, boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ]),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Obx(()=>Container(
-                        height: size.height,
-                        width: size.width,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            textUbuntu("${c.totalReviewAvg.value.toStringAsFixed(1)??0}", kBlackColor, fontWeight: weight500, fontSize: 35),
-                            RatingBarWidget(
-                              ratingInit: c.totalReviewAvg.value,
-                              ratingColor: kPrimaryPurple,
-                              size: 15.0,
-                            ),
-                            size5,
-                            textUbuntu("( ${c.totalReviewCount.value??0} reviews )", kBlackColor, fontWeight: weight400),
-                          ],
-                        ),
-                      )),
+      body: Responsive(
+        mobile: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height / 6,
+                  decoration: containerBoxDecoration(color: Colors.white, borderRadius: 10.0, boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: FutureBuilder<List<BusinessRatingCount>>(
-                        future: getRatingData("602ce10270050b2691a99bcc"),
-                        builder: (ctx, snapshot) {
-                          // Checking if future is resolved or not
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            // If we got an error
-                            if (snapshot.hasError) {
-                              return Center(
-                                child: Text(
-                                  '${snapshot.error} occured',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              );
-                            } else if (snapshot.hasData) {
-                              print("snapShot Data: ${snapshot.data}");
-                              return Container(
-                                //height:MediaQuery.of(context).size.height/4,
-                                child: SfCartesianChart(
-                                  primaryXAxis: CategoryAxis(
-                                    //Hide the gridlines of x-axis
-                                    majorGridLines: MajorGridLines(width: 0),
-                                    //Hide the axis line of x-axis
-                                    axisLine: AxisLine(width: 1),
-                                  ),
-                                  series: <ChartSeries>[
-                                    BarSeries<BusinessRatingCount, String>(
-                                        dataSource: snapshot.data,
-                                        width: 0.4,
-                                        spacing: 0.2,
-                                        pointColorMapper: (BusinessRatingCount line, _) => line.color,
-                                        borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10.0)),
-                                        xValueMapper: (BusinessRatingCount line, _) => "${line.rating.toInt()}*",
-                                        yValueMapper: (BusinessRatingCount line, _) => line.count.toInt())
-                                  ],
-                                ),
-                              );
-                            }
-                          }
-                          // Displaying LoadingSpinner to indicate waiting state
-                          return Center(
-                            child: spinKit,
-                          );
-                        },
+                  ]),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Obx(()=>Container(
+                          height: size.height,
+                          width: size.width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              textUbuntu("${c.totalReviewAvg.value.toStringAsFixed(1)??0}", kBlackColor, fontWeight: weight500, fontSize: 35),
+                              RatingBarWidget(
+                                ratingInit: c.totalReviewAvg.value,
+                                ratingColor: kPrimaryPurple,
+                                size: 15.0,
+                              ),
+                              size5,
+                              textUbuntu("( ${c.totalReviewCount.value??0} reviews )", kBlackColor, fontWeight: weight400),
+                            ],
+                          ),
+                        )),
                       ),
-                    )
-                  ],
+                      Expanded(
+                        flex: 2,
+                        child: FutureBuilder<List<BusinessRatingCount>>(
+                          future: getRatingData(boxStorage.read(MY_BUSINESS_ID)),
+                          builder: (ctx, snapshot) {
+                            // Checking if future is resolved or not
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              // If we got an error
+                              if (snapshot.hasError) {
+                                return Center(
+                                  child: Text(
+                                    '${snapshot.error} occured',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                );
+                              } else if (snapshot.hasData) {
+                                print("snapShot Data: ${snapshot.data}");
+                                return Container(
+                                  //height:MediaQuery.of(context).size.height/4,
+                                  child: SfCartesianChart(
+                                    primaryXAxis: CategoryAxis(
+                                      //Hide the gridlines of x-axis
+                                      majorGridLines: MajorGridLines(width: 0),
+                                      //Hide the axis line of x-axis
+                                      axisLine: AxisLine(width: 1),
+                                    ),
+                                    series: <ChartSeries>[
+                                      BarSeries<BusinessRatingCount, String>(
+                                          dataSource: snapshot.data,
+                                          width: 0.4,
+                                          spacing: 0.2,
+                                          pointColorMapper: (BusinessRatingCount line, _) => line.color,
+                                          borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10.0)),
+                                          xValueMapper: (BusinessRatingCount line, _) => "${line.rating.toInt()}*",
+                                          yValueMapper: (BusinessRatingCount line, _) => line.count.toInt())
+                                    ],
+                                  ),
+                                );
+                              }
+                            }
+                            // Displaying LoadingSpinner to indicate waiting state
+                            return Center(
+                              child: spinKit,
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              size20,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    textUbuntu("Reviews", kPrimaryPurple),
-                    Expanded(child: Divider(color: kPrimaryPurple,height: 2,))
-                  ],
+                size20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    children: [
+                      textUbuntu("Reviews", kPrimaryPurple),
+                      Expanded(child: Divider(color: kPrimaryPurple,height: 2,))
+                    ],
+                  ),
                 ),
-              ),
-              Obx(() =>c.reviewList.length == 0
-                  ? Center(child: textUbuntu("No Reviews Found", kPrimaryPurple, fontWeight: weightBold, fontSize: 20))
-                  : BusinessReviewsWidget(c: c)),
-              size10,
-            ],
+                Obx(() =>c.reviewList.length == 0
+                    ? Center(child: textUbuntu("No Reviews Found", kPrimaryPurple, fontWeight: weight500, fontSize: 18))
+                    : BusinessReviewsWidget(c: c)),
+                size10,
+              ],
+            ),
+          ),
+        ),
+        tablet: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height / 6,
+                  decoration: containerBoxDecoration(color: Colors.white, borderRadius: 10.0, boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ]),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Obx(()=>Container(
+                          height: size.height,
+                          width: size.width,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              textUbuntu("${c.totalReviewAvg.value.toStringAsFixed(1)??0}", kBlackColor, fontWeight: weight500, fontSize: 45),
+                              RatingBarWidget(
+                                ratingInit: c.totalReviewAvg.value,
+                                ratingColor: kPrimaryPurple,
+                                size: 20.0,
+                              ),
+                              size5,
+                              textUbuntu("( ${c.totalReviewCount.value??0} reviews )", kBlackColor, fontWeight: weight400),
+                            ],
+                          ),
+                        )),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: FutureBuilder<List<BusinessRatingCount>>(
+                          future: getRatingData("602ce10270050b2691a99bcc"),
+                          builder: (ctx, snapshot) {
+                            // Checking if future is resolved or not
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              // If we got an error
+                              if (snapshot.hasError) {
+                                return Center(
+                                  child: Text(
+                                    '${snapshot.error} occured',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                );
+                              } else if (snapshot.hasData) {
+                                print("snapShot Data: ${snapshot.data}");
+                                return Container(
+                                  //height:MediaQuery.of(context).size.height/4,
+                                  child: SfCartesianChart(
+                                    primaryXAxis: CategoryAxis(
+                                      //Hide the gridlines of x-axis
+                                      majorGridLines: MajorGridLines(width: 0),
+                                      //Hide the axis line of x-axis
+                                      axisLine: AxisLine(width: 1),
+                                    ),
+                                    series: <ChartSeries>[
+                                      BarSeries<BusinessRatingCount, String>(
+                                          dataSource: snapshot.data,
+                                          width: 0.4,
+                                          spacing: 0.2,
+                                          pointColorMapper: (BusinessRatingCount line, _) => line.color,
+                                          borderRadius: BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10.0)),
+                                          xValueMapper: (BusinessRatingCount line, _) => "${line.rating.toInt()}*",
+                                          yValueMapper: (BusinessRatingCount line, _) => line.count.toInt())
+                                    ],
+                                  ),
+                                );
+                              }
+                            }
+                            // Displaying LoadingSpinner to indicate waiting state
+                            return Center(
+                              child: spinKit,
+                            );
+                          },
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                size20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                  child: Row(
+                    children: [
+                      textUbuntu("Reviews ", kPrimaryPurple,fontSize: 18.0),
+                      Expanded(child: Divider(color: kPrimaryPurple,height: 2,))
+                    ],
+                  ),
+                ),
+                Obx(() =>c.reviewList.length == 0
+                    ? Center(child: textUbuntu("No Reviews Found", kPrimaryPurple, fontWeight: weightBold, fontSize: 20))
+                    : BusinessReviewsWidget(c: c)),
+                size10,
+              ],
+            ),
           ),
         ),
       ),

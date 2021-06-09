@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ctaClickWidget.dart';
@@ -18,8 +19,10 @@ class _TotalState extends State<Total> {
   @override
   void initState() {
     // TODO: implement initState
-    totalController.getVisitorCount("602cfd2170050b2691a99bd7", "");
-    totalController.getCtaCount("602ce10270050b2691a99bcc", "");
+    //totalController.getVisitorCount("602cfd2170050b2691a99bd7", "");
+    totalController.getVisitorCount(boxStorage.read(MY_BUSINESS_ID), "");
+    //totalController.getCtaCount("602ce10270050b2691a99bcc", "");
+    totalController.getCtaCount(boxStorage.read(MY_BUSINESS_ID), "");
   }
 
   @override

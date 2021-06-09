@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ctaClickWidget.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/visitorHistoryWidget.dart';
@@ -19,8 +20,12 @@ class _ThisMonthState extends State<ThisMonth> {
   @override
   void initState() {
     // TODO: implement initState
-    monthController.getVisitorCount("602cfd2170050b2691a99bd7", 31);
-    monthController.getCtaCount("602ce10270050b2691a99bcc", 31);
+    print("My business slug:${boxStorage.read(MY_BUSINESS_SLUG)}");
+    print("My business ID:${boxStorage.read(MY_BUSINESS_ID)}");
+  //  monthController.getVisitorCount("602cfd2170050b2691a99bd7", 31);
+    monthController.getVisitorCount(boxStorage.read(MY_BUSINESS_ID), 30);
+   // monthController.getCtaCount("602ce10270050b2691a99bcc", 30);
+    monthController.getCtaCount(boxStorage.read(MY_BUSINESS_ID), 31);
   }
 
   @override

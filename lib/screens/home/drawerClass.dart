@@ -6,6 +6,7 @@ import 'package:johukum/controller/dialogAuthController.dart';
 import 'package:johukum/controller/myBusinessDataController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/fullScreenAlertForAuth.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
@@ -163,7 +164,14 @@ class DrawerClass extends StatelessWidget {
                     DrawerItems(
                       icon: Icons.dashboard,
                       title: "User Dashboard",
-                      callBack: () => Navigator.pushNamed(context, '/dashBoard'),
+                      callBack: (){
+                        if(boxStorage.read(MY_BUSINESS_SLUG)==null){
+                          showErrorToast("Select your business first");
+                          return;
+                        }else{
+                          Navigator.pushNamed(context, '/dashBoard');
+                        }
+                      },
                     ),
                     SizedBox(
                       height: 20.0,
@@ -355,7 +363,14 @@ class DrawerClass extends StatelessWidget {
                   DrawerItems(
                     icon: Icons.dashboard,
                     title: "User Dashboard",
-                    callBack: () => Navigator.pushNamed(context, '/dashBoard'),
+                      callBack: (){
+                        if(boxStorage.read(MY_BUSINESS_SLUG)==null){
+                          showErrorToast("Select your business first");
+                          return;
+                        }else{
+                          Navigator.pushNamed(context, '/dashBoard');
+                        }
+                      },
                   ),
                   SizedBox(
                     height: 20.0,

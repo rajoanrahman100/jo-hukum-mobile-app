@@ -46,14 +46,13 @@ class BusinessAnalyticsController extends GetxController{
   Future<void> getVisitorCount(businessId,days)async{
     var response = await get(Uri.parse(visitorsApi+"$businessId&days=$days"));
 
-    print("ResponsefetchCategory = " + response.body);
+    print("Visitor count body = " + response.body);
+    print("Visitor count code = " + response.statusCode.toString());
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       var dataMap = jsonDecode(response.body);
       VisitorsCount countData = VisitorsCount.fromJson(dataMap);
       visitorCount.value=countData;
-
-
     } else {
       throw ("Error code " + response.statusCode.toString());
     }
@@ -63,14 +62,16 @@ class BusinessAnalyticsController extends GetxController{
     var response = await get(Uri.parse(ctaClickApi+"$businessId?days=$days"));
 
     print("ResponseCta Count = " + response.body);
+    print("Count status code = " + response.statusCode.toString());
 
     if (response.statusCode == 200 || response.statusCode == 201) {
 
       var dataMap = jsonDecode(response.body);
-      print(dataMap["from_desktop"]);
+      print("desktop count: ${dataMap["from_desktop"]}");
       CtaClickCount countData = CtaClickCount.fromJson(dataMap);
       ctaCount.value=countData;
-      totalCount.value=countData.fromDesktop??0+countData.fromMobile??0;
+      totalCount.value=(countData.fromDesktop==null?0:countData.fromDesktop)+
+          (countData.fromMobile==null?0:countData.fromMobile);
 
     } else {
       throw ("Error code " + response.statusCode.toString());
@@ -99,6 +100,7 @@ class BusinessAnalyticsController extends GetxController{
 
   Future<void> getRegionVisit(businessId)async{
 
+    print("region business id $businessId");
     var response = await get(Uri.parse(regionsVisitApi+"$businessId"));
 
     print("Response region= " + response.body);
@@ -115,9 +117,12 @@ class BusinessAnalyticsController extends GetxController{
 
 
   Future<void> getStayingData(businessId)async{
+
+    print("my id for staying $businessId");
+
     var response = await get(Uri.parse(stayingTimeApi+"$businessId"));
 
-    print("Response staying chart= " + response.body);
+    print("Response staying data= " + response.body);
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       var dataMap = jsonDecode(response.body);

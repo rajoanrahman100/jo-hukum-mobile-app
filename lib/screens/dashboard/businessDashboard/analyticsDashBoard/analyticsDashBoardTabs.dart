@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/analyticDashBoardController.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/responsive.dart';
@@ -37,7 +38,8 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
 
   @override
   void initState() {
-    businessController.getStayingData("602cfd2170050b2691a99bd7");
+    //businessController.getStayingData("602cfd2170050b2691a99bd7");
+    businessController.getStayingData(boxStorage.read(MY_BUSINESS_ID));
     super.initState();
   }
 
@@ -154,7 +156,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
 
                   Obx(() => BusinessStayTimeWidget(
                     size: size,
-                    minValue: "${businessController.activeStay.value}",
+                    minValue: "${businessController.activeStay.value??0}",
                     title: "Customer Active Stay",
                     color: kPrimaryPurple,
                     minValueColor: kWhiteColor,
@@ -164,7 +166,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                   size10,
                   Obx(() => BusinessStayTimeWidget(
                     size: size,
-                    minValue: "${businessController.idleStay.value}",
+                    minValue: "${businessController.idleStay.value??0}",
                     title: "Customer Idle Stay",
                     color: Colors.white,
                     minValueColor: kBlackColor,
@@ -297,7 +299,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                     size: size,
                     height: size.height/7,
                     titleText: 20.0,
-                    minValue: "${businessController.activeStay.value}",
+                    minValue: "${businessController.activeStay.value??0}",
                     title: "Customer Active Stay",
                     minValueSize: 40.0,
                     minSize: 22.0,
@@ -309,7 +311,7 @@ class _AnalyticsDashBoardTabsState extends State<AnalyticsDashBoardTabs> {
                   size10,
                   Obx(() => BusinessStayTimeWidget(
                     size: size,
-                    minValue: "${businessController.idleStay.value}",
+                    minValue: "${businessController.idleStay.value??0}",
                     height: size.height/7,
                     titleText: 20.0,
                     title: "Customer Idle Stay",

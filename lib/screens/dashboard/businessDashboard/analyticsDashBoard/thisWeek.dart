@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/dashBoardController/businessAnalytocsController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/widgets/ctaClickWidget.dart';
@@ -18,8 +19,12 @@ class _ThisWeekState extends State<ThisWeek> {
   @override
   void initState() {
     // TODO: implement initState
-    weekController.getVisitorCount("602cfd2170050b2691a99bd7", 7);
-    weekController.getCtaCount("602ce10270050b2691a99bcc", 7);
+    print("My business slug:${boxStorage.read(MY_BUSINESS_SLUG)}");
+    print("My business ID:${boxStorage.read(MY_BUSINESS_ID)}");
+    weekController.getVisitorCount(boxStorage.read(MY_BUSINESS_ID), 7);
+    //weekController.getVisitorCount("602cfd2170050b2691a99bd7", 7);
+    //weekController.getCtaCount("602ce10270050b2691a99bcc", 7);
+    weekController.getCtaCount(boxStorage.read(MY_BUSINESS_ID), 7);
   }
 
   @override

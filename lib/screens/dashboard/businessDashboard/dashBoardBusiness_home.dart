@@ -31,10 +31,12 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
 
   @override
   void initState() {
-    print(boxStorage.read(MY_BUSINESS_SLUG));
+    print("My business slug:${boxStorage.read(MY_BUSINESS_SLUG)}");
+    print("My business ID:${boxStorage.read(MY_BUSINESS_ID)}");
     //c.getSingleBusinessData("new-b67867657est");
-    c.getSingleBusinessData(businessController.myBusinessSlug.value);
-    totalController.getCtaCount("602ce10270050b2691a99bcc", "");
+    c.getSingleBusinessData(boxStorage.read(MY_BUSINESS_SLUG));
+    //totalController.getCtaCount("602ce10270050b2691a99bcc", "");
+    totalController.getCtaCount(boxStorage.read(MY_BUSINESS_ID), "");
   }
 
   @override
