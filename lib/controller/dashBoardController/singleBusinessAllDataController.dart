@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
@@ -12,6 +13,15 @@ class SingleBusinessAllDataController extends GetxController {
   var totalReviewCount = 0.obs;
   var loaderShow = true.obs;
 
+  var businessNameController=TextEditingController().obs;
+  var streetAddressController=TextEditingController().obs;
+  var landMarkController=TextEditingController().obs;
+  var divisionController=TextEditingController().obs;
+  var cityController=TextEditingController().obs;
+  var areaController=TextEditingController().obs;
+
+  var businessDivisionName="".obs;
+
   Future<void> getSingleBusinessData(slug) async {
     loaderShow.value = true;
 
@@ -23,6 +33,14 @@ class SingleBusinessAllDataController extends GetxController {
       SingleBusinessAllData businessAllData = SingleBusinessAllData.fromJson(data);
       loaderShow.value = false;
       singleBusinessValue.value = businessAllData;
+
+      businessNameController.value.text=businessAllData.location.businessName;
+      streetAddressController.value.text=businessAllData.location.street;
+      landMarkController.value.text=businessAllData.location.landMark;
+      businessDivisionName.value=businessAllData.location.division.name;
+      cityController.value.text=businessAllData.location.city.name;
+      areaController.value.text=businessAllData.location.location2.name;
+
       reviewList.value = businessAllData.reviews;
       totalReviewAvg.value = businessAllData.aggregateRating;
       totalReviewCount.value = businessAllData.totalReviews;

@@ -97,8 +97,8 @@ class DrawerClass extends StatelessWidget {
                                                     var obj=businessController.businessData.value;
 
                                                     return ListTile(
-                                                      title: textUbuntu(businessController.businessData.value.results[index].location.businessName, kBlackColor,fontSize: 18,maxLine: 2),
-                                                      leading:Icon(Icons.add_business,color: kPrimaryPurple,size: 25.0,),
+                                                      title: textUbuntu(businessController.businessData.value.results[index].location.businessName, kBlackColor,fontSize: 16,maxLine: 2),
+                                                      leading:Icon(Icons.business_sharp,color: kPrimaryPurple,size: 22.0,),
                                                       onTap: (){
                                                         businessController.setMyBusinessSlug(obj.results[index].slug);
                                                         businessController.setMyBusinessID(obj.results[index].sId);
@@ -126,13 +126,21 @@ class DrawerClass extends StatelessWidget {
                           borderRadius: 10.0,
                           color: kWhiteColor,
                         ),
-                        child:Obx(()=>Row(
+                          child:Row(
+                            children: [
+                              Obx(()=>Expanded(child: Center(child: textUbuntu("${businessController.myBusinessName.value}",
+                                  kPrimaryPurple,fontSize: 16,fontWeight: weight500),))),
+                              Icon(Icons.arrow_drop_down,color: kPrimaryPurple,size: 23,),
+                              width10
+                            ],
+                          )
+                        /*child:Obx(()=>Row(
                           children: [
                             Expanded(child: Center(child: textUbuntu("${businessController.myBusinessName.value}", kPrimaryPurple,fontSize: 16,fontWeight: weight500),)),
                             Icon(Icons.arrow_drop_down,color: kPrimaryPurple,size: 23,),
                             width10
                           ],
-                        ))
+                        ))*/
                       ),
                     ),
                     size20,

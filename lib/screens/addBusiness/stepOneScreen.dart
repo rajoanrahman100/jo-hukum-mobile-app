@@ -14,6 +14,7 @@ import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class StepOneScreen extends StatelessWidget {
+
   final _formKey = GlobalKey<FormState>();
 
   var divisionController = Get.put(DivisionController());

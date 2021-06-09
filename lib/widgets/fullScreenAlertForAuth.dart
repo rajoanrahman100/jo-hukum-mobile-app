@@ -32,7 +32,7 @@ class AuthenticationDialog extends StatelessWidget {
               children: [
                 Image.asset(
                   "assets/images/welcome.jpg",
-                  //height: MediaQuery.of(context).size.height,
+                  height: double.infinity,
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -42,7 +42,10 @@ class AuthenticationDialog extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap:()=>Navigator.pop(context),
+                        onTap:(){
+                          print("TAPPED");
+                          Navigator.pop(context,true);
+                        },
                         child: Icon(
                           Icons.cancel_sharp,
                           color: kWhiteColor,

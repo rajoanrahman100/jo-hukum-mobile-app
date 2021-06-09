@@ -6,6 +6,7 @@ import 'package:johukum/responsive.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class DivisionDialog extends StatelessWidget {
+
   var divisionController = Get.put(DivisionController());
 
   @override

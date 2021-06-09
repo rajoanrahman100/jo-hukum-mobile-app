@@ -9,7 +9,7 @@ class SingleBusinessAllData {
   List<Videos> videos;
   List<AcceptedPaymentMethods> acceptedPaymentMethods;
   List<Keywords> keywords;
-  List<dynamic> tags;
+  List<String> tags;
   var reviewedAt;
   var approvedAt;
   var rejectedAt;
@@ -30,7 +30,7 @@ class SingleBusinessAllData {
   String embedVideo;
   String logo;
   String slug;
-  List<dynamic> faqs;
+  List<Faqs> faqs;
   List<Reviews> reviews;
 
   SingleBusinessAllData(
@@ -119,7 +119,7 @@ class SingleBusinessAllData {
       });
     }
     if (json['tags'] != null) {
-      tags = new List<Null>();
+      tags = new List<String>();
       json['tags'].forEach((v) {
         tags.add(v);
       });
@@ -150,9 +150,9 @@ class SingleBusinessAllData {
     logo = json['logo'];
     slug = json['slug'];
     if (json['faqs'] != null) {
-      faqs = new List<Null>();
+      faqs = new List<Faqs>();
       json['faqs'].forEach((v) {
-        faqs.add(v);
+        faqs.add(Faqs.fromJson(v));
       });
     }
     if (json['reviews'] != null) {
@@ -235,38 +235,85 @@ class SingleBusinessAllData {
   }
 }
 
-class Location {
-  Geo geo;
-  String building;
-  String businessName;
-  String landMark;
-  Division division;
-  City city;
-  City location;
+class FAQS {
+  List<Faqs> faqs;
 
-  Location(
-      {this.geo,
-        this.building,
-        this.businessName,
-        this.landMark,
-        this.division,
-        this.city,
-        this.location});
+  FAQS({this.faqs});
 
-  Location.fromJson(Map<String, dynamic> json) {
-    geo = json['geo'] != null ? new Geo.fromJson(json['geo']) : null;
-    building = json['building'];
-    businessName = json['business_name'];
-    landMark = json['land_mark'];
-    division = json['division'] != null
-        ? new Division.fromJson(json['division'])
-        : null;
-    city = json['city'] != null ? new City.fromJson(json['city']) : null;
-    location =
-    json['location'] != null ? new City.fromJson(json['location']) : null;
+  FAQS.fromJson(Map<String, dynamic> json) {
+    if (json['faqs'] != null) {
+      faqs = new List<Faqs>();
+      json['faqs'].forEach((v) {
+        faqs.add(new Faqs.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.faqs != null) {
+      data['faqs'] = this.faqs.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Faqs {
+  String question;
+  String answer;
+
+  Faqs({this.question, this.answer});
+
+  Faqs.fromJson(Map<String, dynamic> json) {
+    question = json['question'];
+    answer = json['answer'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['question'] = this.question;
+    data['answer'] = this.answer;
+    return data;
+  }
+}
+
+
+
+class Tags {
+  List<String> tags;
+
+  Tags({this.tags});
+
+  Tags.fromJson(Map<String, dynamic> json) {
+    tags = json['tags'].cast<String>();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['tags'] = this.tags;
+    return data;
+  }
+}
+
+class Location {
+  String sId;
+  String name;
+
+  Location({this.sId, this.name});
+
+  Location.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    return data;
+  }
+
+  /*Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.geo != null) {
       data['geo'] = this.geo.toJson();
@@ -284,7 +331,7 @@ class Location {
       data['location'] = this.location.toJson();
     }
     return data;
-  }
+  }*/
 }
 
 class Geo {
@@ -313,13 +360,13 @@ class Division {
   Division({this.id, this.name});
 
   Division.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['_id'];
     name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
+    data['_id'] = this.id;
     data['name'] = this.name;
     return data;
   }
@@ -710,7 +757,7 @@ class Llocation {
   String get plusCode => _plusCode;
   Division get division => _division;
   City get city => _city;
-  Location get location => _location;
+  Location get location2 => _location;
 
   Llocation({
     Geo geo,

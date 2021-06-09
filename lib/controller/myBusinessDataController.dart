@@ -34,9 +34,12 @@ class MyBusinessController extends GetxController {
 
   Future<void> getMyBusinessData() async {
     var response = await get(Uri.parse(myBusinessApi), headers: {
-      "Authorization":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZmYwNzNjOTI2NGVmNTU3ZjEwNzkxYzciLCJlbWFpbCI6InJhZmFlYXR1bDJAZ21haWwuY29tIiwibW9iaWxlX251bWJlciI6IjAxOTU2MzIwNTY3IiwiaXNfYWN0aXZlIjp0cnVlLCJkYXRlX2pvaW5lZCI6IjIwMjEtMDEtMDJUMTM6MjM6MjEuMDk0WiIsInNob3BfdWlkIjoxOSwiYm9va2luZ191aWQiOm51bGwsImlhdCI6MTYxODgyMTEzMn0.01J0SBCPPQpc9rc-MN2cMEf2gdGWX0z-c09MCHhrv9g",
-      "agent": "jh_mobile_application"
+/*      "Authorization":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDg5MWI1ZmEyZGZiNDFmYWU4MWQ2Y2UiLCJlbWFpbCI6InJhdHVsQGdtYWlsLmNvbSIsIm1v"
+              "YmlsZV9udW1iZXIiOiIwMTkzMDIxMjIxMyIsImlzX2FjdGl2ZSI6dHJ1ZSwiZGF0ZV9qb2luZWQiOiIyMDIxLTA0LTI4VDA4OjIyOjU1LjU4OVoiL"
+              "CJzaG9wX3VpZCI6NTIsImJvb2tpbmdfdWlkIjozMywiaWF0IjoxNjIzMjMxMjA1fQ.4CimIZ2RHubhBaRzVX7SdzxmY7LK6kJD-C0Nhj-EUjM",*/
+        "Authorization":boxStorage.read(KEY_TOKEN),
+        "agent": "jh_mobile_application"
     });
     print("Response my business= " + response.body);
     print("Response my business= " + response.statusCode.toString());

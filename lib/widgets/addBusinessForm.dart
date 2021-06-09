@@ -8,6 +8,7 @@ class AddBusinessForm extends StatelessWidget {
   String hintText;
   int maxLine;
   TextEditingController controller;
+  String initialValue;
   Function validator;
   Function onChange;
   Widget suffixIcon;
@@ -19,6 +20,7 @@ class AddBusinessForm extends StatelessWidget {
     this.hintText,
     this.maxLine,
     this.controller,
+    this.initialValue,
     this.validator,
     this.onChange,
     this.suffixIcon,
@@ -33,6 +35,7 @@ class AddBusinessForm extends StatelessWidget {
       child: TextFormField(
         autofocus: false,
         controller: controller,
+        initialValue: initialValue,
         keyboardType: textInputType,
         maxLines: maxLine ?? 1,
         validator: validator,
