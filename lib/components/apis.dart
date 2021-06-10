@@ -32,3 +32,4 @@ const stayingTimeApi=analyticsUrl+"page-analytics/avg-visit-duration?url=https:/
 const reviewCountApi="https://api-backend.jo-hukum.com/consumers_api/business_data/";
 const singleBusinessApi="https://api-backend.jo-hukum.com/consumers_api/business_data/";
 const myBusinessApi="https://api-backend.jo-hukum.com/consumers_api/business_data/my_businesses";
+const updateBusinessApi="https://api-backend.jo-hukum.com/consumers_api/business_data/";

@@ -30,6 +30,7 @@ class SingleBusinessAllData {
   String embedVideo;
   String logo;
   String slug;
+  String metaDescription;
   List<Faqs> faqs;
   List<Reviews> reviews;
 
@@ -64,7 +65,7 @@ class SingleBusinessAllData {
         this.coverPhoto,
         this.embedVideo,
         this.logo,
-        this.slug,
+        this.slug,this.metaDescription,
         this.faqs,
         this.reviews});
 
@@ -149,6 +150,7 @@ class SingleBusinessAllData {
     embedVideo = json['embed_video'];
     logo = json['logo'];
     slug = json['slug'];
+    metaDescription = json['meta_description'];
     if (json['faqs'] != null) {
       faqs = new List<Faqs>();
       json['faqs'].forEach((v) {
@@ -225,6 +227,7 @@ class SingleBusinessAllData {
     data['embed_video'] = this.embedVideo;
     data['logo'] = this.logo;
     data['slug'] = this.slug;
+    data['meta_description'] = this.metaDescription;
     if (this.faqs != null) {
       data['faqs'] = this.faqs.map((v) => v).toList();
     }

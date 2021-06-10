@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
+import 'package:johukum/controller/dashBoardController/dashBoardSettingsController.dart';
 import 'package:johukum/controller/dashBoardController/singleBusinessAllDataController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -10,8 +12,14 @@ import 'package:get/get.dart';
 class SettingDashBoardBusiness extends StatelessWidget {
   var c = Get.put(SingleBusinessAllDataController());
 
+  var settingController=Get.put(DashBoardSettingController());
+
+
   @override
   Widget build(BuildContext context) {
+
+    settingController.getMyBusinessData(boxStorage.read(MY_BUSINESS_SLUG));
+
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

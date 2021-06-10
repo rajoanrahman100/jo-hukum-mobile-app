@@ -26,8 +26,6 @@ import 'package:johukum/screens/home/fetch_api.dart';
     clickColor.value=!clickColor.value;
   }
 
-
-
   setDivisionID(id){
     selectDivisionId.value=id;
   }

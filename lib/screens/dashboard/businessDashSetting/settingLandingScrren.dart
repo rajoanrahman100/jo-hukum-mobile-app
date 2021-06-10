@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/controller/dashBoardController/dashBoardSettingsController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -11,7 +12,6 @@ class BusinessSettingLanding extends StatelessWidget {
 
 
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,8 @@ class BusinessSettingLanding extends StatelessWidget {
         mobile: Column(
           children: [
             SettingWidget(iconFront: Icons.edit,iconEnd: Icons.arrow_forward_ios,title: "Business Details",callback: (){
-              Get.to(()=>SettingBusinessDetails());
+              //Get.to(()=>SettingBusinessDetails());
+              Navigator.pushNamed(context, '/settingBussinessDetails');
             },),
             SettingWidget(iconFront: Icons.contact_phone,iconEnd: Icons.arrow_forward_ios,title: "Contact Details",),
             SettingWidget(iconFront: Icons.timer,iconEnd: Icons.arrow_forward_ios,title: "Working Hour",),

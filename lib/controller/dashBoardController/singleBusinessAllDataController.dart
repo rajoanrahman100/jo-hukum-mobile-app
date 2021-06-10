@@ -33,14 +33,6 @@ class SingleBusinessAllDataController extends GetxController {
       SingleBusinessAllData businessAllData = SingleBusinessAllData.fromJson(data);
       loaderShow.value = false;
       singleBusinessValue.value = businessAllData;
-
-      businessNameController.value.text=businessAllData.location.businessName;
-      streetAddressController.value.text=businessAllData.location.street;
-      landMarkController.value.text=businessAllData.location.landMark;
-      businessDivisionName.value=businessAllData.location.division.name;
-      cityController.value.text=businessAllData.location.city.name;
-      areaController.value.text=businessAllData.location.location2.name;
-
       reviewList.value = businessAllData.reviews;
       totalReviewAvg.value = businessAllData.aggregateRating;
       totalReviewCount.value = businessAllData.totalReviews;

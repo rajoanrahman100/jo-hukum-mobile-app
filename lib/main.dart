@@ -23,7 +23,8 @@ import 'package:johukum/screens/subCategory/subCategories.dart';
 import 'package:johukum/screens/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'components/config.dart';
-import 'screens/dashboard/userDashBoard/dashboardBar.dart';
+import 'screens/dashboard/businessDashSetting/businessDetailsSetting.dart';
+import 'screens/dashboard/businessDashboard/dashboardBar.dart';
 import 'screens/elasticSearch/businessProfile.dart';
 import 'screens/home/homeScreen.dart';
 
@@ -77,8 +78,9 @@ class MyApp extends StatelessWidget {
           '/stepSix': (context) => StepSixScreen(),
           '/stepSeven': (context) => StepSevenScreen(),
           '/lastSuccess': (context) => LastSuccessScreen(),
-          '/dashBoard': (context) => UserDashBoardTabs(),
+          '/dashBoard': (context) => DashBoardBusinessTabs(),
           '/businessSettingLand': (context) => BusinessSettingLanding(),
+          '/settingBussinessDetails': (context) => SettingBusinessDetails(),
         });
   }
 }

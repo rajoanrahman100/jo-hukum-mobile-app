@@ -3,22 +3,26 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/analyticsDashBoard/analyticsDashBoardTabs.dart';
 import 'package:johukum/screens/dashboard/businessDashboard/dashBoardBusiness_analytics.dart';
-import '../businessDashboard/dashBoardBusiness_home.dart';
-import '../businessDashboard/dashBoardBusiness_message.dart';
-import '../businessDashboard/dashBoardBusiness_review.dart';
-import '../businessDashboard/dashBoardBusiness_save.dart';
-import '../businessDashboard/dashBoardBusiness_setting.dart';
+import 'businessdashBoardTabsController.dart';
+import 'dashBoardBusiness_home.dart';
+import 'dashBoardBusiness_message.dart';
+import 'dashBoardBusiness_review.dart';
+import 'dashBoardBusiness_save.dart';
+import 'dashBoardBusiness_setting.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:get/get.dart';
 
-class UserDashBoardTabs extends StatefulWidget {
+class DashBoardBusinessTabs extends StatefulWidget {
   @override
-  _UserDashBoardTabsState createState() => _UserDashBoardTabsState();
+  _DashBoardBusinessTabsState createState() => _DashBoardBusinessTabsState();
 }
 
-class _UserDashBoardTabsState extends State<UserDashBoardTabs> {
+class _DashBoardBusinessTabsState extends State<DashBoardBusinessTabs> {
 
   int _selectedPage = 0;
   PageController _pageController;
+
+  var dashController=Get.put(BusinessDashBoardTabsController());
 
   void _changePage(int pageNum) {
     setState(() {
@@ -60,7 +64,7 @@ class _UserDashBoardTabsState extends State<UserDashBoardTabs> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                Obx(()=>Container(
                   height: 75,
                   width: MediaQuery.of(context).size.width,
                   child: Center(
@@ -72,70 +76,78 @@ class _UserDashBoardTabsState extends State<UserDashBoardTabs> {
                         TabButton(
                           text: "First Tab",
                           pageNumber: 0,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.home,
                           onPressed: () {
-                            _changePage(0);
+                            dashController.changePage(0);
+                            //_changePage(0);
                           },
                         ),
                         TabButton(
                           text: "Sixth Tab",
                           pageNumber: 1,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.analytics,
                           onPressed: () {
-                            _changePage(1);
+                            dashController.changePage(1);
+                            //_changePage(1);
                           },
                         ),
                         TabButton(
                           text: "Second Tab",
                           pageNumber: 2,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.email,
                           onPressed: () {
-                            _changePage(2);
+                            dashController.changePage(2);
+                            //_changePage(2);
                           },
                         ),
                         TabButton(
                           text: "Third Tab",
                           pageNumber: 3,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.reviews,
                           onPressed: () {
-                            _changePage(3);
+                            dashController.changePage(3);
+                            // _changePage(3);
                           },
                         ),
                         TabButton(
                           text: "Fourth Tab",
                           pageNumber: 4,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.settings,
                           onPressed: () {
-                            _changePage(4);
+                            dashController.changePage(4);
+                            //_changePage(4);
                           },
                         ),
                         TabButton(
                           text: "Fifth Tab",
                           pageNumber: 5,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.save,
                           onPressed: () {
-                            _changePage(5);
+                            dashController.changePage(5);
+                            //_changePage(5);
                           },
                         ),
 
                       ],
                     ),
                   ),
-                ),
+                )),
                 Expanded(
-                  child: PageView(
+                  child: Obx(()=>PageView(
                     onPageChanged: (int page) {
-                      setState(() {
+
+                      dashController.page.value=page;
+                      /*setState(() {
                         _selectedPage = page;
-                      });
+                      });*/
                     },
-                    controller: _pageController,
+                    controller: dashController.controller.value,
                     children: [
                       HomeDashBoardBusiness(),
                       AnalyticsDashBoardTabs(),
@@ -144,7 +156,7 @@ class _UserDashBoardTabsState extends State<UserDashBoardTabs> {
                       SettingDashBoardBusiness(),
                       SaveDashBoardBusiness(),
                     ],
-                  ),
+                  ),)
                 )
               ],
             ),
@@ -165,73 +177,79 @@ class _UserDashBoardTabsState extends State<UserDashBoardTabs> {
                         TabButton(
                           text: "First Tab",
                           pageNumber: 0,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.home,
                           height: 85.0,
                           width: 80.0,
                           iconSize: 28.0,
                           onPressed: () {
-                            _changePage(0);
+                            dashController.changePage(0);
+                            //_changePage(0);
                           },
                         ),
                         TabButton(
                           text: "Sixth Tab",
                           pageNumber: 1,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.analytics,
                           height: 85.0,
                           width: 80.0,
                           iconSize: 28.0,
                           onPressed: () {
-                            _changePage(1);
+                            dashController.changePage(1);
+                            //_changePage(1);
                           },
                         ),
                         TabButton(
                           text: "Second Tab",
                           pageNumber: 2,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.email,
                           height: 85.0,
                           width: 80.0,
                           iconSize: 28.0,
                           onPressed: () {
-                            _changePage(2);
+                            dashController.changePage(2);
+                            //_changePage(2);
                           },
                         ),
                         TabButton(
                           text: "Third Tab",
                           pageNumber: 3,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.reviews,
                           height: 85.0,
                           width: 80.0,
                           iconSize: 28.0,
                           onPressed: () {
-                            _changePage(3);
+                            dashController.changePage(3);
+                            //_changePage(3);
                           },
                         ),
                         TabButton(
                           text: "Fourth Tab",
                           pageNumber: 4,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.settings,
                           height: 85.0,
                           width: 80.0,
                           iconSize: 28.0,
                           onPressed: () {
-                            _changePage(4);
+                            dashController.changePage(4);
+                            //_changePage(4);
                           },
                         ),
                         TabButton(
                           text: "Fifth Tab",
                           pageNumber: 5,
-                          selectedPage: _selectedPage,
+                          selectedPage: dashController.page.value,
                           icon: Icons.save,
                           height: 85.0,
                           width: 80.0,
                           iconSize: 28.0,
                           onPressed: () {
-                            _changePage(5);
+                            dashController.changePage(5);
+                            //_changePage(5);
                           },
                         ),
 
@@ -242,11 +260,9 @@ class _UserDashBoardTabsState extends State<UserDashBoardTabs> {
                 Expanded(
                   child: PageView(
                     onPageChanged: (int page) {
-                      setState(() {
-                        _selectedPage = page;
-                      });
+                      dashController.page.value=page;
                     },
-                    controller: _pageController,
+                    controller: dashController.controller.value,
                     children: [
                       HomeDashBoardBusiness(),
                       AnalyticsDashBoardTabs(),
