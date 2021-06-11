@@ -23,6 +23,7 @@ class StepTheeScreenTwo extends StatelessWidget {
   var satEnd,sundayEnd,mondayEnd,tueEnd,wedEnd,thurEnd,friEnd;
 
   var paymentIdList=[];
+  var mobileNumbers=[];
 
   @override
   Widget build(BuildContext context) {

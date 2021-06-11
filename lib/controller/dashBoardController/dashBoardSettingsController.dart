@@ -16,6 +16,7 @@ class DashBoardSettingController extends GetxController {
 
   var businessNameController = TextEditingController().obs;
   var streetAddressController = TextEditingController().obs;
+  var buildingController = TextEditingController().obs;
   var landMarkController = TextEditingController().obs;
   var divisionController = TextEditingController().obs;
   var cityController = TextEditingController().obs;
@@ -90,7 +91,9 @@ class DashBoardSettingController extends GetxController {
 
   Future<void> getMyBusinessData(slug) async {
     // loaderShow.value = true;
-    paymentMethodList.clear();
+    //paymentMethodList.clear();
+    //keywords.clear();
+    businessTags.clear();
 
     var response = await get(Uri.parse(singleBusinessApi + "$slug"), headers: {"agent": "jh_mobile_application"});
     print("Response= " + response.body);
@@ -103,6 +106,7 @@ class DashBoardSettingController extends GetxController {
       ///Business Details Data Save
       businessNameController.value.text = businessAllData.location.businessName;
       streetAddressController.value.text = businessAllData.location.street;
+      buildingController.value.text = businessAllData.location.building;
       landMarkController.value.text = businessAllData.location.landMark;
       businessName.value = businessAllData.location.businessName;
       businessLandMarkName.value = businessAllData.location.landMark;
@@ -141,21 +145,39 @@ class DashBoardSettingController extends GetxController {
       fridayClose.value=businessAllData.hoursOfOperation.friday.openTill;
 
       ///Category & Payment Method
-   /*  for(var list in businessAllData.acceptedPaymentMethods){
-       paymentMethodList.add(list.sId);
-       print(paymentMethodList);
-     }*/
 
       businessAllData.acceptedPaymentMethods.forEach((element) {
-        paymentMethodList.add(element.name);
-        keywords.value=paymentMethodList.toSet().toList();
-        print(paymentMethodList);
+
+        var payList=[];
+        payList.add(element.sId);
+        paymentMethodList.value=payList.toSet().toList();
+        print("payment list:$paymentMethodList");
+      });
+      ///Keywords & Tags
+      //keywords.value=businessAllData.keywords;
+      businessAllData.keywords.forEach((element) {
+
+        keywords.add(element.sId);
+        /*var keyword=[];
+        keyword.add(element.sId);
+        keywords.value=keyword.toSet().toList();
+        //keywords.add(element.sId);
+        print("keyword list $keywords");*/
+
       });
 
-      print(paymentMethodList);
-      ///Keywords & Tags
-      keywords.value=businessAllData.keywords;
-      businessTags.value=businessAllData.tags;
+      businessAllData.tags.forEach((element) {
+
+        var tags=[];
+        tags.add(element);
+
+        businessTags.value=tags.toSet().toList();
+
+        print("business tags:$businessTags");
+
+      });
+
+      //businessTags.value=businessAllData.tags;
       description.value=businessAllData.description;
       businessMetaDisc.value=businessAllData.metaDescription;
 
@@ -168,12 +190,14 @@ class DashBoardSettingController extends GetxController {
   }
 
   Future<void> updateBusinessData(context,singleId) async {
-    print("----business data add start----");
+    print("----business data update start----");
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
     var json = {
       "accepted_payment_methods": paymentMethodList,
+      "keywords": keywords,
+      "tags": businessTags,
       "annual_turnover": annualTurnOver,
       "certifications": ["5c33253141533c141cc8b972"],
       "contact": {
@@ -253,7 +277,7 @@ class DashBoardSettingController extends GetxController {
         }
       },
 
-      "keywords": keywords,
+
       "location": {
         "building": boxStorage.read(KEY_USER_BUILDING)??"new building",
         "business_name": businessName.value,
@@ -270,12 +294,12 @@ class DashBoardSettingController extends GetxController {
       "meta_title": boxStorage.read(SEO_TITLE),
       "no_of_employees": boxStorage.read(NUMBER_OF_EMPLOYEE) ?? "1-5",
       "professional_associations": ["5c33251441533c141cc8b96f"],
-      "tags": businessTags,
+
       "year_of_establishment": boxStorage.read(YEAR_ESTABLISH)??"2001",
       "business_type": boxStorage.read(TYPE_OF_BUSINESS)??"60530b5731f97d45f0634647"
     };
 
-    //print(json);
+    print("json print: $json");
 
     var response = await put(Uri.parse(updateBusinessApi+"$singleId"),
         headers: <String, String>{
@@ -284,6 +308,8 @@ class DashBoardSettingController extends GetxController {
         },
         body: jsonEncode(<String, dynamic>{
           "accepted_payment_methods": paymentMethodList,
+          "keywords": keywords,
+          "tags": businessTags,
           "annual_turnover": "1-500000",
           "certifications": ["5c33253141533c141cc8b972"],
           "contact": {
@@ -363,7 +389,7 @@ class DashBoardSettingController extends GetxController {
             }
           },
 
-          "keywords": keywords,
+
           "location": {
             "building": boxStorage.read(KEY_USER_BUILDING)??"new building",
             "business_name": businessName.value,
@@ -380,7 +406,7 @@ class DashBoardSettingController extends GetxController {
           "meta_title": boxStorage.read(SEO_TITLE),
           "no_of_employees": boxStorage.read(NUMBER_OF_EMPLOYEE) ?? "1-5",
           "professional_associations": ["5c33251441533c141cc8b96f"],
-          "tags": businessTags,
+
           "year_of_establishment": boxStorage.read(YEAR_ESTABLISH)??"2001",
           "business_type": boxStorage.read(TYPE_OF_BUSINESS)??"60530b5731f97d45f0634647"
         }));
@@ -399,8 +425,8 @@ class DashBoardSettingController extends GetxController {
       //Navigator.pushNamed(context, '/lastSuccess');
     } else {
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-
       print("error: " + response.body);
+      print("error code: " + response.statusCode.toString());
     }
   }
 }

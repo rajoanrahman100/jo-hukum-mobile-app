@@ -9,16 +9,28 @@ import 'package:johukum/responsive.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:get/get.dart';
 
-class SettingDashBoardBusiness extends StatelessWidget {
+class SettingDashBoardBusiness extends StatefulWidget {
+
+  @override
+  _SettingDashBoardBusinessState createState() => _SettingDashBoardBusinessState();
+}
+
+class _SettingDashBoardBusinessState extends State<SettingDashBoardBusiness> {
   var c = Get.put(SingleBusinessAllDataController());
 
   var settingController=Get.put(DashBoardSettingController());
 
 
   @override
+  void initState() {
+    // TODO: implement initState
+    settingController.getMyBusinessData(boxStorage.read(MY_BUSINESS_SLUG));
+
+  }
+
+  @override
   Widget build(BuildContext context) {
 
-    settingController.getMyBusinessData(boxStorage.read(MY_BUSINESS_SLUG));
 
     Size size = MediaQuery.of(context).size;
 

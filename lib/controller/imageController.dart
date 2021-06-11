@@ -21,6 +21,8 @@ class ImageController extends GetxController {
 
   var idArray=[].obs;
 
+
+
   setPickedLogoImage(logoValue){
     selectLogoImagePath.value=logoValue;
   }

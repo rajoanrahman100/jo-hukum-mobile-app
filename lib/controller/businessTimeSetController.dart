@@ -10,6 +10,8 @@ class BusinessTimeController extends GetxController {
   var thuCheck = true.obs;
   var friCheck = false.obs;
 
+
+
   ///Time set controller
 
   var satStartTime = "9.00 am".obs;

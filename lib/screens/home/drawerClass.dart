@@ -85,7 +85,8 @@ class DrawerClass extends StatelessWidget {
                                       Expanded(
                                           child: Obx(()=>businessController.businessData.value.results==null?
                                           Center(child: spinKit):businessController.businessData.value
-                                              .results.length==0?textUbuntu("No Business Found", kPrimaryPurple)
+                                              .results.length==0?Center(child: textUbuntu("You are not added any "
+                                              "business yet", kPrimaryPurple,fontSize: 18.0))
                                               :Container(
                                             child: SizedBox.expand(
                                               child: Padding(

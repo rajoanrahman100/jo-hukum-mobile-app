@@ -24,6 +24,8 @@ class StepSixScreen extends StatelessWidget {
 
   final picker = ImagePicker();
 
+
+
   //var idArray=[];
 
   uploadImageFunction(File imageFile, context) async {

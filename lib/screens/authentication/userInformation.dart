@@ -401,9 +401,10 @@ class UserAdditionalInformation extends StatelessWidget {
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
       Get.snackbar("Success!", "account created successfully", backgroundColor: kWhiteColor);
+      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+
       Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
 
-      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;
     } else {
       print("error response " + res.body);

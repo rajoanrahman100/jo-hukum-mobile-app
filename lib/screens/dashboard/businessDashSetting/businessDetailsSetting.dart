@@ -12,15 +12,25 @@ import 'package:johukum/widgets/textWidgets.dart';
 
 import 'fullScreenAlert/areaAlert.dart';
 
-class SettingBusinessDetails extends StatelessWidget {
+class SettingBusinessDetails extends StatefulWidget {
+  @override
+  _SettingBusinessDetailsState createState() => _SettingBusinessDetailsState();
+}
+
+class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
   final _formKey = GlobalKey<FormState>();
 
   var settingController = Get.put(DashBoardSettingController());
 
   @override
+  void initState() {
+    // TODO: implement initState
+    settingController.fetchThana(settingController.cityId.value, "");
+  }
+
+  @override
   Widget build(BuildContext context) {
 
-    settingController.fetchThana(settingController.cityId.value, "");
 
     return Scaffold(
       appBar: buildBusinessInfoBar("Business Details"),
@@ -54,12 +64,12 @@ class SettingBusinessDetails extends StatelessWidget {
                     ),
                   ),
                   size10,
-                  textUbuntu("Street Address", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+                  textUbuntu("Building", kBlackColor, fontSize: 16.0, fontWeight: weight400),
                   size5,
                   Obx(
                     () => AddBusinessForm(
                       //controller: c.businessNameController.value,
-                      initialValue: settingController.streetAddressController.value.text,
+                      initialValue: settingController.buildingController.value.text,
                       isSuffix: false,
                       hintText: "",
                       validator: (value) {
@@ -118,6 +128,8 @@ class SettingBusinessDetails extends StatelessWidget {
                   ),
 
                   ElevatedButton(onPressed: (){
+                    FocusScope.of(context).unfocus();
+                    print(boxStorage.read(MY_BUSINESS_ID));
                     settingController.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID));
                   }, child: textUbuntu("Save", kPrimaryPurple)),
                 ],
