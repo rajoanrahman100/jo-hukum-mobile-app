@@ -72,9 +72,9 @@ class SettingWidget extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(iconFront,color: kPrimaryPurple,size:iconFSize?? 22.0),
+                Icon(iconFront,color: Colors.grey,size:iconFSize?? 22.0),
                 width10,
-                textUbuntu(title, kBlackColor.withOpacity(0.4),fontSize:titleSize ?? 25.0,fontWeight: weight400),
+                textUbuntu(title, kBlackColor.withOpacity(0.4),fontSize:titleSize ?? 22.0,fontWeight: weight500),
               ],
             ),
             Icon(iconEnd,color: kPrimaryPurple,size: iconEndSize??22.0,)

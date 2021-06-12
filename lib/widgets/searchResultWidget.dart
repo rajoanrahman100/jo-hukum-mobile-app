@@ -37,78 +37,80 @@ class SearchItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: callBack,
-      child: Card(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)
-        ),
-        child: Container(
-          height: height ?? size.height / 6,
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-          decoration: BoxDecoration(
-              //color: kWhiteColor,
-              borderRadius: BorderRadius.circular(10.0)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: CachedNetworkImage(
-                        imageUrl: image,
-                        height: imageHeight ?? 80,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) => spinKit,
-                        errorWidget: (context, url, error) => Icon(
-                          Icons.error,
-                          color: kPrimaryPurple,
-                          size: 22,
-                        ),
+      child: Container(
+        height: height ?? size.height /6.5,
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10.0)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: CachedNetworkImage(
+                      imageUrl: image,
+                      height: imageHeight ?? 80,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => spinKit,
+                      errorWidget: (context, url, error) => Icon(
+                        Icons.error,
+                        color: kPrimaryPurple,
+                        size: 22,
                       ),
                     ),
                   ),
-                  width10,
-                  Expanded(
-                      flex: 2,
-                      child: Container(
-                        //height: 70,
-                        margin: EdgeInsets.only(left: 8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textUbuntu(businessName, kBlackColor, fontWeight: weight500, maxLine: 2, fontSize: titleFontSize ?? 16),
-                            size5,
-                            Container(
-                              height: addressConHeight??25,
-                              width:addressConWidth?? 55,
-                              decoration: BoxDecoration(color: kPrimaryPurple, borderRadius: BorderRadius.circular(5.0)),
-                              child: Center(
-                                child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize: distanceFontSize ?? 14),
+                ),
+                width10,
+                Expanded(
+                    flex: 2,
+                    child: Container(
+                      //height: 70,
+                      margin: EdgeInsets.only(left: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          textUbuntu(businessName, kBlackColor, fontWeight: weight500, maxLine: 2, fontSize: titleFontSize ?? 16),
+                          size5,
+                          Container(
+                            height: addressConHeight??25,
+                            width:addressConWidth?? 55,
+                            decoration: BoxDecoration(color: kPrimaryPurple, borderRadius: BorderRadius.circular(5.0)),
+                            child: Center(
+                              child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize: distanceFontSize ?? 14),
+                            ),
+                          ),
+                          size10,
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                color: kPrimaryPurple,
+                                size: 16,
                               ),
-                            ),
-                            size10,
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.location_on,
-                                  color: kPrimaryPurple,
-                                  size: 16,
-                                ),
-                                Expanded(
-                                  child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 1, fontSize: addressFontSize ?? 14),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ))
-                ],
-              )
-            ],
-          ),
+                              Expanded(
+                                child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 1, fontSize: addressFontSize ?? 14),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ))
+              ],
+            )
+          ],
         ),
       ),
     );

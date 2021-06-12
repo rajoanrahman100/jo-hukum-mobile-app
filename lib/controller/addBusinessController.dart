@@ -107,12 +107,13 @@ class AddBusinessController extends GetxController {
         "building": boxStorage.read(KEY_USER_BUILDING),
         "business_name": boxStorage.read(KEY_USER_BUSINESS_NAME),
         "geo": {
-          "coordinates": [boxStorage.read(LAT), boxStorage.read(LONG)],
+          "coordinates": [boxStorage.read(LONG), boxStorage.read(LAT)],
           "type": "Point"
         },
         "land_mark": boxStorage.read(KEY_USER_LANDMARK),
         "location": boxStorage.read(KEY_USER_THANA_ID),
-        "plus_code": boxStorage.read(KEY_USER_PLUS_CODE),
+        //"plus_code": boxStorage.read(KEY_USER_PLUS_CODE),
+        "plus_code": "88"
       },
 
       "meta_description":boxStorage.read(META_DESCRIPTION),

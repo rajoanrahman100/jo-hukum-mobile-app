@@ -11,6 +11,7 @@ class AddBusinessForm extends StatelessWidget {
   String initialValue;
   Function validator;
   Function onChange;
+  Function onSave;
   Widget suffixIcon;
   bool isSuffix;
   Widget prefix;
@@ -23,6 +24,7 @@ class AddBusinessForm extends StatelessWidget {
     this.initialValue,
     this.validator,
     this.onChange,
+    this.onSave,
     this.suffixIcon,
     this.isSuffix,
     this.prefix,
@@ -40,6 +42,7 @@ class AddBusinessForm extends StatelessWidget {
         maxLines: maxLine ?? 1,
         validator: validator,
         onChanged: onChange,
+        onSaved: onSave,
         decoration: InputDecoration(
             filled: true,
             fillColor: kPrimaryPurple.withOpacity(0.2),

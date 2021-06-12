@@ -45,7 +45,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
 
     return Scaffold(
         body: Responsive(
-      mobile: Container(
+        mobile: Container(
         height: size.height,
         child: GetX<SingleBusinessAllDataController>(builder: (controller) {
           return controller.loaderShow.isTrue
@@ -270,12 +270,57 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                     },
                                   ),
                                 ),
+                          size10,
+                          Row(
+                            children: [
+                              textUbuntu("SEO Tags", kPrimaryPurple),
+                              Expanded(
+                                  child: Divider(
+                                    color: kPrimaryPurple,
+                                    height: 2,
+                                  ))
+                            ],
+                          ),
+                          size10,
+                          controller.singleBusinessValue.value.tags.length == 0
+                              ? textUbuntu("No SEO tags is found", kBlackColor)
+                              : Container(
+                            height: 35,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: controller.singleBusinessValue.value.tags.length,
+                              itemBuilder: (_, index) {
+                                return Container(
+                                  //height: 25,
+                                  padding: EdgeInsets.all(10.0),
+                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.1),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(7.0)),
+                                  child: Center(
+                                      child: Text(
+                                        controller.singleBusinessValue.value.tags[index],
+                                        style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500),
+                                      )),
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       )),
                 );
         }),
       ),
-      tablet: Container(
+        tablet: Container(
         height: size.height,
         child: GetX<SingleBusinessAllDataController>(builder: (controller) {
           return controller.loaderShow.isTrue
@@ -482,7 +527,6 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                     itemCount: controller.singleBusinessValue.value.keywords.length,
                                     itemBuilder: (_, index) {
                                       return Container(
-                                        //height: 25,
                                         padding: EdgeInsets.all(10.0),
                                         margin: EdgeInsets.symmetric(horizontal: 5.0),
                                         decoration: BoxDecoration(
@@ -505,6 +549,51 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                                     },
                                   ),
                                 ),
+                          size10,
+                          Row(
+                            children: [
+                              textUbuntu("SEO Tags", kPrimaryPurple),
+                              Expanded(
+                                  child: Divider(
+                                    color: kPrimaryPurple,
+                                    height: 2,
+                                  ))
+                            ],
+                          ),
+                          size10,
+                          controller.singleBusinessValue.value.tags.length == 0
+                              ? textUbuntu("No SEO tags is found", kBlackColor)
+                              : Container(
+                            height: 50,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: controller.singleBusinessValue.value.tags.length,
+                              itemBuilder: (_, index) {
+                                return Container(
+                                  //height: 25,
+                                  padding: EdgeInsets.all(10.0),
+                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.1),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3), // changes position of shadow
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(7.0)),
+                                  child: Center(
+                                      child: Text(
+                                        controller.singleBusinessValue.value.tags[index],
+                                        style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weight500,fontSize: 18.0),
+                                      )),
+                                );
+                              },
+                            ),
+                          ),
                         ],
                       )),
                 );

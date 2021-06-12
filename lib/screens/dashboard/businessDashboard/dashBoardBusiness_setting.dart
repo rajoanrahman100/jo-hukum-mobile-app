@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/components/settingsDataSaveConfig.dart';
 import 'package:johukum/controller/dashBoardController/dashBoardSettingsController.dart';
 import 'package:johukum/controller/dashBoardController/singleBusinessAllDataController.dart';
 import 'package:johukum/responsive.dart';
@@ -24,7 +25,8 @@ class _SettingDashBoardBusinessState extends State<SettingDashBoardBusiness> {
   @override
   void initState() {
     // TODO: implement initState
-    settingController.getMyBusinessData(boxStorage.read(MY_BUSINESS_SLUG));
+    //settingController.getMyBusinessData(boxStorage.read(MY_BUSINESS_SLUG));
+    print("_________BusinessName__________"+boxNewStorage.read(Business_NAME));
 
   }
 

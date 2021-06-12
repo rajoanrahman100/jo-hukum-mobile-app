@@ -29,18 +29,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
   void initState() {
     // TODO: implement initState
     scrollController.addListener(() async {
-      /*if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-        elasticController.setPageNumber();
-        //elasticController.setListSize();
-        print("page number: ${elasticController.pageNumber.value}");
-        print("list size : ${elasticController.searchListSize.value}");
 
-        await elasticController.fetchElasticeData(
-          text: elasticController.searchText.value,
-          startForm: elasticController.pageNumber.value,
-          size: elasticController.searchListSize.value,
-        );
-      }*/
 
       if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
         elasticController.setPaginateNumber();

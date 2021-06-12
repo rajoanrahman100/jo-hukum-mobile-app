@@ -157,7 +157,7 @@ class StepOneScreen extends StatelessWidget {
                       ),
                     ),
                     size10,
-                    textUbuntu("Thana*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Area*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
                     Container(
                       height: 50.0,
@@ -190,7 +190,7 @@ class StepOneScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    size10,
+                    /*size10,
                     textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: areaNameController,
@@ -204,8 +204,8 @@ class StepOneScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    size10,
-                    textUbuntu("Plus Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    size10,*/
+                    /*textUbuntu("Plus Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: plusCodeController,
                       hintText: "",
@@ -217,7 +217,7 @@ class StepOneScreen extends StatelessWidget {
                         _formKey.currentState.save();
                         return null;
                       },
-                    ),
+                    ),*/
                     size10,
                     GestureDetector(
                       onTap: () {
@@ -237,9 +237,9 @@ class StepOneScreen extends StatelessWidget {
                             boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
                             boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
                             boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
-                            boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
+                           // boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
                             boxStorage.write(KEY_USER_POSTAL_CODE, postalCodeController.text);
-                            boxStorage.write(KEY_USER_AREA, areaNameController.text);
+                            //boxStorage.write(KEY_USER_AREA, areaNameController.text);
                             Navigator.pushNamed(context, '/stepTwo');
                           }
                         }
@@ -378,7 +378,7 @@ class StepOneScreen extends StatelessWidget {
                       ),
                     ),
                     size10,
-                    textUbuntu("Thana*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Area*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
                     Container(
                       height: 50.0,
@@ -411,34 +411,7 @@ class StepOneScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    size10,
-                    textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: areaNameController,
-                      hintText: "",
-                      isSuffix: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),
-                    size10,
-                    textUbuntu("Plus Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: plusCodeController,
-                      hintText: "",
-                      isSuffix: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),
+
                     size10,
                     GestureDetector(
                       onTap: () {

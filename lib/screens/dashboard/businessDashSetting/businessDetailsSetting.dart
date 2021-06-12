@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/components/settingsDataSaveConfig.dart';
 import 'package:johukum/controller/dashBoardController/dashBoardSettingsController.dart';
+import 'package:johukum/controller/dashBoardController/singleBusinessAllDataController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/fullScreenAlert/cityAlert.dart';
@@ -21,11 +23,21 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
   final _formKey = GlobalKey<FormState>();
 
   var settingController = Get.put(DashBoardSettingController());
+  var c = Get.put(SingleBusinessAllDataController());
+
+  var businessName=TextEditingController();
+  var businessLandmark=TextEditingController();
+  var businessBuilding=TextEditingController();
+
 
   @override
   void initState() {
     // TODO: implement initState
-    settingController.fetchThana(settingController.cityId.value, "");
+    c.fetchThana(c.businessLocationId.value, "");
+
+    businessName.text=boxNewStorage.read(Business_NAME);
+    businessLandmark.text=boxNewStorage.read(Business_LANDMARK);
+    businessBuilding.text=boxNewStorage.read(Business_Building);
   }
 
   @override
@@ -45,67 +57,65 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                 children: [
                   textUbuntu("Business Name*", kBlackColor, fontSize: 16.0, fontWeight: weight400),
                   size5,
-                  Obx(
-                    () => AddBusinessForm(
-                      //controller: c.businessNameController.value,
-                      initialValue: settingController.businessNameController.value.text,
-                      isSuffix: false,
-                      hintText: "",
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        if (value.toString().length < 8) {
-                          return "Business name at least 8 character";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),
+                  AddBusinessForm(
+                    controller: businessName,
+                    //initialValue: businssName.text,
+                    isSuffix: false,
+                    hintText: "",
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "This Field is required";
+                      }
+                      if (value.toString().length < 8) {
+                        return "Business name at least 8 character";
+                      }
+                      _formKey.currentState.save();
+                      return null;
+                    },
+                    onSave: (String value){
+                      businessName.text=value;
+                    },
+                  ),
+                  size10,
+                  textUbuntu("Landmark", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+                  size5,
+                  AddBusinessForm(
+                    controller: businessLandmark,
+                    //initialValue: businssName.text,
+                    isSuffix: false,
+                    hintText: "",
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "This Field is required";
+                      }
+
+                      _formKey.currentState.save();
+                      return null;
+                    },
+                    onSave: (String value){
+                      businessLandmark.text=value;
+                    },
                   ),
                   size10,
                   textUbuntu("Building", kBlackColor, fontSize: 16.0, fontWeight: weight400),
                   size5,
-                  Obx(
-                    () => AddBusinessForm(
-                      //controller: c.businessNameController.value,
-                      initialValue: settingController.buildingController.value.text,
-                      isSuffix: false,
-                      hintText: "",
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        if (value.toString().length < 8) {
-                          return "Business name at least 8 character";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),
+                  AddBusinessForm(
+                    controller: businessBuilding,
+                    //initialValue: businssName.text,
+                    isSuffix: false,
+                    hintText: "",
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "This Field is required";
+                      }
+
+                      _formKey.currentState.save();
+                      return null;
+                    },
+                    onSave: (String value){
+                      businessBuilding.text=value;
+                    },
                   ),
-                  size10,
-                  textUbuntu("Land Mark", kBlackColor, fontSize: 16.0, fontWeight: weight400),
-                  size5,
-                  Obx(
-                    () => AddBusinessForm(
-                      //controller: c.businessNameController.value,
-                      initialValue: settingController.landMarkController.value.text,
-                      isSuffix: false,
-                      hintText: "",
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        if (value.toString().length < 8) {
-                          return "Business name at least 8 character";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),
-                  ),
-                  size10,
                   textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight400),
                   size5,
                   GestureDetector(
@@ -120,7 +130,7 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => textUbuntu(settingController.businessAreaName.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                          Obx(() => textUbuntu(c.businessLocationName.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
                           Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
                         ],
                       ),
@@ -128,9 +138,15 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                   ),
 
                   ElevatedButton(onPressed: (){
-                    FocusScope.of(context).unfocus();
-                    print(boxStorage.read(MY_BUSINESS_ID));
-                    settingController.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID));
+
+                    if (_formKey.currentState.validate()){
+                      FocusScope.of(context).unfocus();
+                      print(boxStorage.read(MY_BUSINESS_ID));
+                      print(businessName.text);
+                      c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID),businessName.text,businessLandmark.text,businessBuilding.text);
+                    }
+
+
                   }, child: textUbuntu("Save", kPrimaryPurple)),
                 ],
               ),

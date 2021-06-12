@@ -244,14 +244,6 @@ class StepTwoScreen extends StatelessWidget {
                       isSuffix: false,
                     ),
                     size10,
-                    textUbuntu("Fax", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: fax,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
-                    size10,
                     textUbuntu("Website", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: website,
@@ -260,30 +252,7 @@ class StepTwoScreen extends StatelessWidget {
                       isSuffix: false,
                     ),
                     size10,
-                    textUbuntu("Facebook", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: facebook,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
-                    size10,
-                    textUbuntu("Instagram", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: instagram,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
-                    size10,
-                    textUbuntu("Twitter", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: twitter,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
-                    size10,
+
                     GestureDetector(
                       onTap: (){
                        // print(send);
@@ -496,7 +465,7 @@ class StepTwoScreen extends StatelessWidget {
                           ),
                         ),
                         Obx(()=>controller.addNoTwo.value==false?IconButton(icon: Icon(Icons.add_circle,color:
-                        kPrimaryPurple,),
+                        kPrimaryPurple),
                           onPressed: (){
                             controller.addNoTwo.value=true;
                           },):Container())
@@ -507,14 +476,6 @@ class StepTwoScreen extends StatelessWidget {
                     textUbuntu("Email", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: email,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
-                    size10,
-                    textUbuntu("Fax", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: fax,
                       textInputType: TextInputType.emailAddress,
                       hintText: "",
                       isSuffix: false,
@@ -535,22 +496,7 @@ class StepTwoScreen extends StatelessWidget {
                       hintText: "",
                       isSuffix: false,
                     ),
-                    size10,
-                    textUbuntu("Instagram", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: instagram,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
-                    size10,
-                    textUbuntu("Twitter", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: twitter,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
+
                     size10,
                     GestureDetector(
                       onTap: (){

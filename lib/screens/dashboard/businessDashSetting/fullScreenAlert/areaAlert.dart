@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/settingsDataSaveConfig.dart';
 import 'package:johukum/controller/dashBoardController/dashBoardSettingsController.dart';
+import 'package:johukum/controller/dashBoardController/singleBusinessAllDataController.dart';
 import 'package:johukum/controller/divisionController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class ThanaDialog extends StatelessWidget {
-  var controller = Get.put(DashBoardSettingController());
+  var controller = Get.put(SingleBusinessAllDataController());
 
   var thanaController = TextEditingController();
 
@@ -44,7 +46,7 @@ class ThanaDialog extends StatelessWidget {
                               hintText: "search by thana name",
                               isSuffix: false,
                               onChange: (value)async{
-                                await controller.fetchThana(controller.cityId.value, value);
+                                await controller.fetchThana(controller.businessLocationId.value, value);
                               },
                             ),
                           ),
@@ -60,8 +62,8 @@ class ThanaDialog extends StatelessWidget {
                                 itemBuilder: (_, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      controller.businessAreaName.value=controller.thanaModelClass.value.results[index].name;
-                                      controller.areaId.value=controller.thanaModelClass.value.results[index].sId;
+                                      controller.businessLocationName.value=controller.thanaModelClass.value.results[index].name;
+                                      controller.businessLocationId.value=controller.thanaModelClass.value.results[index].sId;
                                       Navigator.of(context).pop();
                                     },
                                     child: Column(
@@ -97,7 +99,7 @@ class ThanaDialog extends StatelessWidget {
                               hintText: "search by thana name",
                               isSuffix: false,
                               onChange: (value)async{
-                                await controller.fetchThana(controller.cityId.value, value);
+                                await controller.fetchThana(controller.businessLocationId.value, value);
                               },
                             ),
                           ),
@@ -113,8 +115,8 @@ class ThanaDialog extends StatelessWidget {
                                 itemBuilder: (_, index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      controller.areaId.value=controller.thanaModelClass.value.results[index].sId;
-                                      controller.businessAreaName.value=controller.thanaModelClass.value.results[index].name;
+                                      controller.businessLocationId.value=controller.thanaModelClass.value.results[index].sId;
+                                      controller.businessLocationName.value=controller.thanaModelClass.value.results[index].name;
                                       Navigator.of(context).pop();
                                     },
                                     child: Column(

@@ -472,7 +472,6 @@ class StepTheeScreenTwo extends StatelessWidget {
                       boxStorage.write(WED_END, wedEnd);
                       boxStorage.write(THURS_END, thurEnd);
                       boxStorage.write(FRI_END, friEnd);
-
                       boxStorage.write(PAYMENT_ID_LIST, paymentIdList);
 
                       Navigator.pushNamed(context, '/stepFour');

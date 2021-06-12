@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/components/settingsDataSaveConfig.dart';
 import 'package:johukum/modelClass/singleBusinessAllDataModel.dart';
 import 'package:johukum/modelClass/thanaModel.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
@@ -192,16 +193,19 @@ class DashBoardSettingController extends GetxController {
   Future<void> updateBusinessData(context,singleId) async {
     print("----business data update start----");
 
+    print("coordiates ${boxStorage.read(LAT)}");
+    print("coordiates ${boxStorage.read(LONG)}");
+
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
-    var json = {
-      "accepted_payment_methods": paymentMethodList,
-      "keywords": keywords,
-      "tags": businessTags,
-      "annual_turnover": annualTurnOver,
+    /*var json = {
+      "accepted_payment_methods": boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD)??["5d32d598b86023282aa4cde6"],
+      "keywords": boxNewStorage.read(BUSINESS_KEYWORDS)??["5baca5cd41533c08759778bd"],
+      "tags": boxNewStorage.read(BUSINESS_TAGS)??["cloth","fashion"],
+      "annual_turnover": "1-500000",
       "certifications": ["5c33253141533c141cc8b972"],
       "contact": {
-        "designation": designation.value, //required
+        "designation": "owner", //required
         "fax_no": "Tst FAX",
         "landline_no": "01794202010",
         "mobile_numbers": [
@@ -209,11 +213,11 @@ class DashBoardSettingController extends GetxController {
           {"mobile_number": "01521431799"},
           {"mobile_number": "01521431797"}
         ],
-        "name": ownerFullName.value,
-        "title": "Mr.", //required
-        "website": website.value ?? "www.google.com"
+        "name": boxNewStorage.read(OWNER_NAME),
+        "title": boxNewStorage.read(OWNER_TITLE), //required
+        "website": boxNewStorage.read(OWNER_WEBSITE) ?? "www.google.com"
       },
-      "description": description.value, //required
+      "description": boxNewStorage.read(BUSINESS_DESCRIPTION)??"We are good at everything", //required
       "faqs": [
         {"question": "Question 1", "answer": "Answer 1"},
         {"question": "Question 2", "answer": "Answer 2"}
@@ -224,96 +228,96 @@ class DashBoardSettingController extends GetxController {
           "leisure_end": null,
           "leisure_start": null,
           "open_24h": false,
-          "open_from": fridayOpen.value ?? "09:00",
-          "open_till": fridayClose.value ?? "19:00",
+          "open_from": boxNewStorage.read(BUSINESS_FRIDAY_START) ?? "09:00",
+          "open_till": boxNewStorage.read(BUSINESS_FRIDAY_END) ?? "19:00",
         },
         "monday": {
           "close": false,
           "leisure_end": null,
           "leisure_start": null,
           "open_24h": false,
-          "open_from": mondayOpen.value ?? "09:00",
-          "open_till": mondayClose.value ?? "19:00",
+          "open_from": boxNewStorage.read(BUSINESS_MONDAY_START) ?? "09:00",
+          "open_till": boxNewStorage.read(BUSINESS_MONDAY_END) ?? "19:00",
         },
         "saturday": {
           "close": false,
           "leisure_end": null,
           "leisure_start": null,
           "open_24h": false,
-          "open_from": saturdayOpen.value ?? "09:00",
-          "open_till": saturdayClose.value ?? "19:00",
+          "open_from": boxNewStorage.read(BUSINESS_SATURDAY_START)?? "09:00",
+          "open_till": boxNewStorage.read(BUSINESS_SATURDAY_END) ?? "19:00",
         },
         "sunday": {
           "close": false,
           "leisure_end": null,
           "leisure_start": null,
           "open_24h": false,
-          "open_from": sundayOpen.value ?? "09:00",
-          "open_till": sundayClose.value ?? "19:00",
+          "open_from": boxNewStorage.read(BUSINESS_SUNDAY_START)?? "09:00",
+          "open_till": boxNewStorage.read(BUSINESS_SUNDAY_END)?? "19:00",
         },
         "thursday": {
           "close": false,
           "leisure_end": null,
           "leisure_start": null,
           "open_24h": false,
-          "open_from": thursdayOpen.value ?? "09:00",
-          "open_till": thursdayClose.value ?? "19:00",
+          "open_from": boxNewStorage.read(BUSINESS_THURSDAY_START) ?? "09:00",
+          "open_till": boxNewStorage.read(BUSINESS_THURSDAY_END) ?? "19:00",
         },
         "tuesday": {
           "close": false,
           "leisure_end": null,
           "leisure_start": null,
           "open_24h": false,
-          "open_from": tuesdayOpen.value ?? "09:00",
-          "open_till": tuesdayClose.value ?? "19:00",
+          "open_from": boxNewStorage.read(BUSINESS_TUESDAY_START) ?? "09:00",
+          "open_till": boxNewStorage.read(BUSINESS_TUESDAY_END) ?? "19:00",
         },
         "wednesday": {
           "close": false,
           "leisure_end": null,
           "leisure_start": null,
           "open_24h": false,
-          "open_from": wednesdayOpen.value ?? "09:00",
-          "open_till": wednesdayClose.value ?? "19:00",
+          "open_from": boxNewStorage.read(BUSINESS_WEDNESDAY_START) ?? "09:00",
+          "open_till": boxNewStorage.read(BUSINESS_WEDNESDAY_END)?? "19:00",
         }
       },
 
 
       "location": {
-        "building": boxStorage.read(KEY_USER_BUILDING)??"new building",
-        "business_name": businessName.value,
+        "building": boxNewStorage.read(Business_Building)??"new building",
+        "business_name": boxNewStorage.read(Business_NAME),
         "geo": {
           "coordinates": [boxStorage.read(LAT), boxStorage.read(LONG)],
           "type": "Point"
         },
-        "land_mark": businessLandMarkName.value,
-        "location": areaId.value,
+        "land_mark": boxNewStorage.read(Business_LANDMARK),
+        "location": boxNewStorage.read(Business_LOCATION),
         "plus_code": boxStorage.read(KEY_USER_PLUS_CODE)??"+880",
       },
 
-      "meta_description": businessMetaDisc.value,
-      "meta_title": boxStorage.read(SEO_TITLE),
-      "no_of_employees": boxStorage.read(NUMBER_OF_EMPLOYEE) ?? "1-5",
+      "meta_description": "okokokokoookok",
+      "meta_title": boxNewStorage.read(BUSINESS_META_TITLE)??"Fashion House",
+      "no_of_employees": "1-5",
       "professional_associations": ["5c33251441533c141cc8b96f"],
-
-      "year_of_establishment": boxStorage.read(YEAR_ESTABLISH)??"2001",
+      "year_of_establishment": "2001",
       "business_type": boxStorage.read(TYPE_OF_BUSINESS)??"60530b5731f97d45f0634647"
-    };
+    };*/
 
     print("json print: $json");
+    var response;
 
-    var response = await put(Uri.parse(updateBusinessApi+"$singleId"),
+/*    var response = await put(Uri.parse(updateBusinessApi+"$singleId"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': boxStorage.read(KEY_TOKEN),
         },
         body: jsonEncode(<String, dynamic>{
-          "accepted_payment_methods": paymentMethodList,
-          "keywords": keywords,
-          "tags": businessTags,
+          "accepted_payment_methods": ["5d32d598b86023282aa4cde6"],
+          "keywords": ["5baca5cd41533c08759778bd"],
+          "tags": ["cloth","fashion"],
           "annual_turnover": "1-500000",
           "certifications": ["5c33253141533c141cc8b972"],
           "contact": {
-            "designation": designation.value, //required
+            "designation": "owner",
             "fax_no": "Tst FAX",
             "landline_no": "01794202010",
             "mobile_numbers": [
@@ -321,11 +325,11 @@ class DashBoardSettingController extends GetxController {
               {"mobile_number": "01521431799"},
               {"mobile_number": "01521431797"}
             ],
-            "name": ownerFullName.value,
-            "title": "Mr.", //required
-            "website": website.value ?? "www.google.com"
+            "name": "Ruma Khatun",
+            "title": "Mrs.",
+            "website": "www.google.com"
           },
-          "description": description.value, //required
+          "description": "We are good at everything",
           "faqs": [
             {"question": "Question 1", "answer": "Answer 1"},
             {"question": "Question 2", "answer": "Answer 2"}
@@ -336,93 +340,82 @@ class DashBoardSettingController extends GetxController {
               "leisure_end": null,
               "leisure_start": null,
               "open_24h": false,
-              "open_from": fridayOpen.value ?? "09:00",
-              "open_till": fridayClose.value ?? "19:00",
+              "open_from":  "09:00",
+              "open_till": "19:00"
             },
             "monday": {
               "close": false,
               "leisure_end": null,
               "leisure_start": null,
               "open_24h": false,
-              "open_from": mondayOpen.value ?? "09:00",
-              "open_till": mondayClose.value ?? "19:00",
+              "open_from":  "09:00",
+              "open_till":  "19:00"
             },
             "saturday": {
               "close": false,
               "leisure_end": null,
               "leisure_start": null,
               "open_24h": false,
-              "open_from": saturdayOpen.value ?? "09:00",
-              "open_till": saturdayClose.value ?? "19:00",
+              "open_from":  "09:00",
+              "open_till":  "19:00"
             },
             "sunday": {
               "close": false,
               "leisure_end": null,
               "leisure_start": null,
               "open_24h": false,
-              "open_from": sundayOpen.value ?? "09:00",
-              "open_till": sundayClose.value ?? "19:00",
+              "open_from":  "09:00",
+              "open_till": "19:00"
             },
             "thursday": {
               "close": false,
               "leisure_end": null,
               "leisure_start": null,
               "open_24h": false,
-              "open_from": thursdayOpen.value ?? "09:00",
-              "open_till": thursdayClose.value ?? "19:00",
+              "open_from":  "09:00",
+              "open_till":  "19:00"
             },
             "tuesday": {
               "close": false,
               "leisure_end": null,
               "leisure_start": null,
               "open_24h": false,
-              "open_from": tuesdayOpen.value ?? "09:00",
-              "open_till": tuesdayClose.value ?? "19:00",
+              "open_from":  "09:00",
+              "open_till":  "19:00"
             },
             "wednesday": {
               "close": false,
               "leisure_end": null,
               "leisure_start": null,
               "open_24h": false,
-              "open_from": wednesdayOpen.value ?? "09:00",
-              "open_till": wednesdayClose.value ?? "19:00",
+              "open_from":  "09:00",
+              "open_till":  "19:00"
             }
           },
-
-
           "location": {
-            "building": boxStorage.read(KEY_USER_BUILDING)??"new building",
-            "business_name": businessName.value,
+            "building": "new building",
+            "business_name": "Ruma Fashion Ghar",
             "geo": {
-              "coordinates": [boxStorage.read(LAT), boxStorage.read(LONG)],
+              "coordinates": [boxStorage.read(LONG), boxStorage.read(LAT)],
               "type": "Point"
             },
-            "land_mark": businessLandMarkName.value,
-            "location": areaId.value,
-            "plus_code": boxStorage.read(KEY_USER_PLUS_CODE)??"+880",
+            "land_mark": "Jatrabari",
+            "location": "5bb608e041533c632889eba8",
+            "plus_code": "+880"
           },
 
-          "meta_description": businessMetaDisc.value,
-          "meta_title": boxStorage.read(SEO_TITLE),
-          "no_of_employees": boxStorage.read(NUMBER_OF_EMPLOYEE) ?? "1-5",
+          "meta_description": "okokokokoookok",
+          "meta_title": "Fashion House",
+          "no_of_employees": "1-5",
           "professional_associations": ["5c33251441533c141cc8b96f"],
-
-          "year_of_establishment": boxStorage.read(YEAR_ESTABLISH)??"2001",
-          "business_type": boxStorage.read(TYPE_OF_BUSINESS)??"60530b5731f97d45f0634647"
-        }));
+          "year_of_establishment": "2001",
+          "business_type": "60530b5731f97d45f0634647"
+        }));*/
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print("Data added successfully");
-
+      print("Data updated successfully");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       var dataMap = jsonDecode(response.body);
-      // ResponseBusinessData responseBusiness=ResponseBusinessData.fromJson(dataMap);
-      //responseBusinessData.value=responseBusiness;
-      //businessID.value=responseBusiness.id;
-      //await uploadImageData(logo,cover,context);
-      //print("business id ${responseBusinessData.value.id}");
-      //showSnackBar(context: context,message: "Business Data Addded Successfully",callBack: (){});
-      //Navigator.pushNamed(context, '/lastSuccess');
     } else {
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       print("error: " + response.body);
