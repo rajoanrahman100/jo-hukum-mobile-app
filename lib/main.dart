@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         // Add the locale here
         builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
-        initialRoute: '/welcome',
+        initialRoute: '/stepTwo',
         routes: {
           '/welcome': (context) => WrapperClass(),
           '/signIn': (context) => SignInScreen(),

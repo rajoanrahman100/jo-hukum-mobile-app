@@ -327,8 +327,7 @@ class StepSevenScreen extends StatelessWidget {
                     //mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(height: 30, child: Center(child: textUbuntu("Tags: ", kPrimaryPurple, fontWeight: weight500))),
-                      Obx(
-                            () => tagController.tagList.length == 0
+                      Obx(() => tagController.tagList.length == 0
                             ? Container(
                             height: 30, child: Center(child: textUbuntu("No tagg added", kPrimaryPurple, fontWeight: weight400)))
                             : Expanded(

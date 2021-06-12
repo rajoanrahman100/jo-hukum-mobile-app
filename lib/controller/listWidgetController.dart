@@ -15,6 +15,17 @@ class ListWidgetController extends GetxController {
   var addQuestionThree = false.obs;
   var addQuestionFour= false.obs;
 
+  var mobileNumbers=[].obs;
+
+  addNumbers(value){
+    mobileNumbers.add(value);
+    print(mobileNumbers.length);
+    print(mobileNumbers);
+
+    mobileNumbers.forEach((element) {
+      print("element ${element["OK"]}");
+    });
+  }
 
 
   setQuestionCount(int value) {
