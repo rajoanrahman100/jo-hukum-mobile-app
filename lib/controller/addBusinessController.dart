@@ -19,6 +19,7 @@ class AddBusinessController extends GetxController {
   Future<void> addBusinessData(context,logo,cover) async {
 
     print("----business data add start----");
+    print(boxStorage.read(MOBILE_NUMBERS));
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
@@ -30,10 +31,11 @@ class AddBusinessController extends GetxController {
         "designation": boxStorage.read(KEY_BUSINESS_DESIGNATION), //required
         "fax_no": "Tst FAX",
         "landline_no": "01794202010",
-        "mobile_numbers": [
-          {"mobile_number": boxStorage.read(MOBILE_ONE)},{"mobile_number": boxStorage.read(MOBILE_TWO)},
-          {"mobile_number": boxStorage.read(MOBILE_THREE)}
-        ], //atleast one required
+//        "mobile_numbers": [
+//          {"mobile_number": boxStorage.read(MOBILE_ONE)},{"mobile_number": boxStorage.read(MOBILE_TWO)},
+//          {"mobile_number": boxStorage.read(MOBILE_THREE)}
+//        ],
+        "mobile_numbers": boxStorage.read(MOBILE_NUMBERS),
         "name": boxStorage.read(KEY_BUSINESS_OWNER_NAME), //required
         "title": "Mr.", //required
         "website": boxStorage.read(KEY_BUSINESS_WEBSITE)??"www.google.com"

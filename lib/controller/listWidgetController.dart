@@ -23,7 +23,7 @@ class ListWidgetController extends GetxController {
     print(mobileNumbers);
 
     mobileNumbers.forEach((element) {
-      print("element ${element["OK"]}");
+      print("element $element");
     });
   }
 

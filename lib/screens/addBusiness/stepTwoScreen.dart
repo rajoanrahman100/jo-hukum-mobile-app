@@ -276,7 +276,7 @@ class StepTwoScreen extends StatelessWidget {
                               showToast("insert your number");
                               return;
                             }else{
-                              map = {"mobile_number": number.text};
+                              map = {'"mobile_number"': '"${number.text}"'};
                               controller.addNumbers(map);
                               number.clear();
                             }
@@ -317,7 +317,7 @@ class StepTwoScreen extends StatelessWidget {
 
                                       children: [
                                         textUbuntu("Mobile Number ${index + 1}:   ${controller
-                                            .mobileNumbers[index]["mobile_number"]}",
+                                            .mobileNumbers[index]['"mobile_number"']}",
                                             kBlackColor.withOpacity(0.5),fontWeight: weight500),
                                         width5,
                                         GestureDetector(onTap: (){
@@ -361,9 +361,12 @@ class StepTwoScreen extends StatelessWidget {
                           boxStorage.write(KEY_BUSINESS_WEBSITE, website.text ?? "No Website Found");
                           boxStorage.write(KEY_BUSINESS_TWITTER, twitter.text ?? "No Twitter Found");
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text ?? "No Email ID Found");
-                          boxStorage.write(MOBILE_ONE, mobileOne.text);
-                          boxStorage.write(MOBILE_TWO, mobileTwo.text);
-                          boxStorage.write(MOBILE_THREE, mobileThree.text);
+                          boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
+
+
+                          //boxStorage.write(MOBILE_ONE, mobileOne.text);
+                          //boxStorage.write(MOBILE_TWO, mobileTwo.text);
+                          //boxStorage.write(MOBILE_THREE, mobileThree.text);
 
                           Navigator.pushNamed(context, '/stepThree');
                         }
