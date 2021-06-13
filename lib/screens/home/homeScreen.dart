@@ -6,7 +6,6 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/categoryController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/home/drawerClass.dart';
-import 'package:johukum/widgets/items.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 import 'businessItems.dart';
@@ -221,26 +220,28 @@ class _HomeScreenState extends State<HomeScreen> {
                         Obx(() => categoryController.resultDataClass.length == 0
                             ? Center(child: spinKit)
                             : Container(
-                          height: size.height / 7,
-                          color: kPrimaryPurple.withOpacity(0.1),
-                          child: ListView.builder(
-                            itemCount: 10,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (_, index) {
-                              return HomeScreenItems(
-                                callBack: () {
-                                  Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                },
-                                categoryController: categoryController,
-                                image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                title: categoryController.resultDataClass[index].name,
-                              );
-                            },
-                          ),
-                        )),
+                                height: size.height / 7,
+                                color: kPrimaryPurple.withOpacity(0.1),
+                                child: ListView.builder(
+                                  itemCount: 10,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (_, index) {
+                                    return HomeScreenItems(
+                                      callBack: () {
+                                        Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                      },
+                                      categoryController: categoryController,
+                                      image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
+                                      title: categoryController.resultDataClass[index].name,
+                                    );
+                                  },
+                                ),
+                              )),
                         size10,
                         //PosterShow(images: images),
-                        CarasoulSlider(height: 200.0,),
+                        CarasoulSlider(
+                          height: 200.0,
+                        ),
                         size10,
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -261,45 +262,44 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
 
                         Obx(
-                              () => categoryController.resultDataClass.length == 0
+                          () => categoryController.resultDataClass.length == 0
                               ? Center(child: spinKit)
-                              : Container(
-                            //margin: EdgeInsets.symmetric(horizontal: 10),
-                            height: size.height / 4,
-                            width: size.width,
-                            color: kPrimaryPurple.withOpacity(0.1),
-                            child: Center(
-                              child: GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 4 / 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
-                                  itemCount: 10,
-                                  controller: scrollController,
-                                  itemBuilder: (BuildContext ctx, index) {
-                                    if (index == categoryController.resultDataClass.length - 1) {
-                                      return Center(child: spinKit);
-                                    }
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                      },
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            SvgPicture.network(
-                                              "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                              height: 40,
-                                              width: 40,
-                                            ),
-                                            size10,
-                                            textUbuntu(categoryController.resultDataClass[index].name, kBlackColor, fontWeight: FontWeight.w500)
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          ),
+                              :  Container(
+                                    height: size.height / 3.7,
+                                    width: size.width,
+                                    color: kPrimaryPurple.withOpacity(0.1),
+                                    child: GridView.builder(
+                                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 4 / 3, crossAxisSpacing: 10, mainAxisSpacing: 15),
+                                          itemCount: 10,
+                                          controller: scrollController,
+                                          itemBuilder: (BuildContext ctx, index) {
+                                            if (index == categoryController.resultDataClass.length - 1) {
+                                              return Center(child: spinKit);
+                                            }
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    SvgPicture.network(
+                                                      "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
+                                                      height: 50,
+                                                      width: 50,
+                                                    ),
+                                                    size10,
+                                                    textUbuntu(categoryController.resultDataClass[index].name, kBlackColor, fontWeight: FontWeight.w500, fontSize: 18.0)
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }),
+
+                                  ),
+                                
                         ),
                         size10,
                         Padding(
@@ -310,23 +310,25 @@ class _HomeScreenState extends State<HomeScreen> {
                         Obx(() => categoryController.resultDataClass.length == 0
                             ? Center(child: spinKit)
                             : Container(
-                          height: size.height / 8,
-                          color: kPrimaryPurple.withOpacity(0.1),
-                          child: ListView.builder(
-                            itemCount: 10,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (_, index) {
-                              return HomeScreenItems(
-                                callBack: () {
-                                  Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                },
-                                categoryController: categoryController,
-                                image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                title: categoryController.resultDataClass[index].name,
-                              );
-                            },
-                          ),
-                        )),
+                                height: size.height / 7,
+                                color: kPrimaryPurple.withOpacity(0.1),
+                                child: ListView.builder(
+                                  itemCount: 10,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (_, index) {
+                                    return HomeScreenItems(
+                                      callBack: () {
+                                        Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                      },
+                                      categoryController: categoryController,
+                                      image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
+                                      title: categoryController.resultDataClass[index].name,
+                                      imageHeight: 50.0,
+                                      txtSize: 18.0,
+                                    );
+                                  },
+                                ),
+                              )),
                       ],
                     ),
                   ),
@@ -348,12 +350,18 @@ class HomeScreenItems extends StatelessWidget {
     @required this.image,
     @required this.title,
     @required this.callBack,
+    @required this.imageHeight,
+    @required this.imageWidth,
+    @required this.txtSize,
   }) : super(key: key);
 
   final CategoryController categoryController;
   final image;
   final title;
   final Function callBack;
+  final imageHeight;
+  final imageWidth;
+  final txtSize;
 
   @override
   Widget build(BuildContext context) {
@@ -367,11 +375,11 @@ class HomeScreenItems extends StatelessWidget {
           children: [
             SvgPicture.network(
               image,
-              height: 40,
-              width: 40,
+              height: imageHeight ?? 40.0,
+              width: imageWidth ?? 40.0,
             ),
             size10,
-            textUbuntu(title, kBlackColor, fontWeight: FontWeight.w500)
+            textUbuntu(title, kBlackColor, fontWeight: FontWeight.w500, fontSize: txtSize ?? 16.0)
           ],
         ),
       ),

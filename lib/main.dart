@@ -35,17 +35,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedConfig.pref = await SharedPreferences.getInstance();
 
-//  runApp(GetMaterialApp(
-//    home: MyApp(),
-//    debugShowCheckedModeBanner: false,
-//  ));
+  runApp(GetMaterialApp(
+    home: MyApp(),
+    debugShowCheckedModeBanner: false,
+  ));
 
-  runApp(DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => GetMaterialApp(
-            home: MyApp(),
-            debugShowCheckedModeBanner: false,
-          )));
+//  runApp(DevicePreview(
+//      enabled: !kReleaseMode,
+//      builder: (context) => GetMaterialApp(
+//            home: MyApp(),
+//            debugShowCheckedModeBanner: false,
+//          )));
 }
 
 class MyApp extends StatelessWidget {
@@ -54,9 +54,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
     return MaterialApp(
-        locale: DevicePreview.locale(context),
+       // locale: DevicePreview.locale(context),
         // Add the locale here
-        builder: DevicePreview.appBuilder,
+        //builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         initialRoute: '/welcome',
         routes: {
