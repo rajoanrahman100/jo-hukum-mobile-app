@@ -142,11 +142,11 @@ class AddBusinessController extends GetxController {
             "designation": boxStorage.read(KEY_BUSINESS_DESIGNATION), //required
             "fax_no": "Tst FAX",
             "landline_no": boxStorage.read(KEY_BUSINESS_PHONE_NUMBER),
-            "mobile_numbers": [
-              {"mobile_number": boxStorage.read(MOBILE_ONE)},
-              {"mobile_number": boxStorage.read(MOBILE_TWO)},
-            ],
-            //"mobile_numbers":boxStorage.read(MOBILE_NUMBERS),
+//            "mobile_numbers": [
+//              {"mobile_number": boxStorage.read(MOBILE_ONE)},
+//              {"mobile_number": boxStorage.read(MOBILE_TWO)},
+//            ],
+            "mobile_numbers":[{"mobile_number":"01930123456"},{"mobile_number":"01541878766"}],
             "name": boxStorage.read(KEY_BUSINESS_OWNER_NAME), //required
             "title": boxStorage.read(KEY_BUSINESS_OWNER_TITLE), //required
             "website": boxStorage.read(KEY_BUSINESS_WEBSITE)??"www.google.com"

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:johukum/screens/addBusiness/monileNumbersModel.dart';
 
 class ListWidgetController extends GetxController {
   var list = [].obs;
@@ -16,6 +17,9 @@ class ListWidgetController extends GetxController {
   var addQuestionFour= false.obs;
 
   var mobileNumbers=[].obs;
+  //var mobileNumbers=List<MobileNumberModel>().obs;
+
+
 
   addNumbers(value){
     mobileNumbers.add(value);

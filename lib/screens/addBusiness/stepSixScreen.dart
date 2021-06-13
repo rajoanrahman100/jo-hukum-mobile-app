@@ -278,10 +278,11 @@ class StepSixScreen extends StatelessWidget {
                     size10,
                     GestureDetector(
                       onTap: () {
-                        print(imageController.idArray);
+                        //print(imageController.idArray);
 
-                        stringId=imageController.idArray.reduce((previousValue, element) => previousValue+","+element);
-                        print(stringId);
+                        //stringId=imageController.idArray.reduce((previousValue, element) => previousValue+","+eleme
+                        // nt);
+                        //print(stringId);
                         //uploadImageFunction(File(imageController.selectMorePhotoOne.value),context);
 
                         //imageController.upload(File(imageController.selectLogoImagePath.value));
