@@ -199,53 +199,18 @@ class StepSevenScreen extends StatelessWidget {
                     textColor: kWhiteColor,
                     callback: ()async{
 
+                      print("covers ${boxStorage.read(COVER_PHOTOS)}");
+
+
                       if(keywordController.keywordList.length==0){
                         return showErrorToast("At least one keyword is required");
                       }else{
 
                         await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
                             imageController.selectCoverImagePath.value);
-
                         ///Business Info
-/*                        print("business name: ${boxStorage.read(KEY_USER_BUSINESS_NAME)}");
-                        print("KEY_USER_STREET_ADDRESS: ${boxStorage.read(KEY_USER_STREET_ADDRESS)}");
-                        print("KEY_USER_LANDMARK: ${boxStorage.read(KEY_USER_LANDMARK)}");
-                        print("KEY_USER_BUILDING: ${boxStorage.read(KEY_USER_BUILDING)}");
-                        print("KEY_USER_BUILDING: ${boxStorage.read(KEY_USER_BUILDING)}");
-                        print("KEY_USER_THANA_ID: ${boxStorage.read(KEY_USER_THANA_ID)}");
-                        print("KEY_USER_POSTAL_CODE: ${boxStorage.read(KEY_USER_POSTAL_CODE)}");
-                        print("KEY_USER_PLUS_CODE: ${boxStorage.read(KEY_USER_PLUS_CODE)}");
-
-                        print("KEY_BUSINESS_OWNER_TITLE: ${boxStorage.read(KEY_BUSINESS_OWNER_TITLE)}");
-                        print("KEY_BUSINESS_OWNER_NAME: ${boxStorage.read(KEY_BUSINESS_OWNER_NAME)}");
-                        print("KEY_BUSINESS_DESIGNATION: ${boxStorage.read(KEY_BUSINESS_DESIGNATION)}");
-                        print("KEY_BUSINESS_DESIGNATION: ${boxStorage.read(MOBILE_ONE)}");
-
-                        ///Business Time
-                        print("SAT_START: ${boxStorage.read(SAT_START)}");
-                        print("SUN_START: ${boxStorage.read(SUN_START)}");
-                        print("MON_START: ${boxStorage.read(MON_START)}");
-                        print("TUE_START: ${boxStorage.read(TUE_START)}");
-                        print("WED_START: ${boxStorage.read(WED_START)}");
-                        print("THURS_START: ${boxStorage.read(THURS_START)}");
-
-                        print("SAT_END: ${boxStorage.read(SAT_END)}");
-                        print("SUN_END: ${boxStorage.read(SUN_END)}");
-                        print("MON_END: ${boxStorage.read(MON_END)}");
-                        print("TUE_END: ${boxStorage.read(TUE_END)}");
-                        print("WED_END: ${boxStorage.read(WED_END)}");
-                        print("THURS_END: ${boxStorage.read(THURS_END)}");
-
-                        print("PAYMENT_IDS: ${boxStorage.read(PAYMENT_ID_LIST)}");
-                        print("YEAR_ESTABLISH: ${boxStorage.read(YEAR_ESTABLISH)}");
-                        print("ANNUAL_TURNOVER: ${boxStorage.read(ANNUAL_TURNOVER)}");
-                        print("DESCRIPTION: ${boxStorage.read(DESCRIPTION)}");
-                        print("TYPE_OF_BUSINESS: ${boxStorage.read(TYPE_OF_BUSINESS)}");
-                        print("KEYWORDS: ${boxStorage.read(KEYWORDS)}");*/
 
                       }
-
-
 
                       //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);
 
@@ -432,47 +397,7 @@ class StepSevenScreen extends StatelessWidget {
 
                         await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
                             imageController.selectCoverImagePath.value);
-
-                        ///Business Info
-                        /*                        print("business name: ${boxStorage.read(KEY_USER_BUSINESS_NAME)}");
-                        print("KEY_USER_STREET_ADDRESS: ${boxStorage.read(KEY_USER_STREET_ADDRESS)}");
-                        print("KEY_USER_LANDMARK: ${boxStorage.read(KEY_USER_LANDMARK)}");
-                        print("KEY_USER_BUILDING: ${boxStorage.read(KEY_USER_BUILDING)}");
-                        print("KEY_USER_BUILDING: ${boxStorage.read(KEY_USER_BUILDING)}");
-                        print("KEY_USER_THANA_ID: ${boxStorage.read(KEY_USER_THANA_ID)}");
-                        print("KEY_USER_POSTAL_CODE: ${boxStorage.read(KEY_USER_POSTAL_CODE)}");
-                        print("KEY_USER_PLUS_CODE: ${boxStorage.read(KEY_USER_PLUS_CODE)}");
-
-                        print("KEY_BUSINESS_OWNER_TITLE: ${boxStorage.read(KEY_BUSINESS_OWNER_TITLE)}");
-                        print("KEY_BUSINESS_OWNER_NAME: ${boxStorage.read(KEY_BUSINESS_OWNER_NAME)}");
-                        print("KEY_BUSINESS_DESIGNATION: ${boxStorage.read(KEY_BUSINESS_DESIGNATION)}");
-                        print("KEY_BUSINESS_DESIGNATION: ${boxStorage.read(MOBILE_ONE)}");
-
-                        ///Business Time
-                        print("SAT_START: ${boxStorage.read(SAT_START)}");
-                        print("SUN_START: ${boxStorage.read(SUN_START)}");
-                        print("MON_START: ${boxStorage.read(MON_START)}");
-                        print("TUE_START: ${boxStorage.read(TUE_START)}");
-                        print("WED_START: ${boxStorage.read(WED_START)}");
-                        print("THURS_START: ${boxStorage.read(THURS_START)}");
-
-                        print("SAT_END: ${boxStorage.read(SAT_END)}");
-                        print("SUN_END: ${boxStorage.read(SUN_END)}");
-                        print("MON_END: ${boxStorage.read(MON_END)}");
-                        print("TUE_END: ${boxStorage.read(TUE_END)}");
-                        print("WED_END: ${boxStorage.read(WED_END)}");
-                        print("THURS_END: ${boxStorage.read(THURS_END)}");
-
-                        print("PAYMENT_IDS: ${boxStorage.read(PAYMENT_ID_LIST)}");
-                        print("YEAR_ESTABLISH: ${boxStorage.read(YEAR_ESTABLISH)}");
-                        print("ANNUAL_TURNOVER: ${boxStorage.read(ANNUAL_TURNOVER)}");
-                        print("DESCRIPTION: ${boxStorage.read(DESCRIPTION)}");
-                        print("TYPE_OF_BUSINESS: ${boxStorage.read(TYPE_OF_BUSINESS)}");
-                        print("KEYWORDS: ${boxStorage.read(KEYWORDS)}");*/
-
                       }
-
-
 
                       //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);
 

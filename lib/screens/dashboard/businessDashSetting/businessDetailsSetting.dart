@@ -28,6 +28,8 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
   var businessName=TextEditingController();
   var businessLandmark=TextEditingController();
   var businessBuilding=TextEditingController();
+  var businessOwner=TextEditingController();
+  var businessDescription=TextEditingController();
 
 
   @override
@@ -38,6 +40,8 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
     businessName.text=boxNewStorage.read(Business_NAME);
     businessLandmark.text=boxNewStorage.read(Business_LANDMARK);
     businessBuilding.text=boxNewStorage.read(Business_Building);
+    businessOwner.text=boxNewStorage.read(OWNER_NAME);
+    businessDescription.text=boxNewStorage.read(BUSINESS_DESCRIPTION);
   }
 
   @override
@@ -136,6 +140,47 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                       ),
                     ),
                   ),
+                  size10,
+                  textUbuntu("Owner Name", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+                  size5,
+                  AddBusinessForm(
+                    controller: businessOwner,
+                    //initialValue: businssName.text,
+                    isSuffix: false,
+                    hintText: "",
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "This Field is required";
+                      }
+
+                      _formKey.currentState.save();
+                      return null;
+                    },
+                    onSave: (String value){
+                      businessOwner.text=value;
+                    },
+                  ),
+                  size10,
+                  textUbuntu("Owner Name", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+                  size5,
+                  AddBusinessForm(
+                    controller: businessDescription,
+                    //initialValue: businssName.text,
+                    isSuffix: false,
+                    hintText: "",
+                    maxLine: 4,
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return "This Field is required";
+                      }
+
+                      _formKey.currentState.save();
+                      return null;
+                    },
+                    onSave: (String value){
+                      businessDescription.text=value;
+                    },
+                  ),
 
                   ElevatedButton(onPressed: (){
 
@@ -143,7 +188,8 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                       FocusScope.of(context).unfocus();
                       print(boxStorage.read(MY_BUSINESS_ID));
                       print(businessName.text);
-                      c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID),businessName.text,businessLandmark.text,businessBuilding.text);
+                      c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID),businessName.text,
+                          businessLandmark.text,businessBuilding.text,businessOwner.text,businessDescription.text);
                     }
 
 

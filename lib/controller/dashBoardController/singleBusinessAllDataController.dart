@@ -67,11 +67,6 @@ class SingleBusinessAllDataController extends GetxController {
       boxNewStorage.write(OWNER_WEBSITE, businessAllData.contact.website);
       boxNewStorage.write(BUSINESS_DESCRIPTION, businessAllData.description);
 
-     // businessAllData.acceptedPaymentMethods.singleWhere((element) => print())
-
-//      for(var i in businessAllData.acceptedPaymentMethods){
-//        print("lists of payments ${i.sId}");
-//      }
 
       businessAllData.acceptedPaymentMethods.forEach((element) {
         paymentMethodList.add(element.sId);
@@ -118,7 +113,7 @@ class SingleBusinessAllDataController extends GetxController {
     }
   }
 
-  Future<void> updateBusinessData(context,singleId,businessNem,buisnessLand,businessBuilding) async {
+  Future<void> updateBusinessData(context,singleId,businessNem,buisnessLand,businessBuilding,businessOwner,businessDesc) async {
     print("----business data update start----");
     print("business Name: $businessNem");
     print("business Land: $buisnessLand");
@@ -256,11 +251,11 @@ class SingleBusinessAllDataController extends GetxController {
               {"mobile_number": "01521431799"},
               {"mobile_number": "01521431797"}
             ],
-            "name": boxNewStorage.read(OWNER_NAME),
+            "name":businessOwner??boxNewStorage.read(OWNER_NAME),
             "title": boxNewStorage.read(OWNER_TITLE),
             "website": boxNewStorage.read(OWNER_WEBSITE) ?? "www.google.com"
           },
-          "description": boxNewStorage.read(BUSINESS_DESCRIPTION),
+          "description": businessDesc??boxNewStorage.read(BUSINESS_DESCRIPTION),
           "faqs": [
             {"question": "Question 1", "answer": "Answer 1"},
             {"question": "Question 2", "answer": "Answer 2"}

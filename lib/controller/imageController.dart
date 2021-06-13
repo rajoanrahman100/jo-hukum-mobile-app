@@ -20,6 +20,11 @@ class ImageController extends GetxController {
   var selectMorePhotoThree = "".obs;
 
   var idArray=[].obs;
+  addImageId(value){
+    idArray.add(value);
+
+    print(idArray);
+  }
 
 
 
@@ -95,7 +100,9 @@ class ImageController extends GetxController {
 
     var dataMap = jsonDecode(responseBody.body);
     SingleImageModel singelImageModel=SingleImageModel.fromJson(dataMap);
-    idArray.add(singelImageModel.sId);
+    addImageId(singelImageModel.sId);
+
+    //idArray.add(singelImageModel.sId);
 
   }
 

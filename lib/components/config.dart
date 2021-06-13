@@ -97,6 +97,7 @@ const String SEO_TITLE="SEO_TITLE";
 const String META_DESCRIPTION="META_DESCRIPTION";
 const String TAG_LIST="TAG_LIST";
 const String KEYWORDS="KEYWORDS";
+const String COVER_PHOTOS="COVER_PHOTOS";
 
 
 

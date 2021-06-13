@@ -30,7 +30,7 @@ class AddBusinessController extends GetxController {
       "contact": {
         "designation": boxStorage.read(KEY_BUSINESS_DESIGNATION), //required
         "fax_no": "Tst FAX",
-        "landline_no": "01794202010",
+        "landline_no": boxStorage.read(KEY_BUSINESS_PHONE_NUMBER),
 //        "mobile_numbers": [
 //          {"mobile_number": boxStorage.read(MOBILE_ONE)},{"mobile_number": boxStorage.read(MOBILE_TWO)},
 //          {"mobile_number": boxStorage.read(MOBILE_THREE)}
@@ -127,7 +127,7 @@ class AddBusinessController extends GetxController {
       "business_type": boxStorage.read(TYPE_OF_BUSINESS)
     };
 
-    print(json);
+    //print(json);
 
     var response = await post(Uri.parse(addBusiness),
         headers: <String, String>{
@@ -141,10 +141,12 @@ class AddBusinessController extends GetxController {
           "contact": {
             "designation": boxStorage.read(KEY_BUSINESS_DESIGNATION), //required
             "fax_no": "Tst FAX",
-            "landline_no": "01794202010",
+            "landline_no": boxStorage.read(KEY_BUSINESS_PHONE_NUMBER),
             "mobile_numbers": [
-              {"mobile_number": boxStorage.read(MOBILE_ONE)}
-            ], //atleast one required
+              {"mobile_number": boxStorage.read(MOBILE_ONE)},
+              {"mobile_number": boxStorage.read(MOBILE_TWO)},
+            ],
+            //"mobile_numbers":boxStorage.read(MOBILE_NUMBERS),
             "name": boxStorage.read(KEY_BUSINESS_OWNER_NAME), //required
             "title": boxStorage.read(KEY_BUSINESS_OWNER_TITLE), //required
             "website": boxStorage.read(KEY_BUSINESS_WEBSITE)??"www.google.com"
@@ -256,22 +258,20 @@ class AddBusinessController extends GetxController {
 
   var one="".obs;
 
-  var list=["1","2"];
+  var list=[1,2];
 
   uploadImageData(logoImage,coverPhoto,context)async{
+    print("business ID ${businessID.value}");
 
     print("----uploading images start----");
+    print("----cover photso ${boxStorage.read(COVER_PHOTOS)}----");
 
-    var headers = {
-      'Content-Type': 'multipart/form-data; charset=UTF-8',
-      'Authorization': boxStorage.read(KEY_TOKEN),
-    };
 
     var request = http.MultipartRequest('PATCH', Uri.parse('https://api-backend.jo-hukum'
         '.com/consumers_api/business_data/${businessID.value}/uploads/'));
 
     request.fields.addAll({
-      'photos': '$list',
+      'photos': '${boxStorage.read(COVER_PHOTOS)}',
       'videos': '[]'
     });
 
@@ -279,7 +279,7 @@ class AddBusinessController extends GetxController {
     request.files.add(await http.MultipartFile.fromPath('cover_photo', coverPhoto,contentType:MediaType('image','jpeg')));
     request.headers.addAll(<String, String>{
       'Authorization': boxStorage.read(KEY_TOKEN),
-      'Content-Type': 'multipart/form-data; charset=UTF-8',
+      'Content-Type': 'multipart/form-data; charset=UTF-8'
     },);
 
     var response = await request.send();

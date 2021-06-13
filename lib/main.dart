@@ -17,6 +17,7 @@ import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/settingLandingScrren.dart';
+import 'package:johukum/screens/home/seeAllCategories.dart';
 import 'package:johukum/screens/notificationsScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/screens/subCategory/subCategories.dart';
@@ -34,17 +35,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedConfig.pref = await SharedPreferences.getInstance();
 
-  runApp(GetMaterialApp(
-    home: MyApp(),
-    debugShowCheckedModeBanner: false,
-  ));
+//  runApp(GetMaterialApp(
+//    home: MyApp(),
+//    debugShowCheckedModeBanner: false,
+//  ));
 
-//  runApp(DevicePreview(
-//      enabled: !kReleaseMode,
-//      builder: (context) => GetMaterialApp(
-//            home: MyApp(),
-//            debugShowCheckedModeBanner: false,
-//          )));
+  runApp(DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => GetMaterialApp(
+            home: MyApp(),
+            debugShowCheckedModeBanner: false,
+          )));
 }
 
 class MyApp extends StatelessWidget {
@@ -81,6 +82,7 @@ class MyApp extends StatelessWidget {
           '/dashBoard': (context) => DashBoardBusinessTabs(),
           '/businessSettingLand': (context) => BusinessSettingLanding(),
           '/settingBussinessDetails': (context) => SettingBusinessDetails(),
+          '/seeAllCategories': (context) => Categories(),
         });
   }
 }

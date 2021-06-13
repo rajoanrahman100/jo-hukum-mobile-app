@@ -33,12 +33,10 @@ class Header extends StatelessWidget {
   var getController=Get.put(LocationController());
   //var categoryController=Get.put(CategoryController());
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:containerHeight?? 160,
+      height:containerHeight?? 170,
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       color: kPrimaryPurple,
       child: Column(

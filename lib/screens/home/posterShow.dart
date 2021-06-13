@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class PosterShow extends StatelessWidget {
@@ -10,7 +11,7 @@ class PosterShow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+   /* return Container(
       height: 130.0,
       margin: EdgeInsets.only(top: 10.0,bottom: 10.0),
       child: Center(
@@ -32,6 +33,7 @@ class PosterShow extends StatelessWidget {
           },
         ),
       ),
-    );
+    );*/
+
   }
 }

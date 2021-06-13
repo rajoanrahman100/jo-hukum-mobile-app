@@ -170,7 +170,7 @@ class StepTwoScreen extends StatelessWidget {
                         textUbuntu("Mobile Number*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                       ],
                     ),
-                    /*size5,
+                    size5,
                     Row(
                       children: [
                         Expanded(
@@ -253,9 +253,8 @@ class StepTwoScreen extends StatelessWidget {
                                   : Container())
                             ],
                           )
-                        : Container()),*/
-                    size5,
-                    Row(
+                        : Container()),
+                    /*Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
@@ -281,7 +280,6 @@ class StepTwoScreen extends StatelessWidget {
                               number.clear();
                             }
 
-
                           },
                           child: Container(
                             height: 45,
@@ -297,7 +295,6 @@ class StepTwoScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    size5,
                     Obx(() => controller.mobileNumbers.length == 0
                         ? Center(
                             child: textUbuntu("No mobile numbers added yet", kPrimaryPurple, fontWeight: weight500))
@@ -330,7 +327,7 @@ class StepTwoScreen extends StatelessWidget {
                                 },
                               ),
                             ),
-                          )),
+                          )),*/
                     size10,
                     textUbuntu("Email", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
@@ -361,11 +358,11 @@ class StepTwoScreen extends StatelessWidget {
                           boxStorage.write(KEY_BUSINESS_WEBSITE, website.text ?? "No Website Found");
                           boxStorage.write(KEY_BUSINESS_TWITTER, twitter.text ?? "No Twitter Found");
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text ?? "No Email ID Found");
-                          boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
+                          //boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
 
 
-                          //boxStorage.write(MOBILE_ONE, mobileOne.text);
-                          //boxStorage.write(MOBILE_TWO, mobileTwo.text);
+                          boxStorage.write(MOBILE_ONE, mobileOne.text);
+                          boxStorage.write(MOBILE_TWO, mobileTwo.text);
                           //boxStorage.write(MOBILE_THREE, mobileThree.text);
 
                           Navigator.pushNamed(context, '/stepThree');

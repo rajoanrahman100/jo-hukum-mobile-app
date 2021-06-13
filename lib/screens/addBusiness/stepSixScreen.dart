@@ -24,9 +24,9 @@ class StepSixScreen extends StatelessWidget {
 
   final picker = ImagePicker();
 
-
-
   //var idArray=[];
+
+  var stringId;
 
   uploadImageFunction(File imageFile, context) async {
     print('----------------------------------> upload start');
@@ -279,6 +279,9 @@ class StepSixScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         print(imageController.idArray);
+
+                        stringId=imageController.idArray.reduce((previousValue, element) => previousValue+","+element);
+                        print(stringId);
                         //uploadImageFunction(File(imageController.selectMorePhotoOne.value),context);
 
                         //imageController.upload(File(imageController.selectLogoImagePath.value));
@@ -287,8 +290,11 @@ class StepSixScreen extends StatelessWidget {
                           return showErrorToast("Select business logo");
                         } else if (imageController.selectCoverImagePath.value.isEmpty) {
                           return showErrorToast("Select business cover photo");
+                        }else{
+                          boxStorage.write(COVER_PHOTOS, imageController.idArray);
+                          Navigator.pushNamed(context, '/stepSeven');
                         }
-                        Navigator.pushNamed(context, '/stepSeven');
+
                       },
                       child: Row(
                         children: [
@@ -526,7 +532,8 @@ class StepSixScreen extends StatelessWidget {
                     size10,
                     GestureDetector(
                       onTap: () {
-                        print(imageController.idArray);
+                       // print(imageController.idArray);
+                        print("covers ${boxStorage.read(COVER_PHOTOS)}");
                         //uploadImageFunction(File(imageController.selectMorePhotoOne.value),context);
 
                         //imageController.upload(File(imageController.selectLogoImagePath.value));
@@ -535,6 +542,8 @@ class StepSixScreen extends StatelessWidget {
                           return showErrorToast("Select business logo");
                         } else if (imageController.selectCoverImagePath.value.isEmpty) {
                           return showErrorToast("Select business cover photo");
+                        }else{
+                          //boxStorage.write(COVER_PHOTOS,imageController.idArray);
                         }
                         Navigator.pushNamed(context, '/stepSeven');
                       },
