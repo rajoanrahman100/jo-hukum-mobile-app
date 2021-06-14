@@ -280,7 +280,7 @@ class StepSixScreen extends StatelessWidget {
                       onTap: () {
                         //print(imageController.idArray);
 
-                        stringId=imageController.idArray.reduce((previousValue, element) => previousValue+","+element);
+                        //stringId=imageController.idArray.reduce((previousValue, element) => previousValue+","+element);
                         //print(stringId);
                         //uploadImageFunction(File(imageController.selectMorePhotoOne.value),context);
 
@@ -291,7 +291,7 @@ class StepSixScreen extends StatelessWidget {
                         } else if (imageController.selectCoverImagePath.value.isEmpty) {
                           return showErrorToast("Select business cover photo");
                         }else{
-                          boxStorage.write(MORE_PHOTOS, imageController.splitString.value);
+                         // boxStorage.write(MORE_PHOTOS, imageController.splitString.value);
                           Navigator.pushNamed(context, '/stepSeven');
                         }
 

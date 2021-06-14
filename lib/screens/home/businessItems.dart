@@ -138,10 +138,10 @@ class _BusinessItemsState extends State<BusinessItems> {
                               size: size,
                               imageHeight: 135.0,
                               titleFontSize: 26.0,
-                              distanceFontSize: 22.0,
+                              distanceFontSize: 20.0,
                               addressFontSize: 22.0,
-                              addressConHeight: 35.0,
-                              addressConWidth:80.0,
+                              addressConHeight: 38.0,
+                              addressConWidth:85.0,
                               height: size.height/4,
                               callBack: () {
                                 print(dataList[index].sId);

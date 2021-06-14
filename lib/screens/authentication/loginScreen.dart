@@ -153,6 +153,7 @@ class SignInScreen extends StatelessWidget {
                                           ),
                                         );
                                       }),
+
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: Text(

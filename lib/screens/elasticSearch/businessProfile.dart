@@ -336,12 +336,12 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               padding: const EdgeInsets.only(left: 20.0, top: 10),
                               child: Row(
                                 children: [
-                                  Expanded(flex: 1, child: Text("Address")),
+                                  Expanded(flex: 1, child: textUbuntu("Address",kBlackColor)),
                                   Text(": "),
                                   Expanded(
                                       flex: 2,
-                                      child: Text("${obj.llocation.landMark + ", "
-                                          "" + obj.llocation.area}"))
+                                      child: textUbuntu("${obj.llocation.landMark + ", "
+                                          "" + obj.llocation.area}",kBlackColor))
                                 ],
                               ),
                             ),
@@ -349,14 +349,14 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               padding: const EdgeInsets.only(left: 20.0, top: 10),
                               child: Row(
                                 children: [
-                                  Expanded(flex: 1, child: Text("Call")),
+                                  Expanded(flex: 1, child: textUbuntu("Call",kBlackColor)),
                                   Text(": "),
                                   obj.contact.mobileNumbers.length == 0
                                       ? Expanded(flex: 2, child: Text("No Contact Found"))
                                       : Expanded(
                                           flex: 2,
                                           child: Container(
-                                            height: 12,
+                                            height: 14,
                                             child: ListView.builder(
                                               shrinkWrap: true,
                                               scrollDirection: Axis.horizontal,
@@ -364,7 +364,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               itemBuilder: (_, index) {
                                                 return Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                                                  child: Text(obj.contact.mobileNumbers[index].mobileNumber),
+                                                  child: textUbuntu(obj.contact.mobileNumbers[index].mobileNumber,kBlackColor),
                                                 );
                                               },
                                             ),
@@ -376,7 +376,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0, top: 10),
                               child: Row(
-                                children: [Expanded(flex: 1, child: Text("Website")), Text(": "), Expanded(flex: 2, child: Text(obj.contact.website ?? "No website found"))],
+                                children: [Expanded(flex: 1, child: textUbuntu("Website",kBlackColor)),
+                                  Text(": "), Expanded(flex: 2, child: textUbuntu(obj.contact.website ?? "No website found",kBlackColor))],
                               ),
                             ),
                             Padding(
@@ -391,7 +392,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Working hour")),
+                                              Expanded(flex: 1, child: textUbuntu("Working hour",kBlackColor)),
                                               Text(" : "),
                                             ],
                                           ),
@@ -408,78 +409,78 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Saturdy")),
+                                              Expanded(flex: 1, child: textUbuntu("Saturday",kBlackColor)),
                                               obj.hoursOfOperation.saturday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : Text("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm"),
+                                                      "pm",kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Sunday")),
+                                              Expanded(flex: 1, child: textUbuntu("Sunday",kBlackColor)),
                                               obj.hoursOfOperation.sunday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : Text("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm"),
+                                                      "pm",kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Monday")),
+                                              Expanded(flex: 1, child: textUbuntu("Monday",kBlackColor)),
                                               obj.hoursOfOperation.monday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : Text("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm"),
+                                                      "pm",kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Tuesday")),
+                                              Expanded(flex: 1, child: textUbuntu("Tuesday",kBlackColor)),
                                               obj.hoursOfOperation.tuesday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : Text("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm"),
+                                                      "pm",kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Wednesday")),
+                                              Expanded(flex: 1, child: textUbuntu("Wednesday",kBlackColor)),
                                               obj.hoursOfOperation.wednesday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : Text("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm"),
+                                                      "pm",kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Thursday")),
+                                              Expanded(flex: 1, child: textUbuntu("Thursday",kBlackColor)),
                                               obj.hoursOfOperation.thursday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : Text("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm"),
+                                                      "pm",kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: Text("Friday")),
+                                              Expanded(flex: 1, child: textUbuntu("Friday",kBlackColor)),
                                               obj.hoursOfOperation.friday.close == true
                                                   ? Text("- Closed")
-                                                  : Text("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm"),
+                                                      "pm",kBlackColor),
                                             ],
                                           ),
                                         ],

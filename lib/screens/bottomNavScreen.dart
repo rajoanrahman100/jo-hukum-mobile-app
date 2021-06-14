@@ -5,6 +5,7 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/elasticController.dart';
 import 'package:johukum/controller/sessionController.dart';
+import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -29,6 +30,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   var sessionController=Get.put(SessionController());
 
   ScrollController scrollController=ScrollController();
+  DateTime currentBackPressTime;
+
 
   @override
   void initState() {
@@ -58,18 +61,32 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     super.dispose();
   }
 
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      showToast("Double Tap to exit");
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: PageView(
-        children: <Widget>[
-          HomeScreen(),
-        ],
-        controller: pageController,
-        onPageChanged: whenPageChanges,
-        physics: NeverScrollableScrollPhysics(),
+      body: WillPopScope(
+        onWillPop: onWillPop,
+        child: PageView(
+          children: <Widget>[
+            HomeScreen(),
+          ],
+          controller: pageController,
+          onPageChanged: whenPageChanges,
+          physics: NeverScrollableScrollPhysics(),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 10,

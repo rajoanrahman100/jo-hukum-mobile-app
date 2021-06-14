@@ -196,6 +196,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                               ? textUbuntu("No payment method found", kBlackColor)
                               : Container(
                                   height: 35,
+                                  color: Colors.white,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
@@ -241,6 +242,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                               ? textUbuntu("No keywords found", kBlackColor)
                               : Container(
                                   height: 35,
+                                  color: Colors.white,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
@@ -286,6 +288,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
                               ? textUbuntu("No SEO tags is found", kBlackColor)
                               : Container(
                             height: 35,
+                            color: Colors.white,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,

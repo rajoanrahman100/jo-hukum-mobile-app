@@ -87,15 +87,15 @@ class Header extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 20.0,
+            height: 25.0,
           ),
           Container(
             height: searchBarHeight?? 55.0,
             width: size.width,
-            margin: EdgeInsets.symmetric(horizontal: 20.0),
-            decoration: BoxDecoration(
+            //margin: EdgeInsets.symmetric(horizontal: 20.0),
+            /*decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: kWhiteColor.withOpacity(0.3)),
+                color: kWhiteColor.withOpacity(0.3)),*/
             child: GestureDetector(
               onTap: (){
                 Navigator.push(
@@ -110,8 +110,8 @@ class Header extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 margin: EdgeInsets.all(7.0),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    color: kWhiteColor),
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: Colors.white),
                 child: Row(
                   children: [
                     Icon(Icons.search,color: kPrimaryPurple,),

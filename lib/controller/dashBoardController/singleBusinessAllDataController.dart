@@ -37,6 +37,9 @@ class SingleBusinessAllDataController extends GetxController {
 
   Future<void> getSingleBusinessData(slug) async {
     loaderShow.value = true;
+    paymentMethodList.clear();
+    keywordsList.clear();
+    tagsList.clear();
 
     var response = await get(Uri.parse(singleBusinessApi + "$slug"), headers: {"agent": "jh_mobile_application"});
     print("Response= " + response.body);
@@ -118,7 +121,7 @@ class SingleBusinessAllDataController extends GetxController {
     print("business Name: $businessNem");
     print("business Land: $buisnessLand");
     print("business Building: $businessBuilding");
-    print(boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD));
+    //print(boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD));
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
@@ -235,7 +238,6 @@ class SingleBusinessAllDataController extends GetxController {
           'Authorization': boxStorage.read(KEY_TOKEN),
         },
         body: jsonEncode(<String, dynamic>{
-
 
           "accepted_payment_methods": boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD)??["5d32d598b86023282aa4cde6"],
           "keywords": boxNewStorage.read(BUSINESS_KEYWORDS)??["5baca5cd41533c08759778bd"],

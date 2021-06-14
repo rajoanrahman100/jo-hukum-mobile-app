@@ -138,31 +138,47 @@ class DrawerClass extends StatelessWidget {
                       ),
                     ):Container(),
                     size20,
-                    DrawerItems(
-                      icon: Icons.category,
-                      title: "Categories",
-                    ),
+                    boxStorage.read(KEY_TOKEN)!=null? DrawerItems(
+                      callBack: (){
+                        Navigator.pushNamed(context, '/userSetting');
+                      },
+                      icon: Icons.settings,
+                      title: "Profile Setting",
+                    ):Container(),
+
                     DrawerItems(
                       icon: Icons.report_problem,
                       title: "Report",
+                      callBack: (){
+                        Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                      },
                     ),
                     DrawerItems(
                       icon: Icons.description,
                       title: "Suggestion",
+                      callBack: (){
+                        Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                      },
                     ),
                     DrawerItems(
                       icon: Icons.message,
                       title: "Message",
+                      callBack: (){
+                        Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                      },
                     ),
                     DrawerItems(
                       icon: Icons.notifications,
                       title: "Notifications",
+                      callBack: (){
+                        Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                      },
                     ),
-                    DrawerItems(
-                      icon: Icons.settings,
-                      title: "Profile Settings",
-                      callBack: () => Navigator.pushNamed(context, '/profileSetting'),
-                    ),
+
                    boxStorage.read(KEY_TOKEN)!=null?DrawerItems(
                       icon: Icons.dashboard,
                       title: "User Dashboard",
@@ -212,6 +228,7 @@ class DrawerClass extends StatelessWidget {
                             //boxStorage.remove(MY_BUSINESS_SLUG);
                             boxStorage.remove(KEY_TOKEN).then((value) {
                               boxStorage.remove(KEY_USER_ID);
+                              boxStorage.remove(MY_BUSINESS_SLUG);
                               controller.logInSuccess.value = false;
                               Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
                             });
@@ -339,34 +356,49 @@ class DrawerClass extends StatelessWidget {
                     ),
                   ):Container(),
                   size20,
-                  DrawerItems(
-                    icon: Icons.category,
-                    title: "Categories",
-                  ),
+                  boxStorage.read(KEY_TOKEN)!=null? DrawerItems(
+                    callBack: (){
+                      Navigator.pushNamed(context, '/userSetting');
+                    },
+                    icon: Icons.settings,
+                    title: "Profile Setting",
+                  ):Container(),
                   DrawerItems(
                     icon: Icons.report_problem,
                     title: "Report",
+                    callBack: (){
+                      Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                    },
                   ),
                   DrawerItems(
                     icon: Icons.description,
                     title: "Suggestion",
+                    callBack: (){
+                      Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                    },
                   ),
                   DrawerItems(
                     icon: Icons.message,
                     title: "Message",
+                    callBack: (){
+                      Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                    },
                   ),
                   DrawerItems(
                     icon: Icons.notifications,
                     title: "Notifications",
+                    callBack: (){
+                      Get.snackbar("Coming Soon!", "This feature will be available soon",backgroundColor: kWhiteColor);
+
+                    },
                   ),
-                  DrawerItems(
-                    icon: Icons.settings,
-                    title: "Profile Settings",
-                    callBack: () => Navigator.pushNamed(context, '/profileSetting'),
-                  ),
+
                   boxStorage.read(KEY_TOKEN)!=null?DrawerItems(
                     icon: Icons.dashboard,
-                    title: "User Dashboard",
+                    title: "Business Dashboard",
                       callBack: (){
                         if(boxStorage.read(MY_BUSINESS_SLUG)==null){
                           showErrorToast("Select your business first");

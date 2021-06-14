@@ -271,7 +271,7 @@ class AddBusinessController extends GetxController {
         '.com/consumers_api/business_data/${businessID.value}/uploads/'));
 
     request.fields.addAll({
-      'photos': boxStorage.read(MORE_PHOTOS),
+      'photos': '[]',
       'videos': '[]'
     });
 

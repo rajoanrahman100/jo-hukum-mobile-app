@@ -18,6 +18,7 @@ import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/settingLandingScrren.dart';
 import 'package:johukum/screens/home/seeAllCategories.dart';
+import 'package:johukum/screens/home/userProfileSetting.dart';
 import 'package:johukum/screens/notificationsScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/screens/subCategory/subCategories.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
     return MaterialApp(
-       // locale: DevicePreview.locale(context),
+        //locale: DevicePreview.locale(context),
         // Add the locale here
         //builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
           '/businessSettingLand': (context) => BusinessSettingLanding(),
           '/settingBussinessDetails': (context) => SettingBusinessDetails(),
           '/seeAllCategories': (context) => Categories(),
+          '/userSetting': (context) => UserProfileSetting(),
         });
   }
 }

@@ -70,62 +70,60 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: size,
                   callBack: () => _scaffoldKey.currentState.openDrawer(),
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: crossAxisAlignmentStart,
-                      children: [
-                        size5,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: textUbuntu("Your Nearby", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
-                        ),
-                        size10,
-                        Obx(() => categoryController.resultDataClass.length == 0
-                            ? Center(child: spinKit)
-                            : Container(
-                                height: size.height / 8,
-                                color: kPrimaryPurple.withOpacity(0.1),
-                                child: ListView.builder(
-                                  itemCount: 10,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (_, index) {
-                                    return HomeScreenItems(
-                                      callBack: () {
-                                        Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                      },
-                                      categoryController: categoryController,
-                                      image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                      title: categoryController.resultDataClass[index].name,
-                                    );
-                                  },
+                GetX<CategoryController>(builder: (controller) {
+                  return controller.resultDataClass.length == 0
+                      ? Expanded(child: Container(child: Center(child: spinKit)))
+                      : Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: crossAxisAlignmentStart,
+                              children: [
+                                size5,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                  child: textUbuntu("Your Nearby", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
                                 ),
-                              )),
-                        size10,
-                        //PosterShow(images: images),
-                        CarasoulSlider(),
-                        size10,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              textUbuntu("Categories", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/seeAllCategories');
-                                  },
-                                  child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0))
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Obx(
-                          () => categoryController.resultDataClass.length == 0
-                              ? Center(child: spinKit)
-                              : Container(
+                                size10,
+                                Container(
+                                  height: size.height / 8,
+                                  color: kPrimaryPurple.withOpacity(0.1),
+                                  child: ListView.builder(
+                                    itemCount: 10,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (_, index) {
+                                      return HomeScreenItems(
+                                        callBack: () {
+                                          Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                        },
+                                        categoryController: controller,
+                                        image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
+                                        title: controller.resultDataClass[index].name,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                size10,
+                                //PosterShow(images: images),
+                                CarasoulSlider(),
+                                size10,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      textUbuntu("Categories", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
+                                      GestureDetector(
+                                          onTap: () {
+                                            Navigator.pushNamed(context, '/seeAllCategories');
+                                          },
+                                          child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0))
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Container(
                                   //margin: EdgeInsets.symmetric(horizontal: 10),
                                   height: size.height / 4,
                                   width: size.width,
@@ -136,12 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         itemCount: 6,
                                         controller: scrollController,
                                         itemBuilder: (BuildContext ctx, index) {
-                                          if (index == categoryController.resultDataClass.length - 1) {
+                                          if (index == controller.resultDataClass.length - 1) {
                                             return Center(child: spinKit);
                                           }
                                           return GestureDetector(
                                             onTap: () {
-                                              Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                              Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
                                             },
                                             child: Container(
                                               alignment: Alignment.center,
@@ -149,12 +147,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   SvgPicture.network(
-                                                    "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
+                                                    "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
                                                     height: 40,
                                                     width: 40,
                                                   ),
                                                   size10,
-                                                  textUbuntu(categoryController.resultDataClass[index].name, kBlackColor, fontWeight: FontWeight.w500)
+                                                  textUbuntu(controller.resultDataClass[index].name, kBlackColor, fontWeight: FontWeight.w500)
                                                 ],
                                               ),
                                             ),
@@ -162,38 +160,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                         }),
                                   ),
                                 ),
-                        ),
-                        size10,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: textUbuntu("Top Rated", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
-                        ),
-                        size10,
-                        Obx(() => categoryController.resultDataClass.length == 0
-                            ? Center(child: spinKit)
-                            : Container(
-                                height: size.height / 8,
-                                color: kPrimaryPurple.withOpacity(0.1),
-                                child: ListView.builder(
-                                  itemCount: 10,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (_, index) {
-                                    return HomeScreenItems(
-                                      callBack: () {
-                                        Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                      },
-                                      categoryController: categoryController,
-                                      image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                      title: categoryController.resultDataClass[index].name,
-                                    );
-                                  },
+                                size10,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                  child: textUbuntu("Top Rated", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
                                 ),
-                              )),
-                        size20,
-                      ],
-                    ),
-                  ),
-                ),
+                                size10,
+                                Container(
+                                  height: size.height / 8,
+                                  color: kPrimaryPurple.withOpacity(0.1),
+                                  child: ListView.builder(
+                                    itemCount: 10,
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (_, index) {
+                                      return HomeScreenItems(
+                                        callBack: () {
+                                          Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                        },
+                                        categoryController: controller,
+                                        image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
+                                        title: controller.resultDataClass[index].name,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                size20,
+                              ],
+                            ),
+                          ),
+                        );
+                })
               ],
             ),
           ),
@@ -203,136 +199,130 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Header(
                   size: size,
-                  containerHeight: 170.0,
                   callBack: () => _scaffoldKey.currentState.openDrawer(),
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: crossAxisAlignmentStart,
-                      children: [
-                        size5,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: textUbuntu("Your Nearby", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
-                        ),
-                        size10,
-                        Obx(() => categoryController.resultDataClass.length == 0
-                            ? Center(child: spinKit)
-                            : Container(
-                                height: size.height / 7,
-                                color: kPrimaryPurple.withOpacity(0.1),
-                                child: ListView.builder(
-                                  itemCount: 10,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (_, index) {
-                                    return HomeScreenItems(
-                                      callBack: () {
-                                        Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                      },
-                                      categoryController: categoryController,
-                                      image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                      title: categoryController.resultDataClass[index].name,
-                                    );
-                                  },
-                                ),
-                              )),
-                        size10,
-                        //PosterShow(images: images),
-                        CarasoulSlider(
-                          height: 200.0,
-                        ),
-                        size10,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              textUbuntu("Categories", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(context, '/seeAllCategories');
-                                  },
-                                  child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0))
-                            ],
+                GetX<CategoryController>(builder: (controller) {
+                  return controller.resultDataClass.length == 0
+                      ? Expanded(child: Container(child: Center(child: spinKit)))
+                      : Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: crossAxisAlignmentStart,
+                        children: [
+                          size5,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: textUbuntu("Your Nearby", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-
-                        Obx(
-                          () => categoryController.resultDataClass.length == 0
-                              ? Center(child: spinKit)
-                              :  Container(
-                                    height: size.height / 3.7,
-                                    width: size.width,
-                                    color: kPrimaryPurple.withOpacity(0.1),
-                                    child: GridView.builder(
-                                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 4 / 3, crossAxisSpacing: 10, mainAxisSpacing: 15),
-                                          itemCount: 10,
-                                          controller: scrollController,
-                                          itemBuilder: (BuildContext ctx, index) {
-                                            if (index == categoryController.resultDataClass.length - 1) {
-                                              return Center(child: spinKit);
-                                            }
-                                            return GestureDetector(
-                                              onTap: () {
-                                                Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                              },
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    SvgPicture.network(
-                                                      "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                                      height: 50,
-                                                      width: 50,
-                                                    ),
-                                                    size10,
-                                                    textUbuntu(categoryController.resultDataClass[index].name, kBlackColor, fontWeight: FontWeight.w500, fontSize: 18.0)
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          }),
-
-                                  ),
-                                
-                        ),
-                        size10,
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: textUbuntu("Top Rated", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
-                        ),
-                        size10,
-                        Obx(() => categoryController.resultDataClass.length == 0
-                            ? Center(child: spinKit)
-                            : Container(
-                                height: size.height / 7,
-                                color: kPrimaryPurple.withOpacity(0.1),
-                                child: ListView.builder(
-                                  itemCount: 10,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (_, index) {
-                                    return HomeScreenItems(
-                                      callBack: () {
-                                        Get.to(() => BusinessItems(categoryController.resultDataClass[index].id, categoryController.resultDataClass[index].name));
-                                      },
-                                      categoryController: categoryController,
-                                      image: "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                      title: categoryController.resultDataClass[index].name,
-                                      imageHeight: 50.0,
-                                      txtSize: 18.0,
-                                    );
+                          size10,
+                          Container(
+                            height: size.height / 6.5,
+                            color: kPrimaryPurple.withOpacity(0.1),
+                            child: ListView.builder(
+                              itemCount: 10,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (_, index) {
+                                return HomeScreenItems(
+                                  callBack: () {
+                                    Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
                                   },
-                                ),
-                              )),
-                      ],
+                                  categoryController: controller,
+                                  image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
+                                  title: controller.resultDataClass[index].name,
+                                  imageHeight: 50.0,imageWidth: 50.0,txtSize: 18.0,
+                                );
+                              },
+                            ),
+                          ),
+                          size10,
+                          //PosterShow(images: images),
+                          CarasoulSlider(height: 200.0,),
+                          size10,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                textUbuntu("Categories", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
+                                GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(context, '/seeAllCategories');
+                                    },
+                                    child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0))
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Container(
+                            //margin: EdgeInsets.symmetric(horizontal: 10),
+                            height: size.height / 4,
+                            width: size.width,
+                            color: kPrimaryPurple.withOpacity(0.1),
+                            child: Center(
+                              child: GridView.builder(
+                                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 4 / 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                                  itemCount: 10,
+                                  controller: scrollController,
+                                  itemBuilder: (BuildContext ctx, index) {
+                                    if (index == controller.resultDataClass.length - 1) {
+                                      return Center(child: spinKit);
+                                    }
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            SvgPicture.network(
+                                              "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
+                                              height: 50,
+                                              width: 50,
+                                            ),
+                                            size10,
+                                            textUbuntu(controller.resultDataClass[index].name, kBlackColor, fontWeight: FontWeight.w500,fontSize: 18.0)
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          ),
+                          size10,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: textUbuntu("Top Rated", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
+                          ),
+                          size10,
+                          Container(
+                            height: size.height / 6.5,
+                            color: kPrimaryPurple.withOpacity(0.1),
+                            child: ListView.builder(
+                              itemCount: 10,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (_, index) {
+                                return HomeScreenItems(
+                                  callBack: () {
+                                    Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                  },
+                                  categoryController: controller,
+                                  image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
+                                  title: controller.resultDataClass[index].name,
+                                  imageHeight: 50.0,imageWidth: 50.0,txtSize: 18.0,
+                                );
+                              },
+                            ),
+                          ),
+                          size20,
+                        ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                })
               ],
             ),
           ),

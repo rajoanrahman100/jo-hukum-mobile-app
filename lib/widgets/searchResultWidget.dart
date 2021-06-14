@@ -40,6 +40,7 @@ class SearchItemWidget extends StatelessWidget {
       child: Container(
         height: height ?? size.height /6.5,
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+        margin: EdgeInsets.symmetric(vertical: 2.0,horizontal: 10.0),
         decoration: BoxDecoration(
           color: Colors.white,
             boxShadow: [
@@ -50,7 +51,7 @@ class SearchItemWidget extends StatelessWidget {
                 offset: Offset(0, 3), // changes position of shadow
               ),
             ],
-            borderRadius: BorderRadius.circular(10.0)),
+            borderRadius: BorderRadius.circular(5.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
