@@ -39,7 +39,7 @@ class DrawerClass extends StatelessWidget {
                   children: <Widget>[
                     Image.asset(
                       "assets/images/johukuminfologo.png",
-                      height: 250,
+                      height: 230,
                     ),
                     Row(
                       children: [
@@ -66,7 +66,7 @@ class DrawerClass extends StatelessWidget {
                     ),
                     size20,
                     //boxStorage.read(KEY_TOKEN) == null?Container():
-                    GestureDetector(
+                   boxStorage.read(KEY_TOKEN)!=null?GestureDetector(
                       onTap: (){
                         return showDialog(
                             context: context,
@@ -135,15 +135,8 @@ class DrawerClass extends StatelessWidget {
                               width10
                             ],
                           )
-                        /*child:Obx(()=>Row(
-                          children: [
-                            Expanded(child: Center(child: textUbuntu("${businessController.myBusinessName.value}", kPrimaryPurple,fontSize: 16,fontWeight: weight500),)),
-                            Icon(Icons.arrow_drop_down,color: kPrimaryPurple,size: 23,),
-                            width10
-                          ],
-                        ))*/
                       ),
-                    ),
+                    ):Container(),
                     size20,
                     DrawerItems(
                       icon: Icons.category,
@@ -170,7 +163,7 @@ class DrawerClass extends StatelessWidget {
                       title: "Profile Settings",
                       callBack: () => Navigator.pushNamed(context, '/profileSetting'),
                     ),
-                    DrawerItems(
+                   boxStorage.read(KEY_TOKEN)!=null?DrawerItems(
                       icon: Icons.dashboard,
                       title: "User Dashboard",
                       callBack: (){
@@ -181,7 +174,7 @@ class DrawerClass extends StatelessWidget {
                           Navigator.pushNamed(context, '/dashBoard');
                         }
                       },
-                    ),
+                    ):Container(),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -203,9 +196,9 @@ class DrawerClass extends StatelessWidget {
                       isIcon: false,
                     ),
                     SizedBox(
-                      height: 70,
+                      height: 50,
                     ),
-                    GetBuilder<DialogAuthController>(
+                    boxStorage.read(KEY_TOKEN)!=null? GetBuilder<DialogAuthController>(
                       builder: (controller) {
                         return WelcomeScreenButton(
                           edgeInsetsGeometry: EdgeInsets.only(right: 120, left: 5),
@@ -216,7 +209,9 @@ class DrawerClass extends StatelessWidget {
                           borderRadiusGeometry: BorderRadius.circular(10.0),
                           isIcon: true,
                           callback: () {
+                            //boxStorage.remove(MY_BUSINESS_SLUG);
                             boxStorage.remove(KEY_TOKEN).then((value) {
+                              boxStorage.remove(KEY_USER_ID);
                               controller.logInSuccess.value = false;
                               Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
                             });
@@ -227,7 +222,7 @@ class DrawerClass extends StatelessWidget {
                           ),
                         );
                       },
-                    )
+                    ):Container()
                   ],
                 ),
               ),
@@ -277,7 +272,7 @@ class DrawerClass extends StatelessWidget {
                   ),
                   size20,
                   //boxStorage.read(KEY_TOKEN) == null?Container():
-                  GestureDetector(
+                  boxStorage.read(KEY_TOKEN)!=null? GestureDetector(
                     onTap: (){
                       return showDialog(
                           context: context,
@@ -342,7 +337,7 @@ class DrawerClass extends StatelessWidget {
                         ],
                       )),
                     ),
-                  ),
+                  ):Container(),
                   size20,
                   DrawerItems(
                     icon: Icons.category,
@@ -369,7 +364,7 @@ class DrawerClass extends StatelessWidget {
                     title: "Profile Settings",
                     callBack: () => Navigator.pushNamed(context, '/profileSetting'),
                   ),
-                  DrawerItems(
+                  boxStorage.read(KEY_TOKEN)!=null?DrawerItems(
                     icon: Icons.dashboard,
                     title: "User Dashboard",
                       callBack: (){
@@ -380,12 +375,13 @@ class DrawerClass extends StatelessWidget {
                           Navigator.pushNamed(context, '/dashBoard');
                         }
                       },
-                  ),
+                  ):Container(),
                   SizedBox(
                     height: 20.0,
                   ),
                   WelcomeScreenButton(
                     callback: () {
+                      boxStorage.read(KEY_USER_ID);
                       boxStorage.read(KEY_TOKEN)==null
                           ? openAddAuthDialog(context)
                           : Navigator.pushNamed(
@@ -404,7 +400,7 @@ class DrawerClass extends StatelessWidget {
                   SizedBox(
                     height: 70,
                   ),
-                  GetBuilder<DialogAuthController>(
+                  boxStorage.read(KEY_TOKEN)!=null? GetBuilder<DialogAuthController>(
                     builder: (controller) {
                       return WelcomeScreenButton(
                         edgeInsetsGeometry: EdgeInsets.only(right: 120, left: 5),
@@ -415,6 +411,7 @@ class DrawerClass extends StatelessWidget {
                         borderRadiusGeometry: BorderRadius.circular(10.0),
                         isIcon: true,
                         callback: () {
+
                           boxStorage.remove(KEY_TOKEN).then((value) {
                             controller.logInSuccess.value = false;
                             Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
@@ -426,7 +423,7 @@ class DrawerClass extends StatelessWidget {
                         ),
                       );
                     },
-                  )
+                  ):Container()
                 ],
               ),
             ),

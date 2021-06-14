@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/modelClass/businessInfoDataModel.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
@@ -22,7 +23,15 @@ class BusinessProfileController extends GetxController {
   Future<void> getBusinessData(businessID) async {
     loaderShow.value = true;
 
-    var response = await get(Uri.parse(individualBusiness + businessID), headers: {"agent": "jh_mobile_application"});
+    print("slug $businessID");
+
+    var response = await get(Uri.parse(individualBusiness + businessID),
+        headers: {
+      "agent": "jh_mobile_application",
+          "session_id":boxStorage.read(SESSION_ID),
+          "url":"https://jo-hukum.com/thana-name/business-type/$businessID",
+          "referer":"self"
+    });
 
     print("Response = " + response.body);
 

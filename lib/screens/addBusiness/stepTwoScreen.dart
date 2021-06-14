@@ -160,7 +160,7 @@ class StepTwoScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Phone Number", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Telephone Number", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: numberController,
                       textInputType: TextInputType.number,
@@ -176,7 +176,7 @@ class StepTwoScreen extends StatelessWidget {
                       ],
                     ),
                     size5,
-                    Row(
+                    /*Row(
                       children: [
                         Expanded(
                           child: AddBusinessForm(
@@ -258,7 +258,7 @@ class StepTwoScreen extends StatelessWidget {
                                   : Container())
                             ],
                           )
-                        : Container()),
+                        : Container()),*/
                     Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -279,10 +279,11 @@ class StepTwoScreen extends StatelessWidget {
                             if(number.text.isEmpty){
                               showToast("insert your number");
                               return;
+                            }else if(number.text.length!=11){
+                              showToast("Mobile Number Format is not valid");
                             }else{
                               map = {"mobile_number": number.text};
                               controller.addNumbers(map);
-
                               //controller.mobileNumbers.add(MobileNumberModel(value:number.text));
                               //json = jsonEncode(controller.mobileNumbers);
                               number.clear();
@@ -303,7 +304,8 @@ class StepTwoScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    /*Obx(() => controller.mobileNumbers.length == 0
+                    size10,
+                    Obx(() => controller.mobileNumbers.length == 0
                         ? Center(
                             child: textUbuntu("No mobile numbers added yet", kPrimaryPurple, fontWeight: weight500))
                         : SizedBox(
@@ -319,10 +321,9 @@ class StepTwoScreen extends StatelessWidget {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                                     child: Row(
-
                                       children: [
                                         textUbuntu("Mobile Number ${index + 1}:   ${controller
-                                            .mobileNumbers[index].value}",
+                                            .mobileNumbers[index]['mobile_number']}",
                                             kBlackColor.withOpacity(0.5),fontWeight: weight500),
                                         width5,
                                         GestureDetector(onTap: (){
@@ -335,7 +336,7 @@ class StepTwoScreen extends StatelessWidget {
                                 },
                               ),
                             ),
-                          )),*/
+                          )),
                     size10,
                     textUbuntu("Email", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
@@ -496,7 +497,7 @@ class StepTwoScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Phone Number", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Telephone Number", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: numberController,
                       textInputType: TextInputType.number,
@@ -513,85 +514,83 @@ class StepTwoScreen extends StatelessWidget {
                     ),
                     size5,
                     Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
                           child: AddBusinessForm(
-                            controller: mobileOne,
-                            textInputType: TextInputType.emailAddress,
-                            hintText: "mobile number 1",
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return "add at least 1 valid phone number";
-                              }
-                              if (value.length != 11) {
-                                return "invalid phone number";
-                              }
-                              _formKey.currentState.save();
-                              return null;
-                            },
+                            controller: number,
+                            hintText: "add mobile numbers",
+                            textInputType: TextInputType.phone,
                             isSuffix: false,
                           ),
                         ),
-                        Obx(() => controller.addNoOne.value == false
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.add_circle,
-                                  color: kPrimaryPurple,
-                                ),
-                                onPressed: () {
-                                  controller.addNoOne.value = true;
-                                },
-                              )
-                            : Container())
+                        SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+
+                            if(number.text.isEmpty){
+                              showToast("insert your number");
+                              return;
+                            }else if(number.text.length!=11){
+                              showToast("Mobile Number Format is not valid");
+                            }else{
+                              map = {"mobile_number": number.text};
+                              controller.addNumbers(map);
+                              //controller.mobileNumbers.add(MobileNumberModel(value:number.text));
+                              //json = jsonEncode(controller.mobileNumbers);
+                              number.clear();
+                            }
+
+                          },
+                          child: Container(
+                            height: 45,
+                            width: 70,
+                            decoration: BoxDecoration(color: kPrimaryPurple, borderRadius: BorderRadius.circular(10.0)),
+                            child: Center(
+                              child: Text(
+                                "ADD",
+                                style: textStyleUbuntu(color: kWhiteColor, fontWeight: weight500),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                    Obx(() => controller.addNoOne.value == true
-                        ? Row(
-                            children: [
-                              Expanded(
-                                child: AddBusinessForm(
-                                  controller: mobileTwo,
-                                  textInputType: TextInputType.emailAddress,
-                                  hintText: "mobile number 2",
-                                  isSuffix: false,
-                                ),
+                    size10,
+                    Obx(() => controller.mobileNumbers.length == 0
+                        ? Center(
+                        child: textUbuntu("No mobile numbers added yet", kPrimaryPurple, fontWeight: weight500,fontSize: 18.0))
+                        : SizedBox(
+                      //width: size.width,
+                      child: Container(
+                        width: size.width,
+                        margin: EdgeInsets.all(10.0),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: controller.mobileNumbers.length,
+                          itemBuilder: (_, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Row(
+                                children: [
+                                  textUbuntu("Mobile Number ${index + 1}:   ${controller
+                                      .mobileNumbers[index]['mobile_number']}",
+                                      kBlackColor.withOpacity(0.5),fontWeight: weight500,fontSize: 18.0),
+                                  width5,
+                                  GestureDetector(onTap: (){
+                                    controller.mobileNumbers.removeAt(index);
+                                  },child: Icon(Icons.cancel,color: kPrimaryPurple,size:
+                                  20.0,))
+                                ],
                               ),
-                              Obx(() => controller.addNoTwo.value == false
-                                  ? IconButton(
-                                      icon: Icon(
-                                        Icons.add_circle,
-                                        color: kPrimaryPurple,
-                                      ),
-                                      onPressed: () {
-                                        controller.addNoTwo.value = true;
-                                      },
-                                    )
-                                  : Container())
-                            ],
-                          )
-                        : Container()),
-                    Obx(() => controller.addNoTwo.value == true
-                        ? Row(
-                            children: [
-                              Expanded(
-                                child: AddBusinessForm(
-                                  controller: mobileThree,
-                                  textInputType: TextInputType.emailAddress,
-                                  hintText: "mobile number 3",
-                                  isSuffix: false,
-                                ),
-                              ),
-                              Obx(() => controller.addNoTwo.value == false
-                                  ? IconButton(
-                                      icon: Icon(Icons.add_circle, color: kPrimaryPurple),
-                                      onPressed: () {
-                                        controller.addNoTwo.value = true;
-                                      },
-                                    )
-                                  : Container())
-                            ],
-                          )
-                        : Container()),
+                            );
+                          },
+                        ),
+                      ),
+                    )),
                     size10,
                     textUbuntu("Email", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
@@ -608,14 +607,7 @@ class StepTwoScreen extends StatelessWidget {
                       hintText: "",
                       isSuffix: false,
                     ),
-                    size10,
-                    textUbuntu("Facebook", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: facebook,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: "",
-                      isSuffix: false,
-                    ),
+
                     size10,
                     GestureDetector(
                       onTap: () {
@@ -630,9 +622,8 @@ class StepTwoScreen extends StatelessWidget {
                           boxStorage.write(KEY_BUSINESS_WEBSITE, website.text ?? "No Website Found");
                           boxStorage.write(KEY_BUSINESS_TWITTER, twitter.text ?? "No Twitter Found");
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text ?? "No Email ID Found");
-                          boxStorage.write(MOBILE_ONE, mobileOne.text);
-                          boxStorage.write(MOBILE_TWO, mobileTwo.text);
-                          boxStorage.write(MOBILE_THREE, mobileThree.text);
+                          boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
+
 
                           Navigator.pushNamed(context, '/stepThree');
                         }

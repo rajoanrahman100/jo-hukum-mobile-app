@@ -399,9 +399,9 @@ class UserAdditionalInformation extends StatelessWidget {
         body: jsonEncode(<String, dynamic>{"first_name": name, "email": email, "password": password, "mobile_number": boxStorage.read(KEY_USER_PHONE)}));
 
     if (res.statusCode == 200 || res.statusCode == 201) {
+      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       print("succes response " + res.body);
       Get.snackbar("Success!", "account created successfully", backgroundColor: kWhiteColor);
-      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
 
       Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
 

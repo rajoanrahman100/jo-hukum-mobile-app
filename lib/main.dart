@@ -34,18 +34,17 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SharedConfig.pref = await SharedPreferences.getInstance();
-
   runApp(GetMaterialApp(
     home: MyApp(),
     debugShowCheckedModeBanner: false,
   ));
 
-//  runApp(DevicePreview(
-//      enabled: !kReleaseMode,
-//      builder: (context) => GetMaterialApp(
-//            home: MyApp(),
-//            debugShowCheckedModeBanner: false,
-//          )));
+/*  runApp(DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => GetMaterialApp(
+            home: MyApp(),
+            debugShowCheckedModeBanner: false,
+          )));*/
 }
 
 class MyApp extends StatelessWidget {

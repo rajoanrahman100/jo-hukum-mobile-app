@@ -33,3 +33,6 @@ const reviewCountApi="https://api-backend.jo-hukum.com/consumers_api/business_da
 const singleBusinessApi="https://api-backend.jo-hukum.com/consumers_api/business_data/";
 const myBusinessApi="https://api-backend.jo-hukum.com/consumers_api/business_data/my_businesses";
 const updateBusinessApi="https://api-backend.jo-hukum.com/consumers_api/business_data/";
+
+///Session IP
+const sessionIP="https://api-analytics.jo-hukum.com/sessions";

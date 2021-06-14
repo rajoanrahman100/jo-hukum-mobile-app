@@ -199,7 +199,7 @@ class StepSevenScreen extends StatelessWidget {
                     textColor: kWhiteColor,
                     callback: ()async{
 
-                      print("covers ${boxStorage.read(COVER_PHOTOS)}");
+                      print("covers ${boxStorage.read(MORE_PHOTOS)}");
 
 
                       if(keywordController.keywordList.length==0){

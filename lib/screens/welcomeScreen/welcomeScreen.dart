@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/locationController.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeScreenMobileView.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeScreenTabView.dart';
 import '../../responsive.dart';
+import 'package:wifi_info_flutter/wifi_info_flutter.dart';
+
 
 class WelcomeScreen extends StatefulWidget {
 
@@ -16,6 +19,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
   var controller=Get.put(LocationController());
   var token;
+
+  var ip;
+  getIP()async{
+     ip = await WifiInfo().getWifiIP();
+     print("IP $ip");
+     boxStorage.write(DEVICE_IPI, ip);
+  }
+
+  @override
+  void initState() {
+    print("-----------IP CALL");
+    getIP();
+
+    // TODO: implement initState
+  }
 
   @override
   Widget build(BuildContext context) {

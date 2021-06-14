@@ -20,9 +20,12 @@ class ImageController extends GetxController {
   var selectMorePhotoThree = "".obs;
 
   var idArray=[].obs;
+  var splitString=" ".obs;
+
   addImageId(value){
     idArray.add(value);
-
+    splitString.value=idArray.reduce((previousValue, element) => previousValue+","+element);
+    print(splitString.value);
     print(idArray);
   }
 

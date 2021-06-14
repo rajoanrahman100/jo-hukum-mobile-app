@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/elasticController.dart';
+import 'package:johukum/controller/sessionController.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -24,12 +26,17 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
 
   var searchController = TextEditingController();
 
+  var sessionController=Get.put(SessionController());
+
   ScrollController scrollController=ScrollController();
 
   @override
   void initState() {
     // TODO: implement initState
     pageController = PageController();
+
+    boxStorage.read(KEY_USER_ID)==null?sessionController.getSessionWithoutIDData()
+        :sessionController.getSessionWithIDData(boxStorage.read(KEY_USER_ID));
   }
 
   onTapChangePage(pageIndex) {

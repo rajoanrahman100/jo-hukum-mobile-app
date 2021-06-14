@@ -9,6 +9,7 @@ import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/fullScreenAlert/cityAlert.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/fullScreenAlert/divisonAlert.dart';
+import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
@@ -182,23 +183,193 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                     },
                   ),
 
-                  ElevatedButton(onPressed: (){
+                  WelcomeScreenButton(
+                    height: 40,
+                    isIcon: false,
+                    buttonColor: kPrimaryPurple,
+                    buttonText: "Save",
+                    textColor: kWhiteColor,
+                    callback: ()async{
 
-                    if (_formKey.currentState.validate()){
-                      FocusScope.of(context).unfocus();
-                      print(boxStorage.read(MY_BUSINESS_ID));
-                      print(businessName.text);
-                      c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID),businessName.text,
-                          businessLandmark.text,businessBuilding.text,businessOwner.text,businessDescription.text);
-                    }
+                      if (_formKey.currentState.validate()){
+                        FocusScope.of(context).unfocus();
+                        print(boxStorage.read(MY_BUSINESS_ID));
+                        print(businessName.text);
+                        c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID),businessName.text,
+                            businessLandmark.text,businessBuilding.text,businessOwner.text,businessDescription.text);
+                      }
 
+                      //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);
 
-                  }, child: textUbuntu("Save", kPrimaryPurple)),
+                    },
+                    borderRadiusGeometry: BorderRadius.circular(15),
+                    edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                  ),
+
                 ],
               ),
             ),
           ),
         ),
+        tablet:SingleChildScrollView(
+        child: Form(
+        key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+          child: Column(
+            crossAxisAlignment: crossAxisAlignmentStart,
+            children: [
+              textUbuntu("Business Name*", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+              size5,
+              AddBusinessForm(
+                controller: businessName,
+                //initialValue: businssName.text,
+                isSuffix: false,
+                hintText: "",
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "This Field is required";
+                  }
+                  if (value.toString().length < 8) {
+                    return "Business name at least 8 character";
+                  }
+                  _formKey.currentState.save();
+                  return null;
+                },
+                onSave: (String value){
+                  businessName.text=value;
+                },
+              ),
+              size10,
+              textUbuntu("Landmark", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+              size5,
+              AddBusinessForm(
+                controller: businessLandmark,
+                //initialValue: businssName.text,
+                isSuffix: false,
+                hintText: "",
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "This Field is required";
+                  }
+
+                  _formKey.currentState.save();
+                  return null;
+                },
+                onSave: (String value){
+                  businessLandmark.text=value;
+                },
+              ),
+              size10,
+              textUbuntu("Building", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+              size5,
+              AddBusinessForm(
+                controller: businessBuilding,
+                //initialValue: businssName.text,
+                isSuffix: false,
+                hintText: "",
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "This Field is required";
+                  }
+
+                  _formKey.currentState.save();
+                  return null;
+                },
+                onSave: (String value){
+                  businessBuilding.text=value;
+                },
+              ),
+              textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+              size5,
+              GestureDetector(
+                onTap: () {
+                  FocusScope.of(context).unfocus();
+                  openAreaDialogSetting(context);
+                },
+                child: Container(
+                  height: 50.0,
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Obx(() => textUbuntu(c.businessLocationName.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                      Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
+                    ],
+                  ),
+                ),
+              ),
+              size10,
+              textUbuntu("Owner Name", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+              size5,
+              AddBusinessForm(
+                controller: businessOwner,
+                //initialValue: businssName.text,
+                isSuffix: false,
+                hintText: "",
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "This Field is required";
+                  }
+
+                  _formKey.currentState.save();
+                  return null;
+                },
+                onSave: (String value){
+                  businessOwner.text=value;
+                },
+              ),
+              size10,
+              textUbuntu("Owner Name", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+              size5,
+              AddBusinessForm(
+                controller: businessDescription,
+                //initialValue: businssName.text,
+                isSuffix: false,
+                hintText: "",
+                maxLine: 5,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "This Field is required";
+                  }
+
+                  _formKey.currentState.save();
+                  return null;
+                },
+                onSave: (String value){
+                  businessDescription.text=value;
+                },
+              ),
+
+              WelcomeScreenButton(
+                height: 55,
+                isIcon: false,
+                buttonColor: kPrimaryPurple,
+                buttonText: "Save",
+                textColor: kWhiteColor,
+                callback: ()async{
+
+                  if (_formKey.currentState.validate()){
+                    FocusScope.of(context).unfocus();
+                    print(boxStorage.read(MY_BUSINESS_ID));
+                    print(businessName.text);
+                    c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID),businessName.text,
+                        businessLandmark.text,businessBuilding.text,businessOwner.text,businessDescription.text);
+                  }
+
+                  //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);
+
+                },
+                borderRadiusGeometry: BorderRadius.circular(15),
+                edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+              ),
+
+            ],
+          ),
+        ),
+      ),
+    ),
       ),
     );
   }

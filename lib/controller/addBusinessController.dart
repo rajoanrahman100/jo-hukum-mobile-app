@@ -264,14 +264,14 @@ class AddBusinessController extends GetxController {
     print("business ID ${businessID.value}");
 
     print("----uploading images start----");
-    print("----cover photso ${boxStorage.read(COVER_PHOTOS)}----");
+    print("----cover photso ${boxStorage.read(MORE_PHOTOS)}----");
 
 
     var request = http.MultipartRequest('PATCH', Uri.parse('https://api-backend.jo-hukum'
         '.com/consumers_api/business_data/${businessID.value}/uploads/'));
 
     request.fields.addAll({
-      'photos': '${boxStorage.read(COVER_PHOTOS)}',
+      'photos': boxStorage.read(MORE_PHOTOS),
       'videos': '[]'
     });
 

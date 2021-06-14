@@ -28,7 +28,7 @@ class LocationController extends GetxController{
   Future<Position> getAddressFromLatLng(position) async {
     try {
 
-      print("lat ${position.latitude} and long ${position.longitude}");
+      print("lat ${position.latitude} and long ${position.longitude}}");
 
       boxStorage.write(LAT, position.latitude.toString());
       boxStorage.write(LONG, position.longitude.toString());
@@ -44,6 +44,7 @@ class LocationController extends GetxController{
 
       var _currentAddress = "${place.locality}, ${place.street}, ${place.country}";
       currentAddress.value=_currentAddress;
+
       SharedConfig.pref.setString("address", _currentAddress);
 
       print("address $_currentAddress");
