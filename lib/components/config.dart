@@ -100,6 +100,7 @@ const String KEYWORDS="KEYWORDS";
 const String MORE_PHOTOS="COVER_PHOTOS";
 const String DEVICE_IPI="DEVICE_API";
 const String SESSION_ID="SESSION_ID";
+const String SAVE_OTP="SAVE_OTP";
 
 
 

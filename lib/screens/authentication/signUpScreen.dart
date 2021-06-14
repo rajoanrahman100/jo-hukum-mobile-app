@@ -14,6 +14,7 @@ import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 class SignUpScreen extends StatelessWidget {
+
   var numberController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 

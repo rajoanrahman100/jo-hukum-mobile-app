@@ -285,6 +285,8 @@ class UserAdditionalInformation extends StatelessWidget {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return "Enter your password";
+                                  }if (value.length!=8) {
+                                    return "Password must be 8 chatacter in length";
                                   }
                                   _formKey.currentState.save();
                                   return null;

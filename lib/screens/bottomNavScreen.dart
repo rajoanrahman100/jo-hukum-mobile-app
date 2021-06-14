@@ -72,6 +72,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     return Future.value(true);
   }
 
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

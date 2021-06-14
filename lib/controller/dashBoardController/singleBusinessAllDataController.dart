@@ -343,9 +343,8 @@ class SingleBusinessAllDataController extends GetxController {
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Data updated successfully");
-      showToast("Data Updated Sucessfully");
-
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      showToast("Data Updated Sucessfully");
       var dataMap = jsonDecode(response.body);
 
     } else {

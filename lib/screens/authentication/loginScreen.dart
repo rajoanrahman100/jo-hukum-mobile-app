@@ -156,13 +156,18 @@ class SignInScreen extends StatelessWidget {
 
                                       Align(
                                         alignment: Alignment.centerRight,
-                                        child: Text(
-                                          "Forgot Password?",
-                                          style: textStyleUbuntu(
-                                              color: kPrimaryPurple,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w500,
-                                              textDecoration: TextDecoration.underline),
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            Navigator.pushNamed(context, '/forgotPassNumberEntry');
+                                          },
+                                          child: Text(
+                                            "Forgot Password?",
+                                            style: textStyleUbuntu(
+                                                color: kPrimaryPurple,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                                textDecoration: TextDecoration.underline),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(
@@ -379,13 +384,18 @@ class SignInScreen extends StatelessWidget {
                                       }),
                                       Align(
                                         alignment: Alignment.centerRight,
-                                        child: Text(
-                                          "Forgot Password?",
-                                          style: textStyleUbuntu(
-                                              color: kPrimaryPurple,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w500,
-                                              textDecoration: TextDecoration.underline),
+                                        child: GestureDetector(
+                                          onTap: (){
+                                            Navigator.pushNamed(context, '/forgotPassNumberEntry');
+                                          },
+                                          child: Text(
+                                            "Forgot Password?",
+                                            style: textStyleUbuntu(
+                                                color: kPrimaryPurple,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w500,
+                                                textDecoration: TextDecoration.underline),
+                                          ),
                                         ),
                                       ),
                                       SizedBox(

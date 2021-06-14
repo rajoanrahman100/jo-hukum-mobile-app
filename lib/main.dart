@@ -1,8 +1,10 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:johukum/components/theme.dart';
 import 'package:johukum/screens/addBusiness/lastSuccessScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFiveScreen.dart';
 import 'package:johukum/screens/addBusiness/stepFourScreen.dart';
@@ -11,6 +13,8 @@ import 'package:johukum/screens/addBusiness/stepSevenScreen.dart';
 import 'package:johukum/screens/addBusiness/stepSixScreen.dart';
 import 'package:johukum/screens/addBusiness/stepThreeScreen2.dart';
 import 'package:johukum/screens/addBusiness/stepTwoScreen.dart';
+import 'package:johukum/screens/authentication/forgotPassword/forgotPassOtpEntry.dart';
+import 'package:johukum/screens/authentication/forgotPassword/setNewPassword.dart';
 import 'package:johukum/screens/authentication/loginScreen.dart';
 import 'package:johukum/screens/authentication/optScreen.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
@@ -25,6 +29,7 @@ import 'package:johukum/screens/subCategory/subCategories.dart';
 import 'package:johukum/screens/wrapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'components/config.dart';
+import 'screens/authentication/forgotPassword/forgotPassPhoneNumberEntry.dart';
 import 'screens/dashboard/businessDashSetting/businessDetailsSetting.dart';
 import 'screens/dashboard/businessDashboard/dashboardBar.dart';
 import 'screens/elasticSearch/businessProfile.dart';
@@ -35,8 +40,11 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   SharedConfig.pref = await SharedPreferences.getInstance();
+  SystemChrome.setSystemUIOverlayStyle(uiConfig);
+
   runApp(GetMaterialApp(
     home: MyApp(),
+    theme: theme,
     debugShowCheckedModeBanner: false,
   ));
 
@@ -84,6 +92,9 @@ class MyApp extends StatelessWidget {
           '/settingBussinessDetails': (context) => SettingBusinessDetails(),
           '/seeAllCategories': (context) => Categories(),
           '/userSetting': (context) => UserProfileSetting(),
+          '/forgotPassNumberEntry': (context) => ForgotPassNumberEntry(),
+          '/forgotPassOtpEntry': (context) => ForgotPassOtpEntry(),
+          '/newPassEntry': (context) => NewPasswordScreen(),
         });
   }
 }

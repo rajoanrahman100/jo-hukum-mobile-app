@@ -6,6 +6,7 @@ const analyticsUrl="https://api-analytics.jo-hukum.com/";
 ///auth apis
 const signIn=baseUrl+"auth/login";
 const resetPass=baseUrl+"/users/reset-password/";
+const forgetPass=baseUrl+"/users/reset-forgotten-password/";
 const requestOtp=baseUrl+"otp/generate";
 const verifyOtp=baseUrl+"otp/verify";
 const socialLogIn=baseUrl+"auth/social-login";
