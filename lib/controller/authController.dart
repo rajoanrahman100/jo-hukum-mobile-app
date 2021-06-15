@@ -16,7 +16,6 @@ class AuthController extends GetxController{
   var logInSuccess=false.obs;
 
 
-
   Future<void> getSignInUser(mobileNumber, password, context) async {
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
@@ -37,7 +36,9 @@ class AuthController extends GetxController{
       boxStorage.write(KEY_USER_NAME, loginResponse.value.user.firstName);
       boxStorage.write(KEY_USER_EMAIL, loginResponse.value.user.email);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      Navigator.pushNamed(context, '/bottomNav');
+     // Navigator.pushNamed(context, '/bottomNav');
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false);
 
       return;
     } else {

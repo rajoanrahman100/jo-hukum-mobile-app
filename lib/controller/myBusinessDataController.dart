@@ -34,10 +34,6 @@ class MyBusinessController extends GetxController {
 
   Future<void> getMyBusinessData() async {
     var response = await get(Uri.parse(myBusinessApi), headers: {
-/*      "Authorization":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDg5MWI1ZmEyZGZiNDFmYWU4MWQ2Y2UiLCJlbWFpbCI6InJhdHVsQGdtYWlsLmNvbSIsIm1v"
-              "YmlsZV9udW1iZXIiOiIwMTkzMDIxMjIxMyIsImlzX2FjdGl2ZSI6dHJ1ZSwiZGF0ZV9qb2luZWQiOiIyMDIxLTA0LTI4VDA4OjIyOjU1LjU4OVoiL"
-              "CJzaG9wX3VpZCI6NTIsImJvb2tpbmdfdWlkIjozMywiaWF0IjoxNjIzMjMxMjA1fQ.4CimIZ2RHubhBaRzVX7SdzxmY7LK6kJD-C0Nhj-EUjM",*/
         "Authorization":boxStorage.read(KEY_TOKEN),
         "agent": "jh_mobile_application"
     });
@@ -47,6 +43,10 @@ class MyBusinessController extends GetxController {
       var data = jsonDecode(response.body);
       MyBusinessListModel businessAllData = MyBusinessListModel.fromJson(data);
       businessData.value=businessAllData;
+      myBusinessName.value=businessAllData.results[0].location.businessName;
+      boxStorage.write(MY_BUSINESS_SLUG, businessAllData.results[0].slug);
+      print("business Name ${businessAllData.results[0].location.businessName}");
+
     } else {
       throw ("Error code:: " + response.statusCode.toString());
     }
