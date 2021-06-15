@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/components/config.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:http/http.dart' as http;
@@ -79,6 +81,7 @@ class ForgotPassController extends GetxController{
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      showToast("Password restored successfully");
       Navigator.pushNamed(context,'/welcome');
       //showSuccessToast("a 6 digit code sent to your number");
       return;
