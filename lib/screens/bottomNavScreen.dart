@@ -117,7 +117,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           unselectedFontSize: 14,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.article), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
             BottomNavigationBarItem(
               icon: Icon(Icons.message),
               label: '',
@@ -137,21 +137,4 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   }
 }
 
-//                        AddBusinessForm(
-//                         // controller: searchController,
-//                          isSuffix: true,
-//                          hintText: "search anything you want",
-//                          onChange: (str) async {
-//                            print(str);
-//                            await elasticController.fetchElasticeData(str);
-//                          },
-//                          suffixIcon: GestureDetector(
-//                              onTap: () async {
-//                                await elasticController
-//                                    .fetchElasticeData(searchController.text);
-//                              },
-//                              child: Icon(
-//                                Icons.search,
-//                                color: kPrimaryPurple,
-//                              )),
-//                        ),
+
