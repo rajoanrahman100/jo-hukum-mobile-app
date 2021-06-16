@@ -66,11 +66,7 @@ class SearchItemWidget extends StatelessWidget {
                       height: imageHeight ?? 80,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => spinKit,
-                      errorWidget: (context, url, error) => Icon(
-                        Icons.error,
-                        color: kPrimaryPurple,
-                        size: 22,
-                      ),
+                      errorWidget: (context, url, error) => Image.asset("assets/images/johukuminfologo.png",height: 80.0,),
                     ),
                   ),
                 ),

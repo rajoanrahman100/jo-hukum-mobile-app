@@ -340,8 +340,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   Text(": "),
                                   Expanded(
                                       flex: 2,
-                                      child: textUbuntu("${obj.llocation.landMark + ", "
-                                          "" + obj.llocation.area}",kBlackColor))
+                                      child:
+                                      textUbuntu("${obj.llocation.landMark??""} , ${obj.llocation.area??""}",kBlackColor))
                                 ],
                               ),
                             ),
@@ -914,8 +914,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   Expanded(
                                       flex: 2,
                                       child: textUbuntu(
-                                          "${obj.llocation.landMark + ", "
-                                              "" + obj.llocation.area}",
+                                          "${obj.llocation.landMark??""} , ${obj.llocation.area??""}",
                                           kBlackColor,
                                           fontSize: 20))
                                 ],

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/categoryController.dart';
 import 'package:johukum/responsive.dart';
+import 'package:johukum/screens/home/checkDemoConnectivity.dart';
 import 'package:johukum/screens/home/drawerClass.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
@@ -114,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       textUbuntu("Categories", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
                                       GestureDetector(
                                           onTap: () {
+                                            //Get.to(()=>DemoConnect());
                                             Navigator.pushNamed(context, '/seeAllCategories');
                                           },
                                           child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0))
