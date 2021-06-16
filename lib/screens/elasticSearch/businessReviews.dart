@@ -7,6 +7,7 @@ import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessProfileController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
+import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/fullScreenAlertForAuth.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
@@ -151,79 +152,6 @@ class BusinessReview extends StatelessWidget {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Responsive(
-        tablet: Container(
-          height: MediaQuery.of(context).size.height * 0.6,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                size20,
-                textUbuntu(businessName, kPrimaryPurple, fontSize: 22, maxLine: 2, fontWeight: weight500),
-                size10,
-                RatingBar.builder(
-                  initialRating: 0.0,
-                  minRating: 0,
-                  itemSize: 22.0,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    ratingValue = rating.toString();
-                    print("User rating: " + rating.toString());
-                  },
-                ),
-                size20,
-                Container(
-                  height: 120.0,
-                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Colors.grey.withOpacity(0.3)),
-                  child: TextFormField(
-                    maxLines: 4,
-                    controller: ratingController,
-                    decoration: InputDecoration(
-                        border: InputBorder.none, contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10), hintText: 'Write your review', hintStyle: textStyleUbuntu(fontSize: 20)),
-                    onChanged: (str) => print('Multi-line text change: $str'),
-                  ),
-                ),
-                SizedBox(
-                  height: 35,
-                ),
-                WelcomeScreenButton(
-                  edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 70.0),
-                  buttonColor: kPrimaryPurple,
-                  buttonText: "Submit",
-                  textColor: kWhiteColor,
-                  fontSize: 20,
-                  isIcon: false,
-                  height: 70.0,
-                  callback: () {
-                    if (ratingValue == null) {
-                      Get.snackbar('rating value required!', 'rating value should not be empty', snackPosition: SnackPosition.TOP, backgroundColor: kWhiteColor);
-                      return;
-                    }
-                    if (ratingController.text.isEmpty) {
-                      Get.snackbar('review message required!', 'review message should not be empty', snackPosition: SnackPosition.TOP, backgroundColor: kWhiteColor);
-                      return;
-                    } else {
-                      FocusScope.of(context).unfocus();
-                      print(boxStorage.read(KEY_USER_ID));
-                      print(boxStorage.read(KEY_USER_NAME));
-                      print("busines ID $businesssID");
-
-                      c.postUserReview(businesssID, boxStorage.read(KEY_USER_ID), boxStorage.read(KEY_USER_NAME), ratingValue, ratingController.text, context, slug).then((value) {
-                        ratingController.clear();
-                      });
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
         mobile: Container(
           height: MediaQuery.of(context).size.height * 0.4,
           child: SingleChildScrollView(
@@ -250,16 +178,15 @@ class BusinessReview extends StatelessWidget {
                   },
                 ),
                 size20,
-                Container(
-                  height: 90.0,
-                  margin: EdgeInsets.symmetric(horizontal: 10.0),
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Colors.grey.withOpacity(0.3)),
-                  child: TextFormField(
-                    maxLines: 4,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: AddBusinessForm(
                     controller: ratingController,
-                    decoration: InputDecoration(
-                        border: InputBorder.none, contentPadding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5), hintText: 'Write your review', hintStyle: textStyleUbuntu(fontSize: 16)),
-                    onChanged: (str) => print('Multi-line text change: $str'),
+                    textInputType: TextInputType.text,
+                    hintText: "write your review",
+                    //height: 40.0,
+                    maxLine: 5,
+                    isSuffix: false,
                   ),
                 ),
                 SizedBox(
@@ -297,7 +224,79 @@ class BusinessReview extends StatelessWidget {
             ),
           ),
         ),
-      ),
+        tablet: Container(
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                size20,
+                textUbuntu(businessName, kPrimaryPurple, fontSize: 18, maxLine: 2, fontWeight: weight500),
+                size10,
+                RatingBar.builder(
+                  initialRating: 0.0,
+                  minRating: 0,
+                  itemSize: 18.0,
+                  direction: Axis.horizontal,
+                  allowHalfRating: false,
+                  itemCount: 5,
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    ratingValue = rating.toString();
+                    print("User rating: " + rating.toString());
+                  },
+                ),
+                size20,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: AddBusinessForm(
+                    controller: ratingController,
+                    textInputType: TextInputType.text,
+                    hintText: "write your review",
+                    //height: 40.0,
+                    maxLine: 5,
+                    isSuffix: false,
+                  ),
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                WelcomeScreenButton(
+                  edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 70.0),
+                  buttonColor: kPrimaryPurple,
+                  buttonText: "Submit",
+                  textColor: kWhiteColor,
+                  fontSize: 18,
+                  isIcon: false,
+                  height: 55.0,
+                  callback: () {
+                    if (ratingValue == null) {
+                      Get.snackbar('rating value required!', 'rating value should not be empty', snackPosition: SnackPosition.TOP, backgroundColor: kWhiteColor);
+                      return;
+                    }
+                    if (ratingController.text.isEmpty) {
+                      Get.snackbar('review message required!', 'review message should not be empty', snackPosition: SnackPosition.TOP, backgroundColor: kWhiteColor);
+                      return;
+                    } else {
+                      FocusScope.of(context).unfocus();
+                      print(boxStorage.read(KEY_USER_ID));
+                      print(boxStorage.read(KEY_USER_NAME));
+                      print("busines ID $businesssID");
+
+                      c.postUserReview(businesssID, boxStorage.read(KEY_USER_ID), boxStorage.read(KEY_USER_NAME), ratingValue, ratingController.text, context, slug).then((value) {
+                        ratingController.clear();
+                      });
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      )
     );
   }
 }
