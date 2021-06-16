@@ -35,6 +35,7 @@ class AuthController extends GetxController{
       boxStorage.write(KEY_USER_ID, loginResponse.value.user.sId);
       boxStorage.write(KEY_USER_NAME, loginResponse.value.user.firstName);
       boxStorage.write(KEY_USER_EMAIL, loginResponse.value.user.email);
+      boxStorage.write(KEY_USER_PHONE, loginResponse.value.user.mobileNumber);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
      // Navigator.pushNamed(context, '/bottomNav');
       Navigator.of(context)

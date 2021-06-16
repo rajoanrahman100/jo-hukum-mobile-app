@@ -283,8 +283,9 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.black.withOpacity(0.7),
                                     isIcon: true,
                                     callback: () {
+                                      print(obj.contact.website);
                                       obj.contact.website == null
-                                          ? showSnackBar(context: context, message: "No Website Found")
+                                          ? showSnackBar(context: context, message: "No Website Found",callBack:() {})
                                           : Navigator.push(
                                               context,
                                               MaterialPageRoute(

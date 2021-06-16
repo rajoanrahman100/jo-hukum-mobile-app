@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/components/settingsDataSaveConfig.dart';
 import 'package:johukum/controller/userProfileController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
@@ -20,6 +21,7 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
 
   var userName = TextEditingController();
   var userEmail = TextEditingController();
+  var userPhone = TextEditingController();
   var userOldPass = TextEditingController();
   var userNewPass = TextEditingController();
 
@@ -30,6 +32,7 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
     // TODO: implement initState
     userName.text = boxStorage.read(KEY_USER_NAME);
     userEmail.text = boxStorage.read(KEY_USER_EMAIL);
+    userPhone.text = boxStorage.read(KEY_USER_PHONE);
   }
 
   @override
@@ -83,6 +86,7 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
                       userEmail.text = value;
                     },
                   ),
+
                   //Obx(() => c.tapToSee.value ? Text("OKKO") : Text("")),
 
                   size10,
@@ -139,7 +143,7 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
                     callback: () async {
                       if (_formKey.currentState.validate()) {
                         FocusScope.of(context).unfocus();
-                       userOldPass.text.isEmpty?showToast("message") :c.getResetPass(userOldPass.text, userNewPass.text, context);
+                       userOldPass.text.isEmpty?c.setProfileUpdate(context, boxNewStorage.read(KEY_USER_ID), userName.text, userEmail.text):c.getResetPass(userOldPass.text, userNewPass.text, context);
                       }
                     },
                     borderRadiusGeometry: BorderRadius.circular(15),
@@ -273,6 +277,8 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
                     callback: () async {
                       if (_formKey.currentState.validate()) {
                         FocusScope.of(context).unfocus();
+                        userOldPass.text.isEmpty?c.setProfileUpdate(context, boxNewStorage.read(KEY_USER_ID), userName.text, userEmail.text):c.getResetPass(userOldPass.text, userNewPass.text, context);
+
                       }
                     },
                     borderRadiusGeometry: BorderRadius.circular(15),

@@ -4,6 +4,7 @@ const baseUrl="https://api-login.jo-hukum.com/api/";
 const analyticsUrl="https://api-analytics.jo-hukum.com/";
 
 ///auth apis
+const updateProfile=baseUrl+"users/";
 const signIn=baseUrl+"auth/login";
 const resetPass=baseUrl+"/users/reset-password/";
 const forgetPass=baseUrl+"/users/reset-forgotten-password/";
