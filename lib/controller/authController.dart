@@ -44,7 +44,7 @@ class AuthController extends GetxController{
       return;
     } else {
       print("error response " + res.body);
-      showSnackBar(context: context,message: "Invalid mobile number or password",callBack: (){});
+      showSnackBar(context: context,message: res.body,callBack: (){});
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;
     }

@@ -35,8 +35,8 @@ class ForgotPassController extends GetxController{
       return;
     } else {
       print("error response " + res.body);
-      showErrorToast("Invalid number or password");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      showSnackBar(context: context,message: res.body,callBack: (){});
       return;
     }
   }

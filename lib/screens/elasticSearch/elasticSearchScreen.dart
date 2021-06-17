@@ -195,6 +195,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                               builder: (context) => BusinessProfile(
                                 slug: dataList[index].sSource.slug,
                                 name: dataList[index].sSource.businessName,
+                                  id: dataList[index].sId
                               )),
                         );
 
@@ -382,6 +383,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
                               builder: (context) => BusinessProfile(
                                 slug: dataList[index].sSource.slug,
                                 name: dataList[index].sSource.businessName,
+                                  id: dataList[index].sId
                               )),
                         );
 
