@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
@@ -16,6 +17,13 @@ class ElasticController extends GetxController{
   var pageNumber=0.obs;
 
   var searchText="".obs;
+
+  var searchControllerData=TextEditingController().obs;
+
+  void setSearchController(value){
+    searchControllerData.value.text=value;
+  }
+
 
   var elasticDataList=List<HitsChild>().obs;
 
