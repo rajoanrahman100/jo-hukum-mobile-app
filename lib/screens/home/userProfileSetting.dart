@@ -121,6 +121,8 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
                           validator: (value) {
                             if (value.isEmpty) {
                               return "Insert Your New Password";
+                            }else if(value.length<8){
+                              return "Password length should be 8 or higher";
                             }
                             _formKey.currentState.save();
                             return null;
@@ -255,6 +257,9 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
                           validator: (value) {
                             if (value.isEmpty) {
                               return "Insert Your New Password";
+                            }
+                            else if(value.length<8){
+                              return "Password length should be 8 or higher";
                             }
                             _formKey.currentState.save();
                             return null;

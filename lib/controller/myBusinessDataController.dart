@@ -43,6 +43,7 @@ class MyBusinessController extends GetxController {
       var data = jsonDecode(response.body);
       MyBusinessListModel businessAllData = MyBusinessListModel.fromJson(data);
       businessData.value=businessAllData;
+      boxStorage.write(MY_BUSINESS_ID, businessAllData.results[0].sId);
       myBusinessName.value=businessAllData.results[0].location.businessName;
       boxStorage.write(MY_BUSINESS_SLUG, businessAllData.results[0].slug);
       print("business Name ${businessAllData.results[0].location.businessName}");

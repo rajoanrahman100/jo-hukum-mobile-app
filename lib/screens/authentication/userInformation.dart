@@ -106,7 +106,9 @@ class UserAdditionalInformation extends StatelessWidget {
                                 obscureText: !c.showPass.value,
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return "Enter your password";
+                                    return "Create your password";
+                                  }else if(value.length<8){
+                                    return "Password length should be 8 or higher";
                                   }
                                   _formKey.currentState.save();
                                   return null;
@@ -285,8 +287,8 @@ class UserAdditionalInformation extends StatelessWidget {
                                 validator: (value) {
                                   if (value.isEmpty) {
                                     return "Enter your password";
-                                  }if (value.length!=8) {
-                                    return "Password must be 8 chatacter in length";
+                                  }else if(value.length<8){
+                                    return "Password length should be 8 or higher";
                                   }
                                   _formKey.currentState.save();
                                   return null;

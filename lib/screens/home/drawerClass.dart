@@ -10,16 +10,28 @@ import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/fullScreenAlertForAuth.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
-class DrawerClass extends StatelessWidget {
+class DrawerClass extends StatefulWidget {
+  @override
+  _DrawerClassState createState() => _DrawerClassState();
+}
+
+class _DrawerClassState extends State<DrawerClass> {
   var profile =
       "https://scontent.fdac116-1.fna.fbcdn.net/v/t1.6435-9/158261324_226608225830377_8521737132345272932_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=730e14&_nc_ohc=PivMlip5C94AX8C38PS&_nc_ht=scontent.fdac116-1.fna&oh=ece9ef74fbfee93d213a6c1e8437438d&oe=60967998";
 
   var c = Get.put(DialogAuthController());
+
   var businessController = Get.put(MyBusinessController());
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
     businessController.getMyBusinessData();
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Responsive(

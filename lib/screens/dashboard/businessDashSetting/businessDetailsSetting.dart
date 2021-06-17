@@ -162,7 +162,7 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                     },
                   ),
                   size10,
-                  textUbuntu("Owner Name", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+                  textUbuntu("Description", kBlackColor, fontSize: 16.0, fontWeight: weight400),
                   size5,
                   AddBusinessForm(
                     controller: businessDescription,
@@ -321,7 +321,7 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                 },
               ),
               size10,
-              textUbuntu("Owner Name", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+              textUbuntu("Description", kBlackColor, fontSize: 16.0, fontWeight: weight400),
               size5,
               AddBusinessForm(
                 controller: businessDescription,

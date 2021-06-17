@@ -119,61 +119,64 @@ class StepOneScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Division*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
-                    Container(
-                      height: 50.0,
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
-                          GestureDetector(
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                                openDivisionDialog(context);
-                              },
-                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        FocusScope.of(context).unfocus();
+                        openDivisionDialog(context);
+                      },
+                      child: Container(
+                        height: 50.0,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                            Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
+                          ],
+                        ),
                       ),
                     ),
                     size10,
                     textUbuntu("City*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
-                    Container(
-                      height: 50.0,
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
-                          GestureDetector(
-                              onTap: () async {
-                                await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
-                                openCityDialog(context);
-                              },
-                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
-                        ],
+                    GestureDetector(
+                      onTap: () async {
+                        await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
+                        openCityDialog(context);
+                      },
+                      child: Container(
+                        height: 50.0,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                             Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
+                          ],
+                        ),
                       ),
                     ),
                     size10,
-                    textUbuntu("Area*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    textUbuntu("Thana*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
-                    Container(
-                      height: 50.0,
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
-                          GestureDetector(
-                              onTap: () async {
-                                await divisionController.fetchThana(divisionController.selectCityId.value, "");
-                                openThanaDialog(context);
-                              },
-                              child: Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple))
-                        ],
+                    GestureDetector(
+                      onTap: () async {
+                        await divisionController.fetchThana(divisionController.selectCityId.value, "");
+                        openThanaDialog(context);
+                      },
+                      child: Container(
+                        height: 50.0,
+                        padding: EdgeInsets.symmetric(horizontal: 10.0),
+                        decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                            Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
+                          ],
+                        ),
                       ),
                     ),
                     size10,

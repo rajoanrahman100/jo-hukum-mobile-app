@@ -27,7 +27,7 @@ class _HomeDashBoardBusinessState extends State<HomeDashBoardBusiness> {
   var profile = "https://dsxzwbyxhnf79.cloudfront.net/productGalleries/2021/04/60753028bf116_1618292776.jpg";
   var c = Get.put(SingleBusinessAllDataController());
   var totalController = Get.put(BusinessAnalyticsController());
-  var businessController = Get.put(MyBusinessController());
+  //var businessController = Get.put(MyBusinessController());
 
   @override
   void initState() {

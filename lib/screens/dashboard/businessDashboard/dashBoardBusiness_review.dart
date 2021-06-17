@@ -256,6 +256,9 @@ class _ReviewDashBoardBusinessState extends State<ReviewDashBoardBusiness> {
   }
 
   Future<List<BusinessRatingCount>> getRatingData(businessId) async {
+
+    print("My business ID: $businessId");
+
     var response = await get(Uri.parse(reviewCountApi + "$businessId" + "/ratings-count/"), headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization':
