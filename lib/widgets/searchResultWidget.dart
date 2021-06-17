@@ -63,7 +63,7 @@ class SearchItemWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     child: CachedNetworkImage(
                       imageUrl: image,
-                      height: imageHeight ?? 80,
+                      height: imageHeight ?? 90,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => spinKit,
                       errorWidget: (context, url, error) => Image.asset("assets/images/johukuminfologo.png",height: 80.0,),
@@ -98,7 +98,7 @@ class SearchItemWidget extends StatelessWidget {
                                 size: 16,
                               ),
                               Expanded(
-                                child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 1, fontSize: addressFontSize ?? 14),
+                                child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 2, fontSize: addressFontSize ?? 14.0),
                               )
                             ],
                           ),

@@ -86,13 +86,11 @@ class _BusinessItemsState extends State<BusinessItems> {
                                   image: "https://dsqdpdmeibwm2.cloudfront.net/${dataList[index].sSource.logo}",
                                   businessName: dataList[index].sSource.businessName,
                                   distance: dataList[index].sort[0].toString().substring(0, 4),
-                                  street: dataList[index].sSource.street,
+                                  street: "${dataList[index].sSource.street},${dataList[index].sSource.area}",
                                   size: size,
                                   callBack: () {
                                     print(dataList[index].sId);
                                     Get.to(() => BusinessProfile(slug: dataList[index].sSource.slug, name: dataList[index].sSource.businessName, id: dataList[index].sId));
-
-                                    //   Navigator.pushNamed(context, '/businessProfile');
                                   },
                                 );
                               },
@@ -129,7 +127,7 @@ class _BusinessItemsState extends State<BusinessItems> {
                                   image: "https://dsqdpdmeibwm2.cloudfront.net/${dataList[index].sSource.logo}",
                                   businessName: dataList[index].sSource.businessName,
                                   distance: dataList[index].sort[0].toString().substring(0, 4),
-                                  street: dataList[index].sSource.street,
+                                  street: "${dataList[index].sSource.street},${dataList[index].sSource.area}",
                                   size: size,
                                   imageHeight: 135.0,
                                   titleFontSize: 26.0,

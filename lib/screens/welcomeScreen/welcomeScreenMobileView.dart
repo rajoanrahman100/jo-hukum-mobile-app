@@ -44,7 +44,8 @@ class WelcomeScreenMobileView extends StatelessWidget {
                   buttonColor: kPrimaryPurple,
                   buttonText: "Explore",
                   textColor: kWhiteColor,
-                  callback: ()=>Navigator.pushNamed(context, '/bottomNav'),
+                  callback: ()=>Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false),
                   isIcon: false,
                 ),
                 SizedBox(height: 10.0,),
