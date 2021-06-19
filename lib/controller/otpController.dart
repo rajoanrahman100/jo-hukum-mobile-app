@@ -34,7 +34,8 @@ class OtpController extends GetxController{
       return;
     } else {
       print("error response " + res.body);
-      showErrorToast("Invalid number or password");
+      showSnackBar(context: context,message: res.body,callBack: (){});
+      //showErrorToast("Invalid number or password");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       return;
     }

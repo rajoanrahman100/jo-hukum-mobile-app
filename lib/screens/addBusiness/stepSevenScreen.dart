@@ -14,18 +14,34 @@ import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
-class StepSevenScreen extends StatelessWidget {
+class StepSevenScreen extends StatefulWidget {
+  @override
+  _StepSevenScreenState createState() => _StepSevenScreenState();
+}
+
+class _StepSevenScreenState extends State<StepSevenScreen> {
   var keywordController = Get.put(KeywordController());
+
   var tagController = Get.put(BusinessTagController());
+
   var businessController = Get.put(AddBusinessController());
+
   var imageController=Get.put(ImageController());
 
   var titleSeo=TextEditingController();
+
   var metaDesc=TextEditingController();
 
   var tag = TextEditingController();
 
   var taglist=["Test Tag1,Test Tag2,Test Tag3"];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    titleSeo.text=boxStorage.read(KEY_USER_BUSINESS_NAME);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +63,9 @@ class StepSevenScreen extends StatelessWidget {
                     controller: titleSeo,
                     hintText: "",
                     isSuffix: false,
+                    onSave: (String value){
+                      titleSeo.text=value;
+                    },
                   ),
                   size10,
                   textUbuntu("Meta Description", kPrimaryPurple, fontWeight: weight500, fontSize: 16),

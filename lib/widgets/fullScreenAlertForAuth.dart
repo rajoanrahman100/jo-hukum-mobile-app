@@ -26,14 +26,14 @@ class AuthenticationDialog extends StatelessWidget {
       child: Scaffold(
         body: Responsive(
           mobile: Container(
-            height: double.infinity,
+            height: size.height,
             //color: Colors.red,
             child: Stack(
               children: [
                 Image.asset(
                   "assets/images/welcome.jpg",
-                  height: double.infinity,
-                  width: double.infinity,
+                  height: size.height,
+                  width: size.width,
                   fit: BoxFit.cover,
                 ),
                 Padding(
@@ -41,17 +41,23 @@ class AuthenticationDialog extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+
                       GestureDetector(
                         onTap:(){
                           print("TAPPED");
-                          Navigator.pop(context,true);
+                          Navigator.pop(context);
                         },
-                        child: Icon(
-                          Icons.cancel_sharp,
-                          color: kWhiteColor,
-                          size: 30.0,
+                        child: SizedBox(
+                          height: 50.0,width: 50.0,
+                          child: Icon(
+                            Icons.cancel_sharp,
+                            color: kWhiteColor,
+                            size: 30.0,
+                          ),
                         ),
-                      )
+                      ),
+
+
                     ],
                   ),
                 ),

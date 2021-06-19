@@ -161,9 +161,15 @@ class SignUpScreen extends StatelessWidget {
                                       SizedBox(
                                         height: 10.0,
                                       ),
-                                      Text(
-                                        "Sign in",
-                                        style: textStyleUbuntu(color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.bold, textDecoration: TextDecoration.underline),
+                                      GestureDetector(
+                                        onTap: (){
+                                          Navigator.pushNamed(context, '/signIn');
+
+                                        },
+                                        child: Text(
+                                          "Sign in",
+                                          style: textStyleUbuntu(color: kBlackColor, fontSize: 18.0, fontWeight: FontWeight.bold, textDecoration: TextDecoration.underline),
+                                        ),
                                       ),
                                       SizedBox(
                                         height: 30.0,
@@ -317,9 +323,15 @@ class SignUpScreen extends StatelessWidget {
                                       SizedBox(
                                         height: 10.0,
                                       ),
-                                      Text(
-                                        "Sign in",
-                                        style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: FontWeight.bold, textDecoration: TextDecoration.underline),
+                                      GestureDetector(
+                                        onTap: (){
+                                          Navigator.pushNamed(context, '/signIn');
+
+                                        },
+                                        child: Text(
+                                          "Sign in",
+                                          style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: FontWeight.bold, textDecoration: TextDecoration.underline),
+                                        ),
                                       ),
                                       SizedBox(
                                         height: 30.0,

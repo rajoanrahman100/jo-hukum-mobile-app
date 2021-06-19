@@ -38,7 +38,7 @@ class SearchItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: callBack,
       child: Container(
-        height: height ?? size.height /6.5,
+        height: height ?? size.height /6.3,
         padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
         margin: EdgeInsets.symmetric(vertical: 2.0,horizontal: 10.0),
         decoration: BoxDecoration(
@@ -86,7 +86,8 @@ class SearchItemWidget extends StatelessWidget {
                             width:addressConWidth?? 55,
                             decoration: BoxDecoration(color: kPrimaryPurple, borderRadius: BorderRadius.circular(5.0)),
                             child: Center(
-                              child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize: distanceFontSize ?? 14),
+                              child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize:
+                              distanceFontSize ?? 13),
                             ),
                           ),
                           size10,
@@ -98,7 +99,8 @@ class SearchItemWidget extends StatelessWidget {
                                 size: 16,
                               ),
                               Expanded(
-                                child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 2, fontSize: addressFontSize ?? 14.0),
+                                child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 2,
+                                    fontSize: addressFontSize ?? 13.0),
                               )
                             ],
                           ),

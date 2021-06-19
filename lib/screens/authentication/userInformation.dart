@@ -114,7 +114,7 @@ class UserAdditionalInformation extends StatelessWidget {
                                   return null;
                                 },
                                 decoration: buildInputDecoration(
-                                  "Enter Password",
+                                  "Create Password",
                                   icons: GestureDetector(
                                     onTap: () {
                                       c.showPassWord();
@@ -134,7 +134,7 @@ class UserAdditionalInformation extends StatelessWidget {
                               obscureText: !c.showConfirmPass.value,
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return "Enter your password again";
+                                  return "Confirm your password";
                                 }
                                 _formKey.currentState.save();
                                 return null;
@@ -286,7 +286,7 @@ class UserAdditionalInformation extends StatelessWidget {
                                 obscureText: !c.showPass.value,
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return "Enter your password";
+                                    return "Create your password";
                                   }else if(value.length<8){
                                     return "Password length should be 8 or higher";
                                   }
@@ -294,7 +294,7 @@ class UserAdditionalInformation extends StatelessWidget {
                                   return null;
                                 },
                                 decoration: buildInputDecoration(
-                                  "Enter Password",
+                                  "Create Password",
                                   icons: GestureDetector(
                                     onTap: () {
                                       c.showPassWord();
@@ -315,7 +315,7 @@ class UserAdditionalInformation extends StatelessWidget {
                               obscureText: !c.showConfirmPass.value,
                               validator: (value) {
                                 if (value.isEmpty) {
-                                  return "Enter your password again";
+                                  return "Confirm your password";
                                 }
                                 _formKey.currentState.save();
                                 return null;
