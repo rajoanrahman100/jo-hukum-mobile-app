@@ -59,6 +59,7 @@ dependencies:
   wifi_info_flutter: ^2.0.2
   connectivity: ^3.0.6
 
+
   #dio: ^4.0.0
 
 dev_dependencies:

@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
+import 'package:johukum/components/components.dart';
 import 'package:johukum/modelClass/categoryClass.dart';
+import 'package:johukum/widgets/customToast.dart';
 
 class CategoryController extends GetxController{
 
@@ -42,19 +44,28 @@ class CategoryController extends GetxController{
 
     print("ResponsefetchCategory = " + response.body);
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
 
-      var dataMap = jsonDecode(response.body);
+    try{
+      if (response.statusCode == 200 || response.statusCode == 201) {
 
-      CategoryClass homeProductDataClass = CategoryClass.fromJson(dataMap);
+        var dataMap = jsonDecode(response.body);
 
-      return homeProductDataClass.results;
-      //categoryDataClass.value = homeProductDataClass;
-      //setResultsData(homeProductDataClass.results);
+        CategoryClass homeProductDataClass = CategoryClass.fromJson(dataMap);
 
-    } else {
-      throw ("Error code " + response.statusCode.toString());
+        return homeProductDataClass.results;
+        //categoryDataClass.value = homeProductDataClass;
+        //setResultsData(homeProductDataClass.results);
+
+      } else {
+        throw ("Error code " + response.statusCode.toString());
+      }
+    }catch(e){
+      Get.snackbar('${e.toString()}!', 'Server is currently unavailable',
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: kWhiteColor);
     }
+
+
   }
 
 //  fetchCategory(categoryDataClass,pageNumber);

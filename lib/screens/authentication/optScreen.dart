@@ -75,7 +75,7 @@ class OtpInputScreen extends StatelessWidget{
                                     height: 30.0,
                                   ),
                                   Text(
-                                    "Yoe are just few seconds away to enter the world of jo-hukum",
+                                    "You are just few seconds away to enter the world of jo-hukum",
                                     style: textStyleUbuntu(
                                         color: kBlackColor,
                                         fontSize: 18.0,
@@ -221,7 +221,7 @@ class OtpInputScreen extends StatelessWidget{
                                     height: 30.0,
                                   ),
                                   Text(
-                                    "Yoe are just few seconds away to enter the world of jo-hukum",
+                                    "You are just few seconds away to enter the world of jo-hukum",
                                     style: textStyleUbuntu(
                                         color: kBlackColor,
                                         fontSize: 18.0,

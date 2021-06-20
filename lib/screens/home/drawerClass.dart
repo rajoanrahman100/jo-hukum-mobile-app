@@ -207,6 +207,7 @@ class _DrawerClassState extends State<DrawerClass> {
                     },
                   ),
 
+
                   boxStorage.read(KEY_TOKEN) != null
                       ? DrawerItems(
                           icon: Icons.dashboard,

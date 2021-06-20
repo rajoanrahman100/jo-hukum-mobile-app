@@ -33,16 +33,15 @@ class LocationController extends GetxController{
       boxStorage.write(LAT, position.latitude.toString());
       boxStorage.write(LONG, position.longitude.toString());
 
-      //SharedConfig.pref.setString("lat", position.latitude.toString());
-      //SharedConfig.pref.setString("long", position.longitude.toString());
-
-
       List<Placemark> placemarks =
       await placemarkFromCoordinates(position.latitude, position.longitude);
 
+      //print(placemarks);
+
       Placemark place = placemarks[0];
 
-      var _currentAddress = "${place.locality}, ${place.street}, ${place.country}";
+     // var _currentAddress = "${place.locality}, ${place.street}, ${place.country}";
+      var _currentAddress = "${place.street}, ${place.name}, ${place.subLocality}";
       currentAddress.value=_currentAddress;
 
       SharedConfig.pref.setString("address", _currentAddress);

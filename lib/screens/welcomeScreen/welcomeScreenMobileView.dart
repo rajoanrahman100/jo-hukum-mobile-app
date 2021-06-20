@@ -23,9 +23,9 @@ class WelcomeScreenMobileView extends StatelessWidget {
             height: size.height/1.2,
             width: size.width,
             child: Column(
-
               children: [
                 Spacer(),
+
                 Image.asset("assets/images/johukuminfologo.png",height: size.height/2.5,),
                 WelcomeScreenButton(
                   height: 55.0,
@@ -37,7 +37,7 @@ class WelcomeScreenMobileView extends StatelessWidget {
                   isIcon: false,
                 ),
 
-                SizedBox(height: 10.0,),
+                SizedBox(height: 10.0),
                 WelcomeScreenButton(
                   height: 55.0,
                   edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 20.0),
@@ -48,12 +48,12 @@ class WelcomeScreenMobileView extends StatelessWidget {
                       .pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false),
                   isIcon: false,
                 ),
+
                 SizedBox(height: 10.0,),
 
                 Text("Already have an account?",style: GoogleFonts.ubuntu(color: kWhiteColor),),
 
                 SizedBox(height: 10.0,),
-
 
                 WelcomeScreenButton(
                   height: 40.0,
@@ -71,6 +71,7 @@ class WelcomeScreenMobileView extends StatelessWidget {
                 Text("For web view, visit",style: textStyleUbuntu(
                     color: kWhiteColor,fontSize: 12.0,fontWeight: FontWeight.w400
                 ),),
+
                 Text("www.jo-hukum.com",style: textStyleUbuntu(
                     color: kWhiteColor,fontSize: 13.0,fontWeight: FontWeight.w500,
                     textDecoration: TextDecoration.underline

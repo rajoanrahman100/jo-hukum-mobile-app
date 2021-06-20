@@ -415,7 +415,7 @@ class UserAdditionalInformation extends StatelessWidget {
       //Map<String, dynamic> body = jsonDecode(res.body);
       //print(body["user"]);
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      Get.snackbar("Error!", "user with this number already exist", backgroundColor: kWhiteColor);
+      Get.snackbar("Error!", "User with this number exist already", backgroundColor: kWhiteColor);
       return;
     }
   }

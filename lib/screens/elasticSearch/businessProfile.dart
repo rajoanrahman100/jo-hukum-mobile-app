@@ -51,6 +51,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
 
   var ratingValue;
 
+
+
   callNumber(number) async {
     await FlutterPhoneDirectCaller.callNumber(number);
   }
@@ -571,24 +573,24 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       shrinkWrap: true,
                                       itemCount: obj.photos.length,
                                       itemBuilder: (_, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(8.0),
-                                            child: CachedNetworkImage(
-                                              imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
-                                              height:size.height * 0.2,
-                                              width:200,
-                                              fit: BoxFit.cover,
-                                              placeholder: (context, url) => spinKit,
-                                              errorWidget: (context, url, error) => Icon(
-                                                Icons.error,
-                                                color: kPrimaryPurple,
-                                                size: 22,
+                                        return  Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(8.0),
+                                              child: CachedNetworkImage(
+                                                imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
+                                                height:size.height * 0.2,
+                                                width:200,
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) => spinKit,
+                                                errorWidget: (context, url, error) => Icon(
+                                                  Icons.error,
+                                                  color: kPrimaryPurple,
+                                                  size: 22,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        );
+                                          );
                                       },
                                     ),
                                   ),
