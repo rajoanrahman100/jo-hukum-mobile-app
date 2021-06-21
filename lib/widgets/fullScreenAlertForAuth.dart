@@ -83,8 +83,7 @@ class AuthenticationDialog extends StatelessWidget {
                               margin: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                child: SingleChildScrollView(
-                                  child: Column(
+                                child:Column(
                                     children: [
                                       SizedBox(
                                         height: 10.0,
@@ -246,7 +245,7 @@ class AuthenticationDialog extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                ),
+
                               ),
                             )
                           ],

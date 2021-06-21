@@ -119,7 +119,7 @@ class SignUpScreen extends StatelessWidget {
                                         //callback: ()=>Navigator.pushNamed(context, '/otpScreen'),
                                         callback: () {
                                           if (_formKey.currentState.validate()) {
-                                            c.getOtpNumber(numberController.text, context);
+                                            c.checkUserExistOrNot(numberController.text, context);
                                           }
                                         },
                                       ),
@@ -281,7 +281,7 @@ class SignUpScreen extends StatelessWidget {
                                         //callback: ()=>Navigator.pushNamed(context, '/otpScreen'),
                                         callback: () {
                                           if (_formKey.currentState.validate()) {
-                                            c.getOtpNumber(numberController.text, context);
+                                            c.checkUserExistOrNot(numberController.text, context);
                                           }
                                         },
                                       ),
