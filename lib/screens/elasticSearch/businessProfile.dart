@@ -96,27 +96,43 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               width: double.infinity,
                               child: Stack(
                                 children: [
-                                  Image.network(
-                                    "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
+                                  CachedNetworkImage(
+                                    imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
                                     height: size.height * 0.2,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
+                                    placeholder: (context, url) => spinKit,
+                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jpg",height:size.height * 0.2 ,),
                                   ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      margin: EdgeInsets.only(bottom: 35.0),
-                                      width: 120.0,
-                                      height: 120.0,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: kPrimaryPurple),
-                                        image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://dsqdpdmeibwm2.cloudfront.net/${obj.logo}")),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(60.0),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 24.0),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child:Container(
+                                        width: 120.0,
+                                        height: 120.0,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: kPrimaryPurple),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(60.0),
+                                          ),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(60.0),
+                                          child: CachedNetworkImage(
+                                            imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.logo}",
+                                            //height: 120,
+                                            //width: 120,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) => spinKit,
+                                            errorWidget: (context, url, error) => Image.asset("assets/images/johukuminfologo.png",height: 80.0,),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  )
+
                                 ],
                               ),
                             ),
@@ -139,7 +155,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   ),
                                 ),
                                 Text(
-                                  " (${obj.aggregateRating})",
+                                  " (${obj.aggregateRating.toStringAsFixed(1)})",
                                   style: textStyleUbuntu(color: kBlackColor, fontSize: 16, fontWeight: weight500),
                                 )
                               ],
@@ -673,27 +689,48 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               width: double.infinity,
                               child: Stack(
                                 children: [
-                                  Image.network(
+
+                                  CachedNetworkImage(
+                                    imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
+                                    height: size.height * 0.3,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) => spinKit,
+                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jog",height: size.height * 0.3,),
+                                  ),
+                                  /*Image.network(
                                     "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
                                     height: size.height * 0.3,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      margin: EdgeInsets.only(bottom: 30.0),
-                                      width: 150.0,
-                                      height: 150.0,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: kPrimaryPurple),
-                                        image: DecorationImage(fit: BoxFit.cover, image: NetworkImage("https://dsqdpdmeibwm2.cloudfront.net/${obj.logo}")),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(79.0),
+                                  ),*/
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 24.0),
+                                    child: Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child:Container(
+                                        width: 150.0,
+                                        height: 150.0,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: kPrimaryPurple),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(80.0),
+                                          ),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(80.0),
+                                          child: CachedNetworkImage(
+                                            imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.logo}",
+                                            //height: 120,
+                                            //width: 120,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) => spinKit,
+                                            errorWidget: (context, url, error) => Image.asset("assets/images/johukuminfologo.png",height: 80.0,),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ),
@@ -716,7 +753,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   ),
                                 ),
                                 Text(
-                                  " (${obj.aggregateRating})",
+                                  " (${obj.aggregateRating.toStringAsFixed(1)})",
                                   style: textStyleUbuntu(color: kBlackColor, fontSize: 25, fontWeight: weight500),
                                 )
                               ],

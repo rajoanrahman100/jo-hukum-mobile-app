@@ -356,7 +356,7 @@ class Reviews {
   String sId;
   String addedById;
   String addedBy;
-  int rating;
+  dynamic rating;
   String businessId;
   String reviewedAt;
   int iV;
