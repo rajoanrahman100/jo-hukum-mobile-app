@@ -57,7 +57,7 @@ class BusinessInfoDataModel {
   dynamic _deletedByOwnerAt;
   int _status;
   int _totalReviews;
-  int _aggregateRating;
+  var _aggregateRating;
   String _id;
   String _description;
   int _yearOfEstablishment;
@@ -95,7 +95,7 @@ class BusinessInfoDataModel {
   dynamic get deletedByOwnerAt => _deletedByOwnerAt;
   int get status => _status;
   int get totalReviews => _totalReviews;
-  int get aggregateRating => _aggregateRating;
+  dynamic get aggregateRating => _aggregateRating;
   String get id => _id;
   String get description => _description;
   int get yearOfEstablishment => _yearOfEstablishment;
@@ -134,7 +134,7 @@ class BusinessInfoDataModel {
       dynamic deletedByOwnerAt,
       int status,
       int totalReviews,
-      int aggregateRating,
+      dynamic aggregateRating,
       String id,
       String description,
       int yearOfEstablishment,

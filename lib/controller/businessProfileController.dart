@@ -13,7 +13,7 @@ class BusinessProfileController extends GetxController {
   var businessDataModel = BusinessInfoDataModel().obs;
   var loaderShow = true.obs;
 
-  var ratingValue = 0.obs;
+  var ratingValue = 0.0.obs;
 
   @override
   void onInit() {
@@ -40,7 +40,7 @@ class BusinessProfileController extends GetxController {
       var dataMap = jsonDecode(response.body);
       BusinessInfoDataModel businessData = BusinessInfoDataModel.fromJson(dataMap);
       businessDataModel.value = businessData;
-      ratingValue.value = businessData.aggregateRating;
+      ratingValue.value = businessData.aggregateRating.toDouble();
     } else {
       loaderShow.value = false;
       throw ("Error code:: " + response.statusCode.toString());

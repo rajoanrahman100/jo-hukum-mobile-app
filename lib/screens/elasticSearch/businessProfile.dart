@@ -125,11 +125,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               children: [
                                 Obx(
                                   () => RatingBar.builder(
-                                    initialRating: businessProfileController.ratingValue.value.toDouble(),
+                                    initialRating: businessProfileController.ratingValue.value,
                                     minRating: 1,
-                                    itemSize: 27.0,
+                                    itemSize: 23.0,
                                     direction: Axis.horizontal,
-                                    allowHalfRating: false,
+                                    allowHalfRating: true,
                                     itemCount: 5,
                                     //itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
                                     itemBuilder: (context, _) => Icon(
@@ -702,7 +702,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               children: [
                                 Obx(
                                   () => RatingBar.builder(
-                                    initialRating: businessProfileController.ratingValue.value.toDouble(),
+                                    initialRating: businessProfileController.ratingValue.value,
                                     minRating: 1,
                                     itemSize: 30.0,
                                     direction: Axis.horizontal,
