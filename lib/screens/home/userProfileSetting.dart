@@ -32,7 +32,7 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
     // TODO: implement initState
     userName.text = boxStorage.read(KEY_USER_NAME);
     userEmail.text = boxStorage.read(KEY_USER_EMAIL);
-    userPhone.text = boxStorage.read(KEY_USER_PHONE);
+    //userPhone.text = boxStorage.read(KEY_USER_PHONE);
   }
 
   @override

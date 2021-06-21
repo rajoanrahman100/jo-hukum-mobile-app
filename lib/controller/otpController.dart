@@ -19,7 +19,6 @@ class OtpController extends GetxController{
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context);
 
-    boxStorage.write(KEY_USER_PHONE, mobileNumber);
 
     var res = await http.get(Uri.parse(sendInfo+"?mobile_number=$mobileNumber"),
       headers: <String, String>{
@@ -51,6 +50,8 @@ class OtpController extends GetxController{
   Future getOtpNumber(mobileNumber, context) async {
 
     print("mobile number $mobileNumber");
+
+    boxStorage.write(KEY_USER_PHONE, mobileNumber);
 
     var res = await http.post(Uri.parse(requestOtp),
         headers: <String, String>{
