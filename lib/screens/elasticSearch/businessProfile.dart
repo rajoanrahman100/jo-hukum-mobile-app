@@ -102,7 +102,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) => spinKit,
-                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jpg",height:size.height * 0.2 ,),
+                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jpg",height:size.height * 0.2,width: double.infinity,fit: BoxFit.cover,),
                                   ),
 
                                   Padding(
@@ -155,7 +155,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   ),
                                 ),
                                 Text(
-                                  " (${obj.aggregateRating.toStringAsFixed(1)})",
+                                  " (${obj.aggregateRating.toStringAsFixed(1)??0.0})",
                                   style: textStyleUbuntu(color: kBlackColor, fontSize: 16, fontWeight: weight500),
                                 )
                               ],
@@ -201,7 +201,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    print(widget.id);
+                                    print("${widget.id}");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -360,7 +360,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   Expanded(
                                       flex: 2,
                                       child:
-                                      textUbuntu("${obj.llocation.landMark??""} , ${obj.llocation.area??""}",kBlackColor))
+                                      textUbuntu("${obj.llocation.landMark??""} , ${obj.llocation.area??""}",kBlackColor,maxLine: 2))
                                 ],
                               ),
                             ),
@@ -696,7 +696,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) => spinKit,
-                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jog",height: size.height * 0.3,),
+                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jog",height: size.height * 0.3,width: size.width,fit: BoxFit.cover,),
                                   ),
                                   /*Image.network(
                                     "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
