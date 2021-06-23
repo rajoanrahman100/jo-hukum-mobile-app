@@ -35,10 +35,8 @@ class _BusinessItemsState extends State<BusinessItems> {
     scrollController.addListener(() async {
       if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
         c.pageNumber.value = c.pageNumber.value + 10;
-
         print("page number: ${c.pageNumber.value}");
         //print("list size : ${elasticController.searchListSize.value}");
-
         await c.getBusinessData(startForm: c.pageNumber.value, size: c.searchListSize.value, catID: widget.id);
       }
     });
@@ -88,6 +86,7 @@ class _BusinessItemsState extends State<BusinessItems> {
                                   distance: dataList[index].sort[0].toString().substring(0, 4),
                                   street: "${dataList[index].sSource.street},${dataList[index].sSource.area}",
                                   size: size,
+                                  rating: dataList[index].sSource.aggregateRating,
                                   callBack: () {
                                     print(dataList[index].sId);
                                     Get.to(() => BusinessProfile(slug: dataList[index].sSource.slug, name: dataList[index].sSource.businessName, id: dataList[index].sId));

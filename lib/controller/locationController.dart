@@ -38,10 +38,12 @@ class LocationController extends GetxController{
 
       //print(placemarks);
 
-      Placemark place = placemarks[0];
+      Placemark place = placemarks[1];
+
+      print(place);
 
      // var _currentAddress = "${place.locality}, ${place.street}, ${place.country}";
-      var _currentAddress = "${place.street}, ${place.name}, ${place.subLocality}";
+      var _currentAddress = "${place.street}, ${place.subLocality}, ${place.locality}";
       currentAddress.value=_currentAddress;
 
       SharedConfig.pref.setString("address", _currentAddress);

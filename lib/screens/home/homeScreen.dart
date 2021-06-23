@@ -94,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemBuilder: (_, index) {
                                       return HomeScreenItems(
                                         callBack: () {
+                                          print("${controller.resultDataClass[index].id}");
                                           Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
                                         },
                                         categoryController: controller,

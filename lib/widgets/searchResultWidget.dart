@@ -16,6 +16,7 @@ class SearchItemWidget extends StatelessWidget {
   var addressFontSize;
   var addressConHeight;
   var addressConWidth;
+  var rating;
   Function callBack;
 
   SearchItemWidget(
@@ -30,7 +31,7 @@ class SearchItemWidget extends StatelessWidget {
       this.distanceFontSize,
       this.addressFontSize,
       this.addressConHeight,
-      this.addressConWidth,
+      this.addressConWidth,this.rating,
       this.callBack});
 
   @override
@@ -81,14 +82,36 @@ class SearchItemWidget extends StatelessWidget {
                         children: [
                           textUbuntu(businessName, kBlackColor, fontWeight: weight500, maxLine: 2, fontSize: titleFontSize ?? 16),
                           size5,
-                          Container(
-                            height: addressConHeight??25,
-                            width:addressConWidth?? 55,
-                            decoration: BoxDecoration(color: kPrimaryPurple, borderRadius: BorderRadius.circular(5.0)),
-                            child: Center(
-                              child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize:
-                              distanceFontSize ?? 13),
-                            ),
+                          Row(
+                            children: [
+                              Container(
+                                height: addressConHeight??25,
+                                width:addressConWidth?? 55,
+                                decoration: BoxDecoration(color: kPrimaryPurple, borderRadius: BorderRadius.circular(5.0)),
+                                child: Center(
+                                  child: textUbuntu("$distance km", kWhiteColor, fontWeight: weight500, fontSize:
+                                  distanceFontSize ?? 13),
+                                ),
+                              ),
+                              width5,
+                              Icon(
+                                Icons.verified,
+                                color: Colors.green,
+                                size: 16.0,
+                              ),
+                              Text(
+                                " Verified",
+                                style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500,fontSize: 14.0),
+                              ),
+                              SizedBox(
+                                width: 5.0,
+                              ),
+                              Icon(Icons.star, color: Colors.amber,size: 16.0,),
+                              Text(
+                                " $rating",
+                                style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500,fontSize: 14.0),
+                              ),
+                            ],
                           ),
                           size10,
                           Row(
