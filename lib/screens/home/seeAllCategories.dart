@@ -128,7 +128,7 @@ class _CategoriesState extends State<Categories> {
                   width: size.width,
                   child: Center(
                     child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 5 / 6, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 200, childAspectRatio: 5 / 6, crossAxisSpacing: 10, mainAxisSpacing: 10),
                         itemCount: categoryController.resultDataClass.length,
                         controller: scrollController,
                         itemBuilder: (BuildContext ctx, index) {
@@ -149,14 +149,14 @@ class _CategoriesState extends State<Categories> {
                                 children: [
                                   SvgPicture.network(
                                     "https://dsqdpdmeibwm2.cloudfront.net/${categoryController.resultDataClass[index].icon}",
-                                    height: 40,
-                                    width: 40,
+                                    height: 60,
+                                    width: 60,
                                   ),
                                   size10,
                                   Text(
                                     "${categoryController.resultDataClass[index].name}",
                                     textAlign: TextAlign.center,
-                                    style: textStyleUbuntu(fontWeight: weight500),
+                                    style: textStyleUbuntu(fontWeight: weight500,fontSize: 18.0),
                                   ),
                                   //textUbuntu(categoryController.resultDataClass[index].name, kBlackColor, fontWeight: FontWeight.w500,maxLine: 2)
                                 ],

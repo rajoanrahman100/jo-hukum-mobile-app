@@ -265,7 +265,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: kPrimaryPurple.withOpacity(0.1),
                             child: Center(
                               child: GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 4 / 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150,
+                                      childAspectRatio: 4 / 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
                                   itemCount: 10,
                                   physics: NeverScrollableScrollPhysics(),
                                   controller: scrollController,
@@ -282,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            Image.network(
+                                            SvgPicture.network(
                                               "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
                                               height: 50,
                                               width: 50,
