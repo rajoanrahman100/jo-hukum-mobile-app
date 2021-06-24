@@ -42,18 +42,18 @@ void main() async {
   SharedConfig.pref = await SharedPreferences.getInstance();
   SystemChrome.setSystemUIOverlayStyle(uiConfig);
 
-  /*runApp(GetMaterialApp(
+  runApp(GetMaterialApp(
     home: MyApp(),
     theme: theme,
     debugShowCheckedModeBanner: false,
-  ));*/
+  ));
 
- runApp(DevicePreview(
+/* runApp(DevicePreview(
       enabled: !kReleaseMode,
       builder: (context) => GetMaterialApp(
             home: MyApp(),
             debugShowCheckedModeBanner: false,
-          )));
+          )));*/
 }
 
 class MyApp extends StatelessWidget {
@@ -62,9 +62,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //When navigating to the "/welcome" route, this is the welcome screen.
     return MaterialApp(
-        locale: DevicePreview.locale(context),
+        //locale: DevicePreview.locale(context),
         // Add the locale here
-        builder: DevicePreview.appBuilder,
+        //builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
         initialRoute: '/welcome',
         routes: {

@@ -28,6 +28,9 @@ const String MY_BUSINESS_NAME="MY_BUSINESS_NAME";
 const String MY_BUSINESS_SLUG="MY_BUSINESS_SLUG";
 const String MY_BUSINESS_ID="MY_BUSINESS_ID";
 
+///Version Number
+const String VERSION_NUMBER="VERSION_NUMBER";
+
 ///lAT & lANG
 const String LAT="lat";
 const String LONG="long";

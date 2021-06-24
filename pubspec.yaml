@@ -58,6 +58,8 @@ dependencies:
   carousel_slider: ^3.0.0
   wifi_info_flutter: ^2.0.2
   connectivity: ^3.0.6
+  package_info: ^2.0.2
+
 
 
   #dio: ^4.0.0

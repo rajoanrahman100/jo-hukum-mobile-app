@@ -5,6 +5,7 @@ import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/locationController.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeScreenMobileView.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeScreenTabView.dart';
+import 'package:package_info/package_info.dart';
 import '../../responsive.dart';
 import 'package:wifi_info_flutter/wifi_info_flutter.dart';
 
@@ -20,6 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   var controller=Get.put(LocationController());
   var token;
 
+  var version="";
   var ip;
   getIP()async{
      ip = await WifiInfo().getWifiIP();
@@ -31,8 +33,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     print("-----------IP CALL");
     getIP();
-
+    //getPackageInfo();
     // TODO: implement initState
+  }
+
+  getPackageInfo()async{
+    PackageInfo info = await PackageInfo.fromPlatform();
+    print("verson number ${info.version}");
+    /*PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      version = packageInfo.version;
+      print("verson number ${packageInfo.version}");
+    });*/
   }
 
   @override

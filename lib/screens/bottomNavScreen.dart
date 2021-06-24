@@ -38,6 +38,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     // TODO: implement initState
     pageController = PageController();
 
+    print("version from local ${boxStorage.read(VERSION_NUMBER)}");
+
     boxStorage.read(KEY_USER_ID)==null?sessionController.getSessionWithoutIDData()
         :sessionController.getSessionWithIDData(boxStorage.read(KEY_USER_ID));
   }
