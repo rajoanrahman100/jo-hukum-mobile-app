@@ -57,10 +57,12 @@ class NewPasswordScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         // Spacer(),
+                        size20,
                         Image.asset(
-                          "assets/images/johukuminfologo.png",
-                          height: size.height / 3.0,
+                          "assets/images/newjohukum.png",
+                          height: size.height / 4.0,
                         ),
+                        size20,
                         Container(
                           width: size.width,
                           decoration: BoxDecoration(
@@ -121,7 +123,7 @@ class NewPasswordScreen extends StatelessWidget {
                                       callback: () {
 
                                         if(passController.text.isEmpty){
-                                          showErrorToast("Insert Your Password");
+                                          showErrorToast("Create Your New Password");
                                           return;
                                         }else{
                                           c.setNewPass(passController.text, context);
@@ -180,9 +182,10 @@ class NewPasswordScreen extends StatelessWidget {
                       children: [
                         // Spacer(),
                         Image.asset(
-                          "assets/images/johukuminfologo.png",
-                          height: size.height / 2.5,
+                          "assets/images/newjohukum.png",
+                          height: size.height / 3.5,
                         ),
+                        size20,
                         Container(
                           width: size.width,
                           decoration: BoxDecoration(
@@ -199,7 +202,7 @@ class NewPasswordScreen extends StatelessWidget {
                                     height: 30.0,
                                   ),
                                   Text(
-                                    "Insert your OTP code here",
+                                    "Set a new password",
                                     style: textStyleUbuntu(
                                         color: kBlackColor,
                                         fontSize: 18.0,
@@ -213,7 +216,7 @@ class NewPasswordScreen extends StatelessWidget {
                                     controller: passController,
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
-                                      hintText: "6 digit code",
+                                      hintText: "password",
                                       focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               color: kPrimaryPurple)),
@@ -237,7 +240,7 @@ class NewPasswordScreen extends StatelessWidget {
                                       EdgeInsets.symmetric(
                                           horizontal: 90.0),
                                       buttonColor: kPrimaryPurple,
-                                      buttonText: "Verify",
+                                      buttonText: "Save",
                                       textColor: kWhiteColor,
                                       fontSize: 16.0,
                                       isIcon: false,

@@ -106,9 +106,18 @@ class SearchItemWidget extends StatelessWidget {
                               SizedBox(
                                 width: 5.0,
                               ),
-                              Icon(Icons.star, color: Colors.amber,size: 16.0,),
+                              /*Icon(Icons.star, color: Colors.amber,size: 16.0,),
                               Text(
                                 " $rating",
+                                style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500,fontSize: 14.0),
+                              )*/
+                              Icon(
+                                Icons.verified,
+                                color: Colors.amber,
+                                size: 16.0,
+                              ),
+                              Text(
+                                " Trusted",
                                 style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500,fontSize: 14.0),
                               ),
                             ],
@@ -122,7 +131,7 @@ class SearchItemWidget extends StatelessWidget {
                                 size: 16,
                               ),
                               Expanded(
-                                child: textUbuntu("$street", kPrimaryPurple, fontWeight: weight500, maxLine: 2,
+                                child: textUbuntu("${street??"No area found"}", kPrimaryPurple, fontWeight: weight500, maxLine: 2,
                                     fontSize: addressFontSize ?? 13.0),
                               )
                             ],

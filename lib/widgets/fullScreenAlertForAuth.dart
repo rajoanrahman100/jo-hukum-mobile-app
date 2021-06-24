@@ -151,7 +151,7 @@ class AuthenticationDialog extends StatelessWidget {
                                           ),
                                         );
                                       }),
-                                      Align(
+                                      /*Align(
                                         alignment: Alignment.centerRight,
                                         child: Text(
                                           "Forgot Password?",
@@ -161,7 +161,7 @@ class AuthenticationDialog extends StatelessWidget {
                                               fontWeight: FontWeight.w500,
                                               textDecoration: TextDecoration.underline),
                                         ),
-                                      ),
+                                      ),*/
                                       SizedBox(
                                         height: 20.0,
                                       ),
@@ -378,7 +378,7 @@ class AuthenticationDialog extends StatelessWidget {
                                         );
                                       }),
                                       size10,
-                                      Align(
+                                      /*Align(
                                         alignment: Alignment.centerRight,
                                         child: Text(
                                           "Forgot Password?",
@@ -388,7 +388,7 @@ class AuthenticationDialog extends StatelessWidget {
                                               fontWeight: FontWeight.w500,
                                               textDecoration: TextDecoration.underline),
                                         ),
-                                      ),
+                                      ),*/
                                       SizedBox(
                                         height: 20.0,
                                       ),

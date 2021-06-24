@@ -56,9 +56,10 @@ class OtpInputScreen extends StatelessWidget{
                       children: [
                        // Spacer(),
                         Image.asset(
-                          "assets/images/johukuminfologo.png",
-                          height: size.height / 3.0,
+                          "assets/images/newjohukum.png",
+                          height: size.height / 4.0,
                         ),
+                        size20,
                         Container(
                           width: size.width,
                           decoration: BoxDecoration(
@@ -202,9 +203,10 @@ class OtpInputScreen extends StatelessWidget{
                       children: [
                        // Spacer(),
                         Image.asset(
-                          "assets/images/johukuminfologo.png",
-                          height: size.height / 2.5,
+                          "assets/images/newjohukum.png",
+                          height: size.height / 3.0,
                         ),
+                        size20,
                         Container(
                           width: size.width,
                           decoration: BoxDecoration(

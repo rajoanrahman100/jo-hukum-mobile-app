@@ -40,7 +40,7 @@ class CategoryController extends GetxController{
 
   Future<List<Results2>> fetchCategoryItems(pageNumber) async {
     // make GET request
-    var response = await get(Uri.parse(categoryApi+"?"+"page=$pageNumber"));
+    var response = await get(Uri.parse(categoryApi+"?"+"page=$pageNumber&limit=20"));
 
     print("ResponsefetchCategory = " + response.body);
 
@@ -56,7 +56,7 @@ class CategoryController extends GetxController{
         //categoryDataClass.value = homeProductDataClass;
         //setResultsData(homeProductDataClass.results);
 
-      } else {
+      }else {
         throw ("Error code " + response.statusCode.toString());
       }
     }catch(e){

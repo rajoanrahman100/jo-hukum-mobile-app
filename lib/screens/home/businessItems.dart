@@ -62,7 +62,7 @@ class _BusinessItemsState extends State<BusinessItems> {
                   height: size.height,
                   child: c.businessDataList.length == 0
                       ? Center(child: spinKit)
-                      : c.businessDataList == null
+                      : c.businessDataList== null
                           ? textUbuntu("No Data Found", kPrimaryPurple, fontWeight: weight500)
                           : ListView.builder(
                               controller: scrollController,

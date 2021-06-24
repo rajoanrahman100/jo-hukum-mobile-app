@@ -23,11 +23,11 @@ class WelcomeScreenMobileView extends StatelessWidget {
             height: size.height/1.2,
             width: size.width,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
 
-                Image.asset("assets/images/johukuminfologo.png",height: size.height/2.5,),
-                WelcomeScreenButton(
+                Image.asset("assets/images/newjohukum.png",height: size.height/3.5,),
+                /*WelcomeScreenButton(
                   height: 55.0,
                   edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 20.0),
                   buttonColor: kWhiteColor,
@@ -35,37 +35,67 @@ class WelcomeScreenMobileView extends StatelessWidget {
                   textColor: kPrimaryPurple,
                   callback: ()=>Navigator.pushNamed(context, '/signUp'),
                   isIcon: false,
-                ),
-
-                SizedBox(height: 10.0),
+                ),*/
+                SizedBox(height: 40.0),
                 WelcomeScreenButton(
                   height: 55.0,
+                  borderRadiusGeometry: BorderRadius.circular(15.0),
                   edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 20.0),
-                  buttonColor: kPrimaryPurple,
-                  buttonText: "Explore",
-                  textColor: kWhiteColor,
+                  buttonColor: kWhiteColor,
+                  buttonText: "EXPLORE",
+                  textColor: kPrimaryPurple,
                   callback: ()=>Navigator.of(context)
                       .pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false),
                   isIcon: false,
                 ),
 
-                SizedBox(height: 10.0,),
+                size20,
+                Row(
+                  children: [
+                    Expanded(
+                      child:WelcomeScreenButton(
+                        height: 50.0,
+                        borderRadiusGeometry: BorderRadius.circular(15.0),
+                        edgeInsetsGeometry: EdgeInsets.only(left: 20.0),
+                        //buttonColor: kPrimaryPurple,
+                        buttonText: "Sign Up",
+                        textColor: Colors.white,
+                        callback: ()=>Navigator.pushNamed(context, '/signUp'),
+                        isIcon: false, border: Border.all(color: kWhiteColor,width: 0.5),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF482080),
+                              Color(0xFF5F2C8B),
+                            ]
+                        ),
+                      ),
+                    ),
+                    width10,
+                    Expanded(
+                      child: WelcomeScreenButton(
+                        height: 50.0,
+                        borderRadiusGeometry: BorderRadius.circular(15.0),
+                        edgeInsetsGeometry: EdgeInsets.only(right: 20.0),
+                        //buttonColor: kPrimaryPurple,
+                        buttonText: "Log In",
+                        textColor: Colors.white,
+                        callback: ()=>Navigator.pushNamed(context, '/signIn'),
+                        isIcon: false, border: Border.all(color: kWhiteColor,width: 0.5),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xFF482080),
+                            Color(0xFF5F2C8B),
+                          ]
+                        ),
+                      ),
+                    ),
 
-                Text("Already have an account?",style: GoogleFonts.ubuntu(color: kWhiteColor),),
-
-                SizedBox(height: 10.0,),
-
-                WelcomeScreenButton(
-                  height: 40.0,
-                  edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 110.0),
-                  buttonColor: kWhiteColor,
-                  buttonText: "SIGN IN",
-                  textColor: kPrimaryPurple,
-                  fontSize: 14.0,
-                  isIcon: false,
-                  callback: ()=>Navigator.pushNamed(context, '/signIn'),
+                  ],
                 ),
-
                 SizedBox(height: 40.0,),
 
                 Text("For web view, visit",style: textStyleUbuntu(

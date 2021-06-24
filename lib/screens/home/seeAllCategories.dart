@@ -60,7 +60,11 @@ class _CategoriesState extends State<Categories> {
                   width: size.width,
                   child: Center(
                     child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 5 / 6, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 150,
+                            childAspectRatio: 5 / 6,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
                         itemCount: categoryController.resultDataClass.length,
                         controller: scrollController,
                         itemBuilder: (BuildContext ctx, index) {

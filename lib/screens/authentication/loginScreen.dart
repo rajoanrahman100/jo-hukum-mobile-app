@@ -74,9 +74,10 @@ class SignInScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset(
-                              "assets/images/johukuminfologo.png",
-                              height: size.height / 3.0,
+                              "assets/images/newjohukum.png",
+                              height: size.height / 4.0,
                             ),
+                            size20,
                             Container(
                               width: size.width,
                               decoration:
@@ -293,7 +294,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Container(
-                    height: size.height / 1,
+                    height: size.height / 1.2,
                     width: size.width,
                     margin: EdgeInsets.only(top: 20.0),
                     child: Form(
@@ -302,9 +303,10 @@ class SignInScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             Image.asset(
-                              "assets/images/johukuminfologo.png",
-                              height: size.height / 2.5,
+                              "assets/images/newjohukum.png",
+                              height: size.height / 3.5,
                             ),
+                            size20,
                             Container(
                               width: size.width,
                               decoration:

@@ -55,9 +55,10 @@ class UserAdditionalInformation extends StatelessWidget {
                       ),
                     ),
                     Image.asset(
-                      "assets/images/johukuminfologo.png",
-                      height: size.height/3.0,
+                      "assets/images/newjohukum.png",
+                      height: size.height/4.0,
                     ),
+                    size20,
                     Container(
                       margin: EdgeInsets.all(20.0),
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -210,7 +211,6 @@ class UserAdditionalInformation extends StatelessWidget {
           ),
           tablet: Container(
             height: size.height,
-
             decoration: BoxDecoration(
               image: DecorationImage(fit: BoxFit.cover, image: AssetImage("assets/images/welcome.jpg")),
             ),
@@ -231,9 +231,10 @@ class UserAdditionalInformation extends StatelessWidget {
                       ),
                     ),
                     Image.asset(
-                      "assets/images/johukuminfologo.png",
-                      height: size.height/2.5,
+                      "assets/images/newjohukum.png",
+                      height: size.height/3.0,
                     ),
+                    size20,
                     Container(
                       margin: EdgeInsets.all(20.0),
                       padding: EdgeInsets.symmetric(horizontal: 20),

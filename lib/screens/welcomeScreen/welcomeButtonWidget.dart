@@ -12,6 +12,8 @@ class WelcomeScreenButton extends StatelessWidget {
   BorderRadiusGeometry borderRadiusGeometry;
   bool isIcon;
   Icon iconData;
+  BoxBorder border;
+  Gradient gradient;
 
   WelcomeScreenButton(
       {this.height,
@@ -20,7 +22,7 @@ class WelcomeScreenButton extends StatelessWidget {
       this.buttonText,
       this.textColor,
       this.fontSize,
-      this.callback,this.borderRadiusGeometry,this.isIcon,this.iconData});
+      this.callback,this.borderRadiusGeometry,this.isIcon,this.iconData,this.border,this.gradient});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,8 @@ class WelcomeScreenButton extends StatelessWidget {
         margin: edgeInsetsGeometry,
         decoration: BoxDecoration(
             color: buttonColor,
+            border: border,
+            gradient: gradient,
             borderRadius: borderRadiusGeometry ?? BorderRadius.circular(20.0)),
         child: Center(
           child:isIcon==false?Text(

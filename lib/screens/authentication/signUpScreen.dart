@@ -58,12 +58,15 @@ class SignUpScreen extends StatelessWidget {
                   margin: EdgeInsets.only(top: 20.0),
                   child: SingleChildScrollView(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         //Spacer(),
+                        SizedBox(height: 40.0,),
                         Image.asset(
-                          "assets/images/johukuminfologo.png",
-                          height: size.height / 3.0,
+                          "assets/images/newjohukum.png",
+                          height: size.height / 4.0,
                         ),
+                        size20,
                         Container(
                           width: size.width,
                           decoration: BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
@@ -221,10 +224,12 @@ class SignUpScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         //Spacer(),
+                        SizedBox(height: 40.0,),
                         Image.asset(
-                          "assets/images/johukuminfologo.png",
-                          height: size.height / 2.5,
+                          "assets/images/newjohukum.png",
+                          height: size.height / 3.0,
                         ),
+                        size20,
                         Container(
                           width: size.width,
                           decoration: BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),

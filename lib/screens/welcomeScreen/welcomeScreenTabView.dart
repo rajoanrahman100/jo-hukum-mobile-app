@@ -24,10 +24,12 @@ class WelcomeScreenTabView extends StatelessWidget {
             width: size.width,
             //color: Colors.red,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
-                Image.asset("assets/images/johukuminfologo.png",height: size.height/2,),
-                WelcomeScreenButton(
+                //Spacer(),
+                Image.asset("assets/images/newjohukum.png",height: size.height/2.5),
+                SizedBox(height: 30.0,),
+                /*WelcomeScreenButton(
                   height: 70.0,
                   edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 25.0),
                   buttonColor: kWhiteColor,
@@ -35,29 +37,64 @@ class WelcomeScreenTabView extends StatelessWidget {
                   textColor: kPrimaryPurple,
                   callback: ()=>Navigator.pushNamed(context, '/signUp'),
                   isIcon: false,
-                ),
-                size15,
+                ),*/
                 WelcomeScreenButton(
                   height: 70.0,
-                  edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 25.0),
-                  buttonColor: kPrimaryPurple,
-                  buttonText: "Explore",
-                  textColor: kWhiteColor,
-                  callback: ()=>Navigator.pushNamed(context, '/bottomNav'),
+                  borderRadiusGeometry: BorderRadius.circular(15.0),
+                  edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 20.0),
+                  buttonColor: Colors.white,
+                  buttonText: "EXPLORE",
+                  textColor: kPrimaryPurple,
+                  callback: ()=>Navigator.of(context)
+                      .pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false),
                   isIcon: false,
                 ),
-                size15,
-                Text("Already have an account?",style: GoogleFonts.ubuntu(color: kWhiteColor,fontSize: 18.0),),
-                size15,
-                WelcomeScreenButton(
-                  height: 55.0,
-                  edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 110.0),
-                  buttonColor: kWhiteColor,
-                  buttonText: "SIGN IN",
-                  textColor: kPrimaryPurple,
-                  fontSize: 16.0,
-                  isIcon: false,
-                  callback: ()=>Navigator.pushNamed(context, '/signIn'),
+                size20,
+                Row(
+                  children: [
+                    Expanded(
+                      child: WelcomeScreenButton(
+                        height: 60.0,
+                        borderRadiusGeometry: BorderRadius.circular(15.0),
+                        edgeInsetsGeometry: EdgeInsets.only(left: 20.0),
+                        buttonColor: kSecondaryPurple,
+                        buttonText: "Sign Up",
+                        textColor: Colors.white,
+                        callback: ()=>Navigator.pushNamed(context, '/signUp'),
+                        isIcon: false,
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF482080),
+                              Color(0xFF5F2C8B),
+                            ]
+                        ),
+                      ),
+                    ),
+                    width10,
+                    Expanded(
+                      child: WelcomeScreenButton(
+                        height: 60.0,
+                        borderRadiusGeometry: BorderRadius.circular(15.0),
+                        edgeInsetsGeometry: EdgeInsets.only(right: 20.0),
+                        buttonColor: kSecondaryPurple,
+                        buttonText: "Log In",
+                        textColor: Colors.white,
+                        callback: ()=>Navigator.pushNamed(context, '/signIn'),
+                        isIcon: false,
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF482080),
+                              Color(0xFF5F2C8B),
+                            ]
+                        ),
+                      ),
+                    ),
+
+                  ],
                 ),
                 SizedBox(height: 40.0,),
                 Text("For web view, visit",style: textStyleUbuntu(
