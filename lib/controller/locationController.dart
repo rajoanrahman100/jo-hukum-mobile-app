@@ -38,7 +38,7 @@ class LocationController extends GetxController{
 
       //print(placemarks);
 
-      Placemark place = placemarks[1];
+      Placemark place = placemarks[0];
 
       print(place);
 
