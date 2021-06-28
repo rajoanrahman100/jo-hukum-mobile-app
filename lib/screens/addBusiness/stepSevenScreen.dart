@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
@@ -13,6 +15,8 @@ import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+
+import 'uploadMultipleImage.dart';
 
 class StepSevenScreen extends StatefulWidget {
   @override
@@ -33,6 +37,8 @@ class _StepSevenScreenState extends State<StepSevenScreen> {
   var metaDesc=TextEditingController();
 
   var tag = TextEditingController();
+
+  var up=UploadMultipleImage();
 
   var taglist=["Test Tag1,Test Tag2,Test Tag3"];
 
@@ -218,15 +224,12 @@ class _StepSevenScreenState extends State<StepSevenScreen> {
                     textColor: kWhiteColor,
                     callback: ()async{
 
-                      print("covers ${boxStorage.read(MORE_PHOTOS)}");
-
-
                       if(keywordController.keywordList.length==0){
                         return showErrorToast("At least one keyword is required");
                       }else{
 
                         await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
-                            imageController.selectCoverImagePath.value);
+                            imageController.selectCoverImagePath.value,imageController.idArray);
                         ///Business Info
 
                       }
@@ -414,8 +417,8 @@ class _StepSevenScreenState extends State<StepSevenScreen> {
                         return showErrorToast("At least one keyword is required");
                       }else{
 
-                        await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
-                            imageController.selectCoverImagePath.value);
+                        /*await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
+                            imageController.selectCoverImagePath.value);*/
                       }
 
                       //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);

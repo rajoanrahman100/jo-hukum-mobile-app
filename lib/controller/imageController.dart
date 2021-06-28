@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -23,7 +24,7 @@ class ImageController extends GetxController {
   var splitString=" ".obs;
 
   addImageId(value){
-    idArray.add(value);
+    idArray.add('"$value"');
     splitString.value=idArray.reduce((previousValue, element) => previousValue+","+element);
     print(splitString.value);
     print(idArray);
@@ -78,6 +79,8 @@ class ImageController extends GetxController {
       showSnackBar(context: context, message: "No image selected", callBack: () {});
     }
   }
+
+
 
   uploadImageFunction(File imageFile, context) async {
     print('----------------------------------> upload start');

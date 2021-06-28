@@ -28,31 +28,6 @@ class StepSixScreen extends StatelessWidget {
 
   var stringId;
 
-  uploadImageFunction(File imageFile, context) async {
-    print('----------------------------------> upload start');
-    var stream = new http.ByteStream(imageFile.openRead());
-    var length = await imageFile.length();
-    var uri = Uri.parse(uploadImagesAPi);
-    var request = new http.MultipartRequest("POST", uri);
-    var multipartFile = new http.MultipartFile('image', stream, length, filename: basename(imageFile.path), contentType: MediaType('image', 'jpeg'));
-
-    request.headers.addAll(
-      <String, String>{
-        'Authorization': boxStorage.read(KEY_TOKEN),
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    request.files.add(multipartFile);
-    var response = await request.send();
-    var responseBody = await http.Response.fromStream(response);
-
-    print(responseBody.statusCode);
-    print(responseBody.body);
-
-    var dataMap = jsonDecode(responseBody.body);
-    SingleImageModel singelImageModel = SingleImageModel.fromJson(dataMap);
-    //idArray.add(singelImageModel.sId);
-  }
 
   @override
   Widget build(BuildContext context) {
