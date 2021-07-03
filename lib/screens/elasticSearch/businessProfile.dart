@@ -9,6 +9,7 @@ import 'package:johukum/controller/businessProfileController.dart';
 import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/elasticSearch/businessReviews.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenBusinessReport.dart';
 import 'package:johukum/screens/web_view.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
@@ -52,7 +53,6 @@ class _BusinessProfileState extends State<BusinessProfile> {
   var ratingValue;
 
 
-
   callNumber(number) async {
     await FlutterPhoneDirectCaller.callNumber(number);
   }
@@ -60,6 +60,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
   @override
   void initState() {
     // TODO: implement initState
+
+    print("ID ${widget.id}");
     businessProfileController.getBusinessData(widget.slug);
   }
 
@@ -78,6 +80,31 @@ class _BusinessProfileState extends State<BusinessProfile> {
             widget.name,
             style: textStyleUbuntu(color: kWhiteColor, fontSize: 16),
           ),
+          actions: [
+            PopupMenuButton<String>(
+              onSelected: (value){
+                switch (value) {
+                  case 'Report Business':
+                    openBusinessReportDialog(context,widget.id);
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return {'Report Business',}.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Row(
+                      children: [
+                        Icon(Icons.report,color: kPrimaryPurple,),
+                        width5,
+                        textUbuntu(choice,kBlackColor),
+                      ],
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ],
           iconTheme: IconThemeData(color: kWhiteColor),
         ),
         body: Responsive(

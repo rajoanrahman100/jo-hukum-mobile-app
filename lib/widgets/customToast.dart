@@ -39,7 +39,7 @@ showSnackBar({BuildContext context, String message,Function callBack,String labe
 
   return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     backgroundColor: kPrimaryPurple,
-    duration: Duration(seconds: 1),
+    duration: Duration(seconds: 2),
     content: textUbuntu(message,kWhiteColor,fontWeight: weight500,maxLine: 2),
     action: SnackBarAction(
       label: label??"",

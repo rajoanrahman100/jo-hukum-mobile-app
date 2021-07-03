@@ -2,6 +2,7 @@
 ///base url
 const baseUrl="https://api-login.jo-hukum.com/api/";
 const analyticsUrl="https://api-analytics.jo-hukum.com/";
+const businessUrl="https://api-backend.jo-hukum.com/consumers_api/";
 
 ///auth apis
 const updateProfile=baseUrl+"users/";
@@ -24,6 +25,8 @@ const keyword="https://api-backend.jo-hukum.com/api/businesses/categories";
 const businessType="https://api-backend.jo-hukum.com/consumers_api/business_types";
 const addBusiness="https://api-backend.jo-hukum.com/consumers_api/business_data";
 const uploadImagesAPi="https://api-backend.jo-hukum.com/consumers_api/uploads/photos";
+const reportBusinessApi=businessUrl+"business_data/";
+
 
 ///Business Analytics APi
 const visitorsApi=analyticsUrl+"page-analytics?url=http://nuxtjh.local/single/";

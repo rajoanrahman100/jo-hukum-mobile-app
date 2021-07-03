@@ -49,7 +49,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
   ));
 
- /*runApp(DevicePreview(
+/* runApp(DevicePreview(
       enabled: !kReleaseMode,
       builder: (context) => GetMaterialApp(
             home: MyApp(),
