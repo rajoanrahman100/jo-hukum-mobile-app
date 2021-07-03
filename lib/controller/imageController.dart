@@ -23,6 +23,14 @@ class ImageController extends GetxController {
   var idArray=[].obs;
   var splitString=" ".obs;
 
+  var galleryImage=[].obs;
+
+  addImageToGallery(value){
+    galleryImage.add(value);
+    print("image length ${galleryImage.length}");
+    print("image $galleryImage");
+  }
+
   addImageId(value){
     idArray.add('"$value"');
     splitString.value=idArray.reduce((previousValue, element) => previousValue+","+element);
@@ -65,6 +73,21 @@ class ImageController extends GetxController {
       photoTrack == "2" ? selectMorePhotoTwo.value = pickedFile.path : selectNoPhoto.value = pickedFile.path;
       photoTrack == "3" ? selectMorePhotoThree.value = pickedFile.path : selectNoPhoto.value = pickedFile.path;
     } else {
+      showSnackBar(context: context, message: "No image selected", callBack: () {});
+    }
+  }
+
+  getGalleryPhotos(ImageSource imageSource, BuildContext context)async{
+    final pickedFile = await ImagePicker().getImage(source: imageSource);
+
+    if(pickedFile != null){
+
+      //galleryImage.add(pickedFile.path);
+
+      addImageToGallery(pickedFile.path);
+      uploadImageFunction(File(pickedFile.path),context);
+
+    }else {
       showSnackBar(context: context, message: "No image selected", callBack: () {});
     }
   }

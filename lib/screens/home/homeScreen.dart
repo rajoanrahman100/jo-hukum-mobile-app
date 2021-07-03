@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/categoryController.dart';
 import 'package:johukum/responsive.dart';
+import 'package:johukum/screens/home/categorySubcategories.dart';
 import 'package:johukum/screens/home/checkDemoConnectivity.dart';
 import 'package:johukum/screens/home/drawerClass.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -95,7 +96,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       return HomeScreenItems(
                                         callBack: () {
                                           print("${controller.resultDataClass[index].id}");
-                                          Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                          Get.to(()=>CategorySubcategories(sublist:controller.resultDataClass[index].subCategories,
+                                            categoryName: controller.resultDataClass[index].name,));
+                                          /*Get.to(() => BusinessItems(controller.resultDataClass[index].id,
+                                              categoryController.resultDataClass[index].name));*/
                                         },
                                         categoryController: controller,
                                         image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
@@ -142,7 +146,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                           }
                                           return GestureDetector(
                                             onTap: () {
-                                              Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                              Get.to(()=>CategorySubcategories(sublist:controller.resultDataClass[index]
+                                                  .subCategories,categoryName: controller.resultDataClass[index].name,));
+
+                                              //Get.to(() => BusinessItems(controller.resultDataClass[index].id,
+                                              //categoryController.resultDataClass[index].name));
                                             },
                                             child: Container(
                                               alignment: Alignment.center,
@@ -178,7 +186,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     itemBuilder: (_, index) {
                                       return HomeScreenItems(
                                         callBack: () {
-                                          Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+
+                                          Get.to(()=>CategorySubcategories(sublist:controller.resultDataClass[index]
+                                              .subCategories,categoryName: controller.resultDataClass[index].name,));
+
+
+                                          // Get.to(() => BusinessItems(controller.resultDataClass[index].id,
+                                          //categoryController.resultDataClass[index].name));
                                         },
                                         categoryController: controller,
                                         image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
@@ -227,7 +241,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (_, index) {
                                 return HomeScreenItems(
                                   callBack: () {
-                                    Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                    Get.to(()=>CategorySubcategories(sublist:controller.resultDataClass[index]
+                                        .subCategories,categoryName: controller.resultDataClass[index].name,));
+
                                   },
                                   categoryController: controller,
                                   image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",
@@ -276,7 +292,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     }
                                     return GestureDetector(
                                       onTap: () {
-                                        Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                        Get.to(()=>CategorySubcategories(sublist:controller.resultDataClass[index]
+                                            .subCategories,categoryName: controller.resultDataClass[index].name,));
                                       },
                                       child: Container(
                                         alignment: Alignment.center,
@@ -312,7 +329,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (_, index) {
                                 return HomeScreenItems(
                                   callBack: () {
-                                    Get.to(() => BusinessItems(controller.resultDataClass[index].id, categoryController.resultDataClass[index].name));
+                                    Get.to(()=>CategorySubcategories(sublist:controller.resultDataClass[index]
+                                        .subCategories,categoryName: controller.resultDataClass[index].name,));
                                   },
                                   categoryController: controller,
                                   image: "https://dsqdpdmeibwm2.cloudfront.net/${controller.resultDataClass[index].icon}",

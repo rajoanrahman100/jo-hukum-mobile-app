@@ -17,6 +17,8 @@ class CategoryBusinessDataController extends GetxController{
 
   var businessCat="".obs;
 
+  var totalValue=0.obs;
+
   setBusinessID(value){
     businessCat.value=value;
     print("value: "+value.toString());
@@ -101,6 +103,7 @@ class CategoryBusinessDataController extends GetxController{
     if (response.statusCode == 200 || response.statusCode == 201) {
       var dataMap = jsonDecode(response.body);
       CategoryBusinessData elasticSearchData = CategoryBusinessData.fromJson(dataMap);
+      totalValue.value=elasticSearchData.hits.total.value;
       return elasticSearchData.hits.hits;
     } else {
       throw ("Error code " + response.statusCode.toString());

@@ -21,6 +21,7 @@ import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/settingLandingScrren.dart';
+import 'package:johukum/screens/home/categorySubcategories.dart';
 import 'package:johukum/screens/home/seeAllCategories.dart';
 import 'package:johukum/screens/home/userProfileSetting.dart';
 import 'package:johukum/screens/notificationsScreen.dart';
@@ -48,7 +49,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
   ));
 
-/* runApp(DevicePreview(
+ /*runApp(DevicePreview(
       enabled: !kReleaseMode,
       builder: (context) => GetMaterialApp(
             home: MyApp(),
@@ -77,7 +78,7 @@ class MyApp extends StatelessWidget {
           '/userInfo': (context) => UserAdditionalInformation(),
           '/profileSetting': (context) => ProfileSettings(),
           '/notification': (context) => NotificationScreen(),
-          '/subCategories': (context) => SubCategories(),
+          '/subCategories': (context) => CategorySubcategories(),
           '/businessProfile': (context) => BusinessProfile(),
           '/stepOne': (context) => StepOneScreen(),
           '/stepTwo': (context) => StepTwoScreen(),

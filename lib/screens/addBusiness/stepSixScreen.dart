@@ -1,23 +1,17 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/imageController.dart';
-import 'package:johukum/modelClass/singleImageModel.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:path/path.dart';
 
 class StepSixScreen extends StatelessWidget {
   var imageController = Get.put(ImageController());
@@ -27,7 +21,6 @@ class StepSixScreen extends StatelessWidget {
   //var idArray=[];
 
   var stringId;
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +64,11 @@ class StepSixScreen extends StatelessWidget {
                                           : Container(
                                               width: 130.0,
                                               height: 130.0,
-                                              decoration:
-                                                  BoxDecoration(shape: BoxShape.circle, image: DecorationImage(image: FileImage(File(imageController.selectLogoImagePath.value)), fit: BoxFit.cover)),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: FileImage(File(imageController.selectLogoImagePath.value)),
+                                                      fit: BoxFit.cover)),
                                             ),
                                     ],
                                   ),
@@ -128,7 +124,9 @@ class StepSixScreen extends StatelessWidget {
                                   height: 200.0,
                                   alignment: Alignment.center,
                                   margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                                  decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(10.0)),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10.0)),
                                   child: Icon(
                                     Icons.add_a_photo_outlined,
                                     size: 80.0,
@@ -141,7 +139,9 @@ class StepSixScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10.0),
-                                  image: DecorationImage(image: FileImage(File(imageController.selectCoverImagePath.value)), fit: BoxFit.cover)),
+                                  image: DecorationImage(
+                                      image: FileImage(File(imageController.selectCoverImagePath.value)),
+                                      fit: BoxFit.cover)),
                             ),
                     ),
                     Row(
@@ -158,92 +158,73 @@ class StepSixScreen extends StatelessWidget {
                                 Navigator.of(context).pop();
                               });
                             },
-                            child: textUbuntu("Upload Cover Photo", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500)),
+                            child: textUbuntu("Upload Cover Photo", kPrimaryPurple,
+                                fontSize: 16.0, fontWeight: weight500)),
                       ],
                     ),
-                    size20,
-                    textUbuntu("Add More Photos", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500),
                     size20,
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Obx(
-                            () => imageController.selectMorePhotoOne.value == ""
-                                ? GestureDetector(
-                                    onTap: () {
-                                      buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                        imageController.getAddMorePhoto(ImageSource.camera, context, "1");
-                                        Navigator.of(context).pop();
-                                      }, galleryCallBack: () {
-                                        imageController.getAddMorePhoto(ImageSource.gallery, context, "1");
-                                        Navigator.of(context).pop();
-                                      });
-                                    },
-                                    child: NewWidget(),
-                                  )
-                                : Container(
-                                    height: 120.0,
-                                    margin: EdgeInsets.only(right: 5),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(image: FileImage(File(imageController.selectMorePhotoOne.value)), fit: BoxFit.cover)),
-                                  ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Obx(
-                            () => imageController.selectMorePhotoTwo.value == ""
-                                ? GestureDetector(
-                                    onTap: () {
-                                      buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                        imageController.getAddMorePhoto(ImageSource.camera, context, "2");
-                                        Navigator.of(context).pop();
-                                      }, galleryCallBack: () {
-                                        imageController.getAddMorePhoto(ImageSource.gallery, context, "2");
-                                        Navigator.of(context).pop();
-                                      });
-                                    },
-                                    child: NewWidget(),
-                                  )
-                                : Container(
-                                    height: 120.0,
-                                    margin: EdgeInsets.only(right: 5),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(image: FileImage(File(imageController.selectMorePhotoTwo.value)), fit: BoxFit.cover)),
-                                  ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Obx(
-                            () => imageController.selectMorePhotoThree.value == ""
-                                ? GestureDetector(
-                                    onTap: () {
-                                      buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                        imageController.getAddMorePhoto(ImageSource.camera, context, "3");
-                                        Navigator.of(context).pop();
-                                      }, galleryCallBack: () {
-                                        imageController.getAddMorePhoto(ImageSource.gallery, context, "3");
-                                        Navigator.of(context).pop();
-                                      });
-                                    },
-                                    child: NewWidget(),
-                                  )
-                                : Container(
-                                    height: 120.0,
-                                    margin: EdgeInsets.only(right: 5),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(image: FileImage(File(imageController.selectMorePhotoThree.value)), fit: BoxFit.cover)),
-                                  ),
-                          ),
-                        ),
+                        textUbuntu("Add More Photos", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500),
+                        width10,
+                        GestureDetector(
+                            onTap: () {
+                              buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                                imageController.getGalleryPhotos(ImageSource.camera, context);
+                                Navigator.of(context).pop();
+                              }, galleryCallBack: () {
+                                imageController.getGalleryPhotos(ImageSource.gallery, context);
+                                Navigator.of(context).pop();
+                              });
+                            },
+                            child: Icon(
+                              Icons.add_circle,
+                              size: 25,
+                              color: kPrimaryPurple,
+                            )),
                       ],
                     ),
+                    size20,
+                    Obx(() => imageController.galleryImage.length == 0
+                        ? Container(
+                            child: Center(child: textUbuntu("No Photos Add", kPrimaryPurple, fontSize: 18.0)),
+                          )
+                        : Container(
+                            height: 120,
+                            //color: Colors.grey,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: imageController.galleryImage.length,
+                              itemBuilder: (_, index) {
+                                return GestureDetector(
+                                  onTap: () => imageController.galleryImage.removeAt(index),
+                                  child: Stack(
+                                    alignment: Alignment.topRight,
+                                    children: [
+                                      Container(
+                                        width: 120.0,
+                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            image: DecorationImage(
+                                                image: FileImage(File(imageController.galleryImage[index])),
+                                                fit: BoxFit.cover)),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 7.0),
+                                        child: Icon(
+                                          Icons.cancel,
+                                          color: Colors.red,
+                                          size: 25.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          )),
                     size20,
                     textUbuntu("Embeded Video", kPrimaryPurple, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
@@ -265,11 +246,10 @@ class StepSixScreen extends StatelessWidget {
                           return showErrorToast("Select business logo");
                         } else if (imageController.selectCoverImagePath.value.isEmpty) {
                           return showErrorToast("Select business cover photo");
-                        }else{
-                         // boxStorage.write(MORE_PHOTOS, imageController.splitString.value);
+                        } else {
+                          // boxStorage.write(MORE_PHOTOS, imageController.splitString.value);
                           Navigator.pushNamed(context, '/stepSeven');
                         }
-
                       },
                       child: Row(
                         children: [
@@ -320,8 +300,11 @@ class StepSixScreen extends StatelessWidget {
                                           : Container(
                                               width: 150.0,
                                               height: 150.0,
-                                              decoration:
-                                                  BoxDecoration(shape: BoxShape.circle, image: DecorationImage(image: FileImage(File(imageController.selectLogoImagePath.value)), fit: BoxFit.cover)),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: FileImage(File(imageController.selectLogoImagePath.value)),
+                                                      fit: BoxFit.cover)),
                                             ),
                                     ],
                                   ),
@@ -376,7 +359,9 @@ class StepSixScreen extends StatelessWidget {
                                   height: 250.0,
                                   alignment: Alignment.center,
                                   margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-                                  decoration: BoxDecoration(border: Border.all(color: Colors.grey), borderRadius: BorderRadius.circular(10.0)),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10.0)),
                                   child: Icon(
                                     Icons.add_a_photo_outlined,
                                     size: 80.0,
@@ -389,7 +374,9 @@ class StepSixScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(10.0),
-                                  image: DecorationImage(image: FileImage(File(imageController.selectCoverImagePath.value)), fit: BoxFit.cover)),
+                                  image: DecorationImage(
+                                      image: FileImage(File(imageController.selectCoverImagePath.value)),
+                                      fit: BoxFit.cover)),
                             ),
                     ),
                     Row(
@@ -406,7 +393,8 @@ class StepSixScreen extends StatelessWidget {
                                 Navigator.of(context).pop();
                               });
                             },
-                            child: textUbuntu("Upload Cover Photo", kPrimaryPurple, fontSize: 18.0, fontWeight: weight500)),
+                            child: textUbuntu("Upload Cover Photo", kPrimaryPurple,
+                                fontSize: 18.0, fontWeight: weight500)),
                       ],
                     ),
                     size20,
@@ -438,7 +426,9 @@ class StepSixScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.rectangle,
                                         borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(image: FileImage(File(imageController.selectMorePhotoOne.value)), fit: BoxFit.cover)),
+                                        image: DecorationImage(
+                                            image: FileImage(File(imageController.selectMorePhotoOne.value)),
+                                            fit: BoxFit.cover)),
                                   ),
                           ),
                         ),
@@ -465,7 +455,9 @@ class StepSixScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.rectangle,
                                         borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(image: FileImage(File(imageController.selectMorePhotoTwo.value)), fit: BoxFit.cover)),
+                                        image: DecorationImage(
+                                            image: FileImage(File(imageController.selectMorePhotoTwo.value)),
+                                            fit: BoxFit.cover)),
                                   ),
                           ),
                         ),
@@ -492,7 +484,9 @@ class StepSixScreen extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.rectangle,
                                         borderRadius: BorderRadius.circular(10.0),
-                                        image: DecorationImage(image: FileImage(File(imageController.selectMorePhotoThree.value)), fit: BoxFit.cover)),
+                                        image: DecorationImage(
+                                            image: FileImage(File(imageController.selectMorePhotoThree.value)),
+                                            fit: BoxFit.cover)),
                                   ),
                           ),
                         ),
@@ -507,7 +501,7 @@ class StepSixScreen extends StatelessWidget {
                     size10,
                     GestureDetector(
                       onTap: () {
-                       // print(imageController.idArray);
+                        // print(imageController.idArray);
                         print("covers ${boxStorage.read(MORE_PHOTOS)}");
                         //uploadImageFunction(File(imageController.selectMorePhotoOne.value),context);
 
@@ -517,7 +511,7 @@ class StepSixScreen extends StatelessWidget {
                           return showErrorToast("Select business logo");
                         } else if (imageController.selectCoverImagePath.value.isEmpty) {
                           return showErrorToast("Select business cover photo");
-                        }else{
+                        } else {
                           //boxStorage.write(COVER_PHOTOS,imageController.idArray);
                         }
                         Navigator.pushNamed(context, '/stepSeven');

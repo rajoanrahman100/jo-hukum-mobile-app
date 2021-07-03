@@ -6,6 +6,7 @@ import 'package:johukum/controller/categoryBusinessDataController.dart';
 import 'package:johukum/controller/connectivityController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/elasticSearch/businessProfile.dart';
+import 'package:johukum/screens/home/categorySubcategories.dart';
 import 'package:johukum/widgets/noInternetConnectionWiget.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -61,8 +62,8 @@ class _BusinessItemsState extends State<BusinessItems> {
                 Container(
                   height: size.height,
                   child: c.businessDataList.length == 0
-                      ? Center(child: spinKit)
-                      : c.businessDataList== null
+                      ? Center(child: spinKit,)
+                      : c.businessDataList.length == 0
                           ? textUbuntu("No Data Found", kPrimaryPurple, fontWeight: weight500)
                           : ListView.builder(
                               controller: scrollController,
@@ -89,7 +90,9 @@ class _BusinessItemsState extends State<BusinessItems> {
                                   rating: dataList[index].sSource.aggregateRating,
                                   callBack: () {
                                     print(dataList[index].sId);
-                                    Get.to(() => BusinessProfile(slug: dataList[index].sSource.slug, name: dataList[index].sSource.businessName, id: dataList[index].sId));
+                                    //Get.to(()=>CategorySubcategories());
+                                    Get.to(() => BusinessProfile(slug: dataList[index].sSource.slug,
+                                        name: dataList[index].sSource.businessName, id: dataList[index].sId));
                                   },
                                 );
                               },

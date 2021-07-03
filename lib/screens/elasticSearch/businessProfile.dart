@@ -302,7 +302,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     isIcon: true,
                                     callback: () {
                                       print(obj.contact.website);
-                                      obj.contact.website == null
+                                      obj.contact.website == null || obj.contact.website.isEmpty
                                           ? showSnackBar(context: context, message: "No Website Found",callBack:() {})
                                           : Navigator.push(
                                               context,
