@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
-import 'package:johukum/controller/dashBoardController/dashBoardSettingsController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:get/get.dart';
 
-import 'businessDetailsSetting.dart';
 
 class BusinessSettingLanding extends StatelessWidget {
 
@@ -23,7 +20,10 @@ class BusinessSettingLanding extends StatelessWidget {
               //Get.to(()=>SettingBusinessDetails());
               Navigator.pushNamed(context, '/settingBussinessDetails');
             },),
-            SettingWidget(iconFront: Icons.contact_phone,iconEnd: Icons.arrow_forward_ios,title: "Contact Details",),
+            SettingWidget(iconFront: Icons.contact_phone,iconEnd: Icons.arrow_forward_ios,title: "Contact Details",
+            callback: (){
+              Navigator.pushNamed(context, '/settingContactDetails');
+            },),
             SettingWidget(iconFront: Icons.timer,iconEnd: Icons.arrow_forward_ios,title: "Working Hour",),
             SettingWidget(iconFront: Icons.business_center,iconEnd: Icons.arrow_forward_ios,title: "Others Details",),
             SettingWidget(iconFront: Icons.search_sharp,iconEnd: Icons.arrow_forward_ios,title: "SEO",),

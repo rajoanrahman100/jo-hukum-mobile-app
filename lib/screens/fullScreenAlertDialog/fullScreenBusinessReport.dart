@@ -2,10 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/reportBusinessController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
+import 'package:johukum/widgets/customToast.dart';
+import 'package:johukum/widgets/fullScreenAlertForAuth.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 
@@ -92,8 +95,8 @@ class BusinessReport extends StatelessWidget {
                     size10,
                     Row(
                       children: [
-                        IssueWidget(issue: "Reposrt Abbuse",callback: (){
-                          c.changeIssueValue("Reposrt Abbuse",2);
+                        IssueWidget(issue: "Report Abuse",callback: (){
+                          c.changeIssueValue("Report Abuse",2);
                           c.changeShowStatus();
                         },),
                         IssueWidget(issue: "The business is closed down",callback: (){
@@ -133,7 +136,7 @@ class BusinessReport extends StatelessWidget {
 
               size20,
 
-              WelcomeScreenButton(
+              boxStorage.read(KEY_TOKEN)!=null?WelcomeScreenButton(
                 height: 50,
                 borderRadiusGeometry: BorderRadius.circular(10.0),
                 edgeInsetsGeometry: EdgeInsets.symmetric(vertical: 10.0),
@@ -143,6 +146,17 @@ class BusinessReport extends StatelessWidget {
                 isIcon: false,
                 callback: (){
                   c.submitReport(c.selectValue.value, infoController.text, businessID,context);
+                },
+              ):WelcomeScreenButton(
+                height: 50,
+                borderRadiusGeometry: BorderRadius.circular(10.0),
+                edgeInsetsGeometry: EdgeInsets.symmetric(vertical: 10.0),
+                buttonText: "Submit",
+                buttonColor: kPrimaryPurple,
+                textColor: kWhiteColor,
+                isIcon: false,
+                callback: (){
+                  showSnackBar(context: context, message: "You need to log in first",callBack: (){});
                 },
               ),
 
@@ -204,8 +218,8 @@ class BusinessReport extends StatelessWidget {
                     size10,
                     Row(
                       children: [
-                        IssueWidget(issue: "Reposrt Abbuse",callback: (){
-                          c.changeIssueValue("Reposrt Abbuse",2);
+                        IssueWidget(issue: "Report Abuse",callback: (){
+                          c.changeIssueValue("Report Abuse",2);
                           c.changeShowStatus();
                         },),
                         IssueWidget(issue: "The business is closed down",callback: (){

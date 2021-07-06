@@ -38,6 +38,8 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
     // TODO: implement initState
     c.fetchThana(c.businessLocationId.value, "");
 
+    print("*****************${boxNewStorage.read(BUSINESS_MOBILE_NUMBERS)}***********");
+
     businessName.text=boxNewStorage.read(Business_NAME);
     businessLandmark.text=boxNewStorage.read(Business_LANDMARK);
     businessBuilding.text=boxNewStorage.read(Business_Building);

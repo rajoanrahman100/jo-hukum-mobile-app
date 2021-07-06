@@ -35,6 +35,10 @@ class SingleBusinessAllDataController extends GetxController {
   List<String> tagsList=[];
   List<String> keywordsList=[];
 
+  var map;
+
+  var mobileNumbers=[];
+
   Future<void> getSingleBusinessData(slug) async {
     loaderShow.value = true;
     paymentMethodList.clear();
@@ -64,10 +68,18 @@ class SingleBusinessAllDataController extends GetxController {
       businessLocationId.value=businessAllData.location.city.sId;
 
       boxNewStorage.write(BUSINESS_LAND_LINE, businessAllData.contact.landlineNo);
-      boxNewStorage.write(BUSINESS_MOBILE_NUMBERS, businessAllData.contact.mobileNumbers);
+
+      businessAllData.contact.mobileNumbers.forEach((element) {
+        map={"mobile_number": element.mobileNumber};
+        mobileNumbers.add(map);
+        boxNewStorage.write(BUSINESS_MOBILE_NUMBERS, mobileNumbers);
+        print("----------------$mobileNumbers------------------}");
+      });
+
       boxNewStorage.write(OWNER_NAME, businessAllData.contact.name);
       boxNewStorage.write(OWNER_TITLE, businessAllData.contact.title);
       boxNewStorage.write(OWNER_WEBSITE, businessAllData.contact.website);
+      //boxNewStorage.write(OWNER_WEBSITE, businessAllData.contact.);
       boxNewStorage.write(BUSINESS_DESCRIPTION, businessAllData.description);
 
 
@@ -248,11 +260,7 @@ class SingleBusinessAllDataController extends GetxController {
             "designation": "owner",
             "fax_no": "Tst FAX",
             "landline_no": "01794202010",
-            "mobile_numbers": [
-              {"mobile_number": "01521431798"},
-              {"mobile_number": "01521431799"},
-              {"mobile_number": "01521431797"}
-            ],
+            "mobile_numbers": boxNewStorage.read(BUSINESS_MOBILE_NUMBERS),
             "name":businessOwner??boxNewStorage.read(OWNER_NAME),
             "title": boxNewStorage.read(OWNER_TITLE),
             "website": boxNewStorage.read(OWNER_WEBSITE) ?? "www.google.com"

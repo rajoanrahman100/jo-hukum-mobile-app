@@ -211,7 +211,7 @@ class _DrawerClassState extends State<DrawerClass> {
                   boxStorage.read(KEY_TOKEN) != null
                       ? DrawerItems(
                           icon: Icons.dashboard,
-                          title: "User Dashboard",
+                          title: "Business Dashboard",
                           callBack: () {
                             if (boxStorage.read(MY_BUSINESS_SLUG) == null) {
                               showErrorToast("Select your business first");

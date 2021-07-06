@@ -16,12 +16,14 @@ import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 
+import 'claimBusiness/claimBusinessDialog.dart';
+
 class BusinessProfile extends StatefulWidget {
   String slug;
   String name;
   String id;
 
-  BusinessProfile({this.slug, this.name,this.id});
+  BusinessProfile({this.slug, this.name, this.id});
 
   @override
   _BusinessProfileState createState() => _BusinessProfileState();
@@ -30,7 +32,8 @@ class BusinessProfile extends StatefulWidget {
 class _BusinessProfileState extends State<BusinessProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  var backImage = "https://i1.wp.com/www.finddoctor24.com/wp-content/uploads/2019/03/Islami-Bank-Hospital-Mugda.jpg?fit=471%2C286&ssl=1";
+  var backImage =
+      "https://i1.wp.com/www.finddoctor24.com/wp-content/uploads/2019/03/Islami-Bank-Hospital-Mugda.jpg?fit=471%2C286&ssl=1";
 
   var description =
       "Loren gypsum dolor sit mate, ad prompts feud gait, quid exercise emeritus bis e.Usu cu ores quid am, me rides sapper croquet ex. Ed ea clit a elect ram referent,at diode imper diet enc. Me sumo unique argument um no. Ea alien um accustoms quo,mod summon effendi it tied.";
@@ -51,7 +54,6 @@ class _BusinessProfileState extends State<BusinessProfile> {
   var passWordController = TextEditingController();
 
   var ratingValue;
-
 
   callNumber(number) async {
     await FlutterPhoneDirectCaller.callNumber(number);
@@ -82,22 +84,27 @@ class _BusinessProfileState extends State<BusinessProfile> {
           ),
           actions: [
             PopupMenuButton<String>(
-              onSelected: (value){
+              onSelected: (value) {
                 switch (value) {
                   case 'Report Business':
-                    openBusinessReportDialog(context,widget.id);
+                    openBusinessReportDialog(context, widget.id);
                     break;
                 }
               },
               itemBuilder: (BuildContext context) {
-                return {'Report Business',}.map((String choice) {
+                return {
+                  'Report Business',
+                }.map((String choice) {
                   return PopupMenuItem<String>(
                     value: choice,
                     child: Row(
                       children: [
-                        Icon(Icons.report,color: kPrimaryPurple,),
+                        Icon(
+                          Icons.report,
+                          color: kPrimaryPurple,
+                        ),
                         width5,
-                        textUbuntu(choice,kBlackColor),
+                        textUbuntu(choice, kBlackColor),
                       ],
                     ),
                   );
@@ -129,14 +136,18 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) => spinKit,
-                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jpg",height:size.height * 0.2,width: double.infinity,fit: BoxFit.cover,),
+                                    errorWidget: (context, url, error) => Image.asset(
+                                      "assets/images/no_image.jpg",
+                                      height: size.height * 0.2,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-
                                   Padding(
                                     padding: const EdgeInsets.only(bottom: 24.0),
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
-                                      child:Container(
+                                      child: Container(
                                         width: 120.0,
                                         height: 120.0,
                                         decoration: BoxDecoration(
@@ -153,13 +164,15 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                             //width: 120,
                                             fit: BoxFit.cover,
                                             placeholder: (context, url) => spinKit,
-                                            errorWidget: (context, url, error) => Image.asset("assets/images/johukuminfologo.png",height: 80.0,),
+                                            errorWidget: (context, url, error) => Image.asset(
+                                              "assets/images/johukuminfologo.png",
+                                              height: 80.0,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   )
-
                                 ],
                               ),
                             ),
@@ -182,7 +195,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   ),
                                 ),
                                 Text(
-                                  " (${obj.aggregateRating.toStringAsFixed(1)??0.0})",
+                                  " (${obj.aggregateRating.toStringAsFixed(1) ?? 0.0})",
                                   style: textStyleUbuntu(color: kBlackColor, fontSize: 16, fontWeight: weight500),
                                 )
                               ],
@@ -222,7 +235,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       color: kBlackColor,
                                       fontWeight: weight500,
                                     )),
-                                Text("${obj.totalReviews}", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
+                                Text("${obj.totalReviews}",
+                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
                                 SizedBox(
                                   width: 10.0,
                                 ),
@@ -240,9 +254,28 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               )),
                                     );
                                   },
-                                  child: Text("See reviews", style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weightBold, textDecoration: TextDecoration.underline)),
+                                  child: Text("See reviews",
+                                      style: textStyleUbuntu(
+                                          color: kPrimaryPurple,
+                                          fontWeight: weightBold,
+                                          textDecoration: TextDecoration.underline)),
                                 ),
                               ],
+                            ),
+                            size10,
+                            GestureDetector(
+                              onTap: () {
+                                return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return Dialog(
+                                        child: ClaimBusinessDialog(size: size,
+                                            mobileNumber: obj.contact.mobileNumbers[0].mobileNumber),
+                                      );
+                                    });
+                              },
+                              child: textUbuntu("Is This Your Business?Claim now", kPrimaryPurple,
+                                  textDecoration: TextDecoration.underline, fontWeight: weight500),
                             ),
                             size20,
                             Row(
@@ -305,7 +338,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.red[600],
                                     isIcon: true,
                                     callback: () {
-                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1], obj.llocation.geo.coordinates[0], obj.llocation.businessName);
+                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1],
+                                          obj.llocation.geo.coordinates[0], obj.llocation.businessName);
 
                                       // MapUtils.openMap(23.6850, 90.3563);
                                       print("${obj.llocation.geo.coordinates[0]}");
@@ -330,7 +364,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     callback: () {
                                       print(obj.contact.website);
                                       obj.contact.website == null || obj.contact.website.isEmpty
-                                          ? showSnackBar(context: context, message: "No Website Found",callBack:() {})
+                                          ? showSnackBar(context: context, message: "No Website Found", callBack: () {})
                                           : Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -375,19 +409,24 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Business Information",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 20.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0, top: 10),
                               child: Row(
                                 children: [
-                                  Expanded(flex: 1, child: textUbuntu("Address",kBlackColor)),
+                                  Expanded(flex: 1, child: textUbuntu("Address", kBlackColor)),
                                   Text(": "),
                                   Expanded(
                                       flex: 2,
-                                      child:
-                                      textUbuntu("${obj.llocation.landMark??""} , ${obj.llocation.area??""}",kBlackColor,maxLine: 2))
+                                      child: textUbuntu(
+                                          "${obj.llocation.landMark ?? ""} , ${obj.llocation.area ?? ""}", kBlackColor,
+                                          maxLine: 2))
                                 ],
                               ),
                             ),
@@ -395,7 +434,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               padding: const EdgeInsets.only(left: 20.0, top: 10),
                               child: Row(
                                 children: [
-                                  Expanded(flex: 1, child: textUbuntu("Call",kBlackColor)),
+                                  Expanded(flex: 1, child: textUbuntu("Call", kBlackColor)),
                                   Text(": "),
                                   obj.contact.mobileNumbers.length == 0
                                       ? Expanded(flex: 2, child: Text("No Contact Found"))
@@ -410,7 +449,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               itemBuilder: (_, index) {
                                                 return Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                                                  child: textUbuntu(obj.contact.mobileNumbers[index].mobileNumber,kBlackColor),
+                                                  child: textUbuntu(
+                                                      obj.contact.mobileNumbers[index].mobileNumber, kBlackColor),
                                                 );
                                               },
                                             ),
@@ -422,8 +462,13 @@ class _BusinessProfileState extends State<BusinessProfile> {
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0, top: 10),
                               child: Row(
-                                children: [Expanded(flex: 1, child: textUbuntu("Website",kBlackColor)),
-                                  Text(": "), Expanded(flex: 2, child: textUbuntu(obj.contact.website ?? "No website found",kBlackColor))],
+                                children: [
+                                  Expanded(flex: 1, child: textUbuntu("Website", kBlackColor)),
+                                  Text(": "),
+                                  Expanded(
+                                      flex: 2,
+                                      child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor))
+                                ],
                               ),
                             ),
                             Padding(
@@ -438,7 +483,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Working hour",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Working hour", kBlackColor)),
                                               Text(" : "),
                                             ],
                                           ),
@@ -455,78 +500,92 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Saturday",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Saturday", kBlackColor)),
                                               obj.hoursOfOperation.saturday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor),
+                                                      "pm",
+                                                      kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Sunday",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Sunday", kBlackColor)),
                                               obj.hoursOfOperation.sunday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor),
+                                                      "pm",
+                                                      kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Monday",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Monday", kBlackColor)),
                                               obj.hoursOfOperation.monday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor),
+                                                      "pm",
+                                                      kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Tuesday",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Tuesday", kBlackColor)),
                                               obj.hoursOfOperation.tuesday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor),
+                                                      "pm",
+                                                      kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Wednesday",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Wednesday", kBlackColor)),
                                               obj.hoursOfOperation.wednesday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor),
+                                                      "pm",
+                                                      kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Thursday",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Thursday", kBlackColor)),
                                               obj.hoursOfOperation.thursday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor),
+                                                      "pm",
+                                                      kBlackColor),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Friday",kBlackColor)),
+                                              Expanded(flex: 1, child: textUbuntu("Friday", kBlackColor)),
                                               obj.hoursOfOperation.friday.close == true
                                                   ? Text("- Closed")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor),
+                                                      "pm",
+                                                      kBlackColor),
                                             ],
                                           ),
                                         ],
@@ -550,7 +609,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Payment Method",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 20.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size20,
@@ -602,7 +665,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Photos",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 20.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -616,24 +683,25 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       shrinkWrap: true,
                                       itemCount: obj.photos.length,
                                       itemBuilder: (_, index) {
-                                        return  Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(8.0),
-                                              child: CachedNetworkImage(
-                                                imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
-                                                height:size.height * 0.2,
-                                                width:200,
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) => spinKit,
-                                                errorWidget: (context, url, error) => Icon(
-                                                  Icons.error,
-                                                  color: kPrimaryPurple,
-                                                  size: 22,
-                                                ),
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(8.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
+                                              height: size.height * 0.2,
+                                              width: 200,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) => spinKit,
+                                              errorWidget: (context, url, error) => Icon(
+                                                Icons.error,
+                                                color: kPrimaryPurple,
+                                                size: 22,
                                               ),
                                             ),
-                                          );
+                                          ),
+                                        );
                                       },
                                     ),
                                   ),
@@ -652,7 +720,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Keywords",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 20.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size20,
@@ -716,14 +788,18 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               width: double.infinity,
                               child: Stack(
                                 children: [
-
                                   CachedNetworkImage(
                                     imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
                                     height: size.height * 0.3,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                     placeholder: (context, url) => spinKit,
-                                    errorWidget: (context, url, error) => Image.asset("assets/images/no_image.jog",height: size.height * 0.3,width: size.width,fit: BoxFit.cover,),
+                                    errorWidget: (context, url, error) => Image.asset(
+                                      "assets/images/no_image.jog",
+                                      height: size.height * 0.3,
+                                      width: size.width,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                   /*Image.network(
                                     "https://dsqdpdmeibwm2.cloudfront.net/${obj.coverPhoto}",
@@ -735,7 +811,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     padding: const EdgeInsets.only(bottom: 24.0),
                                     child: Align(
                                       alignment: Alignment.bottomCenter,
-                                      child:Container(
+                                      child: Container(
                                         width: 150.0,
                                         height: 150.0,
                                         decoration: BoxDecoration(
@@ -752,7 +828,10 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                             //width: 120,
                                             fit: BoxFit.cover,
                                             placeholder: (context, url) => spinKit,
-                                            errorWidget: (context, url, error) => Image.asset("assets/images/johukuminfologo.png",height: 80.0,),
+                                            errorWidget: (context, url, error) => Image.asset(
+                                              "assets/images/johukuminfologo.png",
+                                              height: 80.0,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -817,8 +896,10 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 SizedBox(
                                   width: 10.0,
                                 ),
-                                Text("Reviews: ", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
-                                Text("${obj.totalReviews}", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
+                                Text("Reviews: ",
+                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
+                                Text("${obj.totalReviews}",
+                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
                                 SizedBox(
                                   width: 10.0,
                                 ),
@@ -828,14 +909,19 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => BusinessReview(
-                                            reviews: obj.reviews,
-                                            businesssID: widget.id,
-                                            businessName: obj.llocation.businessName,
-                                            slug: widget.slug,
-                                          )),
+                                                reviews: obj.reviews,
+                                                businesssID: widget.id,
+                                                businessName: obj.llocation.businessName,
+                                                slug: widget.slug,
+                                              )),
                                     );
                                   },
-                                  child: Text("See reviews", style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weightBold, textDecoration: TextDecoration.underline, fontSize: 20)),
+                                  child: Text("See reviews",
+                                      style: textStyleUbuntu(
+                                          color: kPrimaryPurple,
+                                          fontWeight: weightBold,
+                                          textDecoration: TextDecoration.underline,
+                                          fontSize: 20)),
                                 ),
                               ],
                             ),
@@ -900,7 +986,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.red[600],
                                     isIcon: true,
                                     callback: () {
-                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1], obj.llocation.geo.coordinates[0], obj.llocation.businessName);
+                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1],
+                                          obj.llocation.geo.coordinates[0], obj.llocation.businessName);
 
                                       // MapUtils.openMap(23.6850, 90.3563);
                                       print("${obj.llocation.geo.coordinates[0]}");
@@ -969,7 +1056,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Business Information",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 22.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             Padding(
@@ -981,8 +1072,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   Expanded(
                                       flex: 2,
                                       child: textUbuntu(
-                                          "${obj.llocation.landMark??""} , ${obj.llocation.area??""}",
-                                          kBlackColor,
+                                          "${obj.llocation.landMark ?? ""} , ${obj.llocation.area ?? ""}", kBlackColor,
                                           fontSize: 20))
                                 ],
                               ),
@@ -994,7 +1084,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   Expanded(flex: 1, child: textUbuntu("Call", kBlackColor, fontSize: 20)),
                                   textUbuntu(": ", kBlackColor, fontSize: 20),
                                   obj.contact.mobileNumbers.length == 0
-                                      ? Expanded(flex: 2, child: textUbuntu("No Contact Found", kBlackColor, fontSize: 20))
+                                      ? Expanded(
+                                          flex: 2, child: textUbuntu("No Contact Found", kBlackColor, fontSize: 20))
                                       : Expanded(
                                           flex: 2,
                                           child: Container(
@@ -1007,7 +1098,9 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               itemBuilder: (_, index) {
                                                 return Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                                  child: textUbuntu("${obj.contact.mobileNumbers[index].mobileNumber}, ", kBlackColor, fontSize: 20),
+                                                  child: textUbuntu(
+                                                      "${obj.contact.mobileNumbers[index].mobileNumber}, ", kBlackColor,
+                                                      fontSize: 20),
                                                 );
                                               },
                                             ),
@@ -1022,7 +1115,10 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 children: [
                                   Expanded(flex: 1, child: textUbuntu("Website", kBlackColor, fontSize: 20)),
                                   textUbuntu(": ", kBlackColor, fontSize: 20),
-                                  Expanded(flex: 2, child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor, fontSize: 20))
+                                  Expanded(
+                                      flex: 2,
+                                      child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor,
+                                          fontSize: 20))
                                 ],
                               ),
                             ),
@@ -1038,7 +1134,9 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Working hour",kBlackColor,fontSize: 20)),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: textUbuntu("Working hour", kBlackColor, fontSize: 20)),
                                               textUbuntu(": ", kBlackColor, fontSize: 20),
                                             ],
                                           ),
@@ -1046,7 +1144,6 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       ),
                                     ),
                                   ),
-
                                   Expanded(
                                     flex: 2,
                                     child: Container(
@@ -1056,78 +1153,103 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Saturdy",kBlackColor,fontSize: 20)),
+                                              Expanded(
+                                                  flex: 1, child: textUbuntu("Saturdy", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.saturday.open24h == true
-                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  ? textUbuntu("- Open in 24 hours", kBlackColor, fontSize: 20)
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor,fontSize: 20),
+                                                      "pm",
+                                                      kBlackColor,
+                                                      fontSize: 20),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Sunday",kBlackColor,fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Sunday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.sunday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor,fontSize: 20),
+                                                      "pm",
+                                                      kBlackColor,
+                                                      fontSize: 20),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Monday",kBlackColor,fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Monday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.monday.open24h == true
-                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  ? textUbuntu("- Open in 24 hours", kBlackColor, fontSize: 20)
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor,fontSize: 20),
+                                                      "pm",
+                                                      kBlackColor,
+                                                      fontSize: 20),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Tuesday",kBlackColor,fontSize: 20)),
+                                              Expanded(
+                                                  flex: 1, child: textUbuntu("Tuesday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.tuesday.open24h == true
                                                   ? Text("- Open in 24 hours")
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor,fontSize: 20),
+                                                      "pm",
+                                                      kBlackColor,
+                                                      fontSize: 20),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Wednesday",kBlackColor,fontSize: 20)),
+                                              Expanded(
+                                                  flex: 1, child: textUbuntu("Wednesday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.wednesday.open24h == true
-                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  ? textUbuntu("- Open in 24 hours", kBlackColor, fontSize: 20)
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor,fontSize: 20),
+                                                      "pm",
+                                                      kBlackColor,
+                                                      fontSize: 20),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Thursday",kBlackColor,fontSize: 20)),
+                                              Expanded(
+                                                  flex: 1, child: textUbuntu("Thursday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.thursday.open24h == true
-                                                  ? textUbuntu("- Open in 24 hours",kBlackColor,fontSize: 20)
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  ? textUbuntu("- Open in 24 hours", kBlackColor, fontSize: 20)
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor,fontSize: 20),
+                                                      "pm",
+                                                      kBlackColor,
+                                                      fontSize: 20),
                                             ],
                                           ),
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(flex: 1, child: textUbuntu("Friday",kBlackColor,fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Friday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.friday.close == true
-                                                  ? textUbuntu("- Closed",kBlackColor,fontSize: 20)
-                                                  : textUbuntu("-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
+                                                  ? textUbuntu("- Closed", kBlackColor, fontSize: 20)
+                                                  : textUbuntu(
+                                                      "-${obj.hoursOfOperation.saturday.openFrom.substring(0, 5)} am"
                                                       " to ${obj.hoursOfOperation.saturday.openTill.substring(0, 5)} "
-                                                      "pm",kBlackColor,fontSize: 20),
+                                                      "pm",
+                                                      kBlackColor,
+                                                      fontSize: 20),
                                             ],
                                           ),
                                         ],
@@ -1152,7 +1274,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Payment Method",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 22.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -1204,7 +1330,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Photos",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 22.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -1223,9 +1353,10 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(8.0),
                                             child: CachedNetworkImage(
-                                              imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
-                                              height:size.height * 0.2,
-                                              width:200,
+                                              imageUrl:
+                                                  "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
+                                              height: size.height * 0.2,
+                                              width: 200,
                                               fit: BoxFit.cover,
                                               placeholder: (context, url) => spinKit,
                                               errorWidget: (context, url, error) => Icon(
@@ -1254,7 +1385,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Keywords",
-                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(
+                                        color: kBlackColor,
+                                        fontSize: 22.0,
+                                        fontWeight: weight500,
+                                        textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -1359,6 +1494,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
     );
   }
 }
+
 
 /*
 

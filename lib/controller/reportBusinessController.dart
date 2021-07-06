@@ -50,8 +50,7 @@ class ReportBusinessController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
 
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-      Get.snackbar('Success!', 'Reposrt submitted successfully', snackPosition: SnackPosition.TOP, backgroundColor:
-      kWhiteColor);
+      showSnackBar(context: context, message: "Report Submitted Successfully",callBack: (){});
       Navigator.pop(context);
       print(response.statusCode);
       return;

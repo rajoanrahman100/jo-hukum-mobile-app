@@ -20,6 +20,7 @@ import 'package:johukum/screens/authentication/optScreen.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/authentication/userInformation.dart';
 import 'package:johukum/screens/bottomNavScreen.dart';
+import 'screens/dashboard/businessDashSetting/contactDetails/contactDetailsScreen.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/settingLandingScrren.dart';
 import 'package:johukum/screens/home/categorySubcategories.dart';
 import 'package:johukum/screens/home/seeAllCategories.dart';
@@ -91,6 +92,7 @@ class MyApp extends StatelessWidget {
           '/dashBoard': (context) => DashBoardBusinessTabs(),
           '/businessSettingLand': (context) => BusinessSettingLanding(),
           '/settingBussinessDetails': (context) => SettingBusinessDetails(),
+          '/settingContactDetails': (context) => SettingContactDetails(),
           '/seeAllCategories': (context) => Categories(),
           '/userSetting': (context) => UserProfileSetting(),
           '/forgotPassNumberEntry': (context) => ForgotPassNumberEntry(),

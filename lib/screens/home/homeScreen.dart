@@ -140,6 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 150, childAspectRatio: 4 / 3, crossAxisSpacing: 10, mainAxisSpacing: 10),
                                         itemCount: 6,
                                         controller: scrollController,
+                                        physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (BuildContext ctx, index) {
                                           if (index == controller.resultDataClass.length - 1) {
                                             return Center(child: spinKit);

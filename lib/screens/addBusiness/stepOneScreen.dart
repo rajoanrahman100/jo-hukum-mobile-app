@@ -466,10 +466,11 @@ class StepOneScreen extends StatelessWidget {
 
 //
 
-AppBar buildBusinessInfoBar(String title) {
+AppBar buildBusinessInfoBar(String title,{List<Widget> actions}) {
   return AppBar(
     backgroundColor: kPrimaryPurple,
     title: textUbuntu(title, kWhiteColor, fontWeight: weight500),
+    actions: actions,
     iconTheme: IconThemeData(color: kWhiteColor),
   );
 }

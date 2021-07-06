@@ -5,6 +5,7 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/elasticController.dart';
 import 'package:johukum/controller/sessionController.dart';
+import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -12,6 +13,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import 'elasticSearch/elasticSearchScreen.dart';
 import 'home/homeScreen.dart';
+import 'home/userProfileSetting.dart';
 
 class BottomNavScreen extends StatefulWidget {
   @override
@@ -85,6 +87,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         child: PageView(
           children: <Widget>[
             HomeScreen(),
+            UserProfileSetting()
           ],
           controller: pageController,
           onPageChanged: whenPageChanges,
@@ -119,11 +122,11 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           unselectedFontSize: 14,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-            BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
+            /*BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
             BottomNavigationBarItem(
               icon: Icon(Icons.message),
               label: '',
-            ),
+            ),*/
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
               label: '',
