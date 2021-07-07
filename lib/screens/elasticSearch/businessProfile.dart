@@ -5,6 +5,7 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
+import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessProfileController.dart';
 import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
@@ -263,7 +264,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               ],
                             ),
                             size10,
-                            GestureDetector(
+                           boxStorage.read(KEY_TOKEN)!=null?GestureDetector(
                               onTap: () {
                                 return showDialog(
                                     context: context,
@@ -276,7 +277,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               },
                               child: textUbuntu("Is This Your Business?Claim now", kPrimaryPurple,
                                   textDecoration: TextDecoration.underline, fontWeight: weight500),
-                            ),
+                            ):Container(),
                             size20,
                             Row(
                               children: [

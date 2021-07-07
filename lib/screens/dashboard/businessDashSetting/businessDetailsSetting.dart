@@ -184,10 +184,12 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                       businessDescription.text=value;
                     },
                   ),
+                  size10,
 
                   WelcomeScreenButton(
-                    height: 40,
+                    height: 50,
                     isIcon: false,
+
                     buttonColor: kPrimaryPurple,
                     buttonText: "Save",
                     textColor: kWhiteColor,
@@ -204,8 +206,7 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                       //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);
 
                     },
-                    borderRadiusGeometry: BorderRadius.circular(15),
-                    edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                    borderRadiusGeometry: BorderRadius.circular(10),
                   ),
 
                 ],
@@ -344,6 +345,8 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                 },
               ),
 
+              size10,
+
               WelcomeScreenButton(
                 height: 55,
                 isIcon: false,
@@ -363,8 +366,7 @@ class _SettingBusinessDetailsState extends State<SettingBusinessDetails> {
                   //saveData(titleSeo,metaDesc,tagController.tagList,keywordController.keywordList);
 
                 },
-                borderRadiusGeometry: BorderRadius.circular(15),
-                edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+                borderRadiusGeometry: BorderRadius.circular(10),
               ),
 
             ],

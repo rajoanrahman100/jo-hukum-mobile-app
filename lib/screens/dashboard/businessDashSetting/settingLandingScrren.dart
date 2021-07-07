@@ -24,22 +24,35 @@ class BusinessSettingLanding extends StatelessWidget {
             callback: (){
               Navigator.pushNamed(context, '/settingContactDetails');
             },),
-            SettingWidget(iconFront: Icons.timer,iconEnd: Icons.arrow_forward_ios,title: "Working Hour",),
-            SettingWidget(iconFront: Icons.business_center,iconEnd: Icons.arrow_forward_ios,title: "Others Details",),
-            SettingWidget(iconFront: Icons.search_sharp,iconEnd: Icons.arrow_forward_ios,title: "SEO",),
-            SettingWidget(iconFront: Icons.image,iconEnd: Icons.arrow_forward_ios,title: "Gallery",),
+           // SettingWidget(iconFront: Icons.timer,iconEnd: Icons.arrow_forward_ios,title: "Working Hour",),
+            SettingWidget(iconFront: Icons.business_center,iconEnd: Icons.arrow_forward_ios,title: "Others Details",
+            callback: (){
+              Navigator.pushNamed(context, '/paymentMethodDetails');
+
+            },),
+            //SettingWidget(iconFront: Icons.search_sharp,iconEnd: Icons.arrow_forward_ios,title: "SEO",),
+            //SettingWidget(iconFront: Icons.image,iconEnd: Icons.arrow_forward_ios,title: "Gallery",),
           ],
         ),
         tablet: Column(
           children: [
             SettingWidget(iconFront: Icons.edit,iconEnd: Icons.arrow_forward_ios,title: "Business Details",callback: (){
+              Navigator.pushNamed(context, '/settingBussinessDetails');
+
               print("Call");
             },),
-            SettingWidget(iconFront: Icons.contact_phone,iconEnd: Icons.arrow_forward_ios,title: "Contact Details",),
-            SettingWidget(iconFront: Icons.timer,iconEnd: Icons.arrow_forward_ios,title: "Working Hour",),
-            SettingWidget(iconFront: Icons.business_center,iconEnd: Icons.arrow_forward_ios,title: "Others Details",),
-            SettingWidget(iconFront: Icons.search_sharp,iconEnd: Icons.arrow_forward_ios,title: "SEO",),
-            SettingWidget(iconFront: Icons.image,iconEnd: Icons.arrow_forward_ios,title: "Gallery",),
+            SettingWidget(iconFront: Icons.contact_phone,iconEnd: Icons.arrow_forward_ios,title: "Contact Details",
+              callback: (){
+                Navigator.pushNamed(context, '/settingContactDetails');
+
+              },),
+            //SettingWidget(iconFront: Icons.timer,iconEnd: Icons.arrow_forward_ios,title: "Working Hour",),
+            SettingWidget(iconFront: Icons.business_center,iconEnd: Icons.arrow_forward_ios,title: "Others Details",
+              callback: (){
+                Navigator.pushNamed(context, '/paymentMethodDetails');
+              },),
+            //SettingWidget(iconFront: Icons.search_sharp,iconEnd: Icons.arrow_forward_ios,title: "SEO",),
+            //SettingWidget(iconFront: Icons.image,iconEnd: Icons.arrow_forward_ios,title: "Gallery",),
           ],
         ),
       ),

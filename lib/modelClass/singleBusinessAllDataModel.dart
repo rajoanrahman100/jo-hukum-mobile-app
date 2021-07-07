@@ -23,6 +23,7 @@ class SingleBusinessAllData {
   String sId;
   List<dynamic> sujjestedPhotos;
   String description;
+  String businessType;
   int yearOfEstablishment;
   String owner;
   String createdAt;
@@ -30,6 +31,7 @@ class SingleBusinessAllData {
   String embedVideo;
   String logo;
   String slug;
+  String metaTitle;
   String metaDescription;
   List<Faqs> faqs;
   List<Reviews> reviews;
@@ -59,13 +61,16 @@ class SingleBusinessAllData {
         this.sId,
         this.sujjestedPhotos,
         this.description,
+        this.businessType,
         this.yearOfEstablishment,
         this.owner,
         this.createdAt,
         this.coverPhoto,
         this.embedVideo,
         this.logo,
-        this.slug,this.metaDescription,
+        this.slug,
+        this.metaTitle,
+        this.metaDescription,
         this.faqs,
         this.reviews});
 
@@ -143,6 +148,7 @@ class SingleBusinessAllData {
       });
     }
     description = json['description'];
+    businessType = json['business_type'];
     yearOfEstablishment = json['year_of_establishment'];
     owner = json['owner'];
     createdAt = json['created_at'];
@@ -150,6 +156,7 @@ class SingleBusinessAllData {
     embedVideo = json['embed_video'];
     logo = json['logo'];
     slug = json['slug'];
+    metaTitle = json['meta_title'];
     metaDescription = json['meta_description'];
     if (json['faqs'] != null) {
       faqs = new List<Faqs>();
@@ -220,6 +227,7 @@ class SingleBusinessAllData {
           this.sujjestedPhotos.map((v) => v).toList();
     }
     data['description'] = this.description;
+    data['business_type'] = this.businessType;
     data['year_of_establishment'] = this.yearOfEstablishment;
     data['owner'] = this.owner;
     data['created_at'] = this.createdAt;

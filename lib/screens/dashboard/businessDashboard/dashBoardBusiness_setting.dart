@@ -30,7 +30,8 @@ class _SettingDashBoardBusinessState extends State<SettingDashBoardBusiness> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(body: Responsive(
+    return Scaffold(body:
+    Responsive(
       mobile: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -125,36 +126,41 @@ class _SettingDashBoardBusinessState extends State<SettingDashBoardBusiness> {
                   Expanded(
                     child: Column(
                       children: [
-                        Container(
-                          height: size.height / 4,
-                          decoration: containerBoxDecoration(color: Colors.white, borderRadius: 10.0, boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
-                            ),
-                          ]),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              padding: EdgeInsets.all(1.0),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: kPrimaryPurple),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/businessSettingLand');
+                          },
+                          child: Container(
+                            height: size.height / 4,
+                            decoration: containerBoxDecoration(color: Colors.white, borderRadius: 10.0, boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                spreadRadius: 5,
+                                blurRadius: 7,
+                                offset: Offset(0, 3), // changes position of shadow
                               ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(80.0),
-                                child: CachedNetworkImage(
-                                  imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${c.singleBusinessValue.value.logo}",
-                                  height: 150,
-                                  width: 150,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) => spinKit,
-                                  errorWidget: (context, url, error) => Icon(
-                                    Icons.error,
-                                    color: kPrimaryPurple,
-                                    size: 25,
+                            ]),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                padding: EdgeInsets.all(1.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: kPrimaryPurple),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(80.0),
+                                  child: CachedNetworkImage(
+                                    imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${c.singleBusinessValue.value.logo}",
+                                    height: 150,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) => spinKit,
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.error,
+                                      color: kPrimaryPurple,
+                                      size: 25,
+                                    ),
                                   ),
                                 ),
                               ),

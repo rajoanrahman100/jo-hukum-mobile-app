@@ -32,6 +32,7 @@ class SingleBusinessAllDataController extends GetxController {
 
   var businessDivisionName="".obs;
   List<String> paymentMethodList=[];
+  List<String> paymentMethodNamesList=[];
   List<String> tagsList=[];
   List<String> keywordsList=[];
 
@@ -63,6 +64,7 @@ class SingleBusinessAllDataController extends GetxController {
       boxNewStorage.write(Business_NAME, businessAllData.location.businessName);
       boxNewStorage.write(Business_LANDMARK, businessAllData.location.landMark);
       boxNewStorage.write(Business_LOCATION, businessAllData.location.location2.sId);
+      boxNewStorage.write(Business_TYPE, businessAllData.businessType);
 
       businessLocationName.value=businessAllData.location.location2.name;
       businessLocationId.value=businessAllData.location.city.sId;
@@ -81,12 +83,16 @@ class SingleBusinessAllDataController extends GetxController {
       boxNewStorage.write(OWNER_WEBSITE, businessAllData.contact.website);
       //boxNewStorage.write(OWNER_WEBSITE, businessAllData.contact.);
       boxNewStorage.write(BUSINESS_DESCRIPTION, businessAllData.description);
+      boxNewStorage.write(BUSINESS_META_TITLE, businessAllData.metaTitle);
+      boxNewStorage.write(BUSINESS_META_DESC, businessAllData.metaDescription);
 
 
       businessAllData.acceptedPaymentMethods.forEach((element) {
         paymentMethodList.add(element.sId);
+        paymentMethodNamesList.add(element.name);
         print("payments $paymentMethodList");
         boxNewStorage.write(BUSINESS_PROFESSIONAL_PAYMENT_METHOD, paymentMethodList);
+        boxNewStorage.write(BUSINESS_PROFESSIONAL_PAYMENT_METHOD_NAME, paymentMethodNamesList);
       });
 
       businessAllData.keywords.forEach((element) {
@@ -137,110 +143,6 @@ class SingleBusinessAllDataController extends GetxController {
 
     JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
-    /*var json = {
-      "accepted_payment_methods": paymentMethodList,
-      "keywords": keywords,
-      "tags": businessTags,
-      "annual_turnover": annualTurnOver,
-      "certifications": ["5c33253141533c141cc8b972"],
-      "contact": {
-        "designation": designation.value, //required
-        "fax_no": "Tst FAX",
-        "landline_no": "01794202010",
-        "mobile_numbers": [
-          {"mobile_number": "01521431798"},
-          {"mobile_number": "01521431799"},
-          {"mobile_number": "01521431797"}
-        ],
-        "name": ownerFullName.value,
-        "title": "Mr.", //required
-        "website": website.value ?? "www.google.com"
-      },
-      "description": description.value, //required
-      "faqs": [
-        {"question": "Question 1", "answer": "Answer 1"},
-        {"question": "Question 2", "answer": "Answer 2"}
-      ],
-      "hours_of_operation": {
-        "friday": {
-          "close": true,
-          "leisure_end": null,
-          "leisure_start": null,
-          "open_24h": false,
-          "open_from": fridayOpen.value ?? "09:00",
-          "open_till": fridayClose.value ?? "19:00",
-        },
-        "monday": {
-          "close": false,
-          "leisure_end": null,
-          "leisure_start": null,
-          "open_24h": false,
-          "open_from": mondayOpen.value ?? "09:00",
-          "open_till": mondayClose.value ?? "19:00",
-        },
-        "saturday": {
-          "close": false,
-          "leisure_end": null,
-          "leisure_start": null,
-          "open_24h": false,
-          "open_from": saturdayOpen.value ?? "09:00",
-          "open_till": saturdayClose.value ?? "19:00",
-        },
-        "sunday": {
-          "close": false,
-          "leisure_end": null,
-          "leisure_start": null,
-          "open_24h": false,
-          "open_from": sundayOpen.value ?? "09:00",
-          "open_till": sundayClose.value ?? "19:00",
-        },
-        "thursday": {
-          "close": false,
-          "leisure_end": null,
-          "leisure_start": null,
-          "open_24h": false,
-          "open_from": thursdayOpen.value ?? "09:00",
-          "open_till": thursdayClose.value ?? "19:00",
-        },
-        "tuesday": {
-          "close": false,
-          "leisure_end": null,
-          "leisure_start": null,
-          "open_24h": false,
-          "open_from": tuesdayOpen.value ?? "09:00",
-          "open_till": tuesdayClose.value ?? "19:00",
-        },
-        "wednesday": {
-          "close": false,
-          "leisure_end": null,
-          "leisure_start": null,
-          "open_24h": false,
-          "open_from": wednesdayOpen.value ?? "09:00",
-          "open_till": wednesdayClose.value ?? "19:00",
-        }
-      },
-
-
-      "location": {
-        "building": boxStorage.read(KEY_USER_BUILDING)??"new building",
-        "business_name": businessName.value,
-        "geo": {
-          "coordinates": [boxStorage.read(LAT), boxStorage.read(LONG)],
-          "type": "Point"
-        },
-        "land_mark": businessLandMarkName.value,
-        "location": areaId.value,
-        "plus_code": boxStorage.read(KEY_USER_PLUS_CODE)??"+880",
-      },
-
-      "meta_description": businessMetaDisc.value,
-      "meta_title": boxStorage.read(SEO_TITLE),
-      "no_of_employees": boxStorage.read(NUMBER_OF_EMPLOYEE) ?? "1-5",
-      "professional_associations": ["5c33251441533c141cc8b96f"],
-
-      "year_of_establishment": boxStorage.read(YEAR_ESTABLISH)??"2001",
-      "business_type": boxStorage.read(TYPE_OF_BUSINESS)??"60530b5731f97d45f0634647"
-    };*/
 
     print("json print: $json");
 
@@ -251,15 +153,15 @@ class SingleBusinessAllDataController extends GetxController {
         },
         body: jsonEncode(<String, dynamic>{
 
-          "accepted_payment_methods": boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD)??["5d32d598b86023282aa4cde6"],
-          "keywords": boxNewStorage.read(BUSINESS_KEYWORDS)??["5baca5cd41533c08759778bd"],
-          "tags": boxNewStorage.read(BUSINESS_TAGS)??["cloth","fashion"],
+          "accepted_payment_methods": boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD),
+          "keywords": boxNewStorage.read(BUSINESS_KEYWORDS),
+          "tags": boxNewStorage.read(BUSINESS_TAGS),
           "annual_turnover": "1-500000",
           "certifications": ["5c33253141533c141cc8b972"],
           "contact": {
             "designation": "owner",
             "fax_no": "Tst FAX",
-            "landline_no": "01794202010",
+            "landline_no": boxNewStorage.read(BUSINESS_LAND_LINE),
             "mobile_numbers": boxNewStorage.read(BUSINESS_MOBILE_NUMBERS),
             "name":businessOwner??boxNewStorage.read(OWNER_NAME),
             "title": boxNewStorage.read(OWNER_TITLE),
@@ -341,12 +243,12 @@ class SingleBusinessAllDataController extends GetxController {
             "plus_code": boxStorage.read(KEY_USER_PLUS_CODE)??"+880"
           },
 
-          "meta_description": "okokokokoookok",
-          "meta_title": boxNewStorage.read(BUSINESS_META_TITLE)??"Fashion House",
+          "meta_description": boxNewStorage.read(BUSINESS_META_DESC),
+          "meta_title": boxNewStorage.read(BUSINESS_META_TITLE),
           "no_of_employees": "1-5",
           "professional_associations": ["5c33251441533c141cc8b96f"],
           "year_of_establishment": "2001",
-          "business_type": boxStorage.read(TYPE_OF_BUSINESS)??"60530b5731f97d45f0634647"
+          "business_type": boxNewStorage.read(Business_TYPE)
         }));
 
     if (response.statusCode == 200 || response.statusCode == 201) {

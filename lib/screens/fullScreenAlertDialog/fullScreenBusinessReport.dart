@@ -37,9 +37,18 @@ class BusinessReport extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kPrimaryPurple,
         elevation: 0.0,
-        title: Text(
-          "Report Business",
-          style: textStyleUbuntu(color: kWhiteColor, fontSize: 18.0, fontWeight: FontWeight.w500),
+        title: Column(
+          crossAxisAlignment: crossAxisAlignmentStart,
+          children: [
+            Text(
+              "Submit Reposrt",
+              style: textStyleUbuntu(color: kWhiteColor, fontSize: 16.0, fontWeight: FontWeight.w500),
+            ),
+            Text(
+              "Select a reporting cause to help us understand",
+              style: textStyleUbuntu(color: kWhiteColor.withOpacity(0.7), fontSize: 14.0, fontWeight: FontWeight.w400),
+            ),
+          ],
         ),
       ),
       body: Responsive(
@@ -49,7 +58,7 @@ class BusinessReport extends StatelessWidget {
           child: Column(
             crossAxisAlignment: crossAxisAlignmentStart,
             children: [
-              textUbuntu("Report Issues:", kPrimaryPurple,fontSize: 16.0,fontWeight: FontWeight.w500),
+              textUbuntu("Report this business for:", kPrimaryPurple,fontSize: 16.0,fontWeight: FontWeight.w500),
               size10,
               GestureDetector(
                 onTap: (){
@@ -172,7 +181,7 @@ class BusinessReport extends StatelessWidget {
           child: Column(
             crossAxisAlignment: crossAxisAlignmentStart,
             children: [
-              textUbuntu("Report Issues:", kPrimaryPurple,fontSize: 18.0,fontWeight: FontWeight.w500),
+              textUbuntu("Report this business for:", kPrimaryPurple,fontSize: 18.0,fontWeight: FontWeight.w500),
               size10,
               GestureDetector(
                 onTap: (){

@@ -6,18 +6,35 @@ import 'package:http/http.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/components/settingsDataSaveConfig.dart';
+import 'package:johukum/modelClass/paymentModel.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
 
-class ContactDetailsSettingController extends GetxController{
+class PaymentMethodController extends GetxController{
 
-  var addedMobileNumber=[].obs;
+  var paymentMethodID=[].obs;
+  var paymentMethodNames=[].obs;
+  var paymentModelClass=PaymentModelClass().obs;
 
-  addMoreNumbers(value){
-    addedMobileNumber.add(value);
+  //var paymentList=[].obs;
+
+
+  onSelect(item,bool value,id){
+    print("select");
+    paymentMethodNames.add(item);
+    paymentMethodID.add(id);
+    print("add length${paymentMethodNames.length}");
+
   }
 
-  Future<void> updateBusinessData(context,singleId,mobileNumbers,landLineNum) async {
+  onRemove(item,bool value,id){
+    paymentMethodNames.remove(item);
+    paymentMethodID.remove(id);
+    print("remove length${paymentMethodNames.length}");
+
+  }
+
+  Future<void> updateBusinessData(context,singleId,paymentMethods) async {
     print("----business data update start----");
     //print(boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD));
 
@@ -32,7 +49,7 @@ class ContactDetailsSettingController extends GetxController{
         },
         body: jsonEncode(<String, dynamic>{
 
-          "accepted_payment_methods": boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD),
+          "accepted_payment_methods":paymentMethods??boxNewStorage.read(BUSINESS_PROFESSIONAL_PAYMENT_METHOD),
           "keywords": boxNewStorage.read(BUSINESS_KEYWORDS),
           "tags": boxNewStorage.read(BUSINESS_TAGS)??["cloth","fashion"],
           "annual_turnover": "1-500000",
@@ -40,8 +57,8 @@ class ContactDetailsSettingController extends GetxController{
           "contact": {
             "designation": "owner",
             "fax_no": "Tst FAX",
-            "landline_no": landLineNum??boxNewStorage.read(BUSINESS_LAND_LINE),
-            "mobile_numbers": mobileNumbers??boxNewStorage.read(BUSINESS_MOBILE_NUMBERS),
+            "landline_no": boxNewStorage.read(BUSINESS_LAND_LINE),
+            "mobile_numbers": boxNewStorage.read(BUSINESS_MOBILE_NUMBERS),
             "name":boxNewStorage.read(OWNER_NAME),
             "title": boxNewStorage.read(OWNER_TITLE),
             "website": boxNewStorage.read(OWNER_WEBSITE) ?? "www.google.com"
@@ -134,7 +151,7 @@ class ContactDetailsSettingController extends GetxController{
       print("Data updated successfully");
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       showToast("Data Updated Sucessfully");
-      var dataMap = jsonDecode(response.body);
+      Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
 
     } else {
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
@@ -142,5 +159,31 @@ class ContactDetailsSettingController extends GetxController{
       print("error code: " + response.statusCode.toString());
     }
   }
+
+
+
+  Future<void> fetchPayment() async {
+    // make GET request
+    var response = await get(Uri.parse(paymentMethod));
+
+    print("Response = " + response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var dataMap = jsonDecode(response.body);
+      PaymentModelClass paymentDataClass = PaymentModelClass.fromJson(dataMap);
+      paymentModelClass.value = paymentDataClass;
+    } else {
+      throw ("Error code " + response.statusCode.toString());
+    }
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    fetchPayment();
+  }
+
+
+
 
 }
