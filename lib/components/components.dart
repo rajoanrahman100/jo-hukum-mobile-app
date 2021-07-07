@@ -61,3 +61,15 @@ CrossAxisAlignment crossAxisAlignmentStart = CrossAxisAlignment.start;
 
 MainAxisAlignment mainAxisAlignmentCenter = MainAxisAlignment.center;
 MainAxisAlignment mainAxisAlignmentBetween = MainAxisAlignment.spaceBetween;
+
+String intro="Jo-Hukum is the most advanced local business search engine. The technology company operates the largest"
+    " business search platform in Bangladesh connecting local businesses and customers. Its most powerful search engine provides local, authentic, and relevant Business information to help consumers discover nearby goods and services.";
+
+String whyOne="As a local search engine, Jo-Hukum allows you to quickly find a business based on your location. You "
+    "can search for local information on products, services, and various things.";
+
+String whyTwo="Jo-Hukum has been designed from the ground up to serve authentic local business information and make "
+    "your search fast and easy.";
+
+String how="With the most powerful search engine of Jo-Hukum, You can search for the type of business you are looking"
+    " for and Jo-Hukum will show you the businesses that match your search. Whether you need the phone number, address, map location, website, hours of operation, or reviews, Jo-Hukum is here to help.";

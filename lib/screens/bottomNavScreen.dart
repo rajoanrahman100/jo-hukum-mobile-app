@@ -5,11 +5,13 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/elasticController.dart';
 import 'package:johukum/controller/sessionController.dart';
+import 'package:johukum/screens/aboutScreen.dart';
 import 'package:johukum/screens/profile/profileSetting.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:package_info/package_info.dart';
 
 import 'elasticSearch/elasticSearchScreen.dart';
 import 'home/homeScreen.dart';
@@ -45,6 +47,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     boxStorage.read(KEY_USER_ID)==null?sessionController.getSessionWithoutIDData()
         :sessionController.getSessionWithIDData(boxStorage.read(KEY_USER_ID));
   }
+
 
   onTapChangePage(pageIndex) {
     pageController.animateToPage(
@@ -87,7 +90,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         child: PageView(
           children: <Widget>[
             HomeScreen(),
-            UserProfileSetting()
+            AboutApp()
+            //UserProfileSetting()
           ],
           controller: pageController,
           onPageChanged: whenPageChanges,
@@ -128,7 +132,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
               label: '',
             ),*/
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.info),
               label: '',
             ),
           ],
