@@ -82,46 +82,6 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                         },
                       ),
                     )),
-                /*Obx(() => Container(
-                  height: size.height / 4,
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                  decoration: containerBoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: 5.0),
-                  child: GridView.builder(
-                    itemCount: c.paymentMethodNamesList.length,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 140, childAspectRatio: 10 / 3, crossAxisSpacing: 8, mainAxisSpacing: 8),
-                    itemBuilder: (_, index) {
-
-
-                      return GestureDetector(
-                        onTap: () {
-                          */ /*payC.paymentMethodNames.removeAt(index);
-                          payC.onRemove(
-                              payC.paymentModelClass.value.results[index].name,
-                              false,payC.paymentModelClass.value.results[index].sId
-                          );*/ /*
-                          //c.addedMobileNumber.removeAt(index);
-                        },
-                        child: Container(
-                          //height: 15.0,
-                          decoration: containerBoxDecoration(color: Colors.white, borderRadius: 5.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              textUbuntu(c.paymentMethodNamesList[index], kPrimaryPurple, fontWeight: weight500),
-                              width10,
-                              Icon(
-                                Icons.delete_forever,
-                                size: 18,
-                                color: kPrimaryPurple,
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                )),*/
                 size10,
                 WelcomeScreenButton(
                     height: 40,
@@ -218,8 +178,8 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                       payC
                           .updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID), payC.paymentMethodID)
                           .then((value) {
-                            //payC.paymentMethodID.clear();
-                            //payC.paymentMethodNames.clear();
+                        //payC.paymentMethodID.clear();
+                        //payC.paymentMethodNames.clear();
                       });
                     }),
               ],

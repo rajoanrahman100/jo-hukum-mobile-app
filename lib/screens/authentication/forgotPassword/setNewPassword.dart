@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/authentication/forgotPassword/forgatPassController.dart';
@@ -124,6 +125,12 @@ class NewPasswordScreen extends StatelessWidget {
 
                                         if(passController.text.isEmpty){
                                           showErrorToast("Create Your New Password");
+                                          return;
+                                        }if(passController.text.length<8){
+                                          showErrorToast("Passwors length must be 8 or above");
+                                          return;
+                                        }if(!passController.text.contains(RegExp('[A-Za-z]'))){
+                                          showErrorToast("Passwors must contains at least one character A-Z or a-z");
                                           return;
                                         }else{
                                           c.setNewPass(passController.text, context);

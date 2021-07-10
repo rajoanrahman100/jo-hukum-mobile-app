@@ -23,6 +23,8 @@ class _CarasoulSliderState extends State<CarasoulSlider> {
     Item1(1),
     Item1(2),
     Item1(3),
+    Item1(4),
+    Item1(5),
   ];
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -99,18 +101,28 @@ class Item1 extends StatelessWidget {
     return value==1? Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/postertwo.jpg"),
+              image: AssetImage("assets/images/slide1.jpg"),
               fit: BoxFit.fill
           ),
       ),
     ):value==2?Container(decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("assets/images/posterone.jpg"),
+            image: AssetImage("assets/images/slide2.jpg"),
             fit: BoxFit.fill
         ),
+    )):value==3?Container(decoration: BoxDecoration(
+      image: DecorationImage(
+          image: AssetImage("assets/images/slide3.jpg"),
+          fit: BoxFit.fill
+      ),
+    )):value==4?Container(decoration: BoxDecoration(
+      image: DecorationImage(
+          image: AssetImage("assets/images/slide4.jpg"),
+          fit: BoxFit.fill
+      ),
     )):Container(decoration: BoxDecoration(
       image: DecorationImage(
-          image: AssetImage("assets/images/posterthree.jpg"),
+          image: AssetImage("assets/images/slide5.jpg"),
           fit: BoxFit.fill
       ),
     ));
