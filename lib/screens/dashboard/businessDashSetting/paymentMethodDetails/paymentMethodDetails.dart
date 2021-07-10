@@ -57,10 +57,8 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                         itemBuilder: (_, index) {
                           return GestureDetector(
                             onTap: () {
-                              payC.paymentMethodNames.removeAt(index);
-                              payC.onRemove(payC.paymentModelClass.value.results[index].name, false,
-                                  payC.paymentModelClass.value.results[index].sId);
-                              //c.addedMobileNumber.removeAt(index);
+                              /*payC.onRemove(payC.paymentModelClass.value.results[index].name, false,
+                                  payC.paymentModelClass.value.results[index].sId,index);*/
                             },
                             child: Container(
                               //height: 15.0,
@@ -70,11 +68,11 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                                 children: [
                                   textUbuntu(payC.paymentMethodNames[index], kPrimaryPurple, fontWeight: weight500),
                                   width10,
-                                  Icon(
+                                  /*Icon(
                                     Icons.delete_forever,
                                     size: 18,
                                     color: kPrimaryPurple,
-                                  )
+                                  )*/
                                 ],
                               ),
                             ),
@@ -88,7 +86,7 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                     //edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 120, vertical: 15.0),
                     borderRadiusGeometry: BorderRadius.circular(10.0),
                     textColor: kWhiteColor,
-                    buttonText: "Add Payament Methods",
+                    buttonText: "Add/Remove Payament Methods",
                     buttonColor: kSecondaryPurple,
                     isIcon: false,
                     callback: () {
@@ -125,7 +123,8 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                                                               payC.onRemove(
                                                                   payC.paymentModelClass.value.results[index].name,
                                                                   selected,
-                                                                  payC.paymentModelClass.value.results[index].sId);
+                                                                  payC.paymentModelClass.value.results[index].sId,
+                                                                  index);
                                                             }
                                                           },
                                                           title: Container(
@@ -206,7 +205,7 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                         itemBuilder: (_, index) {
                           return GestureDetector(
                             onTap: () {
-                              payC.paymentMethodNames.removeAt(index);
+                              //payC.paymentMethodNames.removeAt(index);
                               //c.addedMobileNumber.removeAt(index);
                             },
                             child: Container(
@@ -216,12 +215,7 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   textUbuntu(payC.paymentMethodNames[index], kPrimaryPurple, fontWeight: weight500),
-                                  width10,
-                                  Icon(
-                                    Icons.delete_forever,
-                                    size: 18,
-                                    color: kPrimaryPurple,
-                                  )
+
                                 ],
                               ),
                             ),
@@ -272,7 +266,8 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                                                               payC.onRemove(
                                                                   payC.paymentModelClass.value.results[index].name,
                                                                   selected,
-                                                                  payC.paymentModelClass.value.results[index].sId);
+                                                                  payC.paymentModelClass.value.results[index].sId,
+                                                                  index);
                                                             }
                                                           },
                                                           title: Container(

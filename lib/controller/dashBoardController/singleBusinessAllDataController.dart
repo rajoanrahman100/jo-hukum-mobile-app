@@ -34,7 +34,8 @@ class SingleBusinessAllDataController extends GetxController {
   var paymentMethodList=[].obs;
   var paymentMethodNamesList=[].obs;
   List<String> tagsList=[];
-  List<String> keywordsList=[];
+  var keywordsList=[].obs;
+  var keywordsNameList=[].obs;
 
   var map;
 
@@ -101,6 +102,7 @@ class SingleBusinessAllDataController extends GetxController {
 
       businessAllData.keywords.forEach((element) {
         keywordsList.add(element.sId);
+        keywordsNameList.add(element.name);
         print("keywords $keywordsList");
         boxNewStorage.write(BUSINESS_KEYWORDS, keywordsList);
       });

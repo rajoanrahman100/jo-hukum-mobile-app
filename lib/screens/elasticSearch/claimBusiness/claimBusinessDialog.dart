@@ -27,7 +27,7 @@ class ClaimBusinessDialog extends StatelessWidget {
         children: [
           textUbuntu("Verify Your Business Claim", kPrimaryPurple,
               fontSize: 18.0, fontWeight: weight500),
-          size20,
+          SizedBox(height: 30.0,),
           WelcomeScreenButton(
             height: 40,
             borderRadiusGeometry: BorderRadius.circular(10.0),

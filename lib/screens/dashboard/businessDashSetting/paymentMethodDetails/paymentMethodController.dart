@@ -28,9 +28,10 @@ class PaymentMethodController extends GetxController{
 
   }
 
-  onRemove(item,bool value,id){
+  onRemove(item,bool value,id,index){
     paymentMethodID.remove(id);
     paymentMethodNames.remove(item);
+    //paymentMethodNames.removeAt(index);
     print("paymentMethodNames $paymentMethodNames");
     print("paymentMethodID $paymentMethodID");
 

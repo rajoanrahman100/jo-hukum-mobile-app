@@ -33,7 +33,7 @@ class SendOtpDialog extends StatelessWidget {
           textUbuntu("Do you have this number?", kPrimaryPurple, fontSize: 18.0, fontWeight: weight500),
           size10,
           textUbuntu(
-              "We have found ${mobileNumber.substring(0, 7)}****${mobileNumber.substring(12, 14)} in this "
+              "We have found $mobileNumber in this "
                   "business",
               kPrimaryPurple,
               fontSize: 14.0,
@@ -67,7 +67,7 @@ class SendOtpDialog extends StatelessWidget {
           mainAxisAlignment: mainAxisAlignmentCenter,
           children: [
             textUbuntu(
-                "We have send 6 digit number to ${mobileNumber.substring(0, 7)}****${mobileNumber.substring(11, 14)}",
+                "We have send 6 digit number to $mobileNumber",
                 kPrimaryPurple,
                 maxLine: 2,
                 fontSize: 14.0,

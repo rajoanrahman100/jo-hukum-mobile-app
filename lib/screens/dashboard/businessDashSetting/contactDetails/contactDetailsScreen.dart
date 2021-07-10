@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
@@ -11,7 +12,6 @@ import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SettingContactDetails extends StatefulWidget {
   @override
@@ -24,10 +24,9 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
   var c = Get.put(ContactDetailsSettingController());
   var singleC = Get.put(SingleBusinessAllDataController());
 
-
-  var numbers=TextEditingController();
-  var telePhone=TextEditingController();
-  var wesbite=TextEditingController();
+  var numbers = TextEditingController();
+  var telePhone = TextEditingController();
+  var wesbite = TextEditingController();
   var map;
 
   @override
@@ -37,14 +36,12 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
 
     c.addedMobileNumber.value = singleC.mobileNumbers;
 
-
     wesbite.text = boxNewStorage.read(OWNER_WEBSITE);
     telePhone.text = boxNewStorage.read(BUSINESS_LAND_LINE);
   }
 
   @override
   Widget build(BuildContext context) {
-
     print("mobil numbers--------------${c.addedMobileNumber}");
 
     return Scaffold(
@@ -58,9 +55,7 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   textUbuntu("Website", kBlackColor, fontSize: 16.0, fontWeight: weight400),
-
                   AddBusinessForm(
                     controller: wesbite,
                     isSuffix: false,
@@ -71,11 +66,8 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                     controller: telePhone,
                     isSuffix: false,
                   ),
-
                   size10,
-
                   textUbuntu("Add New Number", kBlackColor, fontSize: 16.0, fontWeight: weight400),
-
                   Row(
                     children: [
                       Expanded(
@@ -88,13 +80,13 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                       ),
                       width10,
                       GestureDetector(
-                        onTap: (){
-                          if(numbers.text.isEmpty){
+                        onTap: () {
+                          if (numbers.text.isEmpty) {
                             showToast("insert your number");
                             return;
-                          }else if(numbers.text.length!=11){
+                          } else if (numbers.text.length != 11) {
                             showToast("Mobile Number Format is not valid");
-                          }else{
+                          } else {
                             map = {"mobile_number": numbers.text};
                             c.addMoreNumbers(map);
                             //controller.mobileNumbers.add(MobileNumberModel(value:number.text));
@@ -114,15 +106,16 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                           ),
                         ),
                       )
-
                     ],
                   ),
                   size10,
-
                   textUbuntu("Added Mobile Numbers", kBlackColor, fontSize: 16.0, fontWeight: weight400),
+                  size10,
                   Obx(
-                        () => Container(
+                    () => Container(
                       height: MediaQuery.of(context).size.height / 5,
+                      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                      decoration: containerBoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: 5.0),
                       child: GridView.builder(
                         itemCount: c.addedMobileNumber.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -136,7 +129,7 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                               children: [
                                 textUbuntu(c.addedMobileNumber[index]['mobile_number'], kPrimaryPurple,
                                     fontWeight: weight500),
-                                Icon(Icons.cancel)
+                                Icon(Icons.cancel,size: 18.0,color: kPrimaryPurple,)
                               ],
                             ),
                           );
@@ -144,7 +137,7 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                       ),
                     ),
                   ),
-
+                  size20,
                   WelcomeScreenButton(
                     height: 50,
                     borderRadiusGeometry: BorderRadius.circular(10.0),
@@ -153,12 +146,12 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                     buttonColor: kPrimaryPurple,
                     textColor: kWhiteColor,
                     isIcon: false,
-                    callback: (){
+                    callback: () {
                       print(c.addedMobileNumber);
-                      c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID), c.addedMobileNumber,telePhone.text);
+                      c.updateBusinessData(
+                          context, boxStorage.read(MY_BUSINESS_ID), c.addedMobileNumber, telePhone.text);
                     },
                   ),
-
                 ],
               ),
             ),
@@ -172,9 +165,7 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
                   textUbuntu("Website", kBlackColor, fontSize: 16.0, fontWeight: weight400),
-
                   AddBusinessForm(
                     controller: wesbite,
                     isSuffix: false,
@@ -185,11 +176,8 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                     controller: telePhone,
                     isSuffix: false,
                   ),
-
                   size10,
-
                   textUbuntu("Add New Number", kBlackColor, fontSize: 16.0, fontWeight: weight400),
-
                   Row(
                     children: [
                       Expanded(
@@ -202,13 +190,13 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                       ),
                       width10,
                       GestureDetector(
-                        onTap: (){
-                          if(numbers.text.isEmpty){
+                        onTap: () {
+                          if (numbers.text.isEmpty) {
                             showToast("insert your number");
                             return;
-                          }else if(numbers.text.length!=11){
+                          } else if (numbers.text.length != 11) {
                             showToast("Mobile Number Format is not valid");
-                          }else{
+                          } else {
                             map = {"mobile_number": numbers.text};
                             c.addMoreNumbers(map);
                             //controller.mobileNumbers.add(MobileNumberModel(value:number.text));
@@ -228,14 +216,12 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                           ),
                         ),
                       )
-
                     ],
                   ),
                   size10,
-
                   textUbuntu("Added Mobile Numbers", kBlackColor, fontSize: 16.0, fontWeight: weight400),
                   Obx(
-                        () => Container(
+                    () => Container(
                       height: MediaQuery.of(context).size.height / 5,
                       child: GridView.builder(
                         itemCount: c.addedMobileNumber.length,
@@ -258,7 +244,6 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                       ),
                     ),
                   ),
-
                   WelcomeScreenButton(
                     height: 50,
                     borderRadiusGeometry: BorderRadius.circular(10.0),
@@ -267,12 +252,12 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
                     buttonColor: kPrimaryPurple,
                     textColor: kWhiteColor,
                     isIcon: false,
-                    callback: (){
+                    callback: () {
                       print(c.addedMobileNumber);
-                      c.updateBusinessData(context, boxStorage.read(MY_BUSINESS_ID), c.addedMobileNumber,telePhone.text);
+                      c.updateBusinessData(
+                          context, boxStorage.read(MY_BUSINESS_ID), c.addedMobileNumber, telePhone.text);
                     },
                   ),
-
                 ],
               ),
             ),
