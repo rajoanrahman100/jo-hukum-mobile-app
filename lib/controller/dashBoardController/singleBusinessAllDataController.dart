@@ -31,20 +31,23 @@ class SingleBusinessAllDataController extends GetxController {
   var areaController=TextEditingController().obs;
 
   var businessDivisionName="".obs;
-  List<String> paymentMethodList=[];
-  List<String> paymentMethodNamesList=[];
+  var paymentMethodList=[].obs;
+  var paymentMethodNamesList=[].obs;
   List<String> tagsList=[];
   List<String> keywordsList=[];
 
   var map;
 
-  var mobileNumbers=[];
+  var mobileNumbers=[].obs;
 
   Future<void> getSingleBusinessData(slug) async {
     loaderShow.value = true;
     paymentMethodList.clear();
+    paymentMethodNamesList.clear();
     keywordsList.clear();
     tagsList.clear();
+    mobileNumbers.clear();
+
 
     var response = await get(Uri.parse(singleBusinessApi + "$slug"), headers: {"agent": "jh_mobile_application"});
     print("Response= " + response.body);
@@ -90,7 +93,8 @@ class SingleBusinessAllDataController extends GetxController {
       businessAllData.acceptedPaymentMethods.forEach((element) {
         paymentMethodList.add(element.sId);
         paymentMethodNamesList.add(element.name);
-        print("payments $paymentMethodList");
+        print("payments ID $paymentMethodList ....................");
+        print("payments Names $paymentMethodNamesList ....................");
         boxNewStorage.write(BUSINESS_PROFESSIONAL_PAYMENT_METHOD, paymentMethodList);
         boxNewStorage.write(BUSINESS_PROFESSIONAL_PAYMENT_METHOD_NAME, paymentMethodNamesList);
       });

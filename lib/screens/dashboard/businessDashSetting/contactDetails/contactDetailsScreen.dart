@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/components/settingsDataSaveConfig.dart';
+import 'package:johukum/controller/dashBoardController/singleBusinessAllDataController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/screens/dashboard/businessDashSetting/contactDetails/contactDetailsController.dart';
@@ -21,6 +22,8 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
   var mobileNumbers = [];
 
   var c = Get.put(ContactDetailsSettingController());
+  var singleC = Get.put(SingleBusinessAllDataController());
+
 
   var numbers=TextEditingController();
   var telePhone=TextEditingController();
@@ -30,15 +33,20 @@ class _SettingContactDetailsState extends State<SettingContactDetails> {
   @override
   void initState() {
     // TODO: implement initState
-    print(boxNewStorage.read(BUSINESS_MOBILE_NUMBERS));
+    //print(boxNewStorage.read(BUSINESS_MOBILE_NUMBERS));
 
-    c.addedMobileNumber.value = boxNewStorage.read(BUSINESS_MOBILE_NUMBERS);
+    c.addedMobileNumber.value = singleC.mobileNumbers;
+
+
     wesbite.text = boxNewStorage.read(OWNER_WEBSITE);
     telePhone.text = boxNewStorage.read(BUSINESS_LAND_LINE);
   }
 
   @override
   Widget build(BuildContext context) {
+
+    print("mobil numbers--------------${c.addedMobileNumber}");
+
     return Scaffold(
       appBar: buildBusinessInfoBar("Contacts"),
       body: Responsive(

@@ -23,14 +23,16 @@ class PaymentMethodController extends GetxController{
     print("select");
     paymentMethodNames.add(item);
     paymentMethodID.add(id);
-    print("add length${paymentMethodNames.length}");
+    print("paymentMethodNames $paymentMethodNames");
+    print("paymentMethodID $paymentMethodID");
 
   }
 
   onRemove(item,bool value,id){
-    paymentMethodNames.remove(item);
     paymentMethodID.remove(id);
-    print("remove length${paymentMethodNames.length}");
+    paymentMethodNames.remove(item);
+    print("paymentMethodNames $paymentMethodNames");
+    print("paymentMethodID $paymentMethodID");
 
   }
 
@@ -149,9 +151,10 @@ class PaymentMethodController extends GetxController{
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Data updated successfully");
+     // paymentMethodNames.clear();
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       showToast("Data Updated Sucessfully");
-      Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
+      //Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
 
     } else {
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
