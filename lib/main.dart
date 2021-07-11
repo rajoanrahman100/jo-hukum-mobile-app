@@ -34,6 +34,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'components/config.dart';
 import 'screens/authentication/forgotPassword/forgotPassPhoneNumberEntry.dart';
 import 'screens/dashboard/businessDashSetting/businessDetailsSetting.dart';
+import 'screens/dashboard/businessDashSetting/seoDetails/seoDetails.dart';
 import 'screens/dashboard/businessDashboard/dashboardBar.dart';
 import 'screens/elasticSearch/businessProfile.dart';
 import 'screens/home/homeScreen.dart';
@@ -100,6 +101,7 @@ class MyApp extends StatelessWidget {
           '/forgotPassNumberEntry': (context) => ForgotPassNumberEntry(),
           '/forgotPassOtpEntry': (context) => ForgotPassOtpEntry(),
           '/newPassEntry': (context) => NewPasswordScreen(),
+          '/seoDetails': (context) => SeoDetails(),
         });
   }
 }

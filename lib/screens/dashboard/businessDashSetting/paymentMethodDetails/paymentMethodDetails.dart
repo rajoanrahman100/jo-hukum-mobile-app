@@ -44,7 +44,85 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
             child: Column(
               crossAxisAlignment: crossAxisAlignmentStart,
               children: [
-                textUbuntu("Accepted payment methods:", kBlackColor),
+                Row(
+                  mainAxisAlignment: mainAxisAlignmentBetween,
+                  children: [
+                    textUbuntu("Accepted payment methods:", kBlackColor),
+                    GestureDetector(onTap: (){
+
+                      showBarModalBottomSheet(
+                          backgroundColor: kWhiteColor,
+                          context: context,
+                          expand: false,
+                          builder: (context) => Obx(() => Container(
+                            height: size.height,
+                            child: payC.paymentModelClass.value == null
+                                ? textUbuntu("loading...", kPrimaryPurple)
+                                : payC.paymentModelClass.value.results.length == 0
+                                ? textUbuntu("No data found", kPrimaryPurple)
+                                : Column(
+                              children: [
+                                size10,
+                                textUbuntu("Select payaments methods", kPrimaryPurple,
+                                    fontWeight: weight500, fontSize: 16),
+                                Expanded(
+                                  child: ListView.builder(
+                                    itemCount: payC.paymentModelClass.value.results.length,
+                                    itemBuilder: (_, index) {
+                                      return Obx(() => CheckboxListTile(
+                                        activeColor: kPrimaryPurple,
+                                        value: payC.paymentMethodNames.contains(
+                                            payC.paymentModelClass.value.results[index].name),
+                                        onChanged: (bool selected) {
+                                          if (selected == true) {
+                                            payC.onSelect(
+                                                payC.paymentModelClass.value.results[index].name,
+                                                selected,
+                                                payC.paymentModelClass.value.results[index].sId);
+                                          } else {
+                                            payC.onRemove(
+                                                payC.paymentModelClass.value.results[index].name,
+                                                selected,
+                                                payC.paymentModelClass.value.results[index].sId,
+                                                index);
+                                          }
+                                        },
+                                        title: Container(
+                                          height: 20.0,
+                                          margin: EdgeInsets.only(
+                                              top: 10.0, left: 10, right: 10, bottom: 5.0),
+                                          child: Row(
+                                            children: <Widget>[
+                                              textUbuntu(
+                                                  payC.paymentModelClass.value.results[index].name,
+                                                  kPrimaryPurple,
+                                                  fontWeight: weight400)
+                                            ],
+                                          ),
+                                        ),
+                                      ));
+                                    },
+                                  ),
+                                ),
+                                WelcomeScreenButton(
+                                    height: 50,
+                                    edgeInsetsGeometry:
+                                    EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                                    borderRadiusGeometry: BorderRadius.circular(10.0),
+                                    textColor: kWhiteColor,
+                                    buttonText: "Submit",
+                                    buttonColor: kPrimaryPurple,
+                                    isIcon: false,
+                                    callback: () {
+                                      Navigator.of(context).pop();
+                                    })
+                              ],
+                            ),
+                          )));
+
+                    },child: textUbuntu("add/remove", kBlackColor,fontWeight: weight500)),
+                  ],
+                ),
                 size10,
                 Obx(() => Container(
                       height: size.height / 4,
@@ -81,90 +159,12 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                       ),
                     )),
                 size10,
-                WelcomeScreenButton(
-                    height: 40,
-                    //edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 120, vertical: 15.0),
-                    borderRadiusGeometry: BorderRadius.circular(10.0),
-                    textColor: kWhiteColor,
-                    buttonText: "Add/Remove Payament Methods",
-                    buttonColor: kSecondaryPurple,
-                    isIcon: false,
-                    callback: () {
-                      showBarModalBottomSheet(
-                          backgroundColor: kWhiteColor,
-                          context: context,
-                          expand: false,
-                          builder: (context) => Obx(() => Container(
-                                height: size.height,
-                                child: payC.paymentModelClass.value == null
-                                    ? textUbuntu("loading...", kPrimaryPurple)
-                                    : payC.paymentModelClass.value.results.length == 0
-                                        ? textUbuntu("No data found", kPrimaryPurple)
-                                        : Column(
-                                            children: [
-                                              size10,
-                                              textUbuntu("Select payaments methods", kPrimaryPurple,
-                                                  fontWeight: weight500, fontSize: 16),
-                                              Expanded(
-                                                child: ListView.builder(
-                                                  itemCount: payC.paymentModelClass.value.results.length,
-                                                  itemBuilder: (_, index) {
-                                                    return Obx(() => CheckboxListTile(
-                                                          activeColor: kPrimaryPurple,
-                                                          value: payC.paymentMethodNames.contains(
-                                                              payC.paymentModelClass.value.results[index].name),
-                                                          onChanged: (bool selected) {
-                                                            if (selected == true) {
-                                                              payC.onSelect(
-                                                                  payC.paymentModelClass.value.results[index].name,
-                                                                  selected,
-                                                                  payC.paymentModelClass.value.results[index].sId);
-                                                            } else {
-                                                              payC.onRemove(
-                                                                  payC.paymentModelClass.value.results[index].name,
-                                                                  selected,
-                                                                  payC.paymentModelClass.value.results[index].sId,
-                                                                  index);
-                                                            }
-                                                          },
-                                                          title: Container(
-                                                            height: 20.0,
-                                                            margin: EdgeInsets.only(
-                                                                top: 10.0, left: 10, right: 10, bottom: 5.0),
-                                                            child: Row(
-                                                              children: <Widget>[
-                                                                textUbuntu(
-                                                                    payC.paymentModelClass.value.results[index].name,
-                                                                    kPrimaryPurple,
-                                                                    fontWeight: weight400)
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ));
-                                                  },
-                                                ),
-                                              ),
-                                              WelcomeScreenButton(
-                                                  height: 40,
-                                                  edgeInsetsGeometry:
-                                                      EdgeInsets.symmetric(horizontal: 120, vertical: 15.0),
-                                                  borderRadiusGeometry: BorderRadius.circular(10.0),
-                                                  textColor: kWhiteColor,
-                                                  buttonText: "Submit",
-                                                  buttonColor: kPrimaryPurple,
-                                                  isIcon: false,
-                                                  callback: () {
-                                                    Navigator.of(context).pop();
-                                                  })
-                                            ],
-                                          ),
-                              )));
-                    }),
+
                 SizedBox(
-                  height: 60.0,
+                  height: 30.0,
                 ),
                 WelcomeScreenButton(
-                    height: 50,
+                    height: 45,
                     borderRadiusGeometry: BorderRadius.circular(10.0),
                     textColor: kWhiteColor,
                     buttonText: "Save Method Payments",
@@ -192,8 +192,86 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
             child: Column(
               crossAxisAlignment: crossAxisAlignmentStart,
               children: [
-                textUbuntu("Accepted payment methods:", kBlackColor, fontSize: 18.0),
-                size10,
+                Row(
+                  mainAxisAlignment: mainAxisAlignmentBetween,
+                  children: [
+                    textUbuntu("Accepted payment methods:", kBlackColor,fontSize: 18.0),
+                    GestureDetector(onTap: (){
+
+                        showBarModalBottomSheet(
+                            backgroundColor: kWhiteColor,
+                            context: context,
+                            expand: false,
+                            builder: (context) => Obx(() => Container(
+                              height: size.height,
+                              child: payC.paymentModelClass.value == null
+                                  ? textUbuntu("loading...", kPrimaryPurple)
+                                  : payC.paymentModelClass.value.results.length == 0
+                                  ? textUbuntu("No data found", kPrimaryPurple)
+                                  : Column(
+                                children: [
+                                  size10,
+                                  textUbuntu("Select payaments methods", kPrimaryPurple,
+                                      fontWeight: weight500, fontSize: 16),
+                                  Expanded(
+                                    child: ListView.builder(
+                                      itemCount: payC.paymentModelClass.value.results.length,
+                                      itemBuilder: (_, index) {
+                                        return Obx(() => CheckboxListTile(
+                                          activeColor: kPrimaryPurple,
+                                          value: payC.paymentMethodNames.contains(
+                                              payC.paymentModelClass.value.results[index].name),
+                                          onChanged: (bool selected) {
+                                            if (selected == true) {
+                                              payC.onSelect(
+                                                  payC.paymentModelClass.value.results[index].name,
+                                                  selected,
+                                                  payC.paymentModelClass.value.results[index].sId);
+                                            } else {
+                                              payC.onRemove(
+                                                  payC.paymentModelClass.value.results[index].name,
+                                                  selected,
+                                                  payC.paymentModelClass.value.results[index].sId,
+                                                  index);
+                                            }
+                                          },
+                                          title: Container(
+                                            height: 20.0,
+                                            margin: EdgeInsets.only(
+                                                top: 10.0, left: 10, right: 10, bottom: 5.0),
+                                            child: Row(
+                                              children: <Widget>[
+                                                textUbuntu(
+                                                    payC.paymentModelClass.value.results[index].name,
+                                                    kPrimaryPurple,
+                                                    fontWeight: weight400)
+                                              ],
+                                            ),
+                                          ),
+                                        ));
+                                      },
+                                    ),
+                                  ),
+                                  WelcomeScreenButton(
+                                      height: 50,
+                                      edgeInsetsGeometry:
+                                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+                                      borderRadiusGeometry: BorderRadius.circular(10.0),
+                                      textColor: kWhiteColor,
+                                      buttonText: "Submit",
+                                      buttonColor: kPrimaryPurple,
+                                      isIcon: false,
+                                      callback: () {
+                                        Navigator.of(context).pop();
+                                      })
+                                ],
+                              ),
+                            )));
+
+                    },child: textUbuntu("add/remove", kBlackColor,fontWeight: weight500,
+                        fontSize: 18.0)),
+                  ],
+                ),                size10,
                 Obx(() => Container(
                       height: size.height / 4,
                       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -224,93 +302,14 @@ class _PaymentMethodDetailsState extends State<PaymentMethodDetails> {
                       ),
                     )),
                 size10,
-                WelcomeScreenButton(
-                    height: 40,
-                    //edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 120, vertical: 15.0),
-                    borderRadiusGeometry: BorderRadius.circular(10.0),
-                    textColor: kWhiteColor,
-                    buttonText: "Add Payament Methods",
-                    buttonColor: kSecondaryPurple,
-                    isIcon: false,
-                    callback: () {
-                      showBarModalBottomSheet(
-                          backgroundColor: kWhiteColor,
-                          context: context,
-                          expand: false,
-                          builder: (context) => Obx(() => Container(
-                                height: size.height,
-                                child: payC.paymentModelClass.value == null
-                                    ? textUbuntu("loading...", kPrimaryPurple)
-                                    : payC.paymentModelClass.value.results.length == 0
-                                        ? textUbuntu("No data found", kPrimaryPurple)
-                                        : Column(
-                                            children: [
-                                              size10,
-                                              textUbuntu("Select payaments methods", kPrimaryPurple,
-                                                  fontWeight: weight500, fontSize: 16),
-                                              Expanded(
-                                                child: ListView.builder(
-                                                  itemCount: payC.paymentModelClass.value.results.length,
-                                                  itemBuilder: (_, index) {
-                                                    return Obx(() => CheckboxListTile(
-                                                          activeColor: kPrimaryPurple,
-                                                          value: payC.paymentMethodNames.contains(
-                                                              payC.paymentModelClass.value.results[index].name),
-                                                          onChanged: (bool selected) {
-                                                            if (selected == true) {
-                                                              payC.onSelect(
-                                                                  payC.paymentModelClass.value.results[index].name,
-                                                                  selected,
-                                                                  payC.paymentModelClass.value.results[index].sId);
-                                                            } else {
-                                                              payC.onRemove(
-                                                                  payC.paymentModelClass.value.results[index].name,
-                                                                  selected,
-                                                                  payC.paymentModelClass.value.results[index].sId,
-                                                                  index);
-                                                            }
-                                                          },
-                                                          title: Container(
-                                                            height: 20.0,
-                                                            margin: EdgeInsets.only(
-                                                                top: 10.0, left: 10, right: 10, bottom: 5.0),
-                                                            child: Row(
-                                                              children: <Widget>[
-                                                                textUbuntu(
-                                                                    payC.paymentModelClass.value.results[index].name,
-                                                                    kPrimaryPurple,
-                                                                    fontWeight: weight400)
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ));
-                                                  },
-                                                ),
-                                              ),
-                                              WelcomeScreenButton(
-                                                  height: 40,
-                                                  edgeInsetsGeometry:
-                                                      EdgeInsets.symmetric(horizontal: 120, vertical: 15.0),
-                                                  borderRadiusGeometry: BorderRadius.circular(10.0),
-                                                  textColor: kWhiteColor,
-                                                  buttonText: "Submit",
-                                                  buttonColor: kPrimaryPurple,
-                                                  isIcon: false,
-                                                  callback: () {
-                                                    Navigator.of(context).pop();
-                                                  })
-                                            ],
-                                          ),
-                              )));
-                    }),
                 SizedBox(
-                  height: 60.0,
+                  height: 30.0,
                 ),
                 WelcomeScreenButton(
                     height: 50,
                     borderRadiusGeometry: BorderRadius.circular(10.0),
                     textColor: kWhiteColor,
-                    buttonText: "Save Method Payments",
+                    buttonText: "Save",
                     buttonColor: kPrimaryPurple,
                     isIcon: false,
                     callback: () {

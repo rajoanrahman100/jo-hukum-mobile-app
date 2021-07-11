@@ -46,6 +46,7 @@ class SingleBusinessAllDataController extends GetxController {
     paymentMethodList.clear();
     paymentMethodNamesList.clear();
     keywordsList.clear();
+    keywordsNameList.clear();
     tagsList.clear();
     mobileNumbers.clear();
 
