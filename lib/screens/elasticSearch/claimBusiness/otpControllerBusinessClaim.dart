@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:http/http.dart' as http;
 
-class OtpController extends GetxController{
+class OtpControllerBusinessClaim extends GetxController{
 
   Future getOtpNumber(mobileNumber, context) async {
 

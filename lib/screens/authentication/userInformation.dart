@@ -7,6 +7,7 @@ import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/passController.dart';
+import 'package:johukum/modelClass/userInfoLoginResponse.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/johukumLoader.dart';
@@ -110,6 +111,9 @@ class UserAdditionalInformation extends StatelessWidget {
                                     return "Create your password";
                                   }else if(value.length<8){
                                     return "Password length should be 8 or higher";
+                                  }else if(!passController.text.contains(RegExp('[A-Za-z]'))){
+                                    //showErrorToast("Passwors must contains at least one character A-Z or a-z");
+                                    return "Password must contains at least one character A-Z or a-z";
                                   }
                                   _formKey.currentState.save();
                                   return null;
@@ -171,6 +175,7 @@ class UserAdditionalInformation extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
+                                    print("password: ${passController.text}");
                                     if (_formKey.currentState.validate()) {
                                       if (passController.text != confirmPassController.text) {
                                         showErrorToast("Password does not match");
@@ -290,6 +295,9 @@ class UserAdditionalInformation extends StatelessWidget {
                                     return "Create your password";
                                   }else if(value.length<8){
                                     return "Password length should be 8 or higher";
+                                  }else if(!value.contains(RegExp('[A-Za-z]'))){
+                                    //showErrorToast("Passwors must contains at least one character A-Z or a-z");
+                                    return "Password must contains at least one character A-Z or a-z";
                                   }
                                   _formKey.currentState.save();
                                   return null;
@@ -396,6 +404,7 @@ class UserAdditionalInformation extends StatelessWidget {
   }
 
   Future sendUserInfo(name, email, password, context) async {
+    print(boxStorage.read(KEY_USER_PHONE));
     JohukumLoaderAnimation.showLoaderAnimation(context: context);
     var res = await http.post(Uri.parse(sendInfo),
         headers: <String, String>{
@@ -404,11 +413,21 @@ class UserAdditionalInformation extends StatelessWidget {
         body: jsonEncode(<String, dynamic>{"first_name": name, "email": email, "password": password, "mobile_number": boxStorage.read(KEY_USER_PHONE)}));
 
     if (res.statusCode == 200 || res.statusCode == 201) {
-      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       print("succes response " + res.body);
+
+      var dataMap = jsonDecode(res.body);
+      UserInfoLogInResponse logInData = UserInfoLogInResponse.fromJson(dataMap);
+      boxStorage.write(KEY_TOKEN, logInData.token);
+      boxStorage.write(KEY_USER_ID, logInData.sId);
+      boxStorage.write(KEY_USER_NAME, logInData.firstName);
+      boxStorage.write(KEY_USER_EMAIL, logInData.email);
+      boxStorage.write(KEY_USER_PHONE, logInData.mobileNumber);
+
+      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+
       Get.snackbar("Success!", "account created successfully", backgroundColor: kWhiteColor);
 
-      Navigator.of(context).pushNamedAndRemoveUntil('/welcome', (Route<dynamic> route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil('/bottomNav', (Route<dynamic> route) => false);
 
       return;
     } else {

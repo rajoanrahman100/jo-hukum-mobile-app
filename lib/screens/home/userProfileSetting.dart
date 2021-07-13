@@ -123,6 +123,9 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
                               return "Insert Your New Password";
                             }else if(value.length<8){
                               return "Password length should be 8 or higher";
+                            }else if(!value.contains(RegExp('[A-Za-z]'))){
+                              //showErrorToast("Passwors must contains at least one character A-Z or a-z");
+                              return "Password must contains at least one character A-Z or a-z";
                             }
                             _formKey.currentState.save();
                             return null;
@@ -260,6 +263,9 @@ class _UserProfileSettingState extends State<UserProfileSetting> {
                             }
                             else if(value.length<8){
                               return "Password length should be 8 or higher";
+                            }else if(!value.contains(RegExp('[A-Za-z]'))){
+                              //showErrorToast("Passwors must contains at least one character A-Z or a-z");
+                              return "Password must contains at least one character A-Z or a-z";
                             }
                             _formKey.currentState.save();
                             return null;

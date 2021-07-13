@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
-import 'package:johukum/screens/elasticSearch/claimBusiness/otpController.dart';
+import 'package:johukum/screens/elasticSearch/claimBusiness/otpControllerBusinessClaim.dart';
 import 'package:johukum/screens/elasticSearch/claimBusiness/successClaimDialog.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
@@ -14,7 +14,7 @@ class SendOtpDialog extends StatelessWidget {
   final Size size;
   String mobileNumber;
   var claimC = Get.put(ClaimBusinessController());
-  var otpC = Get.put(OtpController());
+  var otpC = Get.put(OtpControllerBusinessClaim());
 
   var codeController = TextEditingController();
   var code;

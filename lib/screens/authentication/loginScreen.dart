@@ -26,6 +26,8 @@ class SignInScreen extends StatelessWidget {
   var c = Get.put(PassWordController());
 
   GoogleSignIn googleSignIn=GoogleSignIn(scopes: [
+
+    //"104100233141-anuongdp5oouqug6od56fkmn3ksssb3b.apps.googleusercontent.com",
     'email',
     // you can add extras if you require
   ],);
