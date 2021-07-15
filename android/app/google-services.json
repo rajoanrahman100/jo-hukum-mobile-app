@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "23550904515",
+    "project_id": "jo-hukum-81ac6",
+    "storage_bucket": "jo-hukum-81ac6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:23550904515:android:d78a830d587f066cc03a76",
+        "android_client_info": {
+          "package_name": "com.softopark.johukum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "23550904515-krj4o3713k0drkkmrmojbpd8h0s02l7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCzUeMefTXyrNWvS_sIltjjoOek1bp1iY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "23550904515-krj4o3713k0drkkmrmojbpd8h0s02l7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

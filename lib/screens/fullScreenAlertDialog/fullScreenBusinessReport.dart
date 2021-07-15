@@ -41,7 +41,7 @@ class BusinessReport extends StatelessWidget {
           crossAxisAlignment: crossAxisAlignmentStart,
           children: [
             Text(
-              "Submit Reposrt",
+              "Submit Report",
               style: textStyleUbuntu(color: kWhiteColor, fontSize: 16.0, fontWeight: FontWeight.w500),
             ),
             Text(

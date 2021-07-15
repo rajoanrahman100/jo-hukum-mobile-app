@@ -1,36 +1,76 @@
-
-import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/controller/authController.dart';
 import 'package:johukum/controller/passController.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
-import 'package:johukum/widgets/customToast.dart';
-import 'package:johukum/widgets/johukumLoader.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:get/get.dart';
+
 import '../../components/components.dart';
 import '../../responsive.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInScreen extends StatelessWidget {
-
   var numberController = TextEditingController();
   var passWordController = TextEditingController();
   var confirmPassWordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
-  var logInController=Get.put(AuthController());
+  var logInController = Get.put(AuthController());
   var c = Get.put(PassWordController());
 
-  GoogleSignIn googleSignIn=GoogleSignIn(scopes: [
+  GoogleSignIn googleSignIn = GoogleSignIn(
+    //clientId: "104100233141-anuongdp5oouqug6od56fkmn3ksssb3b.apps.googleusercontent.com",
+    scopes: [
+      //"104100233141-anuongdp5oouqug6od56fkmn3ksssb3b.apps.googleusercontent.com",
+      'email',
+      // you can add extras if you require
+    ],
+  );
 
-    //"104100233141-anuongdp5oouqug6od56fkmn3ksssb3b.apps.googleusercontent.com",
-    'email',
-    // you can add extras if you require
-  ],);
+  Future<void> _handleSignIn() async {
+    try {
+      await googleSignIn.signIn().then((value){
+        //print(value.id);
+        value.authentication.then((value){
+         // print(value);
+          print(value.idToken);
+          socialLogin(value.idToken);
+        });
+      });
+    } catch (error) {
+      print(error);
+    }
+  }
+
+
+  Future socialLogin(token) async {
+
+    //JohukumLoaderAnimation.showLoaderAnimation(context: context);
+
+    var res = await http.post(Uri.parse("https://api-login.jo-hukum.com/api/auth/social-login"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{"token": token,"platform":"google"}));
+
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      print("succes response " + res.body);
+      //JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      //Navigator.pushNamed(context,'/userInfo');
+      //showSuccessToast("a 6 digit code sent to your number");
+      return;
+    } else {
+      print("error response " + res.body);
+      //showErrorToast("You have given a invalid OTP number");
+      //JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +95,7 @@ class SignInScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap:()=>Navigator.pop(context),
+                        onTap: () => Navigator.pop(context),
                         child: Icon(
                           Icons.arrow_back_ios,
                           color: kWhiteColor,
@@ -82,8 +122,7 @@ class SignInScreen extends StatelessWidget {
                             size20,
                             Container(
                               width: size.width,
-                              decoration:
-                              BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
+                              decoration: BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
                               margin: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -117,16 +156,14 @@ class SignInScreen extends StatelessWidget {
                                         decoration: InputDecoration(
                                           hintText: "Mobile Number",
                                           focusedBorder:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                           enabledBorder:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                          errorBorder:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                          border:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                          border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                         ),
                                       ),
-                                      GetBuilder<PassWordController>(builder: (controller){
+                                      GetBuilder<PassWordController>(builder: (controller) {
                                         return TextFormField(
                                           controller: passWordController,
                                           keyboardType: TextInputType.text,
@@ -143,8 +180,7 @@ class SignInScreen extends StatelessWidget {
                                             icons: GestureDetector(
                                               onTap: () {
                                                 controller.showLogInPassWord();
-                                                FocusScope.of(context)
-                                                    .unfocus(); //hide keyboard
+                                                FocusScope.of(context).unfocus(); //hide keyboard
                                               },
                                               child: Icon(
                                                 controller.showLonInPass.value
@@ -156,11 +192,10 @@ class SignInScreen extends StatelessWidget {
                                           ),
                                         );
                                       }),
-
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: GestureDetector(
-                                          onTap: (){
+                                          onTap: () {
                                             Navigator.pushNamed(context, '/forgotPassNumberEntry');
                                           },
                                           child: Text(
@@ -186,9 +221,8 @@ class SignInScreen extends StatelessWidget {
                                         isIcon: false,
                                         callback: () {
                                           if (_formKey.currentState.validate()) {
-
-                                            logInController.getSignInUser(numberController.text,
-                                                passWordController.text, context);
+                                            logInController.getSignInUser(
+                                                numberController.text, passWordController.text, context);
 
                                             //getSignInUser(numberController.text, passWordController.text,
                                             // context);
@@ -216,10 +250,13 @@ class SignInScreen extends StatelessWidget {
                                           SizedBox(
                                             width: 5.0,
                                           ),
-                                          GestureDetector(onTap: ()async{
-                                            await googleSignIn.signIn().then((value) => print(value.displayName));
-                                          },child: Image.asset("assets/images/google"
-                                              ".png")),
+                                          GestureDetector(
+                                              onTap: () async {
+                                                _handleSignIn();
+                                                //await googleSignIn.signIn().then((value) => print(value.id));
+                                              },
+                                              child: Image.asset("assets/images/google"
+                                                  ".png")),
                                           SizedBox(
                                             width: 5.0,
                                           ),
@@ -241,7 +278,7 @@ class SignInScreen extends StatelessWidget {
                                         height: 10.0,
                                       ),
                                       GestureDetector(
-                                        onTap: ()=>Get.to(SignUpScreen()),
+                                        onTap: () => Get.to(SignUpScreen()),
                                         child: Text(
                                           "Sign Up",
                                           style: textStyleUbuntu(
@@ -284,7 +321,7 @@ class SignInScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap:()=>Navigator.pop(context),
+                        onTap: () => Navigator.pop(context),
                         child: Icon(
                           Icons.arrow_back_ios,
                           color: Colors.white,
@@ -311,8 +348,7 @@ class SignInScreen extends StatelessWidget {
                             size20,
                             Container(
                               width: size.width,
-                              decoration:
-                              BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
+                              decoration: BoxDecoration(color: kWhiteColor, borderRadius: BorderRadius.circular(20.0)),
                               margin: EdgeInsets.symmetric(horizontal: 20.0),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -346,17 +382,15 @@ class SignInScreen extends StatelessWidget {
                                         decoration: InputDecoration(
                                           hintText: "Mobile Number",
                                           focusedBorder:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                           enabledBorder:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
-                                          errorBorder:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-                                          border:
-                                          UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                              UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
+                                          errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                                          border: UnderlineInputBorder(borderSide: BorderSide(color: kPrimaryPurple)),
                                         ),
                                       ),
                                       size20,
-                                      GetBuilder<PassWordController>(builder: (controller){
+                                      GetBuilder<PassWordController>(builder: (controller) {
                                         return TextFormField(
                                           controller: passWordController,
                                           keyboardType: TextInputType.text,
@@ -373,8 +407,7 @@ class SignInScreen extends StatelessWidget {
                                             icons: GestureDetector(
                                               onTap: () {
                                                 controller.showLogInPassWord();
-                                                FocusScope.of(context)
-                                                    .unfocus(); //hide keyboard
+                                                FocusScope.of(context).unfocus(); //hide keyboard
                                               },
                                               child: Icon(
                                                 controller.showLonInPass.value
@@ -389,7 +422,7 @@ class SignInScreen extends StatelessWidget {
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: GestureDetector(
-                                          onTap: (){
+                                          onTap: () {
                                             Navigator.pushNamed(context, '/forgotPassNumberEntry');
                                           },
                                           child: Text(
@@ -415,9 +448,8 @@ class SignInScreen extends StatelessWidget {
                                         isIcon: false,
                                         callback: () {
                                           if (_formKey.currentState.validate()) {
-
-                                            logInController.getSignInUser(numberController.text,
-                                                passWordController.text, context);
+                                            logInController.getSignInUser(
+                                                numberController.text, passWordController.text, context);
 
                                             //getSignInUser(numberController.text, passWordController.text,
                                             // context);
@@ -445,11 +477,12 @@ class SignInScreen extends StatelessWidget {
                                           SizedBox(
                                             width: 5.0,
                                           ),
-                                          GestureDetector(onTap: ()async{
-                                            await googleSignIn.signIn().then((value) => print(value.displayName));
-
-                                          },child: Image.asset("assets/images/google"
-                                              ".png")),
+                                          GestureDetector(
+                                              onTap: () async {
+                                                await googleSignIn.signIn().then((value) => print(value.displayName));
+                                              },
+                                              child: Image.asset("assets/images/google"
+                                                  ".png")),
                                           SizedBox(
                                             width: 5.0,
                                           ),
@@ -471,7 +504,7 @@ class SignInScreen extends StatelessWidget {
                                         height: 10.0,
                                       ),
                                       GestureDetector(
-                                        onTap: ()=>Get.to(SignUpScreen()),
+                                        onTap: () => Get.to(SignUpScreen()),
                                         child: Text(
                                           "Sign Up",
                                           style: textStyleUbuntu(
@@ -502,5 +535,4 @@ class SignInScreen extends StatelessWidget {
       ),
     );
   }
-
 }

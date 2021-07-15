@@ -21,6 +21,7 @@ class ReportBusinessController extends GetxController {
   }
 
   changeIssueValue(valueOne,valueTwo) {
+    print("$valueTwo");
     issueValue.value = valueOne;
     selectValue.value = valueTwo;
   }
