@@ -43,6 +43,8 @@ class BusinessProfileController extends GetxController {
       ratingValue.value = businessData.aggregateRating.toDouble();
     } else {
       loaderShow.value = false;
+      //showSnackBar(context: context,message: "Oops!Something went wrong",callBack: (){});
+
       throw ("Error code:: " + response.statusCode.toString());
     }
   }

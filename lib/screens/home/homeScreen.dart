@@ -8,6 +8,7 @@ import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/home/categorySubcategories.dart';
 import 'package:johukum/screens/home/checkDemoConnectivity.dart';
 import 'package:johukum/screens/home/drawerClass.dart';
+import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
 import 'businessItems.dart';
@@ -120,10 +121,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       textUbuntu("Categories", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0),
                                       GestureDetector(
                                           onTap: () {
-                                            //Get.to(()=>DemoConnect());
                                             Navigator.pushNamed(context, '/seeAllCategories');
+
+                                            //Get.to(()=>DemoConnect());
                                           },
-                                          child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500, fontSize: 16.0))
+                                          child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500,
+                                              fontSize: 16.0))
                                     ],
                                   ),
                                 ),
@@ -172,6 +175,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                         }),
                                   ),
                                 ),
+                                /*WelcomeScreenButton(
+                                  height: 30,
+                                  borderRadiusGeometry: BorderRadius.circular(20.0),
+                                  edgeInsetsGeometry: EdgeInsets.symmetric(vertical: 10.0,horizontal: 120.0),
+                                  buttonText: "See all",
+                                  buttonColor: kPrimaryPurple,
+                                  callback: (){
+                                    Navigator.pushNamed(context, '/seeAllCategories');
+
+                                  },
+                                  textColor: kWhiteColor,
+                                  isIcon: false,
+                                ),*/
                                 size10,
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -266,7 +282,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 textUbuntu("Categories", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
                                 GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(context, '/seeAllCategories');
                                     },
                                     child: textUbuntu("See All", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0))
                               ],
@@ -316,6 +331,20 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           size10,
+                          WelcomeScreenButton(
+                            height: 30,
+                            borderRadiusGeometry: BorderRadius.circular(20.0),
+                            edgeInsetsGeometry: EdgeInsets.symmetric(vertical: 10.0,horizontal: 120.0),
+                            buttonText: "See all",
+                            buttonColor: kPrimaryPurple,
+                            callback: (){
+                              Navigator.pushNamed(context, '/seeAllCategories');
+
+                            },
+                            textColor: kWhiteColor,
+                            isIcon: false,
+                          ),
+                          size10,
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5.0),
                             child: textUbuntu("Top Rated", kPrimaryPurple, fontWeight: weight500, fontSize: 18.0),
@@ -351,6 +380,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: kPrimaryPurple,
+          foregroundColor: Colors.white,
+          onPressed: () {
+            Navigator.pushNamed(context, '/stepOne');
+            // Respond to button press
+          },
+          icon: Icon(Icons.business_center),
+          label: Text('Add Business'),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         drawer: DrawerClass(),
       ),
     );

@@ -4,6 +4,7 @@ import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/addBusinessController.dart';
 import 'package:johukum/controller/divisionController.dart';
+import 'package:johukum/controller/listWidgetController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenCity.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenDivision.dart';
@@ -12,9 +13,9 @@ import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class StepOneScreen extends StatelessWidget {
-
   final _formKey = GlobalKey<FormState>();
 
   var divisionController = Get.put(DivisionController());
@@ -30,7 +31,22 @@ class StepOneScreen extends StatelessWidget {
   var areaNameController = TextEditingController();
   var plusCodeController = TextEditingController();
 
+
+
+  var title = TextEditingController();
+  var fullName = TextEditingController();
+  var designation = TextEditingController();
+  var phoneNumber = TextEditingController();
+  var email = TextEditingController();
+  var fax = TextEditingController();
+  var facebook = TextEditingController();
+  var website = TextEditingController();
+
+
   var businessController = Get.put(AddBusinessController());
+
+  var controller = Get.put(ListWidgetController());
+  var nameTitleList = ["Mr.", "Mrs.", "Miss.", "Dr."];
 
   @override
   Widget build(BuildContext context) {
@@ -117,49 +133,214 @@ class StepOneScreen extends StatelessWidget {
                       },
                     ),
                     size10,
-                    textUbuntu("Division*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    size5,
-                    GestureDetector(
-                      onTap: () {
-                        FocusScope.of(context).unfocus();
-                        openDivisionDialog(context);
-                      },
-                      child: Container(
-                        height: 50.0,
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
-                            Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
-                          ],
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textUbuntu("Division*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                              size5,
+                              GestureDetector(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  openDivisionDialog(context);
+                                },
+                                child: Container(
+                                  height: 50.0,
+                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryPurple.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Obx(() => textUbuntu(
+                                          divisionController.selectDivision.value, kBlackColor.withOpacity(0.6),
+                                          fontSize: 16)),
+                                      Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                        width10,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textUbuntu("City*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                              size5,
+                              GestureDetector(
+                                onTap: () async {
+                                  await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
+                                  openCityDialog(context);
+                                },
+                                child: Container(
+                                  height: 50.0,
+                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryPurple.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Obx(() => textUbuntu(
+                                          divisionController.selectCity.value, kBlackColor.withOpacity(0.6),
+                                          fontSize: 16)),
+                                      Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                     size10,
-                    textUbuntu("City*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    size5,
-                    GestureDetector(
-                      onTap: () async {
-                        await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
-                        openCityDialog(context);
-                      },
-                      child: Container(
-                        height: 50.0,
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
-                             Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
-                          ],
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: crossAxisAlignmentStart,
+                            children: [
+                              textUbuntu("Thana*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                              size5,
+                              GestureDetector(
+                                onTap: () async {
+                                  await divisionController.fetchThana(divisionController.selectCityId.value, "");
+                                  openThanaDialog(context);
+                                },
+                                child: Container(
+                                  height: 50.0,
+                                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryPurple.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(10.0)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Obx(() => textUbuntu(
+                                          divisionController.selectThana.value, kBlackColor.withOpacity(0.6),
+                                          fontSize: 16)),
+                                      Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                        width10,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              textUbuntu("Postal Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                              AddBusinessForm(
+                                controller: postalCodeController,
+                                hintText: "",
+                                isSuffix: false,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "This Field is required";
+                                  }
+                                  _formKey.currentState.save();
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                     size10,
-                    textUbuntu("Thana*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            textUbuntu("Title*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                            size5,
+                            Container(
+                              height: 50.0,
+                              padding: EdgeInsets.symmetric(horizontal: 10.0),
+                              decoration: BoxDecoration(
+                                  color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Obx(
+                                    () => textUbuntu(controller.nameTitle.value, kBlackColor.withOpacity(0.6),
+                                        fontSize: 14),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      showBarModalBottomSheet(
+                                          backgroundColor: kWhiteColor,
+                                          context: context,
+                                          expand: false,
+                                          builder: (context) => Container(
+                                                height: size.height * 0.3,
+                                                child: ListView.builder(
+                                                  itemCount: nameTitleList.length,
+                                                  itemBuilder: (_, index) {
+                                                    return ListTile(
+                                                      onTap: () {
+                                                        controller.nameTitle.value = nameTitleList[index];
+                                                        Navigator.of(context).pop();
+                                                      },
+                                                      leading: Icon(
+                                                        Icons.person,
+                                                        color: kPrimaryPurple,
+                                                      ),
+                                                      title: textUbuntu(nameTitleList[index], kPrimaryPurple),
+                                                    );
+                                                  },
+                                                ),
+                                              ));
+                                    },
+                                    child: Icon(
+                                      Icons.arrow_drop_down_circle,
+                                      color: kPrimaryPurple,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        )),
+                        width10,
+                        Expanded(
+                          flex: 2,
+                          child: Column(
+                            crossAxisAlignment: crossAxisAlignmentStart,
+                            children: [
+                              textUbuntu("Full Name*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                              AddBusinessForm(
+                                controller: fullName,
+                                hintText: "",
+                                isSuffix: false,
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return "This Field is required";
+                                  }
+                                  _formKey.currentState.save();
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    size10,
+                    textUbuntu("Designation*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
                     GestureDetector(
                       onTap: () async {
@@ -169,58 +350,20 @@ class StepOneScreen extends StatelessWidget {
                       child: Container(
                         height: 50.0,
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                        decoration: BoxDecoration(
+                            color: kPrimaryPurple.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(10.0)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                            Obx(() => textUbuntu(
+                                divisionController.selectThana.value, kBlackColor.withOpacity(0.6),
+                                fontSize: 16)),
                             Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
                           ],
                         ),
                       ),
                     ),
-                    size10,
-                    textUbuntu("Postal Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: postalCodeController,
-                      hintText: "",
-                      isSuffix: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),
-                    /*size10,
-                    textUbuntu("Area", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: areaNameController,
-                      hintText: "",
-                      isSuffix: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),
-                    size10,*/
-                    /*textUbuntu("Plus Code*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                    AddBusinessForm(
-                      controller: plusCodeController,
-                      hintText: "",
-                      isSuffix: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),*/
                     size10,
                     GestureDetector(
                       onTap: () {
@@ -240,7 +383,7 @@ class StepOneScreen extends StatelessWidget {
                             boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
                             boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
                             boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
-                           // boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
+                            // boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
                             boxStorage.write(KEY_USER_POSTAL_CODE, postalCodeController.text);
                             //boxStorage.write(KEY_USER_AREA, areaNameController.text);
                             Navigator.pushNamed(context, '/stepTwo');
@@ -314,7 +457,6 @@ class StepOneScreen extends StatelessWidget {
                     size10,
                     textUbuntu("Land Mark*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
-
                       controller: landMarkController,
                       hintText: "",
                       isSuffix: false,
@@ -346,11 +488,13 @@ class StepOneScreen extends StatelessWidget {
                     Container(
                       height: 50.0,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      decoration: BoxDecoration(
+                          color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                          Obx(() => textUbuntu(divisionController.selectDivision.value, kBlackColor.withOpacity(0.6),
+                              fontSize: 16)),
                           GestureDetector(
                               onTap: () {
                                 FocusScope.of(context).unfocus();
@@ -366,11 +510,13 @@ class StepOneScreen extends StatelessWidget {
                     Container(
                       height: 50.0,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      decoration: BoxDecoration(
+                          color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                          Obx(() => textUbuntu(divisionController.selectCity.value, kBlackColor.withOpacity(0.6),
+                              fontSize: 16)),
                           GestureDetector(
                               onTap: () async {
                                 await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
@@ -386,11 +532,13 @@ class StepOneScreen extends StatelessWidget {
                     Container(
                       height: 50.0,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
+                      decoration: BoxDecoration(
+                          color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6), fontSize: 16)),
+                          Obx(() => textUbuntu(divisionController.selectThana.value, kBlackColor.withOpacity(0.6),
+                              fontSize: 16)),
                           GestureDetector(
                               onTap: () async {
                                 await divisionController.fetchThana(divisionController.selectCityId.value, "");
@@ -414,7 +562,6 @@ class StepOneScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-
                     size10,
                     GestureDetector(
                       onTap: () {
@@ -466,7 +613,7 @@ class StepOneScreen extends StatelessWidget {
 
 //
 
-AppBar buildBusinessInfoBar(String title,{List<Widget> actions}) {
+AppBar buildBusinessInfoBar(String title, {List<Widget> actions}) {
   return AppBar(
     backgroundColor: kPrimaryPurple,
     title: textUbuntu(title, kWhiteColor, fontWeight: weight500),

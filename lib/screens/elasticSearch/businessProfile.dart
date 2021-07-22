@@ -16,7 +16,6 @@ import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-
 import 'claimBusiness/claimBusinessDialog.dart';
 
 class BusinessProfile extends StatefulWidget {
@@ -1436,55 +1435,6 @@ class _BusinessProfileState extends State<BusinessProfile> {
                               indent: 10.0,
                             ),
                             size20,
-                            /*obj.reviews.length == 0
-                                ? textUbuntu("No Reviews Found", kPrimaryPurple, fontWeight: weight500)
-                                : ListView.builder(
-                                    itemCount: obj.reviews.length,
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    itemBuilder: (_, index) {
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              obj.reviews[index].addedBy,
-                                              style: textStyleUbuntu(
-                                                  color: kBlackColor, fontWeight: weight500, fontSize: 18),
-                                            ),
-                                            Row(
-                                              children: [
-                                                RatingBar.builder(
-                                                  initialRating: obj.reviews[index].rating.toDouble(),
-                                                  itemSize: 18.0,
-                                                  itemBuilder: (context, _) => Icon(
-                                                    Icons.star,
-                                                    color: Colors.amber,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 20,
-                                                ),
-                                                textUbuntu(
-                                                    "${DateFormat.yMMMMd('en_US').format(DateTime.parse(obj.reviews[index].reviewedAt))}",
-                                                    kBlackColor.withOpacity(0.4))
-                                              ],
-                                            ),
-                                            size10,
-                                            Text(
-                                              obj.reviews[index].comment,
-                                              maxLines: 4,
-                                              overflow: TextOverflow.ellipsis,
-                                              softWrap: false,
-                                              style: textStyleUbuntu(
-                                                  color: kBlackColor, fontWeight: weight400, fontSize: 16.0),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),*/
                             size10,
                           ],
                         ),
@@ -1496,77 +1446,3 @@ class _BusinessProfileState extends State<BusinessProfile> {
   }
 }
 
-
-/*
-
-size20,
-Divider(
-color: Colors.grey.withOpacity(0.3),
-thickness: 2.0,
-height: 5,
-endIndent: 10.0,
-indent: 10.0,
-),
-size20,
-Text("Add your review:",
-style: textStyleUbuntu(
-color: kBlackColor,
-fontWeight: weight500,
-fontSize: 16.0,
-textDecoration: TextDecoration.underline)),
-size5,
-RatingBar.builder(
-initialRating: 0.0,
-minRating: 0,
-itemSize: 27.0,
-direction: Axis.horizontal,
-allowHalfRating: true,
-itemCount: 5,
-//itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-itemBuilder: (context, _) => Icon(
-Icons.star,
-color: Colors.amber,
-),
-onRatingUpdate: (rating) {
-ratingValue = rating.toString();
-print("User rating: " + ratingValue);
-},
-),
-size10,
-Container(
-height: 70.0,
-margin: EdgeInsets.symmetric(horizontal: 10.0),
-decoration: BoxDecoration(
-borderRadius: BorderRadius.circular(5.0), color: Colors.grey.withOpacity(0.3)),
-child: TextFormField(
-maxLines: 4,
-controller: ratingController,
-decoration: InputDecoration(
-border: InputBorder.none,
-contentPadding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
-hintText: 'Write your review',
-),
-onChanged: (str) => print('Multi-line text change: $str'),
-),
-),
-size20,
-WelcomeScreenButton(
-edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 70.0),
-buttonColor: kPrimaryPurple,
-buttonText: "Submit",
-textColor: kWhiteColor,
-fontSize: 16,
-isIcon: false,
-height: 40.0,
-callback: () {
-print(boxStorage.read(KEY_USER_ID));
-print(boxStorage.read(KEY_USER_NAME));
-
-boxStorage.read(KEY_TOKEN) == null
-? openAddAuthDialog(context)
-    : businessProfileController
-    .postUserReview(widget.id, boxStorage.read(KEY_USER_ID),
-boxStorage.read(KEY_USER_NAME), ratingValue, ratingController.text, context)
-    .then((value) => ratingController.clear());
-},
-),*/
