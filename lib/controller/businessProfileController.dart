@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart';
@@ -51,6 +52,16 @@ class BusinessProfileController extends GetxController {
 
   Future<void> postUserReview(businessID, addedById, userName, userRating, comment, context,slug) async {
     JohukumLoaderAnimation.showLoaderAnimation(context: context);
+
+
+    var map=jsonEncode(<String, dynamic>{
+      "added_by_id": addedById,
+      "added_by": userName,
+      "rating": userRating,
+      "comment": comment,
+    });
+
+    log(map);
 
     var response = await post(Uri.parse(postReview + businessID + "/review"),
         headers: <String, String>{

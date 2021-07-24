@@ -38,14 +38,6 @@ class BusinessReview extends StatelessWidget {
                     context: context,
                     builder: (context) => BusinessReviewBottomSheet(context),
                   );
-                  /*boxStorage.read(KEY_TOKEN) != null
-                      ? showModalBottomSheet(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (context) => BusinessReviewBottomSheet(context),
-                        )
-                      : openAddAuthDialog(context);*/
                 },
                 child: Center(child: textUbuntu("Add", kWhiteColor, fontWeight: weight500, fontSize: 18))):Container(),
             Container(

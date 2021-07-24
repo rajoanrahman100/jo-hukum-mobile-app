@@ -20,6 +20,8 @@ class StepOneScreen extends StatelessWidget {
 
   var divisionController = Get.put(DivisionController());
 
+
+
   var businessNameController = TextEditingController();
   var streetAddressController = TextEditingController();
   var landMarkController = TextEditingController();
@@ -175,8 +177,25 @@ class StepOneScreen extends StatelessWidget {
                               size5,
                               GestureDetector(
                                 onTap: () async {
-                                  await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
-                                  openCityDialog(context);
+
+                                  if(divisionController.isButtonClickable.value){
+
+                                    Duration time = Duration(seconds: 1);
+
+                                    divisionController.isButtonClickable.value = false; //make the button disable to
+                                    // making variable false.
+                                    print("Clicked Once");
+                                    Future.delayed(time, () async{
+                                      await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
+                                      openCityDialog(context);
+                                      divisionController.isButtonClickable.value = true; //future delayed to change
+                                      // the button back to clickable
+                                    });
+
+
+                                  }
+
+
                                 },
                                 child: Container(
                                   height: 50.0,
@@ -211,8 +230,23 @@ class StepOneScreen extends StatelessWidget {
                               size5,
                               GestureDetector(
                                 onTap: () async {
-                                  await divisionController.fetchThana(divisionController.selectCityId.value, "");
-                                  openThanaDialog(context);
+
+                                  if(divisionController.isButtonClickable.value){
+
+                                    Duration time = Duration(seconds: 1);
+
+                                    divisionController.isButtonClickable.value = false; //make the button disable to
+                                    // making variable false.
+                                    print("Clicked Once");
+                                    Future.delayed(time, () async{
+                                      await divisionController.fetchThana(divisionController.selectCityId.value, "");
+                                      openThanaDialog(context);
+                                      divisionController.isButtonClickable.value = true; //future delayed to change
+                                      // the button back to clickable
+                                    });
+                                  }
+
+
                                 },
                                 child: Container(
                                   height: 50.0,
