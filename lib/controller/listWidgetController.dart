@@ -7,6 +7,9 @@ class ListWidgetController extends GetxController {
   var nameTitle="Mr.".obs;
   var designationTitle="Owner.".obs;
 
+  var openTime = "9.00 am".obs;
+  var closeTime = "9.00 pm".obs;
+
   var questionList = [].obs;
 
   var addNoOne = false.obs;
@@ -19,12 +22,6 @@ class ListWidgetController extends GetxController {
 
   var mobileNumbers=[].obs;
   //var mobileNumbers=List<MobileNumberModel>().obs;
-
-
-  ///tap to set or change
-  var tapToChange=true.obs;
-
-  //var weekDaysList=weekList.obs;
 
   List<WeekDays> weekDaysList=weekList.obs;
 

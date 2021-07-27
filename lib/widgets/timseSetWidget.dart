@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 
@@ -32,4 +33,10 @@ class TimeSetWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+
+Future<DateTime> timerWidget(BuildContext context, {Function onConfirm}) {
+  return DatePicker.showTime12hPicker(context,
+      showTitleActions: true, onConfirm: onConfirm, currentTime: DateTime(2008, 12, 31, 9, 00, 34));
 }

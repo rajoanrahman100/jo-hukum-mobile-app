@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/listWidgetController.dart';
@@ -7,6 +8,7 @@ import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:johukum/widgets/timseSetWidget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../responsive.dart';
@@ -124,6 +126,32 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                                           ))));
                             },
                           )),
+                    ),
+                    size10,
+                    Row(
+                      children: [
+                        Obx(()=>TimeSetContainer(
+                          title: "open",
+                          callback: (){
+                            timerWidget(context, onConfirm: (date) {
+                              var time = DateFormat.jm().format(date).toString();
+                              controller.openTime.value=time;
+                            });
+                          },
+                          time: controller.openTime.value,
+                        ),),
+                        width10,
+                        Obx(()=>TimeSetContainer(
+                          title: "close",
+                          callback: (){
+                            timerWidget(context, onConfirm: (date) {
+                              var time = DateFormat.jm().format(date).toString();
+                              controller.closeTime.value=time;
+                            });
+                          },
+                          time: controller.closeTime.value,
+                        ),)
+                      ],
                     ),
                     size10,
                     textUbuntu("Title*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
@@ -619,31 +647,45 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
     );
   }
 
-  Future<void> _displayTextInputDialog(BuildContext context, textcontroller) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('TextField in Dialog'),
-            content: Container(
-              height: 300.0,
-              child: Column(
+}
+
+class TimeSetContainer extends StatelessWidget {
+
+  String title;
+  VoidCallback callback;
+  String time;
+
+  TimeSetContainer({this.title,this.callback,this.time});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: callback,
+        child: Container(
+          height: 50.0,
+          decoration: containerBoxDecoration(
+            color: kPrimaryPurple,
+            borderRadius: 5.0
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              textUbuntu("$title", Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextField(
-                    onChanged: (value) {},
-                    controller: textcontroller,
-                    decoration: InputDecoration(hintText: "Text Field in Dialog"),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        controller.mobileNumbers.add(textcontroller.text);
-                      },
-                      child: textUbuntu("ADD", kPrimaryPurple))
+                  textUbuntu("$time", Colors.white,fontSize: 22.0,fontWeight: FontWeight.bold),
+                  Icon(Icons.arrow_drop_down,color: Colors.white,size: 25.0,)
                 ],
               ),
-            ),
-          );
-        });
+
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
