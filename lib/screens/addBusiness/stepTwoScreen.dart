@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/listWidgetController.dart';
-import 'package:johukum/screens/addBusiness/monileNumbersModel.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
@@ -14,34 +11,53 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 import '../../responsive.dart';
 
-class StepTwoScreen extends StatelessWidget {
+class StepTwoScreen extends StatefulWidget {
+  @override
+  _StepTwoScreenState createState() => _StepTwoScreenState();
+}
+
+class _StepTwoScreenState extends State<StepTwoScreen> {
   final _formKey = GlobalKey<FormState>();
 
   List<Widget> children = [];
+
   int count = 1;
 
   var controller = Get.put(ListWidgetController());
 
   var numberController = TextEditingController();
+
   List<Map<String, dynamic>> send = [];
 
   Map<String, String> map1;
 
   ///Text editing controller
   var title = TextEditingController();
+
   var fullName = TextEditingController();
+
   var designation = TextEditingController();
+
   var phoneNumber = TextEditingController();
+
   var email = TextEditingController();
+
   var fax = TextEditingController();
+
   var facebook = TextEditingController();
+
   var website = TextEditingController();
+
   var instagram = TextEditingController();
+
   var twitter = TextEditingController();
+
   var number = TextEditingController();
 
   var mobileOne = TextEditingController();
+
   var mobileTwo = TextEditingController();
+
   var mobileThree = TextEditingController();
 
   var nameTitleList = ["Mr.", "Mrs.", "Miss.", "Dr."];
@@ -67,6 +83,48 @@ class StepTwoScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    size10,
+                    Row(
+                      children: [
+                        textUbuntu("Working Days", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                        textUbuntu(" (6 days autoselected, tap to change)", kBlackColor.withOpacity(0.6),
+                            fontSize: 15.0, fontWeight: weight400),
+                      ],
+                    ),
+                    size10,
+                    Container(
+                      height: 40.0,
+                      child: Obx(() => ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.weekDaysList.length,
+                            itemBuilder: (_, index) {
+                              return GestureDetector(
+                                  onTap: () {
+                                    controller.changeStatus(index);
+                                  },
+                                  child: Obx(() => controller.weekDaysList[index].selected.value
+                                      ? Container(
+                                          width: 40.0,
+                                          margin: EdgeInsets.symmetric(horizontal: 3.0),
+                                          decoration: containerBoxDecoration(borderRadius: 5.0, color: kPrimaryPurple),
+                                          height: 30.0,
+                                          child: Center(
+                                            child: textUbuntu("${controller.weekDaysList[index].title}", Colors.white,
+                                                fontSize: 12.0, fontWeight: weight500),
+                                          ))
+                                      : Container(
+                                          width: 40.0,
+                                          margin: EdgeInsets.symmetric(horizontal: 3.0),
+                                          decoration: containerBoxDecoration(
+                                              borderRadius: 5.0, color: kBlackColor.withOpacity(0.3)),
+                                          height: 30.0,
+                                          child: Center(
+                                            child: textUbuntu("${controller.weekDaysList[index].title}", kBlackColor,
+                                                fontSize: 12.0, fontWeight: weight500),
+                                          ))));
+                            },
+                          )),
+                    ),
                     size10,
                     textUbuntu("Title*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     size5,
@@ -115,22 +173,6 @@ class StepTwoScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    /*AddBusinessForm(
-                      controller: title,
-                      hintText: "Mr/Mrs",
-                      suffixIcon: Icon(
-                        Icons.arrow_drop_down_circle,
-                        color: kPrimaryPurple,
-                      ),
-                      isSuffix: true,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
-                    ),*/
                     size10,
                     textUbuntu("Full Name*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
@@ -176,89 +218,6 @@ class StepTwoScreen extends StatelessWidget {
                       ],
                     ),
                     size5,
-                    /*Row(
-                      children: [
-                        Expanded(
-                          child: AddBusinessForm(
-                            controller: mobileOne,
-                            textInputType: TextInputType.emailAddress,
-                            hintText: "mobile number 1",
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return "add at least 1 valid phone number";
-                              }
-                              if (value.length != 11) {
-                                return "invalid phone number";
-                              }
-                              _formKey.currentState.save();
-                              return null;
-                            },
-                            isSuffix: false,
-                          ),
-                        ),
-                        Obx(() => controller.addNoOne.value == false
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.add_circle,
-                                  color: kPrimaryPurple,
-                                ),
-                                onPressed: () {
-                                  controller.addNoOne.value = true;
-                                },
-                              )
-                            : Container())
-                      ],
-                    ),
-                    Obx(() => controller.addNoOne.value == true
-                        ? Row(
-                            children: [
-                              Expanded(
-                                child: AddBusinessForm(
-                                  controller: mobileTwo,
-                                  textInputType: TextInputType.emailAddress,
-                                  hintText: "mobile number 2",
-                                  isSuffix: false,
-                                ),
-                              ),
-                              Obx(() => controller.addNoTwo.value == false
-                                  ? IconButton(
-                                      icon: Icon(
-                                        Icons.add_circle,
-                                        color: kPrimaryPurple,
-                                      ),
-                                      onPressed: () {
-                                        controller.addNoTwo.value = true;
-                                      },
-                                    )
-                                  : Container())
-                            ],
-                          )
-                        : Container()),
-                    Obx(() => controller.addNoTwo.value == true
-                        ? Row(
-                            children: [
-                              Expanded(
-                                child: AddBusinessForm(
-                                  controller: mobileThree,
-                                  textInputType: TextInputType.emailAddress,
-                                  hintText: "mobile number 3",
-                                  isSuffix: false,
-                                ),
-                              ),
-                              Obx(() => controller.addNoTwo.value == false
-                                  ? IconButton(
-                                      icon: Icon(
-                                        Icons.add_circle,
-                                        color: kPrimaryPurple,
-                                      ),
-                                      onPressed: () {
-                                        controller.addNoTwo.value = true;
-                                      },
-                                    )
-                                  : Container())
-                            ],
-                          )
-                        : Container()),*/
                     Row(
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -275,20 +234,18 @@ class StepTwoScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-
-                            if(number.text.isEmpty){
+                            if (number.text.isEmpty) {
                               showToast("insert your number");
                               return;
-                            }else if(number.text.length!=11){
+                            } else if (number.text.length != 11) {
                               showToast("Mobile Number Format is not valid");
-                            }else{
+                            } else {
                               map = {"mobile_number": number.text};
                               controller.addNumbers(map);
                               //controller.mobileNumbers.add(MobileNumberModel(value:number.text));
                               //json = jsonEncode(controller.mobileNumbers);
                               number.clear();
                             }
-
                           },
                           child: Container(
                             height: 45,
@@ -322,14 +279,20 @@ class StepTwoScreen extends StatelessWidget {
                                     padding: const EdgeInsets.symmetric(vertical: 5.0),
                                     child: Row(
                                       children: [
-                                        textUbuntu("Mobile Number ${index + 1}:   ${controller
-                                            .mobileNumbers[index]['mobile_number']}",
-                                            kBlackColor.withOpacity(0.5),fontWeight: weight500),
+                                        textUbuntu(
+                                            "Mobile Number ${index + 1}:   ${controller.mobileNumbers[index]['mobile_number']}",
+                                            kBlackColor.withOpacity(0.5),
+                                            fontWeight: weight500),
                                         width5,
-                                        GestureDetector(onTap: (){
-                                          controller.mobileNumbers.removeAt(index);
-                                        },child: Icon(Icons.cancel,color: kPrimaryPurple,size:
-                                            20.0,))
+                                        GestureDetector(
+                                            onTap: () {
+                                              controller.mobileNumbers.removeAt(index);
+                                            },
+                                            child: Icon(
+                                              Icons.cancel,
+                                              color: kPrimaryPurple,
+                                              size: 20.0,
+                                            ))
                                       ],
                                     ),
                                   );
@@ -357,8 +320,9 @@ class StepTwoScreen extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         print(controller.mobileNumbers.runtimeType);
+                        Navigator.pushNamed(context, '/stepThree');
                         // print(send);
-                        if (_formKey.currentState.validate()) {
+                        /*if (_formKey.currentState.validate()) {
                           boxStorage.write(KEY_BUSINESS_OWNER_NAME, fullName.text);
                           boxStorage.write(KEY_BUSINESS_OWNER_TITLE, controller.nameTitle.value);
                           boxStorage.write(KEY_BUSINESS_DESIGNATION, designation.text);
@@ -370,13 +334,12 @@ class StepTwoScreen extends StatelessWidget {
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text ?? "No Email ID Found");
                           boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
 
-
                           //boxStorage.write(MOBILE_ONE, mobileOne.text);
                           //boxStorage.write(MOBILE_TWO, mobileTwo.text);
                           //boxStorage.write(MOBILE_THREE, mobileThree.text);
 
                           Navigator.pushNamed(context, '/stepThree');
-                        }
+                        }*/
                         //Navigator.pushNamed(context, '/stepThree');
                       },
                       child: Row(
@@ -529,20 +492,18 @@ class StepTwoScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-
-                            if(number.text.isEmpty){
+                            if (number.text.isEmpty) {
                               showToast("insert your number");
                               return;
-                            }else if(number.text.length!=11){
+                            } else if (number.text.length != 11) {
                               showToast("Mobile Number Format is not valid");
-                            }else{
+                            } else {
                               map = {"mobile_number": number.text};
                               controller.addNumbers(map);
                               //controller.mobileNumbers.add(MobileNumberModel(value:number.text));
                               //json = jsonEncode(controller.mobileNumbers);
                               number.clear();
                             }
-
                           },
                           child: Container(
                             height: 45,
@@ -561,36 +522,44 @@ class StepTwoScreen extends StatelessWidget {
                     size10,
                     Obx(() => controller.mobileNumbers.length == 0
                         ? Center(
-                        child: textUbuntu("No mobile numbers added yet", kPrimaryPurple, fontWeight: weight500,fontSize: 18.0))
+                            child: textUbuntu("No mobile numbers added yet", kPrimaryPurple,
+                                fontWeight: weight500, fontSize: 18.0))
                         : SizedBox(
-                      //width: size.width,
-                      child: Container(
-                        width: size.width,
-                        margin: EdgeInsets.all(10.0),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: controller.mobileNumbers.length,
-                          itemBuilder: (_, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Row(
-                                children: [
-                                  textUbuntu("Mobile Number ${index + 1}:   ${controller
-                                      .mobileNumbers[index]['mobile_number']}",
-                                      kBlackColor.withOpacity(0.5),fontWeight: weight500,fontSize: 18.0),
-                                  width5,
-                                  GestureDetector(onTap: (){
-                                    controller.mobileNumbers.removeAt(index);
-                                  },child: Icon(Icons.cancel,color: kPrimaryPurple,size:
-                                  20.0,))
-                                ],
+                            //width: size.width,
+                            child: Container(
+                              width: size.width,
+                              margin: EdgeInsets.all(10.0),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: controller.mobileNumbers.length,
+                                itemBuilder: (_, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                                    child: Row(
+                                      children: [
+                                        textUbuntu(
+                                            "Mobile Number ${index + 1}:   ${controller.mobileNumbers[index]['mobile_number']}",
+                                            kBlackColor.withOpacity(0.5),
+                                            fontWeight: weight500,
+                                            fontSize: 18.0),
+                                        width5,
+                                        GestureDetector(
+                                            onTap: () {
+                                              controller.mobileNumbers.removeAt(index);
+                                            },
+                                            child: Icon(
+                                              Icons.cancel,
+                                              color: kPrimaryPurple,
+                                              size: 20.0,
+                                            ))
+                                      ],
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ),
-                    )),
+                            ),
+                          )),
                     size10,
                     textUbuntu("Email", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
@@ -607,12 +576,12 @@ class StepTwoScreen extends StatelessWidget {
                       hintText: "",
                       isSuffix: false,
                     ),
-
                     size10,
                     GestureDetector(
                       onTap: () {
                         // print(send);
-                        if (_formKey.currentState.validate()) {
+                        Navigator.pushNamed(context, '/stepThree');
+                        /*if (_formKey.currentState.validate()) {
                           boxStorage.write(KEY_BUSINESS_OWNER_NAME, fullName.text);
                           boxStorage.write(KEY_BUSINESS_OWNER_TITLE, controller.nameTitle.value);
                           boxStorage.write(KEY_BUSINESS_DESIGNATION, designation.text);
@@ -624,9 +593,8 @@ class StepTwoScreen extends StatelessWidget {
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text ?? "No Email ID Found");
                           boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
 
-
                           Navigator.pushNamed(context, '/stepThree');
-                        }
+                        }*/
                         //Navigator.pushNamed(context, '/stepThree');
                       },
                       child: Row(

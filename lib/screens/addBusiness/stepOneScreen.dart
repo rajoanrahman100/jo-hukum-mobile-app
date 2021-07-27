@@ -20,8 +20,6 @@ class StepOneScreen extends StatelessWidget {
 
   var divisionController = Get.put(DivisionController());
 
-
-
   var businessNameController = TextEditingController();
   var streetAddressController = TextEditingController();
   var landMarkController = TextEditingController();
@@ -33,8 +31,6 @@ class StepOneScreen extends StatelessWidget {
   var areaNameController = TextEditingController();
   var plusCodeController = TextEditingController();
 
-
-
   var title = TextEditingController();
   var fullName = TextEditingController();
   var designation = TextEditingController();
@@ -44,11 +40,11 @@ class StepOneScreen extends StatelessWidget {
   var facebook = TextEditingController();
   var website = TextEditingController();
 
-
   var businessController = Get.put(AddBusinessController());
 
   var controller = Get.put(ListWidgetController());
   var nameTitleList = ["Mr.", "Mrs.", "Miss.", "Dr."];
+  var designationList = ["Owner", "Co-founder", "Propritor", "Managing Director","Chairman"];
 
   @override
   Widget build(BuildContext context) {
@@ -177,25 +173,19 @@ class StepOneScreen extends StatelessWidget {
                               size5,
                               GestureDetector(
                                 onTap: () async {
-
-                                  if(divisionController.isButtonClickable.value){
-
+                                  if (divisionController.isButtonClickable.value) {
                                     Duration time = Duration(seconds: 1);
 
                                     divisionController.isButtonClickable.value = false; //make the button disable to
                                     // making variable false.
                                     print("Clicked Once");
-                                    Future.delayed(time, () async{
+                                    Future.delayed(time, () async {
                                       await divisionController.fetchCity(divisionController.selectDivisionId.value, "");
                                       openCityDialog(context);
                                       divisionController.isButtonClickable.value = true; //future delayed to change
                                       // the button back to clickable
                                     });
-
-
                                   }
-
-
                                 },
                                 child: Container(
                                   height: 50.0,
@@ -230,23 +220,19 @@ class StepOneScreen extends StatelessWidget {
                               size5,
                               GestureDetector(
                                 onTap: () async {
-
-                                  if(divisionController.isButtonClickable.value){
-
+                                  if (divisionController.isButtonClickable.value) {
                                     Duration time = Duration(seconds: 1);
 
                                     divisionController.isButtonClickable.value = false; //make the button disable to
                                     // making variable false.
                                     print("Clicked Once");
-                                    Future.delayed(time, () async{
+                                    Future.delayed(time, () async {
                                       await divisionController.fetchThana(divisionController.selectCityId.value, "");
                                       openThanaDialog(context);
                                       divisionController.isButtonClickable.value = true; //future delayed to change
                                       // the button back to clickable
                                     });
                                   }
-
-
                                 },
                                 child: Container(
                                   height: 50.0,
@@ -295,60 +281,61 @@ class StepOneScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          flex: 1,
+                            flex: 1,
                             child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            textUbuntu("Title*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
-                            size5,
-                            Container(
-                              height: 50.0,
-                              padding: EdgeInsets.symmetric(horizontal: 10.0),
-                              decoration: BoxDecoration(
-                                  color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Obx(
-                                    () => textUbuntu(controller.nameTitle.value, kBlackColor.withOpacity(0.6),
-                                        fontSize: 14),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      showBarModalBottomSheet(
-                                          backgroundColor: kWhiteColor,
-                                          context: context,
-                                          expand: false,
-                                          builder: (context) => Container(
-                                                height: size.height * 0.3,
-                                                child: ListView.builder(
-                                                  itemCount: nameTitleList.length,
-                                                  itemBuilder: (_, index) {
-                                                    return ListTile(
-                                                      onTap: () {
-                                                        controller.nameTitle.value = nameTitleList[index];
-                                                        Navigator.of(context).pop();
-                                                      },
-                                                      leading: Icon(
-                                                        Icons.person,
-                                                        color: kPrimaryPurple,
-                                                      ),
-                                                      title: textUbuntu(nameTitleList[index], kPrimaryPurple),
-                                                    );
-                                                  },
-                                                ),
-                                              ));
-                                    },
-                                    child: Icon(
-                                      Icons.arrow_drop_down_circle,
-                                      color: kPrimaryPurple,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                textUbuntu("Title*", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                                size5,
+                                GestureDetector(
+                                  onTap: () {
+                                    showBarModalBottomSheet(
+                                        backgroundColor: kWhiteColor,
+                                        context: context,
+                                        expand: false,
+                                        builder: (context) => Container(
+                                              height: size.height * 0.3,
+                                              child: ListView.builder(
+                                                itemCount: nameTitleList.length,
+                                                itemBuilder: (_, index) {
+                                                  return ListTile(
+                                                    onTap: () {
+                                                      controller.nameTitle.value = nameTitleList[index];
+                                                      Navigator.of(context).pop();
+                                                    },
+                                                    leading: Icon(
+                                                      Icons.person,
+                                                      color: kPrimaryPurple,
+                                                    ),
+                                                    title: textUbuntu(nameTitleList[index], kPrimaryPurple),
+                                                  );
+                                                },
+                                              ),
+                                            ));
+                                  },
+                                  child: Container(
+                                    height: 50.0,
+                                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                    decoration: BoxDecoration(
+                                        color: kPrimaryPurple.withOpacity(0.2),
+                                        borderRadius: BorderRadius.circular(10.0)),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Obx(
+                                          () => textUbuntu(controller.nameTitle.value, kBlackColor.withOpacity(0.6),
+                                              fontSize: 14),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_drop_down_circle,
+                                          color: kPrimaryPurple,
+                                        ),
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
+                                  ),
+                                ),
+                              ],
+                            )),
                         width10,
                         Expanded(
                           flex: 2,
@@ -378,20 +365,39 @@ class StepOneScreen extends StatelessWidget {
                     size5,
                     GestureDetector(
                       onTap: () async {
-                        await divisionController.fetchThana(divisionController.selectCityId.value, "");
-                        openThanaDialog(context);
+                        showBarModalBottomSheet(
+                            backgroundColor: kWhiteColor,
+                            context: context,
+                            expand: false,
+                            builder: (context) => Container(
+                              height: size.height * 0.35,
+                              child: ListView.builder(
+                                itemCount: designationList.length,
+                                itemBuilder: (_, index) {
+                                  return ListTile(
+                                    onTap: () {
+                                      controller.designationTitle.value = designationList[index];
+                                      Navigator.of(context).pop();
+                                    },
+                                    leading: Icon(
+                                      Icons.person,
+                                      color: kPrimaryPurple,
+                                    ),
+                                    title: textUbuntu(designationList[index], kPrimaryPurple),
+                                  );
+                                },
+                              ),
+                            ));
                       },
                       child: Container(
                         height: 50.0,
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
                         decoration: BoxDecoration(
-                            color: kPrimaryPurple.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10.0)),
+                            color: kPrimaryPurple.withOpacity(0.2), borderRadius: BorderRadius.circular(10.0)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Obx(() => textUbuntu(
-                                divisionController.selectThana.value, kBlackColor.withOpacity(0.6),
+                            Obx(() => textUbuntu(controller.designationTitle.value, kBlackColor.withOpacity(0.6),
                                 fontSize: 16)),
                             Icon(Icons.arrow_drop_down_circle, color: kPrimaryPurple)
                           ],
@@ -399,9 +405,40 @@ class StepOneScreen extends StatelessWidget {
                       ),
                     ),
                     size10,
+                    textUbuntu("Website", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: website,
+                      hintText: "",
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    textUbuntu("Facebook Page", kBlackColor, fontSize: 16.0, fontWeight: weight500),
+                    AddBusinessForm(
+                      controller: facebook,
+                      hintText: "",
+                      isSuffix: false,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                    ),
+                    size10,
                     GestureDetector(
                       onTap: () {
-                        if (_formKey.currentState.validate()) {
+
+
+                        Navigator.pushNamed(context, '/stepTwo');
+
+                        /*if (_formKey.currentState.validate()) {
                           if (divisionController.selectDivision.value.isEmpty) {
                             showErrorToast("Select Division");
                             return;
@@ -422,15 +459,28 @@ class StepOneScreen extends StatelessWidget {
                             //boxStorage.write(KEY_USER_AREA, areaNameController.text);
                             Navigator.pushNamed(context, '/stepTwo');
                           }
-                        }
+                        }*/
                       },
                       child: Row(
                         children: [
                           Expanded(child: Container()),
-                          textUbuntu("Go To Step 2 ", kPrimaryPurple, fontWeight: weightBold, fontSize: 18.0),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: kPrimaryPurple,
+                          Container(
+                            height: 40.0,
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            decoration: containerBoxDecoration(
+                              borderRadius: 10.0,
+                              color: kPrimaryPurple
+                            ),
+                            child: Row(
+                              children: [
+                                textUbuntu("Go To Step 2 ", Colors.white, fontWeight: weightBold, fontSize: 16.0),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                  size: 18.0,
+                                )
+                              ],
+                            ),
                           )
                         ],
                       ),

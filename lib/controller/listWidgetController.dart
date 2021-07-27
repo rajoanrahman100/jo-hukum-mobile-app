@@ -5,6 +5,7 @@ class ListWidgetController extends GetxController {
   var list = [].obs;
 
   var nameTitle="Mr.".obs;
+  var designationTitle="Owner.".obs;
 
   var questionList = [].obs;
 
@@ -19,6 +20,18 @@ class ListWidgetController extends GetxController {
   var mobileNumbers=[].obs;
   //var mobileNumbers=List<MobileNumberModel>().obs;
 
+
+  ///tap to set or change
+  var tapToChange=true.obs;
+
+  //var weekDaysList=weekList.obs;
+
+  List<WeekDays> weekDaysList=weekList.obs;
+
+  changeStatus(index){
+    weekDaysList[index].selected.value=!weekDaysList[index].selected.value;
+    print(weekDaysList[index].selected);
+  }
 
 
   addNumbers(value){
@@ -58,3 +71,23 @@ class ListWidgetController extends GetxController {
     questionList.removeAt(item);
   }
 }
+
+class WeekDays {
+
+  String title;
+  RxBool selected;
+
+  WeekDays({this.title,this.selected});
+
+
+}
+
+List<WeekDays> weekList=[
+  WeekDays(title: "Sat",selected: true.obs),
+  WeekDays(title: "Sun",selected: true.obs),
+  WeekDays(title: "Mon",selected: true.obs),
+  WeekDays(title: "Tue",selected: true.obs),
+  WeekDays(title: "Wed",selected: true.obs),
+  WeekDays(title: "Thu",selected: true.obs),
+  WeekDays(title: "Fri",selected: false.obs),
+];
