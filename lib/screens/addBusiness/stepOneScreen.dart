@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
@@ -51,7 +53,7 @@ class StepOneScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: buildBusinessInfoBar("Step 1/10"),
+      appBar: buildBusinessInfoBar("Step 1"),
       body: Container(
         height: size.height,
         child: Responsive(
@@ -410,26 +412,14 @@ class StepOneScreen extends StatelessWidget {
                       controller: website,
                       hintText: "",
                       isSuffix: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
+
                     ),
                     textUbuntu("Facebook Page", kBlackColor, fontSize: 16.0, fontWeight: weight500),
                     AddBusinessForm(
                       controller: facebook,
                       hintText: "",
                       isSuffix: false,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This Field is required";
-                        }
-                        _formKey.currentState.save();
-                        return null;
-                      },
+
                     ),
                     size10,
                     GestureDetector(
@@ -449,13 +439,35 @@ class StepOneScreen extends StatelessWidget {
                             showErrorToast("Select Thana");
                             return;
                           } else {
+
+                            Map<String,dynamic> map={
+                              "business name":businessNameController.text,
+                              "steert address":streetAddressController.text,
+                              "land mark":streetAddressController.text,
+                              "building":buildingNameController.text,
+                              "thana id":divisionController.selectThanaId.value,
+                              "postal code":postalCodeController.text,
+                              "title":controller.nameTitle.value,
+                              "full Name":fullName.text,
+                              "designation":controller.designationTitle.value,
+                              "website":website.text??"No Website Found",
+
+                            };
+
+                            log(map.toString());
+
                             boxStorage.write(KEY_USER_BUILDING, buildingNameController.text);
                             boxStorage.write(KEY_USER_BUSINESS_NAME, businessNameController.text);
                             boxStorage.write(KEY_USER_LANDMARK, landMarkController.text);
                             boxStorage.write(KEY_USER_STREET_ADDRESS, streetAddressController.text);
                             boxStorage.write(KEY_USER_THANA_ID, divisionController.selectThanaId.value);
-                            // boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
+                            //boxStorage.write(KEY_USER_PLUS_CODE, plusCodeController.text);
                             boxStorage.write(KEY_USER_POSTAL_CODE, postalCodeController.text);
+                            boxStorage.write(KEY_BUSINESS_OWNER_NAME, fullName.text);
+                            boxStorage.write(KEY_BUSINESS_OWNER_TITLE, controller.nameTitle.value);
+                            boxStorage.write(KEY_BUSINESS_DESIGNATION, controller.designationTitle.value);
+                            boxStorage.write(KEY_BUSINESS_WEBSITE, website.text??"NO WESBSITE FOUND");
+                            boxStorage.write(KEY_BUSINESS_FACEBOOK, facebook.text??"NO FACEBOOK PAGE FOUND");
                             //boxStorage.write(KEY_USER_AREA, areaNameController.text);
                             Navigator.pushNamed(context, '/stepTwo');
                           }

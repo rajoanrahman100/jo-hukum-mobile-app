@@ -1,19 +1,39 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/addBusiness/stepOneScreen.dart';
 import 'package:johukum/widgets/textWidgets.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
-class AboutApp extends StatelessWidget {
+class AboutApp extends StatefulWidget {
 
 
+
+  @override
+  _AboutAppState createState() => _AboutAppState();
+}
+
+class _AboutAppState extends State<AboutApp> {
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
+    return WebView(
+      initialUrl: 'https://cart.jo-hukum.com/',
+    );
+    /*return Scaffold(
       appBar: buildBusinessInfoBar("About"),
       body: Responsive(
         mobile: Container(
@@ -95,6 +115,6 @@ class AboutApp extends StatelessWidget {
         ),
       ),
       ),
-    );
+    );*/
   }
 }

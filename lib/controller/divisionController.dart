@@ -50,6 +50,7 @@ class DivisionController extends GetxController {
 
   setThanaID(id) {
     selectThanaId.value = id;
+    print(id);
   }
 
   setDivision(value) {

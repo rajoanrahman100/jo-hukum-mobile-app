@@ -167,6 +167,8 @@ class AddBusinessController extends GetxController {
 
     request.files.add(await http.MultipartFile.fromPath('logo', logoImage,contentType:MediaType('image','jpeg')));
     request.files.add(await http.MultipartFile.fromPath('cover_photo', coverPhoto,contentType:MediaType('image','jpeg')));
+
+    
     request.headers.addAll(<String, String>{
       'Authorization': boxStorage.read(KEY_TOKEN),
       'Content-Type': 'multipart/form-data; charset=UTF-8'

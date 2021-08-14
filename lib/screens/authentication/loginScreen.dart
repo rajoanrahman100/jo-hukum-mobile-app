@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,22 +25,24 @@ class SignInScreen extends StatelessWidget {
   var c = Get.put(PassWordController());
 
   GoogleSignIn googleSignIn = GoogleSignIn(
-    //clientId: "104100233141-anuongdp5oouqug6od56fkmn3ksssb3b.apps.googleusercontent.com",
+    //clientId: "23550904515-sek3no2rtksg62dr314ocqobgvgsjo60.apps.googleusercontent.com",
     scopes: [
-      //"104100233141-anuongdp5oouqug6od56fkmn3ksssb3b.apps.googleusercontent.com",
-      'email',
-      // you can add extras if you require
+      //"23550904515-sek3no2rtksg62dr314ocqobgvgsjo60.apps.googleusercontent.com"
+      'email', // you can add extras if you require
     ],
   );
 
   Future<void> _handleSignIn() async {
     try {
       await googleSignIn.signIn().then((value){
-        //print(value.id);
+        print("display name:"+value.displayName);
+        print("display email:"+value.email);
+        print("ID:"+value.id);
+        print("photo url:"+value.photoUrl);
+
         value.authentication.then((value){
-         // print(value);
-          print(value.idToken);
-          socialLogin(value.idToken);
+          log("ID token:"+value.idToken);
+          //socialLogin(value.idToken);
         });
       });
     } catch (error) {
@@ -479,7 +482,7 @@ class SignInScreen extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                               onTap: () async {
-                                                await googleSignIn.signIn().then((value) => print(value.displayName));
+                                                //await googleSignIn.signIn().then((value) => print(value.displayName));
                                               },
                                               child: Image.asset("assets/images/google"
                                                   ".png")),

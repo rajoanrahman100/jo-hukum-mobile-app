@@ -15,7 +15,7 @@ class NoInterConnectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(alignment: Alignment.bottomCenter,child: Container(
-      height: height??35.0,width:size.width,color: kPrimaryPurple,
+      height: height??45.0,width:size.width,color: kPrimaryPurple,
       child: Center(child: textUbuntu("No Internet Connection Found", Colors.white)),
     ),);
   }

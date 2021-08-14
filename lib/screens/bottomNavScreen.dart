@@ -126,11 +126,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           unselectedFontSize: 14,
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-            /*BottomNavigationBarItem(icon: Icon(Icons.people), label: ''),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.message),
-              label: '',
-            ),*/
             BottomNavigationBarItem(
               icon: Icon(Icons.info),
               label: '',

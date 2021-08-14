@@ -10,8 +10,6 @@ class ConnectivityController extends GetxController{
   var isOnline=false.obs;
 
 
-
-
   startMonitoring() async {
     await initConnectivity();
     _connectivity.onConnectivityChanged.listen((

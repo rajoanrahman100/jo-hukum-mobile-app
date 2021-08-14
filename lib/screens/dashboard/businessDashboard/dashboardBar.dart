@@ -24,16 +24,6 @@ class _DashBoardBusinessTabsState extends State<DashBoardBusinessTabs> {
 
   var dashController=Get.put(BusinessDashBoardTabsController());
 
-  void _changePage(int pageNum) {
-    setState(() {
-      _selectedPage = pageNum;
-      _pageController.animateToPage(
-        pageNum,
-        duration: Duration(milliseconds: 1000),
-        curve: Curves.fastLinearToSlowEaseIn,
-      );
-    });
-  }
 
   @override
   void initState() {

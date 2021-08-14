@@ -416,7 +416,6 @@ class _StepSevenScreenState extends State<StepSevenScreen> {
                       if(keywordController.keywordList.length==0){
                         return showErrorToast("At least one keyword is required");
                       }else{
-
                         /*await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
                             imageController.selectCoverImagePath.value);*/
                       }
