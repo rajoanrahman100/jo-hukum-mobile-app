@@ -26,6 +26,7 @@ const businessType="https://api-backend.jo-hukum.com/consumers_api/business_type
 const addBusiness="https://api-backend.jo-hukum.com/consumers_api/business_data";
 const uploadImagesAPi="https://api-backend.jo-hukum.com/consumers_api/uploads/photos";
 const reportBusinessApi=businessUrl+"business_data/";
+const sendMessageToBusiness=businessUrl+"business_data/";
 
 
 ///Business Analytics APi

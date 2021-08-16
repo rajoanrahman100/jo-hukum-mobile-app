@@ -11,6 +11,7 @@ import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/elasticSearch/businessReviews.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenBusinessReport.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenSendMessage.dart';
 import 'package:johukum/screens/web_view.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/customToast.dart';
@@ -315,6 +316,9 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 10.0),
                                     buttonColor: Colors.amber,
                                     isIcon: true,
+                                    callback: (){
+                                      openSendMessageDialog(context, widget.id);
+                                    },
                                     iconData: Icon(
                                       Icons.message,
                                       color: kBlackColor,

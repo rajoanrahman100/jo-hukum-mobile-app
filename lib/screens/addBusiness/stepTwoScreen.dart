@@ -484,8 +484,8 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                           "business type":businessTyeController.businessTypeId.value,
                         };
 
-                        log(map.toString());
-                        Navigator.pushNamed(context, '/stepThree');
+                        //log(map.toString());
+                        Navigator.pushNamed(context, '/stepSix');
 
                         /*if(_formKey.currentState.validate()){
                           boxStorage.write(BUSINESS_OPEN_TIME,controller.openTime.value );

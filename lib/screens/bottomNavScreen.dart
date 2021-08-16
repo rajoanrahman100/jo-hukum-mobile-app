@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,6 +45,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     pageController = PageController();
 
     print("version from local ${boxStorage.read(VERSION_NUMBER)}");
+    log("user token ${boxStorage.read(KEY_TOKEN)}");
 
     boxStorage.read(KEY_USER_ID)==null?sessionController.getSessionWithoutIDData()
         :sessionController.getSessionWithIDData(boxStorage.read(KEY_USER_ID));
@@ -101,16 +104,17 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       floatingActionButton: FloatingActionButton(
         elevation: 10,
         child: Icon(
-          Icons.search,
+          Icons.add,
           color: Colors.white,
           size: 28,
         ),
         backgroundColor: kPrimaryPurple,
         onPressed: () {
-          Navigator.push(
+          /*Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => ElasticSearchScreen()),
-          );
+          );*/
+          Navigator.pushNamed(context, '/stepOne');
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

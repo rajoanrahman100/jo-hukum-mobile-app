@@ -380,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
+        /*floatingActionButton: FloatingActionButton.extended(
           backgroundColor: kPrimaryPurple,
           foregroundColor: Colors.white,
           onPressed: () {
@@ -389,8 +389,8 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           icon: Icon(Icons.business_center),
           label: Text('Add Business'),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        ),*/
+        //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         drawer: DrawerClass(),
       ),
     );

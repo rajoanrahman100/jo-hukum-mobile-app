@@ -52,15 +52,15 @@ class AddBusinessForm extends StatelessWidget {
                 : EdgeInsets.only(left: 14.0, top: 15.0),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8),
             ),
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.white),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8),
             ),
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8),
             ),
             prefix:prefix,
             suffixIcon: suffixIcon ?? null),

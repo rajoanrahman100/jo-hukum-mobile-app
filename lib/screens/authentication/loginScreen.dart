@@ -25,13 +25,10 @@ class SignInScreen extends StatelessWidget {
   var c = Get.put(PassWordController());
 
   GoogleSignIn googleSignIn = GoogleSignIn(
-    //clientId: "23550904515-sek3no2rtksg62dr314ocqobgvgsjo60.apps.googleusercontent.com",
     scopes: [
-      //"23550904515-sek3no2rtksg62dr314ocqobgvgsjo60.apps.googleusercontent.com"
       'email', // you can add extras if you require
     ],
   );
-
   Future<void> _handleSignIn() async {
     try {
       await googleSignIn.signIn().then((value){
@@ -40,9 +37,10 @@ class SignInScreen extends StatelessWidget {
         print("ID:"+value.id);
         print("photo url:"+value.photoUrl);
 
-        value.authentication.then((value){
+        value.authentication.then((value)async{
           log("ID token:"+value.idToken);
-          //socialLogin(value.idToken);
+          log("Access token:"+value.accessToken);
+          await socialLogin(value.idToken);
         });
       });
     } catch (error) {
@@ -53,13 +51,15 @@ class SignInScreen extends StatelessWidget {
 
   Future socialLogin(token) async {
 
+    print("token $token");
     //JohukumLoaderAnimation.showLoaderAnimation(context: context);
 
     var res = await http.post(Uri.parse("https://api-login.jo-hukum.com/api/auth/social-login"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(<String, dynamic>{"token": token,"platform":"google"}));
+        body: jsonEncode(<String, dynamic>{"token": token,"mobile_number":"01843998877",
+          "platform":"google","client_id":"23550904515-krj4o3713k0drkkmrmojbpd8h0s02l7v.apps.googleusercontent.com"}));
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
@@ -68,6 +68,7 @@ class SignInScreen extends StatelessWidget {
       //showSuccessToast("a 6 digit code sent to your number");
       return;
     } else {
+      print("stataus code ${res.statusCode}");
       print("error response " + res.body);
       //showErrorToast("You have given a invalid OTP number");
       //JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
