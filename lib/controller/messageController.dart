@@ -5,7 +5,10 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:johukum/components/apis.dart';
+import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
+import 'package:johukum/widgets/customToast.dart';
+import 'package:johukum/widgets/johukumLoader.dart';
 
 class MessageController extends GetxController {
 
@@ -19,10 +22,11 @@ class MessageController extends GetxController {
   }*/
 
 
-  void sendMessage(businessID,message)async{
+  void sendMessage(businessID,message,context)async{
 
     print("--------Calling------------");
     log("------User token ${boxStorage.read(KEY_TOKEN)}");
+    JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: kWhiteColor);
 
     var result;
 
@@ -35,7 +39,7 @@ class MessageController extends GetxController {
     var request = new http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
 
-    /*if (imageFile != null) {
+   /* if (imageFile != null) {
       var stream = new http.ByteStream(imageFile.openRead());
       var length = await imageFile.length();
       var multipartFile = new http.MultipartFile('profile_image', stream, length,
@@ -54,10 +58,12 @@ class MessageController extends GetxController {
     });
 
     if(response.statusCode==200 || response.statusCode==201){
-
+      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
+      showSuccessToast("Send message successfully");
       Map<String,dynamic> dataMap=json.decode(result);
       print(dataMap);
     }else{
+      JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       print(response.statusCode);
       print(result);
     }

@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:johukum/components/apis.dart';
 import 'package:johukum/controller/authController.dart';
 import 'package:johukum/controller/passController.dart';
+import 'package:johukum/modelClass/socialLoginModel.dart';
 import 'package:johukum/screens/authentication/signUpScreen.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -63,6 +64,9 @@ class SignInScreen extends StatelessWidget {
 
     if (res.statusCode == 200 || res.statusCode == 201) {
       print("succes response " + res.body);
+      var dataMap = jsonDecode(res.body);
+      SocialLogin socialLogin=SocialLogin.fromJson(dataMap);
+
       //JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       //Navigator.pushNamed(context,'/userInfo');
       //showSuccessToast("a 6 digit code sent to your number");
@@ -256,7 +260,8 @@ class SignInScreen extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                               onTap: () async {
-                                                _handleSignIn();
+                                               // _handleSignIn();
+                                               logInController.handleSignIn(googleSignIn,context);
                                                 //await googleSignIn.signIn().then((value) => print(value.id));
                                               },
                                               child: Image.asset("assets/images/google"

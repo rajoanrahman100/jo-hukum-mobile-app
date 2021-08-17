@@ -21,6 +21,8 @@ class _WrapperClassState extends State<WrapperClass> {
   @override
   Widget build(BuildContext context) {
 
+    print("${boxStorage.read(KEY_TOKEN)}");
+
     return boxStorage.read(KEY_TOKEN)==null?WelcomeScreen():BottomNavScreen();
   }
 

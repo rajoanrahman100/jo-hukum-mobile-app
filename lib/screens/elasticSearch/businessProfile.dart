@@ -7,16 +7,18 @@ import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/controller/businessProfileController.dart';
+import 'package:johukum/controller/messageController.dart';
 import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/elasticSearch/businessReviews.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenBusinessReport.dart';
-import 'package:johukum/screens/fullScreenAlertDialog/fullScreenSendMessage.dart';
 import 'package:johukum/screens/web_view.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
+import 'package:johukum/widgets/addBusinessForm.dart';
 import 'package:johukum/widgets/customToast.dart';
 import 'package:johukum/widgets/textWidgets.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+
 import 'claimBusiness/claimBusinessDialog.dart';
 
 class BusinessProfile extends StatefulWidget {
@@ -33,8 +35,7 @@ class BusinessProfile extends StatefulWidget {
 class _BusinessProfileState extends State<BusinessProfile> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  var backImage =
-      "https://i1.wp.com/www.finddoctor24.com/wp-content/uploads/2019/03/Islami-Bank-Hospital-Mugda.jpg?fit=471%2C286&ssl=1";
+  var backImage = "https://i1.wp.com/www.finddoctor24.com/wp-content/uploads/2019/03/Islami-Bank-Hospital-Mugda.jpg?fit=471%2C286&ssl=1";
 
   var description =
       "Loren gypsum dolor sit mate, ad prompts feud gait, quid exercise emeritus bis e.Usu cu ores quid am, me rides sapper croquet ex. Ed ea clit a elect ram referent,at diode imper diet enc. Me sumo unique argument um no. Ea alien um accustoms quo,mod summon effendi it tied.";
@@ -53,7 +54,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
   var passController = Get.put(PassWordController());
   var numberController = TextEditingController();
   var passWordController = TextEditingController();
-
+  var messageController = TextEditingController();
+  var sendMessageController = Get.put(MessageController());
   var ratingValue;
 
   callNumber(number) async {
@@ -236,8 +238,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                       color: kBlackColor,
                                       fontWeight: weight500,
                                     )),
-                                Text("${obj.totalReviews}",
-                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
+                                Text("${obj.totalReviews}", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500)),
                                 SizedBox(
                                   width: 10.0,
                                 ),
@@ -255,29 +256,25 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               )),
                                     );
                                   },
-                                  child: Text("See reviews",
-                                      style: textStyleUbuntu(
-                                          color: kPrimaryPurple,
-                                          fontWeight: weightBold,
-                                          textDecoration: TextDecoration.underline)),
+                                  child: Text("See reviews", style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weightBold, textDecoration: TextDecoration.underline)),
                                 ),
                               ],
                             ),
                             size10,
-                           boxStorage.read(KEY_TOKEN)!=null?GestureDetector(
-                              onTap: () {
-                                return showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Dialog(
-                                        child: ClaimBusinessDialog(size: size,
-                                            mobileNumber: obj.contact.mobileNumbers[0].mobileNumber),
-                                      );
-                                    });
-                              },
-                              child: textUbuntu("Is This Your Business?Claim now", kPrimaryPurple,
-                                  textDecoration: TextDecoration.underline, fontWeight: weight500),
-                            ):Container(),
+                            boxStorage.read(KEY_TOKEN) != null
+                                ? GestureDetector(
+                                    onTap: () {
+                                      return showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Dialog(
+                                              child: ClaimBusinessDialog(size: size, mobileNumber: obj.contact.mobileNumbers[0].mobileNumber),
+                                            );
+                                          });
+                                    },
+                                    child: textUbuntu("Is This Your Business?Claim now", kPrimaryPurple, textDecoration: TextDecoration.underline, fontWeight: weight500),
+                                  )
+                                : Container(),
                             size20,
                             Row(
                               children: [
@@ -316,8 +313,17 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     edgeInsetsGeometry: EdgeInsets.symmetric(horizontal: 10.0),
                                     buttonColor: Colors.amber,
                                     isIcon: true,
-                                    callback: (){
-                                      openSendMessageDialog(context, widget.id);
+                                    callback: () {
+                                      //openSendMessageDialog(context, widget.id);
+                                      showModalBottomSheet(
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(15.0))),
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) => SendMessageModalSheet(
+                                              size: size, formKey: _formKey,
+                                              messageController: messageController,
+                                              sendMessageController: sendMessageController,
+                                              widget: widget));
                                     },
                                     iconData: Icon(
                                       Icons.message,
@@ -342,8 +348,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.red[600],
                                     isIcon: true,
                                     callback: () {
-                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1],
-                                          obj.llocation.geo.coordinates[0], obj.llocation.businessName);
+                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1], obj.llocation.geo.coordinates[0], obj.llocation.businessName);
 
                                       // MapUtils.openMap(23.6850, 90.3563);
                                       print("${obj.llocation.geo.coordinates[0]}");
@@ -413,11 +418,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Business Information",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             Padding(
@@ -426,11 +427,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 children: [
                                   Expanded(flex: 1, child: textUbuntu("Address", kBlackColor)),
                                   Text(": "),
-                                  Expanded(
-                                      flex: 2,
-                                      child: textUbuntu(
-                                          "${obj.llocation.landMark ?? ""} , ${obj.llocation.area ?? ""}", kBlackColor,
-                                          maxLine: 2))
+                                  Expanded(flex: 2, child: textUbuntu("${obj.llocation.landMark ?? ""} , ${obj.llocation.area ?? ""}", kBlackColor, maxLine: 2))
                                 ],
                               ),
                             ),
@@ -453,8 +450,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               itemBuilder: (_, index) {
                                                 return Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                                                  child: textUbuntu(
-                                                      obj.contact.mobileNumbers[index].mobileNumber, kBlackColor),
+                                                  child: textUbuntu(obj.contact.mobileNumbers[index].mobileNumber, kBlackColor),
                                                 );
                                               },
                                             ),
@@ -469,9 +465,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 children: [
                                   Expanded(flex: 1, child: textUbuntu("Website", kBlackColor)),
                                   Text(": "),
-                                  Expanded(
-                                      flex: 2,
-                                      child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor))
+                                  Expanded(flex: 2, child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor))
                                 ],
                               ),
                             ),
@@ -613,11 +607,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Payment Method",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size20,
@@ -669,11 +659,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Photos",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -692,8 +678,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(8.0),
                                             child: CachedNetworkImage(
-                                              imageUrl:
-                                                  "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
+                                              imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
                                               height: size.height * 0.2,
                                               width: 200,
                                               fit: BoxFit.cover,
@@ -724,11 +709,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Keywords",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 20.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 20.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size20,
@@ -900,10 +881,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 SizedBox(
                                   width: 10.0,
                                 ),
-                                Text("Reviews: ",
-                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
-                                Text("${obj.totalReviews}",
-                                    style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
+                                Text("Reviews: ", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
+                                Text("${obj.totalReviews}", style: textStyleUbuntu(color: kBlackColor, fontWeight: weight500, fontSize: 20)),
                                 SizedBox(
                                   width: 10.0,
                                 ),
@@ -920,12 +899,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               )),
                                     );
                                   },
-                                  child: Text("See reviews",
-                                      style: textStyleUbuntu(
-                                          color: kPrimaryPurple,
-                                          fontWeight: weightBold,
-                                          textDecoration: TextDecoration.underline,
-                                          fontSize: 20)),
+                                  child: Text("See reviews", style: textStyleUbuntu(color: kPrimaryPurple, fontWeight: weightBold, textDecoration: TextDecoration.underline, fontSize: 20)),
                                 ),
                               ],
                             ),
@@ -990,8 +964,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.red[600],
                                     isIcon: true,
                                     callback: () {
-                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1],
-                                          obj.llocation.geo.coordinates[0], obj.llocation.businessName);
+                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1], obj.llocation.geo.coordinates[0], obj.llocation.businessName);
 
                                       // MapUtils.openMap(23.6850, 90.3563);
                                       print("${obj.llocation.geo.coordinates[0]}");
@@ -1060,11 +1033,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Business Information",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 22.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             Padding(
@@ -1073,11 +1042,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 children: [
                                   Expanded(flex: 1, child: textUbuntu("Address", kBlackColor, fontSize: 20)),
                                   textUbuntu(": ", kBlackColor, fontSize: 20),
-                                  Expanded(
-                                      flex: 2,
-                                      child: textUbuntu(
-                                          "${obj.llocation.landMark ?? ""} , ${obj.llocation.area ?? ""}", kBlackColor,
-                                          fontSize: 20))
+                                  Expanded(flex: 2, child: textUbuntu("${obj.llocation.landMark ?? ""} , ${obj.llocation.area ?? ""}", kBlackColor, fontSize: 20))
                                 ],
                               ),
                             ),
@@ -1088,8 +1053,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   Expanded(flex: 1, child: textUbuntu("Call", kBlackColor, fontSize: 20)),
                                   textUbuntu(": ", kBlackColor, fontSize: 20),
                                   obj.contact.mobileNumbers.length == 0
-                                      ? Expanded(
-                                          flex: 2, child: textUbuntu("No Contact Found", kBlackColor, fontSize: 20))
+                                      ? Expanded(flex: 2, child: textUbuntu("No Contact Found", kBlackColor, fontSize: 20))
                                       : Expanded(
                                           flex: 2,
                                           child: Container(
@@ -1102,9 +1066,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               itemBuilder: (_, index) {
                                                 return Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                                  child: textUbuntu(
-                                                      "${obj.contact.mobileNumbers[index].mobileNumber}, ", kBlackColor,
-                                                      fontSize: 20),
+                                                  child: textUbuntu("${obj.contact.mobileNumbers[index].mobileNumber}, ", kBlackColor, fontSize: 20),
                                                 );
                                               },
                                             ),
@@ -1119,10 +1081,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                 children: [
                                   Expanded(flex: 1, child: textUbuntu("Website", kBlackColor, fontSize: 20)),
                                   textUbuntu(": ", kBlackColor, fontSize: 20),
-                                  Expanded(
-                                      flex: 2,
-                                      child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor,
-                                          fontSize: 20))
+                                  Expanded(flex: 2, child: textUbuntu(obj.contact.website ?? "No website found", kBlackColor, fontSize: 20))
                                 ],
                               ),
                             ),
@@ -1138,9 +1097,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(
-                                                  flex: 1,
-                                                  child: textUbuntu("Working hour", kBlackColor, fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Working hour", kBlackColor, fontSize: 20)),
                                               textUbuntu(": ", kBlackColor, fontSize: 20),
                                             ],
                                           ),
@@ -1157,8 +1114,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         children: [
                                           Row(
                                             children: [
-                                              Expanded(
-                                                  flex: 1, child: textUbuntu("Saturdy", kBlackColor, fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Saturdy", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.saturday.open24h == true
                                                   ? textUbuntu("- Open in 24 hours", kBlackColor, fontSize: 20)
                                                   : textUbuntu(
@@ -1200,8 +1156,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(
-                                                  flex: 1, child: textUbuntu("Tuesday", kBlackColor, fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Tuesday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.tuesday.open24h == true
                                                   ? Text("- Open in 24 hours")
                                                   : textUbuntu(
@@ -1215,8 +1170,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(
-                                                  flex: 1, child: textUbuntu("Wednesday", kBlackColor, fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Wednesday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.wednesday.open24h == true
                                                   ? textUbuntu("- Open in 24 hours", kBlackColor, fontSize: 20)
                                                   : textUbuntu(
@@ -1230,8 +1184,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           size5,
                                           Row(
                                             children: [
-                                              Expanded(
-                                                  flex: 1, child: textUbuntu("Thursday", kBlackColor, fontSize: 20)),
+                                              Expanded(flex: 1, child: textUbuntu("Thursday", kBlackColor, fontSize: 20)),
                                               obj.hoursOfOperation.thursday.open24h == true
                                                   ? textUbuntu("- Open in 24 hours", kBlackColor, fontSize: 20)
                                                   : textUbuntu(
@@ -1278,11 +1231,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Payment Method",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 22.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -1334,11 +1283,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Photos",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 22.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -1357,8 +1302,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(8.0),
                                             child: CachedNetworkImage(
-                                              imageUrl:
-                                                  "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
+                                              imageUrl: "https://dsqdpdmeibwm2.cloudfront.net/${obj.photos[index].image}",
                                               height: size.height * 0.2,
                                               width: 200,
                                               fit: BoxFit.cover,
@@ -1389,11 +1333,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   padding: const EdgeInsets.only(left: 10.0),
                                   child: Text(
                                     "Keywords",
-                                    style: textStyleUbuntu(
-                                        color: kBlackColor,
-                                        fontSize: 22.0,
-                                        fontWeight: weight500,
-                                        textDecoration: TextDecoration.underline),
+                                    style: textStyleUbuntu(color: kBlackColor, fontSize: 22.0, fontWeight: weight500, textDecoration: TextDecoration.underline),
                                   ),
                                 )),
                             size10,
@@ -1450,3 +1390,98 @@ class _BusinessProfileState extends State<BusinessProfile> {
   }
 }
 
+class SendMessageModalSheet extends StatelessWidget {
+  const SendMessageModalSheet({
+    Key key,
+    @required this.size,
+    @required GlobalKey<FormState> formKey,
+    @required this.messageController,
+    @required this.sendMessageController,
+    @required this.widget,
+  }) : _formKey = formKey, super(key: key);
+
+  final Size size;
+  final GlobalKey<FormState> _formKey;
+  final TextEditingController messageController;
+  final MessageController sendMessageController;
+  final BusinessProfile widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Container(
+            height: size.height / 2.5,
+            width: size.width,
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: crossAxisAlignmentCenter,
+                  children: [
+                    size10,
+                    Container(
+                      height: 3,
+                      width: 50,
+                      decoration: containerBoxDecoration(borderRadius: 10.0, color: kPrimaryPurple),
+                    ),
+                    size20,
+                    Align(alignment: Alignment.topLeft, child: textUbuntu("Send Message", kPrimaryPurple,
+                        fontSize: 18.0,fontWeight: weight500)),
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: textUbuntu("if you find any problem or want to know something.",
+                            kPrimaryPurple.withOpacity(0.7), fontSize: 16.0)),
+                    size20,
+                    AddBusinessForm(
+                      controller: messageController,
+                      textInputType: TextInputType.text,
+                      hintText: "write your message",
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Message box must not be empty";
+                        }
+
+                        _formKey.currentState.save();
+                        return null;
+                      },
+                      //height: 40.0,
+                      maxLine: 7,
+                      isSuffix: false,
+                    ),
+                    boxStorage.read(KEY_TOKEN) != null
+                        ? WelcomeScreenButton(
+                            height: 50,
+                            borderRadiusGeometry: BorderRadius.circular(10.0),
+                            edgeInsetsGeometry: EdgeInsets.symmetric(vertical: 10.0),
+                            buttonText: "Submit",
+                            buttonColor: kPrimaryPurple,
+                            textColor: kWhiteColor,
+                            isIcon: false,
+                            callback: () {
+                              if (_formKey.currentState.validate()) {
+                                sendMessageController.sendMessage(widget.id, messageController.text,context);
+                              }
+                            },
+                          )
+                        : WelcomeScreenButton(
+                            height: 50,
+                            borderRadiusGeometry: BorderRadius.circular(10.0),
+                            edgeInsetsGeometry: EdgeInsets.symmetric(vertical: 10.0),
+                            buttonText: "Submit",
+                            buttonColor: kPrimaryPurple,
+                            textColor: kWhiteColor,
+                            isIcon: false,
+                            callback: () {
+                              showSnackBar(context: context, message: "You need to log in first", callBack: () {});
+                            },
+                          )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+  }
+}

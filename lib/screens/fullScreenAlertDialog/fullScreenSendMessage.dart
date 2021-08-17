@@ -45,8 +45,13 @@ class SendMessageScreen extends StatelessWidget {
             crossAxisAlignment: crossAxisAlignmentStart,
             children: [
 
-
-
+              Container(
+                height: size.height/5,
+                decoration: BoxDecoration(
+                  border: Border.all(color: kPrimaryPurple),
+                  borderRadius: BorderRadius.circular(10.0)
+                )
+              ),
 
               AddBusinessForm(
                 controller: messageController,
@@ -55,7 +60,9 @@ class SendMessageScreen extends StatelessWidget {
                 //height: 40.0,
                 maxLine: 7,
                 isSuffix: false,
+
               ),
+
               boxStorage.read(KEY_TOKEN)!=null?WelcomeScreenButton(
                 height: 50,
                 borderRadiusGeometry: BorderRadius.circular(10.0),
@@ -65,7 +72,7 @@ class SendMessageScreen extends StatelessWidget {
                 textColor: kWhiteColor,
                 isIcon: false,
                 callback: (){
-                  sendMessageController.sendMessage(businessID, messageController.text);
+                  //sendMessageController.sendMessage(businessID, messageController.text);
                 },
               ):
               WelcomeScreenButton(
