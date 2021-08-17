@@ -8,6 +8,9 @@ class LocationController extends GetxController{
 
   var currentAddress="No address found".obs;
 
+  var latitude=0.0.obs;
+  var longitude=0.0.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -29,6 +32,8 @@ class LocationController extends GetxController{
     try {
 
       print("lat ${position.latitude} and long ${position.longitude}}");
+      latitude.value=position.latitude;
+      longitude.value=position.longitude;
 
       boxStorage.write(LAT, position.latitude.toString());
       boxStorage.write(LONG, position.longitude.toString());

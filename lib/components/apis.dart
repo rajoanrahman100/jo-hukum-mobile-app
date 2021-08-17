@@ -15,6 +15,7 @@ const socialLogIn=baseUrl+"auth/social-login";
 const sendInfo=baseUrl+"users";
 const categoryApi="https://api-backend.jo-hukum.com/consumers_api/categories";
 const elasticSearch="https://search-es.jo-hukum.com/slug/_search";
+const proximitySearch="https://search-es.jo-hukum.com/proximity/_search";
 const individualBusiness="https://api-backend.jo-hukum.com/consumers_api/business_data/";
 const allDivisions="https://api-backend.jo-hukum.com/api/businesses/locations?location_type=7";
 const allCity="https://api-backend.jo-hukum.com/api/businesses/locations?location_type=2&parent=";

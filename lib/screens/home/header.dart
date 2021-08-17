@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
-import 'package:johukum/components/config.dart';
-import 'package:johukum/controller/categoryController.dart';
 import 'package:johukum/controller/locationController.dart';
 import 'package:johukum/screens/elasticSearch/elasticSearchScreen.dart';
-import 'package:johukum/widgets/fullScreenAlert.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenProximityMapDialog.dart';
 import 'package:johukum/widgets/textWidgets.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 
 class Header extends StatelessWidget {
-  Header({Key key, @required this.size, this.callBack,this.containerHeight,
-    this.locationTitleSize,this.locationAddressSize,this.iconSize,this.searchBarHeight}) : super(key: key);
+  Header({Key key, @required this.size, this.callBack, this.containerHeight, this.locationTitleSize, this.locationAddressSize, this.iconSize, this.searchBarHeight}) : super(key: key);
 
   final Size size;
   final Function callBack;
@@ -21,7 +16,7 @@ class Header extends StatelessWidget {
 
   var items = [];
 
-  var dummyList=["Service","Rent","B2B","Shop","Party","Hospital","House"];
+  var dummyList = ["Service", "Rent", "B2B", "Shop", "Party", "Hospital", "House"];
 
   var currentAddress;
 
@@ -30,13 +25,14 @@ class Header extends StatelessWidget {
   var locationAddressSize;
   var iconSize;
   var searchBarHeight;
-  var getController=Get.put(LocationController());
+  var getController = Get.put(LocationController());
+
   //var categoryController=Get.put(CategoryController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:containerHeight?? 170,
+      height: containerHeight ?? 170,
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
       color: kPrimaryPurple,
       child: Column(
@@ -44,11 +40,11 @@ class Header extends StatelessWidget {
           Row(
             children: [
               GestureDetector(
-                  onTap:callBack,
+                  onTap: callBack,
                   child: Icon(
                     Icons.menu,
                     color: kWhiteColor,
-                    size: iconSize??22.0,
+                    size: iconSize ?? 22.0,
                   )),
               width5,
               Expanded(
@@ -59,20 +55,23 @@ class Header extends StatelessWidget {
                     children: [
                       Text(
                         "Your Location",
-                        style: textStyleUbuntu(
-                            color: kWhiteColor.withOpacity(0.4),
-                            fontSize: locationTitleSize?? 14.0),
+                        style: textStyleUbuntu(color: kWhiteColor.withOpacity(0.4), fontSize: locationTitleSize ?? 14.0),
                       ),
                       SizedBox(
                         height: 3.0,
                       ),
-                       Obx(()=>Text(
-                         getController.currentAddress.value,
-                         style: textStyleUbuntu(
-                             color: kWhiteColor,
-                             fontSize:locationAddressSize?? 14.0,
-                             fontWeight: FontWeight.w500),
-                       ),),
+                      Obx(
+                        () => Row(children: [
+                          Text(
+                            getController.currentAddress.value,
+                            style: textStyleUbuntu(color: kWhiteColor, fontSize: locationAddressSize ?? 14.0, fontWeight: FontWeight.w500),
+                          ),
+                           width10,
+                           GestureDetector(onTap: (){
+                             openFullScreenProximityMap(context);
+                           },child: Icon(Icons.edit,color: Colors.white,size: 16.0,))
+                        ]),
+                      ),
                     ],
                   ),
                 ),
@@ -90,14 +89,14 @@ class Header extends StatelessWidget {
             height: 25.0,
           ),
           Container(
-            height: searchBarHeight?? 55.0,
+            height: searchBarHeight ?? 55.0,
             width: size.width,
             //margin: EdgeInsets.symmetric(horizontal: 20.0),
             /*decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
                 color: kWhiteColor.withOpacity(0.3)),*/
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ElasticSearchScreen()),
@@ -109,13 +108,16 @@ class Header extends StatelessWidget {
                 width: size.width,
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 margin: EdgeInsets.all(7.0),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    color: Colors.white),
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0), color: Colors.white),
                 child: Row(
                   children: [
-                    Icon(Icons.search,color: kPrimaryPurple,),
-                    SizedBox(width: 5,),
+                    Icon(
+                      Icons.search,
+                      color: kPrimaryPurple,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
                     textUbuntu("Search anything you want", Colors.grey)
                   ],
                 ),
@@ -126,8 +128,6 @@ class Header extends StatelessWidget {
       ),
     );
   }
-
-
 }
 
 //

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:johukum/components/components.dart';
 import 'package:johukum/controller/elasticController.dart';
 import 'package:johukum/controller/locationController.dart';
+import 'package:johukum/controller/proximitySearchController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/widgets/searchResultWidget.dart';
 import 'package:johukum/widgets/textWidgets.dart';
@@ -18,6 +19,7 @@ class _ElasticSearchScreenState extends State<ElasticSearchScreen> {
   var getController = Get.put(LocationController());
 
   var elasticController = Get.put(ElasticController());
+  var proximityController = Get.put(ProximitySearchController());
 
   var searchController = TextEditingController();
 
