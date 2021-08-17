@@ -12,6 +12,7 @@ import 'package:johukum/controller/passController.dart';
 import 'package:johukum/responsive.dart';
 import 'package:johukum/screens/elasticSearch/businessReviews.dart';
 import 'package:johukum/screens/fullScreenAlertDialog/fullScreenBusinessReport.dart';
+import 'package:johukum/screens/fullScreenAlertDialog/fullScreenMap.dart';
 import 'package:johukum/screens/web_view.dart';
 import 'package:johukum/screens/welcomeScreen/welcomeButtonWidget.dart';
 import 'package:johukum/widgets/addBusinessForm.dart';
@@ -83,7 +84,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
           backgroundColor: kPrimaryPurple,
           title: Text(
             widget.name,
-            style: textStyleUbuntu(color: kWhiteColor, fontSize: 16),
+            style: textStyleUbuntu(color: kWhiteColor, fontSize: 16,fontWeight: weight500),
           ),
           actions: [
             PopupMenuButton<String>(
@@ -348,10 +349,16 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                     buttonColor: Colors.red[600],
                                     isIcon: true,
                                     callback: () {
-                                      MapsLauncher.launchCoordinates(obj.llocation.geo.coordinates[1], obj.llocation.geo.coordinates[0], obj.llocation.businessName);
+                                      openFullScreenMap(context,obj.llocation.geo.coordinates[1],
+                                          obj.llocation.geo.coordinates[0],
+                                          controller.businessDataModel.value.llocation.businessName);
+                                      /*MapsLauncher.launchCoordinates(
+                                          obj.llocation.geo.coordinates[1],
+                                          obj.llocation.geo.coordinates[0],
+                                          obj.llocation.businessName);*/
 
                                       // MapUtils.openMap(23.6850, 90.3563);
-                                      print("${obj.llocation.geo.coordinates[0]}");
+                                      print(" ${obj.llocation.geo.coordinates[1]} ${obj.llocation.geo.coordinates[0]}");
                                     },
                                     iconData: Icon(
                                       Icons.location_on,
