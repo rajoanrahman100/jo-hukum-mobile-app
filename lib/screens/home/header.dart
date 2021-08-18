@@ -60,18 +60,11 @@ class Header extends StatelessWidget {
                       SizedBox(
                         height: 3.0,
                       ),
-                      Obx(
-                        () => Row(children: [
-                          Text(
-                            getController.currentAddress.value,
-                            style: textStyleUbuntu(color: kWhiteColor, fontSize: locationAddressSize ?? 14.0, fontWeight: FontWeight.w500),
-                          ),
-                           width10,
-                           GestureDetector(onTap: (){
-                             openFullScreenProximityMap(context);
-                           },child: Icon(Icons.edit,color: Colors.white,size: 16.0,))
-                        ]),
-                      ),
+                      Obx(()=>Text(
+                        getController.currentAddress.value,
+                        style: textStyleUbuntu(color: kWhiteColor, fontSize: locationAddressSize ?? 14.0, fontWeight: FontWeight.w500),
+                      ),)
+
                     ],
                   ),
                 ),

@@ -188,6 +188,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.0"
+  flutter_dropdown_search:
+    dependency: "direct main"
+    description:
+      name: flutter_dropdown_search
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   flutter_image_compress:
     dependency: "direct main"
     description:

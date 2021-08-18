@@ -1,33 +1,15 @@
-import 'package:flutter/material.dart';
-
-// Our design contains Neumorphism design and i made a extention for it
-// We can apply it on any  widget
-
-extension Neumorphism on Widget {
-  addNeumorphism({
-    double borderRadius = 10.0,
-    Offset offset = const Offset(5, 5),
-    double blurRadius = 10,
-    Color topShadowColor = Colors.white60,
-    Color bottomShadowColor = const Color(0x26234395),
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-        boxShadow: [
-          BoxShadow(
-            offset: offset,
-            blurRadius: blurRadius,
-            color: bottomShadowColor,
-          ),
-          BoxShadow(
-            offset: Offset(-offset.dx, -offset.dx),
-            blurRadius: blurRadius,
-            color: topShadowColor,
-          ),
-        ],
-      ),
-      child: this,
-    );
-  }
-}
+/*
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2942201f-e767-44dc-872e-8a9236a580cb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/addidas.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/air.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/banner2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/banner3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/banner4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/banner5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/cat1.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/cat2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/cat3.jpg" afterDir="false" />
+      <change afterPath="$P*/

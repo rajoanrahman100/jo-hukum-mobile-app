@@ -38,8 +38,7 @@ class LocationController extends GetxController{
       boxStorage.write(LAT, position.latitude.toString());
       boxStorage.write(LONG, position.longitude.toString());
 
-      List<Placemark> placemarks =
-      await placemarkFromCoordinates(position.latitude, position.longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
 
       //print(placemarks);
 

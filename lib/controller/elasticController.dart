@@ -6,6 +6,8 @@ import 'package:johukum/components/apis.dart';
 import 'package:johukum/components/config.dart';
 import 'package:johukum/modelClass/elasticSearchModel.dart';
 
+import 'locationController.dart';
+
 class ElasticController extends GetxController{
 
   var elasticData = TestClass().obs;
@@ -72,6 +74,8 @@ class ElasticController extends GetxController{
 
   Future<List<HitsChild>> fetchElasticDataTwo(String text,int startForm,int size) async {
 
+    print("${Get.find<LocationController>().latitude.value}");
+
     final json=jsonEncode({
       "query": {
         "bool": {
@@ -98,8 +102,8 @@ class ElasticController extends GetxController{
       "sort": [{
         "_geo_distance": {
           "geo": {
-            "lat": boxStorage.read(LAT),
-            "lon": boxStorage.read(LONG)
+            "lat": Get.find<LocationController>().latitude.value.toString(),
+            "lon": Get.find<LocationController>().longitude.value.toString()
           },
           "order": "asc",
           "unit": "km"

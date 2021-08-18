@@ -182,3 +182,16 @@ class Source {
     return data;
   }
 }
+
+
+class AreaWithGeo{
+  String areaName;
+  List<double> geo;
+
+  AreaWithGeo({this.areaName,this.geo});
+
+  @override
+  String toString() {
+    return 'Area: {name: $areaName, geo: $geo}';
+  }
+}
