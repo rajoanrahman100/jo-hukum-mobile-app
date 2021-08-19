@@ -174,6 +174,13 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                       textInputType: TextInputType.number,
                       hintText: "",
                       onChange: (val) {},
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                       isSuffix: false,
                     ),
                     size10,
@@ -272,6 +279,13 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                       controller: email,
                       textInputType: TextInputType.emailAddress,
                       hintText: "",
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                       isSuffix: false,
                     ),
                     size10,
@@ -438,6 +452,13 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                       controller: descController,
                       textInputType: TextInputType.text,
                       hintText: "",
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "This Field is required";
+                        }
+                        _formKey.currentState.save();
+                        return null;
+                      },
                       //height: 40.0,
                       maxLine: 5,
                       isSuffix: false,
@@ -470,28 +491,35 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                     size20,
                     GestureDetector(
                       onTap: () {
+                        //Navigator.pushNamed(context, '/stepSix');
 
-                        map={
-                          "open_time":controller.openTime.value,
-                          "close_time":controller.closeTime.value,
-                          "telephone number":phoneNumber.text,
-                          "mobile numbers":controller.mobileNumbers,
-                          "business email":email.text,
-                          "payment Id":paymentIdList,
-                          "establish year":dataController.selectYear.value,
-                          "employee number":dataController.numberOfEmployee.value,
-                          "description":descController.text,
-                          "business type":businessTyeController.businessTypeId.value,
-                        };
+                        if(_formKey.currentState.validate()){
 
-                        //log(map.toString());
-                        Navigator.pushNamed(context, '/stepSix');
 
-                        /*if(_formKey.currentState.validate()){
+                          if(paymentController.paymentList.length==0){
+                            showErrorToast("Payment method must not be empty");
+                            return;
+                          }
+
+                          map={
+                            "open_time":controller.openTime.value,
+                            "close_time":controller.closeTime.value,
+                            "telephone number":numberController.text,
+                            "mobile numbers":controller.mobileNumbers,
+                            "business email":email.text,
+                            "payment Id":paymentIdList,
+                            "establish year":dataController.selectYear.value,
+                            "employee number":dataController.numberOfEmployee.value,
+                            "description":descController.text,
+                            "business type":businessTyeController.businessTypeId.value,
+                          };
+
+                          log(map.toString());
+
                           boxStorage.write(BUSINESS_OPEN_TIME,controller.openTime.value );
                           boxStorage.write(BUSINESS_CLOSE_TIME, controller.closeTime.value);
                           boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
-                          boxStorage.write(KEY_BUSINESS_PHONE_NUMBER, phoneNumber.text);
+                          boxStorage.write(KEY_BUSINESS_PHONE_NUMBER, numberController.text);
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text);
                           boxStorage.write(PAYMENT_ID_LIST, paymentIdList);
                           boxStorage.write(YEAR_ESTABLISH, dataController.selectYear.value);
@@ -499,8 +527,8 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                           boxStorage.write(DESCRIPTION, descController.text);
                           boxStorage.write(TYPE_OF_BUSINESS, businessTyeController.businessTypeId.value);
 
-                          Navigator.pushNamed(context, '/stepThree');
-                        }*/
+                          Navigator.pushNamed(context, '/stepSix');
+                        }
 
                         //Navigator.pushNamed(context, '/stepSix');
                         /*if (_formKey.currentState.validate()) {

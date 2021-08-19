@@ -37,8 +37,8 @@ class ImageController extends GetxController {
   addImageId(value){
     idArray.add('"$value"');
     splitString.value=idArray.reduce((previousValue, element) => previousValue+","+element);
-    print(splitString.value);
-    print(idArray);
+    print("Split String ${splitString.value}");
+   // print(idArray);
   }
 
 

@@ -426,9 +426,9 @@ class StepOneScreen extends StatelessWidget {
                       onTap: () {
 
 
-                        Navigator.pushNamed(context, '/stepTwo');
+                        //Navigator.pushNamed(context, '/stepTwo');
 
-                        /*if (_formKey.currentState.validate()) {
+                        if (_formKey.currentState.validate()) {
                           if (divisionController.selectDivision.value.isEmpty) {
                             showErrorToast("Select Division");
                             return;
@@ -450,7 +450,7 @@ class StepOneScreen extends StatelessWidget {
                               "title":controller.nameTitle.value,
                               "full Name":fullName.text,
                               "designation":controller.designationTitle.value,
-                              "website":website.text??"No Website Found",
+                              "website":website.text.isEmpty?"No Website Found":website.text,
 
                             };
 
@@ -471,7 +471,7 @@ class StepOneScreen extends StatelessWidget {
                             //boxStorage.write(KEY_USER_AREA, areaNameController.text);
                             Navigator.pushNamed(context, '/stepTwo');
                           }
-                        }*/
+                        }
                       },
                       child: Row(
                         children: [

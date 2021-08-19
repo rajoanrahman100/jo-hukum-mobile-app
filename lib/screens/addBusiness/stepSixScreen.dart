@@ -48,6 +48,8 @@ class _StepSixScreenState extends State<StepSixScreen> {
 
   File _image;
 
+  Map map;
+
 
   @override
   Widget build(BuildContext context) {
@@ -197,13 +199,13 @@ class _StepSixScreenState extends State<StepSixScreen> {
                         GestureDetector(
                             onTap: () {
                               //getCoverFromCamera();
-                              /*buildShowBarModalBottomSheet(context, cameraCallBack: () {
-                                getCoverFromCamera();
+                              buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                                imageController.getCoverImage(ImageSource.camera, context);
                                 Navigator.of(context).pop();
                               }, galleryCallBack: () {
                                 imageController.getCoverImage(ImageSource.gallery, context);
                                 Navigator.of(context).pop();
-                              });*/
+                              });
                             },
                             child: textUbuntu("Upload Cover Photo", kPrimaryPurple,
                                 fontSize: 16.0, fontWeight: weight500)),
@@ -216,13 +218,13 @@ class _StepSixScreenState extends State<StepSixScreen> {
                         width10,
                         GestureDetector(
                             onTap: () {
-                              /*buildShowBarModalBottomSheet(context, cameraCallBack: () {
+                              buildShowBarModalBottomSheet(context, cameraCallBack: () {
                                 imageController.getGalleryPhotos(ImageSource.camera, context);
                                 Navigator.of(context).pop();
                               }, galleryCallBack: () {
                                 imageController.getGalleryPhotos(ImageSource.gallery, context);
                                 Navigator.of(context).pop();
-                              });*/
+                              });
                             },
                             child: Icon(
                               Icons.add_circle,
@@ -382,10 +384,21 @@ class _StepSixScreenState extends State<StepSixScreen> {
                     size10,
                     GestureDetector(
                       onTap: () async {
+
+                        map={
+                          "gallery photo":imageController.galleryImage,
+                          "title seo":titleSeo.text,
+                          "meta desc":metaDesc.text,
+                          "image tags":tagController.tagList,
+                        };
+
+                        print(map);
+
                         // await keywordController.fetchKeyword();
                         boxStorage.write(SEO_TITLE, titleSeo.text??"seo title");
                         boxStorage.write(META_DESCRIPTION, metaDesc.text??"meta description");
                         boxStorage.write(TAG_LIST, tagController.tagList??taglist);
+                        boxStorage.write(MORE_PHOTOS, imageController.splitString.value);
 
                         openKeywordDialog(context);
                       },
@@ -434,6 +447,9 @@ class _StepSixScreenState extends State<StepSixScreen> {
                     size20,
                     GestureDetector(
                       onTap: () {
+
+
+
                         //Navigator.pushNamed(context, '/stepSeven');
                         //print(imageController.idArray);
 
@@ -448,7 +464,7 @@ class _StepSixScreenState extends State<StepSixScreen> {
                         } else if (imageController.selectCoverImagePath.value.isEmpty) {
                           return showErrorToast("Select business cover photo");
                         } else {
-                          // boxStorage.write(MORE_PHOTOS, imageController.splitString.value);
+
                           Navigator.pushNamed(context, '/stepSeven');
                         }*/
                       },
@@ -468,8 +484,17 @@ class _StepSixScreenState extends State<StepSixScreen> {
                             ),
                           ),
                           GestureDetector(
-                            onTap: (){
+                            onTap: ()async{
 
+                              if(keywordController.keywordList.length==0){
+                                return showErrorToast("At least one keyword is required");
+                              }else{
+
+                                await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
+                                    imageController.selectCoverImagePath.value,imageController.idArray);
+                                ///Business Info
+
+                              }
                             },
                             child: Container(
                               height: 40.0,
