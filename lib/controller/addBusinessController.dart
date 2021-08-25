@@ -26,8 +26,7 @@ class AddBusinessController extends GetxController {
     print("----business data add start----");
     print(boxStorage.read(MOBILE_NUMBERS));
 
-   // JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
-
+    JohukumLoaderAnimation.showLoaderAnimation(context: context, colorTextBottom: Colors.white);
 
     var json=jsonEncode(<String, dynamic>{
       "accepted_payment_methods": boxStorage.read(PAYMENT_ID_LIST),
@@ -129,7 +128,12 @@ class AddBusinessController extends GetxController {
     });
     log(json.toString());
 
-    var response = await post(Uri.parse(addBusiness),
+    var response=await post(Uri.parse(addBusiness),headers:<String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': boxStorage.read(KEY_TOKEN),
+    },body: json);
+
+/*    var response = await post(Uri.parse(addBusiness),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': boxStorage.read(KEY_TOKEN),
@@ -231,7 +235,7 @@ class AddBusinessController extends GetxController {
           "tags": boxStorage.read(TAG_LIST),
           "year_of_establishment": boxStorage.read(YEAR_ESTABLISH),
           "business_type": boxStorage.read(TYPE_OF_BUSINESS)
-        }));
+        }));*/
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       print("Data added successfully");
@@ -239,12 +243,13 @@ class AddBusinessController extends GetxController {
       ResponseBusinessData responseBusiness=ResponseBusinessData.fromJson(dataMap);
       responseBusinessData.value=responseBusiness;
       businessID.value=responseBusiness.id;
-      await uploadImageData(logo,cover,context,gallery,businessID.value);
+      print("business ID ${responseBusinessData.value.id}");
+     await uploadImageData(logo,cover,context,gallery,responseBusinessData.value.id);
+     // JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       print("business id ${responseBusinessData.value.id}");
       Navigator.pushNamed(context, '/lastSuccess');
     } else {
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
-
       print("error: " + response.body);
     }
   }
@@ -252,22 +257,26 @@ class AddBusinessController extends GetxController {
 
 
   uploadImageData(logoImage,coverPhoto,context,gallery,businessID)async{
-    //print("business ID ${businessID.value}");
+   // print("business ID $businessID");
+    print("logo Image $logoImage");
+    print("cover Image $coverPhoto");
+    print("galley Image $gallery");
 
     print("----uploading images start----");
     //print("----cover photso ${boxStorage.read(MORE_PHOTOS)}----");
 
 
     var request = http.MultipartRequest('PATCH', Uri.parse('https://api-backend.jo-hukum'
-        '.com/consumers_api/business_data/$businessID/uploads/'));
+        '.com/consumers_api/business_data/6121cef486025f6fb63b84e4/uploads/'));
 
-    request.files.add(await http.MultipartFile.fromPath('logo', logoImage,contentType:MediaType('image','jpeg')));
+    //request.files.add(await http.MultipartFile.fromPath('logo', logoImage,contentType:MediaType('image','jpg')));
     request.files.add(await http.MultipartFile.fromPath('cover_photo', coverPhoto,contentType:MediaType('image','jpeg')));
 
     
     request.headers.addAll(<String, String>{
-      'Authorization': boxStorage.read(KEY_TOKEN),
-      'Content-Type': 'multipart/form-data; charset=UTF-8'
+
+      'Content-Type': 'multipart/form-data; charset=UTF-8',
+      'Authorization': boxStorage.read(KEY_TOKEN)
     },);
 
     request.fields.addAll({
@@ -289,7 +298,7 @@ class AddBusinessController extends GetxController {
     else {
       JohukumLoaderAnimation.hideRokkhiLoaderAnimation(context);
       print("Status Code: ${response.statusCode}");
-      print(await response.stream.bytesToString());
+      print("error response ${await response.stream.bytesToString()}");
     }
 
   }

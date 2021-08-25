@@ -490,8 +490,9 @@ class _StepSixScreenState extends State<StepSixScreen> {
                                 return showErrorToast("At least one keyword is required");
                               }else{
 
-                                await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
-                                    imageController.selectCoverImagePath.value,imageController.idArray);
+                                await businessController.uploadImageData(imageController.selectLogoImagePath.value, imageController.selectCoverImagePath.value, context, imageController.idArray, "businessID");
+                               /* await businessController.addBusinessData(context,imageController.selectLogoImagePath.value,
+                                    imageController.selectCoverImagePath.value,imageController.idArray);*/
                                 ///Business Info
 
                               }

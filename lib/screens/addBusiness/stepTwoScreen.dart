@@ -69,14 +69,14 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
   var descController=TextEditingController();
 
   var nameTitleList = ["Mr.", "Mrs.", "Miss.", "Dr."];
-  var employeeList=["1-5","6-20","21-50","51-100","101-50","500+"];
+  var employeeList=["1-5","6-20","21-50","51-100","101-500","500+"];
 
 
   Map<String, dynamic> map;
 
   var json;
-
-
+  var openTime24;
+  var closeTime24;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +146,9 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                             callback: () {
                               timerWidget(context, onConfirm: (date) {
                                 var time = DateFormat.jm().format(date).toString();
+                                 openTime24 = DateFormat.Hm().format(date).toString();
                                 controller.openTime.value = time;
+                                print("${controller.openTime.value} ${openTime24}");
                               });
                             },
                             time: controller.openTime.value,
@@ -159,7 +161,9 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
                             callback: () {
                               timerWidget(context, onConfirm: (date) {
                                 var time = DateFormat.jm().format(date).toString();
+                                closeTime24 = DateFormat.Hm().format(date).toString();
                                 controller.closeTime.value = time;
+                                print("${controller.openTime.value} $closeTime24");
                               });
                             },
                             time: controller.closeTime.value,
@@ -516,8 +520,8 @@ class _StepTwoScreenState extends State<StepTwoScreen> {
 
                           log(map.toString());
 
-                          boxStorage.write(BUSINESS_OPEN_TIME,controller.openTime.value );
-                          boxStorage.write(BUSINESS_CLOSE_TIME, controller.closeTime.value);
+                          boxStorage.write(BUSINESS_OPEN_TIME,openTime24 );
+                          boxStorage.write(BUSINESS_CLOSE_TIME, closeTime24);
                           boxStorage.write(MOBILE_NUMBERS, controller.mobileNumbers);
                           boxStorage.write(KEY_BUSINESS_PHONE_NUMBER, numberController.text);
                           boxStorage.write(KEY_BUSINESS_EMAIL, email.text);
